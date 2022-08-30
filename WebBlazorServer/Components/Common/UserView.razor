@@ -1,0 +1,221 @@
+﻿@inject IJSRuntime JSRuntime
+@inject IAppControllerAsync<UserAuthenticated> _appctrl
+@inject IAuthGatewayManager _appservices
+@inject IAppSettingsManager<TemplateSettings>  _settings
+@inject NavigationManager NavigationManager
+@inject HttpClient _client
+
+
+@if (LoggedUser != null)
+{
+
+ <Modal @ref="usermodal" >
+    <ModalContent Centered>
+        <ModalHeader>
+              <div class="row">
+                    <div class="col-6">
+                            <span class="e-avatar userview-image e-avatar-xsmall e-avatar-circle"></span>
+                            
+                    </div>
+
+                    <div class="col-6" style="padding-top:20px">
+                        <ModalTitle>@LoggedUser.UserName</ModalTitle> 
+                    </div>
+            </div>
+
+            <CloseButton></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+
+             <div class="row">
+                    <div class="col-12 ">
+                        <a @onclick="GotoHome" class="text-primary font-weight-semibold"
+                                                                    style="float:left; cursor:pointer">
+                                     <span class="ms-2 left-icon">Ir para a Home &#8594;</span> 
+                            </a>
+                     </div>
+            </div>
+
+               <div class="row">
+                    <div class="col-12 ">                                             
+
+                        <div class="dialogContent">
+                            <span>E-mail:</span>
+                            <span class="dialogText">  @LoggedUser.Email  </span>
+                        </div>
+
+                        <div class="dialogContent">
+                            <span>
+                                Perfil:
+                            </span>
+                            <span class="dialogText"> @LoggedUser.RoleName </span>                            
+                        </div>
+
+                        <div class="dialogContent">
+                            <button type="submit" @onclick="GotoProfile" class="btn btn-primary">
+                                Alterar Perfil
+                                <i class="icon-size-15 icon ms-1" data-feather="arrow-right-circle"></i>
+                            </button>
+
+                        </div>
+
+                         <div class="dialogContent">
+                            <button type="submit" @onclick="Logout" class="btn btn-danger">
+                               Sair
+                                <i class="icon-size-15 icon ms-1" data-feather="arrow-right-circle"></i>
+                            </button>
+
+                         </div>
+
+                    </div>
+
+                </div>
+
+        </ModalBody>
+        
+    </ModalContent>
+</Modal>
+
+
+
+}
+
+<style>
+
+
+     #template {
+        display: inline-block;
+        padding: 0px 10px;
+        vertical-align: middle;
+        height: 40px;
+        line-height: 40px;
+    }
+
+     input {
+        width: 75%;
+        float: left;
+    }
+
+
+     .dialogContent .dialogText {
+        font-size: 13px;
+        padding: 5%;
+        word-wrap: break-word;
+        border-radius: 6px;
+        text-align: justify;
+        font-style: initial;
+        display: block;
+        font-weight:bold;
+
+    }
+
+      .dialogContent .dialogText, .dialogContent .dialogText {
+        background-color: #f5f5f5;
+    }
+
+
+     .dialogContent {
+        display: block;
+        font-size: 15px;
+        word-wrap: break-word;
+        text-align: left;
+        font-style: normal;
+        border-radius: 6px;
+        padding: 3%;
+        position: relative;
+        top: 20px;
+    }
+
+    .e-dialog .e-dlg-header-content .e-btn.e-dlg-closeicon-btn:active .e-icon-dlg-close,
+    .e-dialog .e-dlg-header-content .e-btn.e-dlg-closeicon-btn:focus .e-icon-dlg-close,
+    .e-dialog .e-dlg-header-content .e-btn.e-dlg-closeicon-btn:hover .e-icon-dlg-close {
+        color: rgb(78, 66, 217);
+    }
+
+    .e-dialog .e-dlg-header-content .e-dlg-header .e-avatar.userview-image {
+        background-image: @userimageurl;
+        vertical-align: middle;
+        display: inline-block;
+        width: 64px;
+        height: 64px;
+    }
+
+     .control_wrapper {
+        width: 350px;
+        margin: 0 auto;
+    }
+
+
+</style>
+
+
+
+@code{
+
+
+    private UserAuthenticated LoggedUser = null;
+
+    private string userimageurl = "";
+    private Modal usermodal;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        InitResources();
+
+        if (firstRender)
+        {            
+            if (await _appctrl.IsAuthenticated())
+            {
+                LoggedUser = _appctrl.UserInfo;
+                _appservices.Init(_client,_settings.Settings.ServiceURL, _appctrl.UserInfo.Token);
+            }
+        }
+
+    }
+
+    private void InitResources()
+    {
+        _settings.LoadSettings(_client);
+        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
+
+    }
+
+
+    public async Task Show()
+    {
+        //LoggedUser = _appctrl.UserInfo;
+
+        userimageurl = "url(\"" + _appctrl.UserInfo.ProfileImageURL  + "\")";
+        await usermodal.Show();
+        StateHasChanged();
+
+    }
+
+    public async Task GotoProfile()
+    {
+
+        await usermodal.Hide(); 
+        string url = _settings.Settings.SiteURL + "/profile";
+        NavigationManager.NavigateTo(url);
+        StateHasChanged();
+
+    }
+
+    public void Logout()
+    {
+        OnLogout.InvokeAsync(null);
+    }
+
+    [Parameter]
+    public EventCallback OnLogout { get; set; }
+
+    
+    public void GotoHome()
+    {
+        
+        string url = _appctrl.UserInfo.HomeURL;
+        NavigationManager.NavigateTo(url);    
+
+    }
+
+}

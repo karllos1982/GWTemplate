@@ -1,0 +1,104 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = WebBlazorServer
+build_property.RootNamespace = WebBlazorServer
+build_property.ProjectDir = C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Projetos\OUTROS\GWTemplate\WebBlazorServer
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Components/Common/IconButton.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cSWNvbkJ1dHRvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Components/Common/MenuButton.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cTWVudUJ1dHRvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Components/Common/MessageBox.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cTWVzc2FnZUJveC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Components/Common/TaskButton.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cVGFza0J1dHRvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Components/Common/TaskIconButton.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cVGFza0ljb25CdXR0b24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Components/Common/TaskLoading.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cVGFza0xvYWRpbmcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Components/Common/UserView.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cVXNlclZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Pages/SA_Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU0FfSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Pages/SuperAdmin/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxJbmRleC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Pages/SuperAdmin/Users.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxVc2Vycy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Shared/LoggedLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvZ2dlZExheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Shared/SuperAdminLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cGVyQWRtaW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-gdnzd8lcz0
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-2jslwimant
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Shared/UnloggedLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFVubG9nZ2VkTGF5b3V0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-5sn88c3sp2
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorServer/Pages/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

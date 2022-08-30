@@ -1,0 +1,286 @@
+﻿ <!-- ========================= header-4 start ========================= -->
+@inject IJSRuntime JSRuntime
+@inject IAppControllerAsync<UserAuthenticated> _appctrl
+@inject IAuthGatewayManager _appservices
+@inject IAppSettingsManager<TemplateSettings>  _settings
+@inject NavigationManager NavigationManager
+@inject IMenuItemActive _itemmenu
+
+
+<style>
+
+      .e-avatar.userview-image {
+        background-image: @userimageurl;
+        vertical-align: middle;
+        display: inline-block;
+        width: 64px;
+        height: 64px;
+        cursor:pointer;
+        border-radius: 50%;
+        font-size: .6em;
+        background-color: #bcbcbc;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+
+    .main-header-user-label{
+        color: #5a4fdc;
+        font-weight:bolder;
+        cursor:pointer;
+    }
+
+    .main-header-button
+    {
+        color:#f43958;
+        font-size:50px;
+        
+    }
+        
+
+
+</style>
+
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark" id="navbar">
+    <div class="container">
+        <!-- LOGO -->
+        <a class="navbar-brand logo logoHome" @onclick="GotoHome">
+            <img src="images/logo-dark.png" alt="" class="logo-dark" height="50"  />
+            <img src="images/logo-light.png" alt="" class="logo-light" height="24" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="mdi mdi-menu"></i>
+        </button>
+
+        @if (IsLogged)
+        {
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mx-auto navbar-center" id="navbar-navlist">
+
+                    @if (menu != null)
+                    {
+
+                        @foreach (MenuObject item in menu)
+                        {
+                            item.ClassStatus = "primary";
+
+                            @if (_itemmenu.GetActiveItemMenu() != "")
+                            {
+
+                                @if (item.NavigationURL.Contains(_itemmenu.GetActiveItemMenu()))
+                                {
+                                    item.ClassStatus = "info";
+                                }
+                            }
+
+                            <li class="nav-item">
+                                <MenuButton Title=""
+                                            Class=@item.ClassStatus
+                                            Icon=@item.ClassIcon
+                                            NavigationUrl=@item.NavigationURL
+                                            Description=@item.Description>
+                                </MenuButton>
+
+                                @if (item.Childs != null)
+                                {
+
+                                }
+
+                            </li>
+
+                        }
+                    }
+                    else
+                    {
+                        <spsan>Carregando menu... </spsan>
+                    }
+                    <li>
+                        <h1 class="label-nomeclinica" id="lbNomeClinica"></h1>
+                       
+                    </li>
+
+                    <li>
+                         <a href="#" id="lnkSelectClinica" style="display:none" @onclick="GotoDentistaHome"                           
+                                class="navbar-toggler" 
+                                type="button" data-bs-toggle="collapse" 
+                                data-bs-target="#navbarCollapse"
+                                aria-controls="navbarCollapse" 
+                                aria-expanded="false" title="Selecionar outra clínica"
+                                aria-label="Toggle navigation">
+                                <i class="mdi mdi-home-edit icon-button" >                                
+                                </i>
+                          </a>
+
+                    </li>
+
+                </ul>
+
+                <ul class="navbar-nav navbar-center">
+                    <li class="nav-item">
+                        
+                    </li>
+
+                    <li class="nav-item">
+                                                                                               
+                        <span class="e-avatar userview-image e-avatar-xsmall e-avatar-circle" 
+                                @onclick="GotoProfile" title="Alterar Perfil"></span>
+
+                         <span class="main-header-user-label"  @onclick="ShowDetails" title="Abrir detalhes">
+                             @LoggedUser.UserName
+                         </span> 
+                       
+                    </li>
+                   
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mx-auto navbar-center" id="navbar-navlist">
+                    <li class="nav-item">
+
+                    </li>
+                    <li class="nav-item">
+
+                    </li>
+                    <li class="nav-item">
+
+                    </li>
+                    <li class="nav-item">
+
+                    </li>
+                    <li class="nav-item">
+
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-center">
+                    <li class="nav-item">
+                           <a href="login" class="nav-link" >Login</a>
+                         
+                    </li>
+
+                </ul>
+            </div>
+        }
+
+
+    </div>
+</nav>
+
+
+
+<UserView @ref="UserWidget" OnLogout="Logout">
+
+</UserView>
+
+
+@code {
+
+    private UserView UserWidget;
+
+    private string userimageurl = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            LoadMenu(UserRole);
+
+            if (await _appctrl.IsAuthenticated())
+            {
+                LoggedUser = _appctrl.UserInfo;
+
+                userimageurl = "url(\"" + _appctrl.UserInfo.ProfileImageURL  + "\")";
+
+            }
+        }
+    }
+
+
+    [Parameter]
+    public string UserRole { get; set; }
+
+    [Parameter]
+    public bool IsLogged { get; set; }
+
+    [Parameter]
+    public UserAuthenticated LoggedUser { get; set; }
+
+    [Parameter]
+    public TemplateSettings Settings { get; set; }
+
+    [Parameter]
+    public EventCallback OnLogout { get; set; }
+
+    private void GotoLogin()
+    {
+        string url = Settings.SiteURL + "/login";
+        NavigationManager.NavigateTo(url);
+
+    }
+
+    private void Logout()
+    {
+
+        OnLogout.InvokeAsync(null);
+    }
+
+    private async Task ShowDetails()
+    {
+        if (IsLogged)
+        {
+            await UserWidget.Show();
+        }
+    }
+
+    public List<MenuObject> menu = null;
+
+    public void LoadMenu(string role)
+    {
+        if (role != null)
+        {
+            menu =
+                _settings.Settings.ContentMenu.ToList<MenuObject>().Where(x => x.Role.Contains(role)).ToList<MenuObject>();
+        }
+
+        StateHasChanged();
+    }
+
+
+    public void GotoProfile()
+    {
+
+        string url = _settings.Settings.SiteURL + "/profile";
+        NavigationManager.NavigateTo(url);    
+
+    }
+
+    public void GotoHome()
+    {
+        if (IsLogged)
+        {
+            string url = _appctrl.UserInfo.HomeURL;
+
+            NavigationManager.NavigateTo(url);
+        }
+
+    }
+
+     public void GotoDentistaHome()
+    {
+        if (IsLogged)
+        {
+            string url = "dentista/selecionarclinica";
+
+            NavigationManager.NavigateTo(url);
+        }
+
+    }
+       
+
+}

@@ -1,0 +1,97 @@
+﻿@inherits LayoutComponentBase
+
+@inject IJSRuntime JSRuntime
+@inject IAppControllerAsync<UserAuthenticated> _appctrl
+@inject IAuthGatewayManager _appservices
+@inject IAppSettingsManager<TemplateSettings>  _settings
+@inject NavigationManager NavigationManager
+@inject HttpClient _httpclient
+
+<PageTitle>Template</PageTitle>
+
+    <div class="page">
+        <div class="sidebar">
+       
+              <NavMenu MENUTYPE=NavMenu.ENUM_MENUTYPE.LOGGED Perfil=@perfil  />
+    
+
+        </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="#" @onclick="Logout">Sair</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+
+@code{
+    private string perfil = "";
+    private string homeurl = "";
+    private bool islogged = false;
+    
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            this.InitResources();
+            string url = _settings.Settings.SiteURL;
+
+            islogged = await _appctrl.IsAuthenticated();
+
+            if (islogged)
+            {
+                await _appctrl.GetSession();
+
+                perfil = _appctrl.UserInfo.RoleName;
+
+                if (perfil != "SuperAdmin")                    
+                {
+                    NavigationManager.NavigateTo(url + "/login");
+                }
+
+                homeurl = url + "/" + perfil;
+
+                StateHasChanged();
+            }
+            else
+            {
+
+                NavigationManager.NavigateTo(url + "/login");
+            }
+
+        }
+
+    }
+
+    private void InitResources()
+    {
+        _settings.LoadSettings(_httpclient);
+        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
+
+    }
+
+    private void Logout()
+    {
+
+        if (_appctrl.UserInfo != null)
+        {
+            ((AuthGateway)_appservices).Logout();
+        }
+
+        _appctrl.Logout();
+        string url = _settings.Settings.SiteURL;
+        NavigationManager.NavigateTo(url);
+        islogged = false;
+        StateHasChanged();
+    }
+ 
+
+
+}

@@ -1,0 +1,38 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+
+<PageTitle>Template</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+          <NavMenu MENUTYPE=NavMenu.ENUM_MENUTYPE.UNLOGGED Perfil="annonymous"  />
+        
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="#" @onclick="GotoLogin">Login</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+
+@code{
+
+   
+
+    public void GotoLogin()
+    {
+                 
+        NavigationManager.NavigateTo("login");
+        StateHasChanged();
+
+    }
+
+
+
+}

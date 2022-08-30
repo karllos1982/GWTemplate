@@ -1,0 +1,83 @@
+﻿@inject NavigationManager NavigationManager
+
+
+@if (_visible)
+{
+<div class="wc-box rounded text-center wc-box-@_class p-2" @onclick="Click" title=@Description>
+    <div class="wc-box-icon">
+        <i class="mdi mdi-@Icon"></i>
+    </div>
+    <h5 class="fw-bold mb-2 wc-title mt-2 menu_botton">@Title</h5>
+</div>
+
+}
+
+@code {
+
+        [Parameter]
+        public string Title { get; set; }
+
+        [Parameter]
+        public string Description { get; set; }
+
+        [Parameter]
+        public string Icon { get; set; }
+
+
+    private string _class = "primary";
+
+    [Parameter]
+    public string Class
+    {
+        get
+        {
+
+            return _class;
+        }
+
+        set
+        {
+            _class = value;
+        }
+    }
+
+
+    [Parameter]
+    public string NavigationUrl { get; set; }
+
+
+    private bool _visible = true;
+
+    [Parameter]
+    public bool Visible
+    {
+        get
+        {
+
+            return _visible;
+        }
+
+        set
+        {
+            _visible = value;
+        }
+    }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    private void Click()
+    {
+
+        //_itemmenu.ActiveItemMenu(NavigationUrl);
+
+        if (NavigationUrl != "")
+        {
+            NavigationManager.NavigateTo(NavigationUrl);
+        }
+
+        OnClick.InvokeAsync(null);
+    }
+
+
+}

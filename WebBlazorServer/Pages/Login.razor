@@ -1,0 +1,312 @@
+﻿@page "/login"
+@inherits UnloggedLayout
+@layout UnloggedLayout
+
+@inject IJSRuntime JSRuntime
+@inject IAppControllerAsync<UserAuthenticated> _appctrl
+@inject IAuthGatewayManager _authservices
+@inject IAppSettingsManager<TemplateSettings>  _settings
+@inject NavigationManager NavigationManager
+@inject HttpClient _httpclient
+
+@if (user != null)
+{
+    <section  id="home">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-3">
+
+                </div>
+
+                <div class="col-md-6">
+                                      
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <h3 class="title mb-4">Bem-Vindo</h3>
+                                <h4 class="text-uppercase label-text"><b>Login</b></h4>
+                            </div>
+                            <div class="login-form mt-4">
+
+                                <div class="form-group">
+                                    <label class="label-field" for="exampleInputEmail1">E-mail</label>
+                                    <input type="email" @bind-value=@user.Email class="form-control login-field"
+                                        maxlength="100"  placeholder="Digite seu E-mail de cadastro">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="label-field" for="exampleInputPassword1">Senha</label>
+                                    <input type="password" @bind-value=@pwd class="form-control login-field"
+                                        maxlength="10"  placeholder="Digite sua senha">
+                                </div>
+
+                                <div class="form-group">
+                                        <div class="form-group">
+                                            <label @onclick="ShowActiveModal" style="cursor:pointer;"
+                                            class="float-left text-muted font-size-15 field">Ativar Conta</label>
+
+                                        <label @onclick="RecoveryPassword" style="cursor:pointer;"
+                                                class="float-end text-muted font-size-15 field">Esqueceu a senha ?</label>
+
+                                        </div>
+
+                                </div>
+
+
+                                <div class="form-group" style="margin-top:20px">
+                                        <TaskButton @ref="loginbtn" Title="Acessar"
+                                        ActionLabel="Entrando..." OnClick="ExecuteLogin" > </TaskButton>                                                  
+
+                                        <TaskLoading @ref="loadingPwd" Title="Enviando senha temporária"></TaskLoading>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                </div>
+                   
+                 
+                <div class="col-md-3">
+
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<MessageBox @ref="msgbox"></MessageBox>
+
+<Modal @ref="modalRef"  >
+    <ModalContent Centered Size="ModalSize.Large">
+        <ModalHeader>
+            <ModalTitle>Ativação de Conta</ModalTitle>   
+            <CloseButton></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+           
+            <div class="row">
+                <div class="col-md-9">                    
+                        <span>1. Envie o código de ativação para o seu e-mail de cadastro:</span>
+                        <input type="email" @bind-value=@active.Email class="form-control field" maxlength="100"
+                               placeholder="Digite seu e-mail de cadastro">
+                 </div>
+            
+                <div class="col-md-3">    
+                       <br/>
+                        <TaskButton @ref="sendcodebtn" OnClick="SendActiveAccountCode" Title="Enviar código"
+                                      ActionLabel="Enviando..."></TaskButton>
+                 </div>
+             </div>
+
+              <div class="row" style="margin-top:20px">
+                 <div class="col-md-9"> 
+                        <span>2. Informe o código de ativação recebido:</span>
+                        <input type="text" @bind-value=@active.Code class="form-control field" maxlength="20"
+                               placeholder="Digite o código recebido por e-mail">
+                 </div>
+           
+                 <div class="col-md-3">  
+                        <br/>
+                        <TaskButton @ref="activebtn" Title="Ativar Conta" OnClick="ActivateAccount"
+                                      ActionLabel="Ativando..."></TaskButton>
+
+                    </div>
+
+                </div>         
+
+        </ModalBody>      
+    </ModalContent>
+</Modal>
+
+
+@code {
+
+    private Modal modalRef;
+    private UserLogin user = new UserLogin();
+    private string pwd = "";
+    private ActiveUserAccount active = new ActiveUserAccount();
+    private MessageBox msgbox;
+    private TaskButton loginbtn;
+    private TaskButton activebtn;
+    private TaskButton sendcodebtn;    
+    private TaskLoading loadingPwd;
+
+   
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+
+    private void InitResources()
+    {
+
+        _settings.LoadSettings(_httpclient);
+        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
+
+        _authservices.Init(_httpclient,_settings.Settings.ServiceURL,"");
+
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+
+
+        }
+
+    }
+
+    private async Task ExecuteLogin()
+    {
+
+        try
+        {   
+            this.InitResources();                
+
+            if (user.Email != null && pwd != null)
+            {
+
+                user.Password = GW.Core.Helpers.Utilities.ConvertToBase64(pwd); 
+
+                loginbtn.Begin();
+
+                OperationStatus ret = await _appctrl.Login(_authservices, user);
+
+                if (ret.Status)
+                {
+                    UserAuthenticated user = (UserAuthenticated)ret.Returns;
+                    string url = _settings.Settings.SiteURL + "/"+ user.HomeURL;
+                    NavigationManager.NavigateTo(url);                    
+                }
+                else
+                {                    
+                  await  msgbox.ShowDialog("Aviso de Erro", ret.Error.Message);
+                }
+
+            }
+            else
+            {                
+               await  msgbox.ShowDialog("Credenciais inválidas", "E-mail ou senha inválidos."); 
+            }
+        }
+        catch(Exception ex)
+        {            
+           await msgbox.ShowDialog("Erro ao logar", ex.Message);
+        }       
+
+        loginbtn.End();
+
+    }
+
+    private async Task SendActiveAccountCode()
+    {
+        this.InitResources();
+
+        if (active.Email != null)
+        {
+            sendcodebtn.Begin();
+            AuthGateway gateway = (AuthGateway)_authservices;
+
+            await gateway.RequestActiveAccountCode(active.Email);
+
+            if (gateway.APIResponse.StatusOK)
+            {
+               await msgbox.ShowDialog("Código enviado", "O código de ativação foi enviado por e-mail.");                
+            }
+            else
+            {
+                Exception error = null;
+                gateway.GetDefaultError(ref error); 
+               await  msgbox.ShowDialog("Aviso de Erro", error.Message);
+            }
+             sendcodebtn.End();
+        }
+        else
+        {
+            await msgbox.ShowDialog("Aviso", "Informe o E-mail de cadastro.");
+
+        }
+       
+    }
+
+    private async Task ActivateAccount()
+    {
+        this.InitResources();
+
+        if (active.Code != null)
+        {
+            activebtn.Begin();
+            AuthGateway gateway = (AuthGateway)_authservices;
+
+            await gateway.ActiveAccount(active);
+
+            if (gateway.APIResponse.StatusOK)
+            {
+               await  msgbox.ShowDialog("Conta ativada", "A conta foi ativada com sucesso. Você já pode efetuar login. ");              
+            }
+            else
+            {
+                Exception error = null;
+                gateway.GetDefaultError(ref error); 
+                await msgbox.ShowDialog("Aviso de Erro", error.Message);
+            }
+
+            activebtn.End();
+        }
+        else
+        {
+            await msgbox.ShowDialog("Aviso", "Informe o código.");
+
+        }
+        
+    }
+
+
+
+    private async Task  RecoveryPassword()
+    {
+        InitResources();
+
+
+        if (user.Email != null)
+        {
+
+            await loadingPwd.Begin();
+
+            AuthGateway gateway = (AuthGateway)_authservices;
+
+            await gateway.RecoveryPassword(user.Email);
+
+            if (gateway.APIResponse.StatusOK)
+            {
+              await  msgbox.ShowDialog("Recuperação de Senha",
+                   "Uma senha temporária foi enviada para o seu e-mail de cadastro. Ao logar, solicite a troca de senha.");             
+            }
+            else
+            {
+                Exception error = null;
+                gateway.GetDefaultError(ref error); 
+                await msgbox.ShowDialog("Aviso de Erro", error.Message);
+            }         
+
+             await loadingPwd.End();
+        }
+        else
+        {
+
+            await msgbox.ShowDialog("Aviso", "Informe seu E-mail de cadastro.");
+        }
+
+    }
+
+    private async Task ShowActiveModal()
+    {
+        await modalRef.Show();      
+        
+    }
+
+}

@@ -1,0 +1,95 @@
+﻿
+@if (_visible)
+{
+    if (_disabled == "")
+    {
+         <button @onclick="OnClick"
+            style="margin-top:35px;"
+            class="navbar-toggler" 
+            type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" 
+            aria-expanded="false" title=@Description
+            aria-label="Toggle navigation">
+            <i class="mdi mdi-@Icon" 
+                style="color:#4e42d9;font-size:xx-large">
+            </i>
+         </button>
+        
+        
+    }
+    else
+    { 
+
+       <button 
+            style="margin-top:35px;"
+            class="navbar-toggler" 
+            type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+            <i class="mdi mdi-@Icon" 
+                style="color:#4e42d9;font-size:xx-large">
+            </i>
+         </button>
+
+    }
+
+
+}
+
+
+@code {
+
+    private bool executing = false;
+
+
+    [Parameter]
+    public string Icon { get; set; }
+
+   
+    [Parameter]
+    public string Description { get; set; }
+
+    private bool _visible = true;
+
+    [Parameter]
+    public bool Visible
+    {
+        get
+        {
+
+            return _visible;
+        }
+
+        set
+        {
+            _visible = value;
+        }
+    }
+
+
+    private string _disabled = "";
+
+    [Parameter]
+    public string Disabled
+    {
+        get
+        {
+
+            return _disabled;
+        }
+
+        set
+        {
+            _disabled = value;
+        }
+    }
+
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+   
+}
