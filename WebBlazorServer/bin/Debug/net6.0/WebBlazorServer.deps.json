@@ -8,11 +8,11 @@
     ".NETCoreApp,Version=v6.0": {
       "WebBlazorServer/1.0.0": {
         "dependencies": {
-          "Blazorise": "1.0.5",
-          "Blazorise.Bootstrap5": "1.0.5",
-          "Blazorise.Components": "1.0.5",
-          "Blazorise.DataGrid": "1.0.5",
-          "Blazorise.Icons.FontAwesome": "1.0.5",
+          "Blazorise": "1.0.6",
+          "Blazorise.Bootstrap5": "1.0.6",
+          "Blazorise.Components": "1.0.6",
+          "Blazorise.DataGrid": "1.0.6",
+          "Blazorise.Icons.FontAwesome": "1.0.6",
           "GW.Framework": "3.5.3",
           "GW.Membership": "1.0.0",
           "Gateway": "1.0.0",
@@ -23,7 +23,7 @@
           "WebBlazorServer.dll": {}
         }
       },
-      "Blazorise/1.0.5": {
+      "Blazorise/1.0.6": {
         "dependencies": {
           "Microsoft.AspNetCore.Components": "6.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",
@@ -31,79 +31,79 @@
         },
         "runtime": {
           "lib/net6.0/Blazorise.dll": {
-            "assemblyVersion": "1.0.5.0",
-            "fileVersion": "1.0.5.0"
+            "assemblyVersion": "1.0.6.0",
+            "fileVersion": "1.0.6.0"
           }
         }
       },
-      "Blazorise.Bootstrap5/1.0.5": {
+      "Blazorise.Bootstrap5/1.0.6": {
         "dependencies": {
-          "Blazorise": "1.0.5",
+          "Blazorise": "1.0.6",
           "Microsoft.AspNetCore.Components": "6.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.1"
         },
         "runtime": {
           "lib/net6.0/Blazorise.Bootstrap5.dll": {
-            "assemblyVersion": "1.0.5.0",
-            "fileVersion": "1.0.5.0"
+            "assemblyVersion": "1.0.6.0",
+            "fileVersion": "1.0.6.0"
           }
         }
       },
-      "Blazorise.Components/1.0.5": {
+      "Blazorise.Components/1.0.6": {
         "dependencies": {
-          "Blazorise": "1.0.5",
-          "Blazorise.Snackbar": "1.0.5",
+          "Blazorise": "1.0.6",
+          "Blazorise.Snackbar": "1.0.6",
           "Microsoft.AspNetCore.Components": "6.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.1"
         },
         "runtime": {
           "lib/net6.0/Blazorise.Components.dll": {
-            "assemblyVersion": "1.0.5.0",
-            "fileVersion": "1.0.5.0"
+            "assemblyVersion": "1.0.6.0",
+            "fileVersion": "1.0.6.0"
           }
         }
       },
-      "Blazorise.DataGrid/1.0.5": {
+      "Blazorise.DataGrid/1.0.6": {
         "dependencies": {
-          "Blazorise": "1.0.5",
+          "Blazorise": "1.0.6",
           "Microsoft.AspNetCore.Components": "6.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.1"
         },
         "runtime": {
           "lib/net6.0/Blazorise.DataGrid.dll": {
-            "assemblyVersion": "1.0.5.0",
-            "fileVersion": "1.0.5.0"
+            "assemblyVersion": "1.0.6.0",
+            "fileVersion": "1.0.6.0"
           }
         }
       },
-      "Blazorise.Icons.FontAwesome/1.0.5": {
+      "Blazorise.Icons.FontAwesome/1.0.6": {
         "dependencies": {
-          "Blazorise": "1.0.5",
+          "Blazorise": "1.0.6",
           "Microsoft.AspNetCore.Components": "6.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.1"
         },
         "runtime": {
           "lib/net6.0/Blazorise.Icons.FontAwesome.dll": {
-            "assemblyVersion": "1.0.5.0",
-            "fileVersion": "1.0.5.0"
+            "assemblyVersion": "1.0.6.0",
+            "fileVersion": "1.0.6.0"
           }
         }
       },
-      "Blazorise.Snackbar/1.0.5": {
+      "Blazorise.Snackbar/1.0.6": {
         "dependencies": {
-          "Blazorise": "1.0.5",
+          "Blazorise": "1.0.6",
           "Microsoft.AspNetCore.Components": "6.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.1"
         },
         "runtime": {
           "lib/net6.0/Blazorise.Snackbar.dll": {
-            "assemblyVersion": "1.0.5.0",
-            "fileVersion": "1.0.5.0"
+            "assemblyVersion": "1.0.6.0",
+            "fileVersion": "1.0.6.0"
           }
         }
       },
@@ -308,47 +308,47 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Blazorise/1.0.5": {
+    "Blazorise/1.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3OjmejkIRFpWrJ8lMiPsGWey5i1x0ul60gIbGCPZElDdGhWMQh0LaGuA9AKKMDKoB5EawW+wE1hxvvTeqpXBPA==",
-      "path": "blazorise/1.0.5",
-      "hashPath": "blazorise.1.0.5.nupkg.sha512"
+      "sha512": "sha512-Y3FcAaN4VKoUC4joKopQBeugDlLWOLXcDC8GeVsuChnUNdBOhH1k1TddNRRa2iTEYGvt8D8WFMBFbke9FRT+NA==",
+      "path": "blazorise/1.0.6",
+      "hashPath": "blazorise.1.0.6.nupkg.sha512"
     },
-    "Blazorise.Bootstrap5/1.0.5": {
+    "Blazorise.Bootstrap5/1.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-P6PX/BE1V3W1oYkKURHAbI1mqAd/9k/SmYbkijAtEmf30IDcp1yuTXkVjBlh1Ax9AaCpQrbQb6VHrB/6lQWhvg==",
-      "path": "blazorise.bootstrap5/1.0.5",
-      "hashPath": "blazorise.bootstrap5.1.0.5.nupkg.sha512"
+      "sha512": "sha512-Y/8HRmGlhWEMoNSsA4CSl46UeOfegdbvUAOnv23oh+8ZbkfPOU+Z0Mttlv96Q6JlDGwYG9jhtg04TCuIdN441g==",
+      "path": "blazorise.bootstrap5/1.0.6",
+      "hashPath": "blazorise.bootstrap5.1.0.6.nupkg.sha512"
     },
-    "Blazorise.Components/1.0.5": {
+    "Blazorise.Components/1.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-o8OsuOjXe8FZcbyWkFBIfHmt+n2pNKD6t0t6kjU4Q96RIzRPBvvLzLzPtB0tVTsH39ugBzO+PM6p6m2PUBsLYQ==",
-      "path": "blazorise.components/1.0.5",
-      "hashPath": "blazorise.components.1.0.5.nupkg.sha512"
+      "sha512": "sha512-vblT/UIZS6ko0MjlS4JgCHuqOfQ/4G5K6gFPPCeYmgTt2ss267mDrwzlZqRphIT6pRMjce3aC0xc3egNQ7PkrQ==",
+      "path": "blazorise.components/1.0.6",
+      "hashPath": "blazorise.components.1.0.6.nupkg.sha512"
     },
-    "Blazorise.DataGrid/1.0.5": {
+    "Blazorise.DataGrid/1.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-TX+B6DkNWHiZIzuWo4R/7elzWjjHBJnkYsbjHq+KK7EMNgZzscBthOqst0Jbl0cu3qktg/hR8dS/w6dEnFTofg==",
-      "path": "blazorise.datagrid/1.0.5",
-      "hashPath": "blazorise.datagrid.1.0.5.nupkg.sha512"
+      "sha512": "sha512-z3zFRNxCsNOTxR2/7cbHkQb8VJb9W+iuQO9bUSV+BYh0OckthS/yF59LwQHN3MPYgvv1uASpk6B2h7qw2ykQjg==",
+      "path": "blazorise.datagrid/1.0.6",
+      "hashPath": "blazorise.datagrid.1.0.6.nupkg.sha512"
     },
-    "Blazorise.Icons.FontAwesome/1.0.5": {
+    "Blazorise.Icons.FontAwesome/1.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-oO/7NZdYWOpa6qUkeao0VgQZNOh97hI3K2H33zYzBtueJkI0Ope80ugneHvxTHNWR5pFlKkQsLrjaBPSiHsvXA==",
-      "path": "blazorise.icons.fontawesome/1.0.5",
-      "hashPath": "blazorise.icons.fontawesome.1.0.5.nupkg.sha512"
+      "sha512": "sha512-EHGP5tk2TPlkRo8ofkasQ3Q9XPfbWn/lAnQVK848GgVTZOGZPMyFjiTS0FD78EDh/z5t2tpjWS9dB6PhFgzYhA==",
+      "path": "blazorise.icons.fontawesome/1.0.6",
+      "hashPath": "blazorise.icons.fontawesome.1.0.6.nupkg.sha512"
     },
-    "Blazorise.Snackbar/1.0.5": {
+    "Blazorise.Snackbar/1.0.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ZSvFad8BF+7+QXeqSO/QkV7YqjUO7/rEYhZ9t5rVq1Hj+swppdkUCLA4J02AwBhkA+sOxmIyVMKzFoIYNnvyZw==",
-      "path": "blazorise.snackbar/1.0.5",
-      "hashPath": "blazorise.snackbar.1.0.5.nupkg.sha512"
+      "sha512": "sha512-0FG0ntK78uFPc9BPDmZIUe4QMtiw4tXe/Tc4yPiukKLTdyjUL0K7pdupkFsRSRpGYcjDDm8Rod6xC9opgE+xEQ==",
+      "path": "blazorise.snackbar/1.0.6",
+      "hashPath": "blazorise.snackbar.1.0.6.nupkg.sha512"
     },
     "Dapper/2.0.123": {
       "type": "package",

@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net6.0": {
-      "Blazorise/1.0.5": {
+      "Blazorise/1.0.6": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Components": "6.0.0",
@@ -22,10 +22,10 @@
           "buildMultiTargeting/Blazorise.props": {}
         }
       },
-      "Blazorise.Bootstrap5/1.0.5": {
+      "Blazorise.Bootstrap5/1.0.6": {
         "type": "package",
         "dependencies": {
-          "Blazorise": "1.0.5",
+          "Blazorise": "1.0.6",
           "Microsoft.AspNetCore.Components": "6.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.1"
@@ -43,11 +43,11 @@
           "buildMultiTargeting/Blazorise.Bootstrap5.props": {}
         }
       },
-      "Blazorise.Components/1.0.5": {
+      "Blazorise.Components/1.0.6": {
         "type": "package",
         "dependencies": {
-          "Blazorise": "1.0.5",
-          "Blazorise.Snackbar": "1.0.5",
+          "Blazorise": "1.0.6",
+          "Blazorise.Snackbar": "1.0.6",
           "Microsoft.AspNetCore.Components": "6.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.1"
@@ -59,10 +59,10 @@
           "lib/net6.0/Blazorise.Components.dll": {}
         }
       },
-      "Blazorise.DataGrid/1.0.5": {
+      "Blazorise.DataGrid/1.0.6": {
         "type": "package",
         "dependencies": {
-          "Blazorise": "1.0.5",
+          "Blazorise": "1.0.6",
           "Microsoft.AspNetCore.Components": "6.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.1"
@@ -80,10 +80,10 @@
           "buildMultiTargeting/Blazorise.DataGrid.props": {}
         }
       },
-      "Blazorise.Icons.FontAwesome/1.0.5": {
+      "Blazorise.Icons.FontAwesome/1.0.6": {
         "type": "package",
         "dependencies": {
-          "Blazorise": "1.0.5",
+          "Blazorise": "1.0.6",
           "Microsoft.AspNetCore.Components": "6.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.1"
@@ -95,10 +95,10 @@
           "lib/net6.0/Blazorise.Icons.FontAwesome.dll": {}
         }
       },
-      "Blazorise.Snackbar/1.0.5": {
+      "Blazorise.Snackbar/1.0.6": {
         "type": "package",
         "dependencies": {
-          "Blazorise": "1.0.5",
+          "Blazorise": "1.0.6",
           "Microsoft.AspNetCore.Components": "6.0.0",
           "Microsoft.AspNetCore.Components.Web": "6.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.1"
@@ -493,16 +493,16 @@
     }
   },
   "libraries": {
-    "Blazorise/1.0.5": {
-      "sha512": "3OjmejkIRFpWrJ8lMiPsGWey5i1x0ul60gIbGCPZElDdGhWMQh0LaGuA9AKKMDKoB5EawW+wE1hxvvTeqpXBPA==",
+    "Blazorise/1.0.6": {
+      "sha512": "Y3FcAaN4VKoUC4joKopQBeugDlLWOLXcDC8GeVsuChnUNdBOhH1k1TddNRRa2iTEYGvt8D8WFMBFbke9FRT+NA==",
       "type": "package",
-      "path": "blazorise/1.0.5",
+      "path": "blazorise/1.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.1.0.5.nupkg.sha512",
+        "blazorise.1.0.6.nupkg.sha512",
         "blazorise.nuspec",
         "build/Blazorise.props",
         "build/Microsoft.AspNetCore.StaticWebAssets.props",
@@ -511,6 +511,7 @@
         "lib/net6.0/Blazorise.dll",
         "lib/net6.0/Blazorise.xml",
         "staticwebassets/blazorise.css",
+        "staticwebassets/blazorise.min.css",
         "staticwebassets/breakpoint.js",
         "staticwebassets/button.js",
         "staticwebassets/closable.js",
@@ -543,16 +544,16 @@
         "staticwebassets/vendors/inputmask.js"
       ]
     },
-    "Blazorise.Bootstrap5/1.0.5": {
-      "sha512": "P6PX/BE1V3W1oYkKURHAbI1mqAd/9k/SmYbkijAtEmf30IDcp1yuTXkVjBlh1Ax9AaCpQrbQb6VHrB/6lQWhvg==",
+    "Blazorise.Bootstrap5/1.0.6": {
+      "sha512": "Y/8HRmGlhWEMoNSsA4CSl46UeOfegdbvUAOnv23oh+8ZbkfPOU+Z0Mttlv96Q6JlDGwYG9jhtg04TCuIdN441g==",
       "type": "package",
-      "path": "blazorise.bootstrap5/1.0.5",
+      "path": "blazorise.bootstrap5/1.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.bootstrap5.1.0.5.nupkg.sha512",
+        "blazorise.bootstrap5.1.0.6.nupkg.sha512",
         "blazorise.bootstrap5.nuspec",
         "build/Blazorise.Bootstrap5.props",
         "build/Microsoft.AspNetCore.StaticWebAssets.props",
@@ -565,31 +566,31 @@
         "staticwebassets/tooltip.js"
       ]
     },
-    "Blazorise.Components/1.0.5": {
-      "sha512": "o8OsuOjXe8FZcbyWkFBIfHmt+n2pNKD6t0t6kjU4Q96RIzRPBvvLzLzPtB0tVTsH39ugBzO+PM6p6m2PUBsLYQ==",
+    "Blazorise.Components/1.0.6": {
+      "sha512": "vblT/UIZS6ko0MjlS4JgCHuqOfQ/4G5K6gFPPCeYmgTt2ss267mDrwzlZqRphIT6pRMjce3aC0xc3egNQ7PkrQ==",
       "type": "package",
-      "path": "blazorise.components/1.0.5",
+      "path": "blazorise.components/1.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.components.1.0.5.nupkg.sha512",
+        "blazorise.components.1.0.6.nupkg.sha512",
         "blazorise.components.nuspec",
         "lib/net6.0/Blazorise.Components.dll",
         "lib/net6.0/Blazorise.Components.xml"
       ]
     },
-    "Blazorise.DataGrid/1.0.5": {
-      "sha512": "TX+B6DkNWHiZIzuWo4R/7elzWjjHBJnkYsbjHq+KK7EMNgZzscBthOqst0Jbl0cu3qktg/hR8dS/w6dEnFTofg==",
+    "Blazorise.DataGrid/1.0.6": {
+      "sha512": "z3zFRNxCsNOTxR2/7cbHkQb8VJb9W+iuQO9bUSV+BYh0OckthS/yF59LwQHN3MPYgvv1uASpk6B2h7qw2ykQjg==",
       "type": "package",
-      "path": "blazorise.datagrid/1.0.5",
+      "path": "blazorise.datagrid/1.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.datagrid.1.0.5.nupkg.sha512",
+        "blazorise.datagrid.1.0.6.nupkg.sha512",
         "blazorise.datagrid.nuspec",
         "build/Blazorise.DataGrid.props",
         "build/Microsoft.AspNetCore.StaticWebAssets.props",
@@ -600,30 +601,30 @@
         "staticwebassets/datagrid.js"
       ]
     },
-    "Blazorise.Icons.FontAwesome/1.0.5": {
-      "sha512": "oO/7NZdYWOpa6qUkeao0VgQZNOh97hI3K2H33zYzBtueJkI0Ope80ugneHvxTHNWR5pFlKkQsLrjaBPSiHsvXA==",
+    "Blazorise.Icons.FontAwesome/1.0.6": {
+      "sha512": "EHGP5tk2TPlkRo8ofkasQ3Q9XPfbWn/lAnQVK848GgVTZOGZPMyFjiTS0FD78EDh/z5t2tpjWS9dB6PhFgzYhA==",
       "type": "package",
-      "path": "blazorise.icons.fontawesome/1.0.5",
+      "path": "blazorise.icons.fontawesome/1.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.icons.fontawesome.1.0.5.nupkg.sha512",
+        "blazorise.icons.fontawesome.1.0.6.nupkg.sha512",
         "blazorise.icons.fontawesome.nuspec",
         "lib/net6.0/Blazorise.Icons.FontAwesome.dll"
       ]
     },
-    "Blazorise.Snackbar/1.0.5": {
-      "sha512": "ZSvFad8BF+7+QXeqSO/QkV7YqjUO7/rEYhZ9t5rVq1Hj+swppdkUCLA4J02AwBhkA+sOxmIyVMKzFoIYNnvyZw==",
+    "Blazorise.Snackbar/1.0.6": {
+      "sha512": "0FG0ntK78uFPc9BPDmZIUe4QMtiw4tXe/Tc4yPiukKLTdyjUL0K7pdupkFsRSRpGYcjDDm8Rod6xC9opgE+xEQ==",
       "type": "package",
-      "path": "blazorise.snackbar/1.0.5",
+      "path": "blazorise.snackbar/1.0.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.snackbar.1.0.5.nupkg.sha512",
+        "blazorise.snackbar.1.0.6.nupkg.sha512",
         "blazorise.snackbar.nuspec",
         "build/Blazorise.Snackbar.props",
         "build/Microsoft.AspNetCore.StaticWebAssets.props",
@@ -631,7 +632,8 @@
         "buildTransitive/Blazorise.Snackbar.props",
         "lib/net6.0/Blazorise.Snackbar.dll",
         "lib/net6.0/Blazorise.Snackbar.xml",
-        "staticwebassets/blazorise.snackbar.css"
+        "staticwebassets/blazorise.snackbar.css",
+        "staticwebassets/blazorise.snackbar.min.css"
       ]
     },
     "Dapper/2.0.123": {
@@ -1341,11 +1343,11 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Blazorise >= 1.0.5",
-      "Blazorise.Bootstrap5 >= 1.0.5",
-      "Blazorise.Components >= 1.0.5",
-      "Blazorise.DataGrid >= 1.0.5",
-      "Blazorise.Icons.FontAwesome >= 1.0.5",
+      "Blazorise >= 1.0.6",
+      "Blazorise.Bootstrap5 >= 1.0.6",
+      "Blazorise.Components >= 1.0.6",
+      "Blazorise.DataGrid >= 1.0.6",
+      "Blazorise.Icons.FontAwesome >= 1.0.6",
       "GW.Framework >= 3.5.3",
       "GW.Membership >= 1.0.0",
       "Gateway >= 1.0.0",
@@ -1354,19 +1356,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\carlos.fonteles\\.nuget\\packages\\": {}
+    "C:\\Users\\karll\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projetos\\OUTROS\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
+      "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
       "projectName": "WebBlazorServer",
-      "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
-      "packagesPath": "C:\\Users\\carlos.fonteles\\.nuget\\packages\\",
-      "outputPath": "C:\\Projetos\\OUTROS\\GWTemplate\\WebBlazorServer\\obj\\",
+      "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
+      "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
+      "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\carlos.fonteles\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1374,17 +1376,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://www.nuget.org/api/v2/": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Projetos\\OUTROS\\GWTemplate\\Gateway\\Gateway.csproj": {
-              "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Gateway\\Gateway.csproj"
+            "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Gateway\\Gateway.csproj": {
+              "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Gateway\\Gateway.csproj"
             },
-            "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj": {
-              "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj"
+            "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj": {
+              "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj"
             }
           }
         }
@@ -1401,23 +1403,23 @@
         "dependencies": {
           "Blazorise": {
             "target": "Package",
-            "version": "[1.0.5, )"
+            "version": "[1.0.6, )"
           },
           "Blazorise.Bootstrap5": {
             "target": "Package",
-            "version": "[1.0.5, )"
+            "version": "[1.0.6, )"
           },
           "Blazorise.Components": {
             "target": "Package",
-            "version": "[1.0.5, )"
+            "version": "[1.0.6, )"
           },
           "Blazorise.DataGrid": {
             "target": "Package",
-            "version": "[1.0.5, )"
+            "version": "[1.0.6, )"
           },
           "Blazorise.Icons.FontAwesome": {
             "target": "Package",
-            "version": "[1.0.5, )"
+            "version": "[1.0.6, )"
           },
           "GW.Framework": {
             "target": "Package",
@@ -1450,7 +1452,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
       }
     }
   }

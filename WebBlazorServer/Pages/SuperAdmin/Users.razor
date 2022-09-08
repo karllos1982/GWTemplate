@@ -1,5 +1,587 @@
-﻿<h3>Users</h3>
+﻿@page "/superadmin/users"
+@inherits SuperAdminLayout
+@layout SuperAdminLayout
+
+@inject IJSRuntime JSRuntime
+@inject IAppControllerAsync<UserAuthenticated> _appctrl
+@inject IMembershipGatewayManager _memberservices
+@inject IAppSettingsManager<TemplateSettings>  _settings
+@inject NavigationManager NavigationManager
+@inject HttpClient _httpclient
+
+
+<section class="hero-1-bg" id="home">
+    <div class="container">
+        <div class="row justify-content-left">
+            <div class="col-lg-6">
+                <div class="text-left mb-5">                        
+                    <h3 class="title mb-3"> 
+                        <span @onclick="GoHome" class="label-text font-weight-semibold bradcrumb-link">home \</span> Usuários
+                     </h3>
+                    <p class="text-muted font-size-15">
+                        Gerenciamento dos Usuários
+                    </p>
+                </div>
+            </div>
+            
+
+            @if (view != null)
+            {
+                <div style="display:@view.SearchingState">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="blog-box mb-4 mb-lg-0">
+
+                                <span class="text-dark fw-bold h5" style="padding-bottom:10px">Campos de Busca</span>
+
+                                <div class="form-group">
+                                    <label>E-mail:</label>
+                                    <input type="email" @bind-value="view.param.pEmail" class="form-control field"
+                                       placeholder="Pesquisar por e-mail">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>User Name:</label>
+                                    <input type="text" maxlength="20" @bind-value="view.param.pUserName" class="form-control field"
+                                       placeholder="Pesquisar por username">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Perfil:</label>
+                                    @if (view.listRoles != null & view.listRoles.Count > 0)
+                                    {
+                                         <SelectList TItem="RoleList"
+                                                            TValue="Int64"
+                                                            Data="@view.listRoles"
+                                                            TextField="@((item)=>item.RoleName)"
+                                                            ValueField="@((item)=>item.RoleID)"
+                                                            @bind-SelectedValue="@view.param.pRoleID"></SelectList>
+                                      
+                                    }
+
+                                </div>
+
+                                <p class="field" style="padding-top:10px">
+
+                                    <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
+                                              Description="Clique aqui buscar usuários."
+                                              ActionLabel="Pesquisando...">
+                                    </TaskButton>
+
+                                </p>
+
+                                <p class="field" style="padding-top:10px">
+
+                                        <TaskButton @ref="newbtn" OnClick="OnNew" Title="Novo Usuário"
+                                                  Description="Clique aqui criar o novo usuário."
+                                                  ActionLabel="Inserindo...">
+                                        </TaskButton>
+
+                                 </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-8">
+                            <div class="blog-box mb-4 mb-lg-0">
+
+                                <span class="text-dark fw-bold h5" style="padding-bottom:10px">Resultado da Busca</span>
+
+                                @if (view.searchresult != null)
+                                {
+                                    @if (view.searchresult.Count > 0)
+                                    {
+                                          <DataGrid TItem="UserSearchResult" Data="@view.searchresult"  Responsive  ShowPager >                                                                                                                                      
+                                            <DataGridColumns>
+                                            
+                                                <DataGridColumn Field="@nameof(UserSearchResult.Email)" Caption="E-mail" />
+                                                 
+                                                 <DataGridColumn Field="@nameof(UserSearchResult.IsActive)" Caption="Ativo ?" >
+                                                    <DisplayTemplate>
+                                                                @{
+                                                                    UserSearchResult user = (context as UserSearchResult);
+                                                                    if (user.IsActive == 1)
+                                                                    {
+                                                                        <span>SIM</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span>NÃO</span>
+                                                                    }
+                                                                }                                            
+                                                    </DisplayTemplate>
+                                                </DataGridColumn>
+
+                                                   <DataGridColumn Field="@nameof(UserSearchResult.IsLocked)" Caption="Bloqueado ?" >
+                                                    <DisplayTemplate>
+                                                              @{
+                                                                    UserSearchResult user = (context as UserSearchResult);
+                                                                    if (user.IsLocked == 1)
+                                                                    {
+                                                                        <span>SIM</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span>NÃO</span>
+                                                                    }
+                                                                }                                           
+                                                    </DisplayTemplate>
+                                                </DataGridColumn>                                              
+
+                                                 <DataGridColumn Field="@nameof(UserSearchResult.UserID)" Caption="Detalhes" >
+                                                    <DisplayTemplate>
+                                                          @{
+                                                                UserSearchResult user = (context as UserSearchResult);
+
+                                                                <button @onclick="(() => OnDetClick(user.UserID))" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                                                                                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                                                                    <i class="mdi mdi-menu" style=" color: #4e42d9"></i>
+                                                                </button>
+
+                                                            }
+                                                    
+                                                    </DisplayTemplate>
+                                                </DataGridColumn>
+                                            
+                                                </DataGridColumns>
+                                      
+                                            </DataGrid>
+
+                                    }
+                                    else
+                                    {
+                                        <p> Nenhum registro encontrado </p>
+                                    }
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div style="display:@view.EditingState">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <a @onclick="Back" class="text-primary font-weight-semibold commandLink" style="float:left; ">
+                                <span class="ms-2 left-icon">&#8593;</span> Voltar pra Busca
+                            </a>
+
+
+                        </div>
+                    </div>
+
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <div class="custom-form mb-5 mb-lg-0">
+                            
+                          @if (!view.Inserting)
+                          {
+                            <div class="row">
+
+                                <div class="col-md-8">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <span class="text-dark fw-bold h5" style="padding-bottom:10px">Dados do Usuários</span>
+
+                                            <div class="form-group">
+                                                <label for="name">UserName:</label>
+                                                <input type="text" disabled class="form-control field" value="@view.model.UserName" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="email">E-mail:</label>
+                                                <input type="text" disabled class="form-control field" value="@view.model.Email" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="email">Role:</label>
+                                                
+                                                 @if (view.listRoles != null & view.listRoles.Count > 0)
+                                                    {
+                                                        <SelectList TItem="RoleList"
+                                                            TValue="Int64"
+                                                            Data="@view.listRoles"
+                                                            TextField="@((item)=>item.RoleName)"
+                                                            ValueField="@((item)=>item.RoleID)"
+                                                            @bind-SelectedValue="@view.model.RoleID"></SelectList>
+                                                        
+                                                    }
+                                                </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="name">Create Date</label>
+                                                <input type="text" disabled class="form-control field" value="@view.model.CreateDate" />
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email">last Login Date</label>
+                                                <input type="text" disabled class="form-control field" value="@view.model.LastLoginDate" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="name">Last Login IP</label>
+                                                <input type="text" disabled class="form-control field" value="@view.model.LastLoginIP" />
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="email">LoginCounter</label>
+                                                <input type="text" disabled class="form-control field" value="@view.model.LoginCounter" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="email">Password Recovery Code</label>
+                                                <input type="text" disabled class="form-control field" value="@view.model.PasswordRecoveryCode" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="col-md-4">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <img src="@view.model.ProfileImageURL" class="userImage" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-top:20px">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="name">Status do Usuário:</label>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-top:20px">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="name">Active:</label>
+                                                 <Switch TValue="bool" @bind-Checked="@view.isUserActive"></Switch>
+                                             
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-top:20px">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="name">Locked:</label>
+                                                 <Switch TValue="bool" @bind-Checked="@view.isUserLocked"></Switch>
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="field" style="padding-top:10px">
+
+                                        <TaskButton @ref="statebtn" Title="Atualizar Status" OnClick="OnChangeState"
+                                                      Description="Clique aqui para altualizar os estados de Ativo e Bloqueado."
+                                                      ActionLabel="Atualizando...">
+                                        </TaskButton>
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+
+                                <div class="col-md-10">
+
+                                    <div class="row">
+                                        <div class="col-md-12 field">
+                                              <div class="form-group">
+                                                 <label>Role:</label>
+                                                 @if (view.listRoles != null & view.listRoles.Count > 0)
+                                                {
+                                                       <SelectList TItem="RoleList"
+                                                            TValue="Int64"
+                                                            Data="@view.listRoles"
+                                                            TextField="@((item)=>item.RoleName)"
+                                                            ValueField="@((item)=>item.RoleID)"
+                                                            @bind-SelectedValue="@view.newModel.RoleID"></SelectList>
+                                                
+                                                }
+                                                 <br />
+                                                <label class="validation_field">@view.GetSummaryMessage("RoleID") </label>
+
+                                              </div>
+                                        </div>
+                                     </div>
+                                                                        
+
+                                    <div class="row">
+                                        <div class="col-md-12 field">
+                                            <div class="form-group">
+                                                <label>E-mail :</label>
+                                                <input type="text" @bind-value="@view.newModel.Email" maxlength="100" class="form-control" />
+                                                <br />
+                                                <label class="validation_field">@view.GetSummaryMessage("Email") </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                     <div class="row">
+                                        <div class="col-md-12 field">
+                                            <div class="form-group">
+                                                <label>Nome de Usuário :</label>
+                                                <input type="text" @bind-value="@view.newModel.UserName" maxlength="50" class="form-control" />
+                                                <br />
+                                                <label class="validation_field">@view.GetSummaryMessage("UserName") </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" >
+                                        <div class="col-md-6 field">
+                                            <div class="form-group">
+                                                <label>Senha :</label>
+                                                <input type="password" @bind-value="@view.newModel.Password" maxlength="8" class="form-control" />
+                                                <br />
+                                                <label class="validation_field">@view.GetSummaryMessage("Password") </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="field" style="padding-top:10px">
+
+                                        <TaskButton @ref="savenewbtn" OnClick="OnCreate" Title="Criar Usuário"
+                                                  Description="Clique aqui para salvar os dados do novo usuário."
+                                                  ActionLabel="Salvando...">
+                                        </TaskButton>
+
+                                    </p>
+
+  			                    </div>
+			                </div>       
+                        }
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                </div>
+            }
+            else
+            {
+                <h5>Carregando a página. Aguarde...</h5>
+
+            }
+
+        </div>
+    </div>
+
+</section>
+
+<MessageBox @ref="msgbox"></MessageBox>
+
+<MessageBox @ref="msgbox_create" 
+    ButtonNo="true" ButtonYes="true" ButtonOK="false" 
+    OnClickYes="OnNew" >
+</MessageBox>
+
+<TaskLoading @ref="loading" Title="Carregando dados. Aguarde..."></TaskLoading>
 
 @code {
+
+
+    private MessageBox msgbox;
+    private MessageBox msgbox_create;
+    private TaskLoading loading;
+    private TaskButton searchbtn;
+    private TaskButton statebtn;
+    private TaskButton newbtn;
+    private TaskButton savenewbtn;
+
+
+    //
+
+    private UserAuthenticated LoggedUser;
+    private UserViewModel view; 
+
+    //
+
+    private async Task InitResources()
+    {
+        _settings.LoadSettings(_httpclient);
+        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
+
+        if (await _appctrl.IsAuthenticated())
+        {
+            LoggedUser = _appctrl.UserInfo;
+            _memberservices.Init(_httpclient,_settings.Settings.ServiceURL,LoggedUser.Token);
+            view = new UserViewModel((_memberservices as MembershipGateway) ,LoggedUser); 
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            await InitResources();
+            await view.InitializeModels(); 
+            StateHasChanged();
+        }
+    }
+
+    public async Task OnSearch()
+    {
+        searchbtn.Begin(); 
+        await view.Search();
+
+        if (!view.ExecutionStatus.Status)
+        {
+           await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+        }
+
+        searchbtn.End();
+    }
+
+    public void OnNew()
+    {
+
+        view.InitNew(); 
+        StateHasChanged();
+    }
+
+    public async Task OnGet(object id)
+    {
+        await loading.Begin() ;
+
+        await view.Get(id);
+
+        await loading.End();
+
+        if (!view.ExecutionStatus.Status)
+        {
+           await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            view.InitEdit(); 
+
+        }
+
+        StateHasChanged();
+    }
+
+    public async Task OnChangeState()
+    {        
+        statebtn.Begin(); 
+        await view.ChangeState();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro ao alterar o status do usuário.", view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            await msgbox.ShowDialog("Aviso", "O status do usuário foi alterado.");
+        }
+
+        statebtn.End();
+
+    }
+
+    public async Task OnCreate()
+    {        
+         savenewbtn.Begin(); 
+       
+         await view.CreateNew(); 
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro criar novo usuário.", view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            this.Back();
+           await  msgbox_create.ShowDialog("Sucesso!", "O novo usuário foi criado com sucesso. Deseja continuar inserindo ?");
+
+        }
+
+        savenewbtn.End();
+
+    }
+
+ 
+    public async Task OnDetClick(object args)
+    {        
+        await OnGet(args);
+
+    }
+
+    public void Back()
+    {
+        view.BackToSearch(); 
+        StateHasChanged();
+
+    }
+
+    public void GoHome()
+    {
+        string url = _appctrl.UserInfo.HomeURL;
+        NavigationManager.NavigateTo(url);
+
+    }
+
+
+    //public string GetImageUrl(string filename)
+    //{
+    //    string ret = "";
+
+    //    ret = ((TemplateAppController)_appctrl).GetProfileImageURL(filename);
+
+    //    return ret;
+    //}
+
 
 }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj": {}
+    "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj": {}
   },
   "projects": {
-    "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj": {
+    "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj",
+        "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj",
-        "packagesPath": "C:\\Users\\carlos.fonteles\\.nuget\\packages\\",
-        "outputPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\obj\\",
+        "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj",
+        "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
+        "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\carlos.fonteles\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://www.nuget.org/api/v2/": {}
         },
         "frameworks": {
           "net6.0": {
@@ -64,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }

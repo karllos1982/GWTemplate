@@ -1,0 +1,243 @@
+﻿@page "/superadmin/sessionlog"
+@inherits SuperAdminLayout
+@layout SuperAdminLayout
+
+@inject IJSRuntime JSRuntime
+@inject IAppControllerAsync<UserAuthenticated> _appctrl
+@inject IMembershipGatewayManager _memberservices
+@inject IAppSettingsManager<TemplateSettings>  _settings
+@inject NavigationManager NavigationManager
+@inject HttpClient _httpclient
+
+
+<section class="hero-1-bg" id="home">
+    <div class="container">
+        <div class="row justify-content-left">
+            <div class="col-lg-6">
+                <div class="text-left mb-5">                        
+                    <h3 class="title mb-3"> 
+                        <span @onclick="GoHome" class="label-text font-weight-semibold bradcrumb-link">home \</span> Log de Acesso
+                     </h3>
+                    <p class="text-muted font-size-15">
+                        Visualização do Log de Acesso dos Usuários
+                    </p>
+                </div>
+            </div>
+            
+
+            @if (view != null)
+            {
+                <div style="display:@view.SearchingState">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="blog-box mb-4 mb-lg-0">
+
+                                <span class="text-dark fw-bold h5" style="padding-bottom:10px">Campos de Busca</span>
+
+                               <div class="form-group">
+                                    <label>E-mail do Usuário:</label>
+                                    <input type="email" @bind-value="view.param.pEmail" class="form-control field"
+                                           placeholder="Pesquisar por e-mail">
+                                </div>                              
+                                 
+                                <div class="form-group">
+                                     <label for="name">Pesquisar por Intervalo de Data:</label>
+                                      <Switch TValue="bool" @bind-Checked="@view.param.SearchByDate"></Switch>
+                                    
+                                </div>
+                                  
+                                @if (view.param.SearchByDate)
+                                {
+                                    <div class="form-group">
+                                        
+                                        <span>Data início:</span>
+                                        <DateEdit TValue="DateTime" @bind-Date="@view.param.pDate_Start" />
+                                        <br/>
+                                        <span>Data fim:</span>
+                                        <DateEdit TValue="DateTime" @bind-Date="@view.param.pData_End" />                                        
+
+                                    </div>
+                                }                                                     
+
+                                <p class="field" style="padding-top:10px">
+
+                                    <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
+                                              Description="Clique aqui buscar."
+                                              ActionLabel="Pesquisando...">
+                                    </TaskButton>
+
+                                </p>
+                             
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-8">
+                            <div class="blog-box mb-4 mb-lg-0">
+
+                                <span class="text-dark fw-bold h5" style="padding-bottom:10px">Resultado da Busca</span>
+
+                                @if (view.searchresult != null)
+                                {
+                                    @if (view.searchresult.Count > 0)
+                                    {
+
+                                        <DataGrid TItem="SessionSearchResult" Data="@view.searchresult"  Responsive  ShowPager PageSize=10>                                                                                         
+                                             
+                                            <DataGridColumns>
+                                            
+                                                <DataGridColumn Field="@nameof(SessionSearchResult.Date)" Caption="Data do Acesso" />
+                                                <DataGridColumn Field="@nameof(SessionSearchResult.Email)" Caption="E-mail" />
+                                                <DataGridColumn Field="@nameof(SessionSearchResult.UserName)" Caption="UserName" />                                              
+                                                <DataGridColumn Field="@nameof(SessionSearchResult.IP)" Caption="IP" />   
+                                                                                                                                           
+                                             </DataGridColumns>
+                                      
+                                         </DataGrid>
+                                     
+                                    }
+                                    else
+                                    {
+                                        <p> Nenhum registro encontrado </p>
+                                    }
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                            
+            }
+            else
+            {
+                <h5>Carregando a página. Aguarde...</h5>
+
+            }
+
+        </div>
+    </div>
+
+</section>
+
+<MessageBox @ref="msgbox"></MessageBox>
+
+<TaskLoading @ref="loading" Title="Carregando dados. Aguarde..."></TaskLoading>
+
+@code {
+
+
+    private MessageBox msgbox;  
+    private TaskLoading loading;
+    private TaskButton searchbtn;
+     
+    //
+
+    private UserAuthenticated LoggedUser;
+    private SessionViewModel view; 
+
+    //
+
+    private async Task InitResources()
+    {
+        _settings.LoadSettings(_httpclient);
+        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
+
+        if (await _appctrl.IsAuthenticated())
+        {
+            LoggedUser = _appctrl.UserInfo;
+            _memberservices.Init(_httpclient,_settings.Settings.ServiceURL,LoggedUser.Token);            
+            view = new SessionViewModel((_memberservices as MembershipGateway) ,LoggedUser); 
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            await InitResources();
+            await view.InitializeModels();           
+
+            StateHasChanged();
+        }
+    }
+
+    public async Task OnSearch()
+    {
+        searchbtn.Begin(); 
+        await view.Search();
+
+        if (!view.ExecutionStatus.Status)
+        {
+           await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+        }
+
+        searchbtn.End();
+    }
+
+    public void OnNew()
+    {
+
+        view.InitNew(); 
+        StateHasChanged();
+    }
+
+    public async Task OnGet(object id)
+    {
+        await loading.Begin() ;
+
+        await view.Get(id);
+
+        await loading.End();
+
+        if (!view.ExecutionStatus.Status)
+        {
+           await  msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            view.InitEdit(); 
+
+        }
+
+        StateHasChanged();
+    }
+
+   
+
+    public async Task OnDetClick(object args)
+    {        
+        await OnGet(args);
+
+    }
+
+    public void Back()
+    {
+        view.BackToSearch(); 
+        StateHasChanged();
+
+    }
+
+    public void GoHome()
+    {
+        string url = _appctrl.UserInfo.HomeURL;
+        NavigationManager.NavigateTo(url);
+
+    }
+
+
+    //public string GetImageUrl(string filename)
+    //{
+    //    string ret = "";
+
+    //    ret = ((TemplateAppController)_appctrl).GetProfileImageURL(filename);
+
+    //    return ret;
+    //}
+
+
+}

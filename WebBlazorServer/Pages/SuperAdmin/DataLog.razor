@@ -1,0 +1,463 @@
+﻿@page "/superadmin/datalog"
+@inherits SuperAdminLayout
+@layout SuperAdminLayout
+
+
+@inject IJSRuntime JSRuntime
+@inject IAppControllerAsync<UserAuthenticated> _appctrl
+@inject IMembershipGatewayManager _memberservices
+@inject IDataCacheGatewayManager _cacheservices
+@inject IAppSettingsManager<TemplateSettings>  _settings
+@inject NavigationManager NavigationManager
+@inject HttpClient _httpclient
+
+
+<section class="hero-1-bg" id="home">
+    <div class="container">
+        <div class="row justify-content-left">
+            <div class="col-lg-6">
+                <div class="text-left mb-5">                        
+                    <h3 class="title mb-3"> 
+                        <span @onclick="GoHome" class="label-text font-weight-semibold bradcrumb-link">home \</span> Log de Dados
+                     </h3>
+                    <p class="text-muted font-size-15">
+                        Visualização do Log de Dados
+                    </p>
+                </div>
+            </div>
+            
+
+            @if (view != null)
+            {
+                <div style="display:@view.SearchingState">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="blog-box mb-4 mb-lg-0">
+
+                                  <span class="text-dark fw-bold h5" style="padding-bottom:10px">Campos de Busca</span>
+
+                                  <div class="form-group field">
+                                        <label>Por Tipo de Operação:</label>
+
+                                    @if (view.listTipoOperacao.Count > 0)
+                                    {
+                                             <SelectList TItem="TipoOperacaoValueModel"
+                                                            TValue="string"
+                                                            Data="@view.listTipoOperacao"
+                                                            TextField="@((item)=>item.Text)"
+                                                            ValueField="@((item)=>item.Value)"
+                                                            @bind-SelectedValue="@view.param.pOperation"></SelectList>
+                                    
+                                    }
+
+                                </div>
+
+                            <div class="form-group field">
+                                <label>Por Tabela:</label>
+
+                                    @if (view.listTabelas.Count > 0)
+                                    {
+
+                                           <SelectList TItem="TabelasValueModel"
+                                                            TValue="string"
+                                                            Data="@view.listTabelas"
+                                                            TextField="@((item)=>item.Text)"
+                                                            ValueField="@((item)=>item.Value)"
+                                                            @bind-SelectedValue="@view.param.pTableName"></SelectList>
+                                      
+                                    }
+                                </div>
+
+                                 <div class="form-group">
+                                    <label for="name">Pesquisar por Intervalo de Data:</label>
+                                    <Switch TValue="bool" @bind-Checked="@view.param.SearchByDate"></Switch>
+                                
+                                </div>
+
+                                  @if (view.param.SearchByDate)
+                                   {
+                                        <div class="form-group field">     
+                                             <span>Data início:</span>
+                                            <DateEdit TValue="DateTime" @bind-Date="@view.param.pDate_Start" />
+                                            <br/>
+                                            <span>Data fim:</span>
+                                            <DateEdit TValue="DateTime" @bind-Date="@view.param.pData_End" />                                            
+
+                                        </div>
+                                   }
+
+                                <div class="form-group field">
+                                    <label>Por ID do Registro:</label>
+                                    <input type="text" class="form-control" maxlength="20" @bind-value="@view.param.pDataLogID"
+                                           placeholder="Pesquisar por ID do Registro">
+                                </div>
+
+                                <p class="field" style="padding-top:10px">
+
+                                    <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
+                                              Description="Clique aqui buscar usuários."
+                                              ActionLabel="Pesquisando...">
+                                    </TaskButton>
+
+                                </p>
+                             
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-8">
+                            <div class="blog-box mb-4 mb-lg-0">
+
+                                <span class="text-dark fw-bold h5" style="padding-bottom:10px">Resultado da Busca</span>
+
+                                @if (view.searchresult != null)
+                                {
+                                    @if (view.searchresult.Count > 0)
+                                    {
+                                           <DataGrid TItem="DataLogSearchResult" Data="@view.searchresult"  Responsive  ShowPager PageSize=10 >                                                                                         
+                                             
+                                                <DataGridColumns>
+                                            
+                                                    <DataGridColumn Field="@nameof(DataLogSearchResult.Email)" Caption="Email" />
+                                                    <DataGridColumn Field="@nameof(DataLogSearchResult.TableName)" Caption="TableName" />
+                                                    <DataGridColumn Field="@nameof(DataLogSearchResult.OperationText)" Caption="OperationText" />
+                                                    <DataGridColumn Field="@nameof(DataLogSearchResult.Date)" Caption="Date" />
+                                                    <DataGridColumn Field="@nameof(DataLogSearchResult.DataLogID)" Caption="Cadastro" >
+                                                        <DisplayTemplate>
+                                                                @{
+                                                                    DataLogSearchResult obj = (context as DataLogSearchResult);
+
+                                                                    <button @onclick="(() => OnDetClick(obj.DataLogID))" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                                                                                        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                                                                        <i class="mdi mdi-menu" style=" color: #4e42d9"></i>
+                                                                    </button>
+
+                                                                }
+                                                    
+                                                        </DisplayTemplate>
+                                                    </DataGridColumn>
+                                            
+                                                    </DataGridColumns>
+                                      
+                                            </DataGrid>
+                                    
+                                    }
+                                    else
+                                    {
+                                        <p> Nenhum registro encontrado </p>
+                                    }
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div style="display:@view.EditingState">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <a @onclick="Back" class="text-primary font-weight-semibold commandLink" style="float:left; ">
+                                <span class="ms-2 left-icon">&#8593;</span> Voltar pra Busca
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-3 field">
+                            <div class="form-group">
+                                <label>Log ID:</label>
+                                <input type="text" value="@view.model.DataLogID" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 field">
+                            <div class="form-group">
+                                <label>Informações do Log:</label>
+                                <input type="text" value="@view.model.TableName | @view.model.OperationText | @view.model.Date | @view.model.Email"
+                                       class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 field">
+
+                            <TaskIconButton @ref="timelinebtn" Class="primary" Icon="file-tree" 
+                                OnClick="OnGetTimeline"
+                                Description="Abrir Timeline do registro.">
+                            </TaskIconButton>
+
+                        </div>
+
+                    </div>
+
+                    @if (!view.ShowTimeline)
+                    {
+                        <div class="row" style="margin-top: 15px">
+                            <div class="col-lg-6">
+
+                                <h5>Dados da Versão Anterior</h5>
+
+                                @if (view.logold_content != null)
+                                {
+                                    @if (view.logold_content.Count > 0)
+                                    {
+                                         <DataGrid TItem="DataLogItem" Data="@view.logold_content"  Responsive >                                                                                         
+                                             
+                                                <DataGridColumns>
+                                                        <DataGridColumn Field="@nameof(DataLogItem.ItemName)" Caption="Campo" />
+                                                        <DataGridColumn Field="@nameof(DataLogItem.ItemValue )" Caption="Valor" />                                                   
+                                            
+                                                    </DataGridColumns>
+                                      
+                                          </DataGrid>
+                                      
+                                    }
+                                    else
+                                    {
+                                        <p> Não existe versão anterior </p>
+                                    }
+                                }
+
+
+                            </div>
+
+                            <div class="col-lg-6">
+                                <h5>Dados da Versão de Edição</h5>
+
+                                @if (view.logcurrent_content != null)
+                                {
+                                    @if (view.logcurrent_content.Count > 0)
+                                    {
+                                        <DataGrid TItem="DataLogItem" Data="@view.logcurrent_content"  Responsive >                                                                                         
+                                             
+                                                <DataGridColumns>
+                                                        <DataGridColumn Field="@nameof(DataLogItem.ItemName)" Caption="Campo" />
+                                                                       
+                                                        <DataGridColumn Field="@nameof(DataLogItem.ItemValue)" Caption="Cadastro" >
+                                                            <DisplayTemplate>
+                                                                    @{
+                                                                        DataLogItem obj = (context as DataLogItem);
+                                                                        string color = "black";
+                                                                        string bold = "bold";
+                                                                        if (obj.IsDifferent)
+                                                                        {
+                                                                            color = "red";
+                                                                            bold = "bold";
+                                                                        }
+                                                                        <span style="color:@color;font-weight:@bold"> @obj.ItemValue </span>
+                                                                    }
+                                                    
+                                                            </DisplayTemplate>
+                                                        </DataGridColumn>
+                                            
+                                                 </DataGridColumns>
+                                      
+                                          </DataGrid>
+                                    
+                                    }
+                                    else
+                                    {
+                                        <p> Não existe versão de edição </p>
+                                    }
+                                }
+
+                            </div>
+
+                        </div>
+                     }
+                     else
+                     {
+                        <div class="row" style="margin-top: 15px">
+                            <div class="col-lg-12">
+
+                                <h5>Time Line do Registro</h5>
+
+                                @if (view.timeline != null)
+                                {
+                                    @if (view.timeline.Count > 0)
+                                    {
+
+                                         <DataGrid TItem="DataLogTimelineModel" Data="@view.timeline"  Responsive >                                                                                         
+                                             
+                                                <DataGridColumns>
+                                                        <DataGridColumn Field="@nameof(DataLogTimelineModel.Date)" Caption="Data" />
+                                                        <DataGridColumn Field="@nameof(DataLogTimelineModel.OperationText )" Caption="Valor" />                                                   
+                                                        <DataGridColumn Field="@nameof(DataLogTimelineModel.UserEmail )" Caption="Usuário" /> 
+                                                    </DataGridColumns>
+                                      
+                                          </DataGrid>
+                                        
+                                    }
+                                    else
+                                    {
+                                        <p> Timeline do registro não disponível </p>
+                                    }
+                                }
+
+
+                            </div>
+                        </div>
+                     }
+
+                </div>
+               
+            }
+            else
+            {
+                <h5>Carregando a página. Aguarde...</h5>
+
+            }
+
+        </div>
+    </div>
+
+</section>
+
+<MessageBox @ref="msgbox"></MessageBox>
+
+<TaskLoading @ref="loading" Title="Carregando dados. Aguarde..."></TaskLoading>
+
+@code {
+
+
+    private MessageBox msgbox;  
+    private TaskLoading loading;
+    private TaskButton searchbtn;
+    private TaskIconButton timelinebtn;
+
+
+    //
+
+    private UserAuthenticated LoggedUser;
+    private DataLogViewModel view; 
+
+    //
+
+    private async Task InitResources()
+    {
+        _settings.LoadSettings(_httpclient);
+        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
+
+        if (await _appctrl.IsAuthenticated())
+        {
+            LoggedUser = _appctrl.UserInfo;
+            _memberservices.Init(_httpclient,_settings.Settings.ServiceURL,LoggedUser.Token);
+            _cacheservices.Init(_httpclient,_settings.Settings.ServiceURL,LoggedUser.Token);
+            view = new DataLogViewModel((_memberservices as MembershipGateway) ,LoggedUser); 
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            await InitResources();
+            await view.InitializeModels();
+            await view.LoadTipoOperacaoList((_cacheservices as DataCacheGateway));
+            await view.LoadTabelaList((_cacheservices as DataCacheGateway));
+
+            StateHasChanged();
+        }
+    }
+
+    public async Task OnSearch()
+    {
+        searchbtn.Begin(); 
+        await view.Search();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+        }
+
+        searchbtn.End();
+    }
+
+    public void OnNew()
+    {
+
+        view.InitNew(); 
+        StateHasChanged();
+    }
+
+    public async Task OnGet(object id)
+    {
+        await loading.Begin() ;
+
+        await view.Get(id);
+
+        await loading.End();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            view.InitEdit(); 
+
+        }
+
+        StateHasChanged();
+    }
+
+    public async Task OnGetTimeline()
+    {
+        timelinebtn.Begin() ;
+
+        await view.GetTimeline();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+            view.ShowTimeline = false; 
+        }
+        else
+        {
+            view.ShowTimeline = true; 
+        }
+
+        timelinebtn.End();
+    }
+    
+
+    public async Task OnDetClick(object args)
+    {        
+        await OnGet(args);
+
+    }
+
+    public void Back()
+    {
+        view.BackToSearch(); 
+        StateHasChanged();
+
+    }
+
+    public void GoHome()
+    {
+        string url = _appctrl.UserInfo.HomeURL;
+        NavigationManager.NavigateTo(url);
+
+    }
+
+
+    //public string GetImageUrl(string filename)
+    //{
+    //    string ret = "";
+
+    //    ret = ((TemplateAppController)_appctrl).GetProfileImageURL(filename);
+
+    //    return ret;
+    //}
+
+
+}
