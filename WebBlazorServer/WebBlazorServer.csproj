@@ -28,7 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Common\" />
+    <None Include="wwwroot\css\metronic\fonts\%40fortawesome\fa-solid-900.woff2" />
+    <None Include="wwwroot\js\metronic\plugins.bundle.js" />
+    <None Include="wwwroot\js\metronic\scripts.bundle.js" />
   </ItemGroup>
 
 </Project>

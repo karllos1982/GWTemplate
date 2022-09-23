@@ -1,221 +1,368 @@
-﻿@inject IJSRuntime JSRuntime
-@inject IAppControllerAsync<UserAuthenticated> _appctrl
-@inject IAuthGatewayManager _appservices
-@inject IAppSettingsManager<TemplateSettings>  _settings
-@inject NavigationManager NavigationManager
-@inject HttpClient _client
-
-
-@if (LoggedUser != null)
-{
-
- <Modal @ref="usermodal" >
-    <ModalContent Centered>
-        <ModalHeader>
-              <div class="row">
-                    <div class="col-6">
-                            <span class="e-avatar userview-image e-avatar-xsmall e-avatar-circle"></span>
-                            
-                    </div>
-
-                    <div class="col-6" style="padding-top:20px">
-                        <ModalTitle>@LoggedUser.UserName</ModalTitle> 
-                    </div>
-            </div>
-
-            <CloseButton></CloseButton>
-        </ModalHeader>
-        <ModalBody>
-
-             <div class="row">
-                    <div class="col-12 ">
-                        <a @onclick="GotoHome" class="text-primary font-weight-semibold"
-                                                                    style="float:left; cursor:pointer">
-                                     <span class="ms-2 left-icon">Ir para a Home &#8594;</span> 
-                            </a>
-                     </div>
-            </div>
-
-               <div class="row">
-                    <div class="col-12 ">                                             
-
-                        <div class="dialogContent">
-                            <span>E-mail:</span>
-                            <span class="dialogText">  @LoggedUser.Email  </span>
-                        </div>
-
-                        <div class="dialogContent">
-                            <span>
-                                Perfil:
-                            </span>
-                            <span class="dialogText"> @LoggedUser.RoleName </span>                            
-                        </div>
-
-                        <div class="dialogContent">
-                            <button type="submit" @onclick="GotoProfile" class="btn btn-primary">
-                                Alterar Perfil
-                                <i class="icon-size-15 icon ms-1" data-feather="arrow-right-circle"></i>
-                            </button>
-
-                        </div>
-
-                         <div class="dialogContent">
-                            <button type="submit" @onclick="Logout" class="btn btn-danger">
-                               Sair
-                                <i class="icon-size-15 icon ms-1" data-feather="arrow-right-circle"></i>
-                            </button>
-
-                         </div>
-
-                    </div>
-
-                </div>
-
-        </ModalBody>
+﻿
+<div class="d-flex align-items-center flex-row-auto">                                       
+        <div class="d-flex align-items-center ms-1" @onclick="Logout">            
+            <a href="#" class="btn btn-icon btn-color-white bg-hover-white bg-hover-opacity-10 w-35px h-35px h-md-40px w-md-40px" data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+               
+                <span class="svg-icon theme-light-show svg-icon-2">
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	                     viewBox="0 0 490.3 490.3" style="enable-background:new 0 0 490.3 490.3;" xml:space="preserve">
+                    <g>
+	                    <g>
+		                    <path d="M0,121.05v248.2c0,34.2,27.9,62.1,62.1,62.1h200.6c34.2,0,62.1-27.9,62.1-62.1v-40.2c0-6.8-5.5-12.3-12.3-12.3
+			                    s-12.3,5.5-12.3,12.3v40.2c0,20.7-16.9,37.6-37.6,37.6H62.1c-20.7,0-37.6-16.9-37.6-37.6v-248.2c0-20.7,16.9-37.6,37.6-37.6h200.6
+			                    c20.7,0,37.6,16.9,37.6,37.6v40.2c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3v-40.2c0-34.2-27.9-62.1-62.1-62.1H62.1
+			                    C27.9,58.95,0,86.75,0,121.05z" fill="currentColor"/>
+		                    <path d="M385.4,337.65c2.4,2.4,5.5,3.6,8.7,3.6s6.3-1.2,8.7-3.6l83.9-83.9c4.8-4.8,4.8-12.5,0-17.3l-83.9-83.9
+			                    c-4.8-4.8-12.5-4.8-17.3,0s-4.8,12.5,0,17.3l63,63H218.6c-6.8,0-12.3,5.5-12.3,12.3c0,6.8,5.5,12.3,12.3,12.3h229.8l-63,63
+			                    C380.6,325.15,380.6,332.95,385.4,337.65z" fill="currentColor"/>
+	                    </g>
+                    </g>
+                    </svg>
+                </span>
+              
+            </a>        
+          
+        </div>
         
+            @if (Islogged)
+            {
+                <div class="d-flex align-items-center ms-1" id="kt_header_user_menu_toggle" @onclick="OpenProfile">
+
+                    <div class="btn btn-flex align-items-center bg-hover-white bg-hover-opacity-10 py-2 px-2 px-md-3" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+             
+                        <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
+                            <span class="text-white opacity-75 fs-8 fw-semibold lh-1 mb-1">@User.UserName</span>
+                            <span class="text-white fs-8 fw-bold lh-1">@User.Email</span>
+                        </div>
+            
+                        <div class="symbol symbol-30px symbol-md-40px">
+                            <img src="@User.ProfileImageURL" alt="image" />
+                        </div>
+               
+                    </div>
+                  
+                </div>
+            }
+            else
+            {
+                  <div class="d-flex align-items-center ms-1" id="kt_header_user_menu_toggle" onclick="javascript:window.location='../login'">
+
+                        <div class="btn btn-flex align-items-center bg-hover-white bg-hover-opacity-10 py-2 px-2 px-md-3" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+             
+                            <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
+                                <span class="text-white opacity-75 fs-8 fw-semibold lh-1 mb-1">Não Logado</span>
+                                
+                            </div>
+            
+                            <div class="symbol symbol-30px symbol-md-40px">
+                                <img src="../images/user_anonymous.png" alt="image" />
+                            </div>
+               
+                        </div>
+                  
+                </div>
+            }
+      
+    </div>
+  
+    
+<MessageBox @ref="msgbox" ></MessageBox>
+<MessageBox @ref="pwdbox" OnClickOk="OnMsgBoxOk"></MessageBox>
+<MessageBox @ref="imgbox" OnClickOk="OnMsgBoxOk2"></MessageBox>
+
+<Modal @ref="modalRef"  >
+    <ModalContent Centered Size="ModalSize.Large" >
+      
+        <ModalBody>
+          @if(Islogged) 
+          {
+            <div class="row" style="min-height:500px">
+                                                
+                    <div class="card" style="height:1px">
+					    <!--begin::Card head-->
+					    <div class="card-header card-header-stretch">
+						    <!--begin::Title-->
+						    <div class="card-title d-flex align-items-center">
+										
+							    <h3 class="fw-bold m-0 text-gray-800">Meu Perfil </h3>
+						    </div>
+						    <!--end::Title-->
+						    <!--begin::Toolbar-->
+						    <div class="card-toolbar m-0">
+							    <!--begin::Tab nav-->
+							    <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bold" role="tablist">
+								    <li class="nav-item" role="presentation">
+									    <a id="kt_link_tab1" class="nav-link justify-content-center text-active-gray-800 active" data-bs-toggle="tab" role="tab" href="#kt_tab1">Dados Principais</a>
+								    </li>
+								    <li class="nav-item" role="presentation">
+									    <a id="kt_link_tab2" class="nav-link justify-content-center text-active-gray-800" data-bs-toggle="tab" role="tab" href="#kt_tab2">Alterar Senha</a>
+								    </li>								   
+							    </ul>
+							    <!--end::Tab nav-->
+						    </div>
+						    <!--end::Toolbar-->
+					    </div>
+
+                 </div>
+
+                 <div class="">
+						<!--begin::Tab Content-->
+						<div class="tab-content">
+							<!--begin::Tab panel-->
+							<div id="kt_tab1" class="card-body p-0 tab-pane fade show active" role="tabpanel" aria-labelledby="kt_link_tab1">
+                                <div Class="card mb-5 mb-xl-10">
+                                    <div Class="card-body pt-9 pb-0">
+                                        <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
+										<!--begin: Pic-->
+										<div class="me-7 mb-4">
+											<div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+												<img src="@User.ProfileImageURL" alt="image">
+												<div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
+											</div>
+										</div>
+										<!--end::Pic-->
+										<!--begin::Info-->
+										<div class="flex-grow-1">
+											<!--begin::Title-->
+											<div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+												<!--begin::User-->
+												<div class="d-flex flex-column">
+													<!--begin::Name-->
+													<div class="d-flex align-items-center mb-2">
+														<a class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">@User.UserName</a>													
+													</div>
+
+                                                    <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
+														<a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"> @User.RoleName </a>
+                                                    </div>
+
+                                                    <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
+														<a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"> @User.Email </a>
+                                                    </div>
+
+                                                    <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
+                                                        <span>Alterar a imagem de perfil:</span> 
+                                                                                                            
+                                                    </div>
+                                                    
+                                                    <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
+                                                        <FileEdit Changed="@OnChanged" Filter=".jpg, .png, .gif"  />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                </div>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             <div id="kt_tab2" class="card-body p-0 tab-pane fade" role="tabpanel" aria-labelledby="kt_link_tab2">
+                                 <div style="padding-left: 25px;padding-top: 20px;" >
+                                                                     
+                                            <div class="row">
+                                                <div class="col-md-12">                    
+                                                    <h5>1. Clique no link abaixo para receber um email com o código de segurança para troca de senha</h5>					
+                                            
+                                                    <TaskButton @ref="sendcodebtn" OnClick="SendCode" 
+                                                            Title="Enviar código"
+                                                            ActionLabel="Enviando...">
+                                                     </TaskButton>       
+
+                                                </div>
+                                                    
+                                           </div>
+
+                                            <div class="row" style="margin-top:20px">
+                                                <div class="col-md-12"> 
+                                                    <h5> 2. Após receber código, preencha as informações abaixo e clique em Altera Senha:</h5>	
+                                                 </div>
+                                            </div>
+
+                                            <div class="row" style="margin-top:20px">
+                                                <div class="col-md-12"> 
+                                                    <input type="email" @bind-value=@changeObj.Code class="form-control"
+                                                            placeholder="Digite o código de segurança">
+                                                 </div>
+                                            </div>
+
+                                            <div class="row" style="margin-top:20px">
+                                                <div class="col-md-12"> 
+                                                   <input type="password" @bind-value=@changeObj.NewPassword 
+                                                            class="form-control" maxlength="10"
+                                                            placeholder="Digite a nova senha">
+                                        
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="row" style="margin-top:20px">
+                                                <div class="col-md-12"> 
+                                                                    
+                                                     <TaskButton @ref="alterarsenhabtn" OnClick="ChangePassword" 
+                                                            Title="Alterar a Senha"
+                                                            Description="Clique aqui para alterar a senha."
+                                                            ActionLabel="Alterando a senha...">
+                                                      </TaskButton>    
+
+                                                </div>
+                                                 
+
+                                            </div> 
+                                    
+                                 </div>
+                             </div>
+
+
+                        </div>
+                 </div>
+
+            </div>
+          }
+
+        </ModalBody>   
+        
+        <ModalFooter>
+            <Blazorise.Bootstrap5.CloseButton></Blazorise.Bootstrap5.CloseButton>
+        </ModalFooter>
+
     </ModalContent>
 </Modal>
 
+@code {
 
+    private Modal modalRef;
 
-}
+    private MessageBox msgbox;
+    private MessageBox pwdbox;
+    private MessageBox imgbox;
 
-<style>
+    private TaskButton alterarsenhabtn;
+    private TaskButton sendcodebtn;
 
+    private UserAuthenticated LoggedUser;
 
-     #template {
-        display: inline-block;
-        padding: 0px 10px;
-        vertical-align: middle;
-        height: 40px;
-        line-height: 40px;
-    }
+    private ChangeUserPassword changeObj = new ChangeUserPassword();
 
-     input {
-        width: 75%;
-        float: left;
-    }
+    [Parameter]
+    public bool Islogged { get; set; }
 
+    [Parameter]
+    public UserAuthenticated User { get; set; }
 
-     .dialogContent .dialogText {
-        font-size: 13px;
-        padding: 5%;
-        word-wrap: break-word;
-        border-radius: 6px;
-        text-align: justify;
-        font-style: initial;
-        display: block;
-        font-weight:bold;
+    [Parameter]
+    public AuthGateway Service { get; set; }
 
-    }
-
-      .dialogContent .dialogText, .dialogContent .dialogText {
-        background-color: #f5f5f5;
-    }
-
-
-     .dialogContent {
-        display: block;
-        font-size: 15px;
-        word-wrap: break-word;
-        text-align: left;
-        font-style: normal;
-        border-radius: 6px;
-        padding: 3%;
-        position: relative;
-        top: 20px;
-    }
-
-    .e-dialog .e-dlg-header-content .e-btn.e-dlg-closeicon-btn:active .e-icon-dlg-close,
-    .e-dialog .e-dlg-header-content .e-btn.e-dlg-closeicon-btn:focus .e-icon-dlg-close,
-    .e-dialog .e-dlg-header-content .e-btn.e-dlg-closeicon-btn:hover .e-icon-dlg-close {
-        color: rgb(78, 66, 217);
-    }
-
-    .e-dialog .e-dlg-header-content .e-dlg-header .e-avatar.userview-image {
-        background-image: @userimageurl;
-        vertical-align: middle;
-        display: inline-block;
-        width: 64px;
-        height: 64px;
-    }
-
-     .control_wrapper {
-        width: 350px;
-        margin: 0 auto;
-    }
-
-
-</style>
-
-
-
-@code{
-
-
-    private UserAuthenticated LoggedUser = null;
-
-    private string userimageurl = "";
-    private Modal usermodal;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        InitResources();
-
-        if (firstRender)
-        {            
-            if (await _appctrl.IsAuthenticated())
-            {
-                LoggedUser = _appctrl.UserInfo;
-                _appservices.Init(_client,_settings.Settings.ServiceURL, _appctrl.UserInfo.Token);
-            }
-        }
-
-    }
-
-    private void InitResources()
-    {
-        _settings.LoadSettings(_client);
-        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
-
-    }
-
-
-    public async Task Show()
-    {
-        //LoggedUser = _appctrl.UserInfo;
-
-        userimageurl = "url(\"" + _appctrl.UserInfo.ProfileImageURL  + "\")";
-        await usermodal.Show();
-        StateHasChanged();
-
-    }
-
-    public async Task GotoProfile()
-    {
-
-        await usermodal.Hide(); 
-        string url = _settings.Settings.SiteURL + "/profile";
-        NavigationManager.NavigateTo(url);
-        StateHasChanged();
-
-    }
-
-    public void Logout()
-    {
-        OnLogout.InvokeAsync(null);
-    }
 
     [Parameter]
     public EventCallback OnLogout { get; set; }
 
-    
-    public void GotoHome()
+    public async Task Logout()
     {
-        
-        string url = _appctrl.UserInfo.HomeURL;
-        NavigationManager.NavigateTo(url);    
+        await OnLogout.InvokeAsync(null);
 
     }
+
+    private async Task OpenProfile()
+    {
+        await modalRef.Show();      
+
+    }
+
+    public async Task SendCode()
+    {
+
+        sendcodebtn.Begin();
+
+        await Service.RequestChangePasswordCode(User.Email);
+
+        if (Service.APIResponse.StatusOK)
+        {
+            await  msgbox.ShowDialog("Código enviado", "O código de segurança para a troca de senha foi enviado para o seu e-mail de cadastro.");                
+        }
+        else
+        {
+            Exception error = null;
+            Service.GetDefaultError(ref error); 
+            await msgbox.ShowDialog("Erro ao enviar código", error.Message);
+        }
+        sendcodebtn.End();    
+
+    }
+
+    public async Task ChangePassword()
+    {
+
+        alterarsenhabtn.Begin();
+
+        changeObj.Email = User.Email;
+        await Service.ChangePassword(changeObj);
+
+        if (Service.APIResponse.StatusOK)
+        {
+            await  pwdbox.ShowDialog("Senha Alterada", "A senha foi alterada com sucesso. Efetue login novamente.");                
+        }
+        else
+        {
+            Exception error = null;
+            Service.GetDefaultError(ref error); 
+            await  msgbox.ShowDialog("Erro ao enviar código", error.Message);
+        }
+        alterarsenhabtn.End();  
+
+    }
+
+    private async Task OnMsgBoxOk()
+    {
+
+        await OnLogout.InvokeAsync(null);
+
+    }
+
+    private async Task OnChanged( FileChangedEventArgs e )
+    {
+        IFileEntry f = e.Files[0];
+        ChangeUserImage ret = null;
+        byte[] content = null;
+
+        foreach ( var file in e.Files )
+        {         
+            using ( var stream = new MemoryStream() )
+            {                
+                await file.WriteToStreamAsync( stream );
+
+                stream.Seek( 0, SeekOrigin.Begin );
+                content = stream.ToArray();
+
+            }
+        }     
+
+        AuthGateway gateway = (AuthGateway)Service;
+        ret =  await gateway.ChangeUserImage(content);
+
+        if (gateway.APIResponse.StatusOK)
+        {
+
+            await  imgbox.ShowDialog("Imagem alterada", "A imagem de perfil foi alterada.");
+
+        }
+        else
+        {
+            Exception error = null;
+            gateway.GetDefaultError(ref error); 
+            await msgbox.ShowDialog("Erro ao salvar imagem.", error.Message);
+        }
+
+    }
+
+    private  async Task OnMsgBoxOk2()
+    {
+        await modalRef.Hide();
+
+    }
+
+
+
 
 }

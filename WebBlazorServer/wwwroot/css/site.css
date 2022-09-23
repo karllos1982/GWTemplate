@@ -59,6 +59,48 @@ a, .btn-link {
     color: white;
 }
 
-    .blazor-error-boundary::after {
-        content: "An error has occurred."
+.blazor-error-boundary::after {
+    content: "An error has occurred."
+}
+
+.a-link {
+    cursor: pointer
+}
+
+.validation_field {
+    color: red;
+}
+
+
+
+/*data table css*/
+
+
+     .table-responsive table thead tr {
+        height: 30px;
+        background-color: rgb(24, 28, 50);
+        color: white;
+        font-size: 14px;
+      }
+
+    .table-responsive table tr, .table-responsive table th, .table-responsive table td {
+        border-style: solid;
+        border-width: thin;
+        border-color: rgb(24, 28, 50);
     }
+
+    .table-responsive table tr:first-child, .table-responsive table th:first-child, .table-responsive table td:first-child {
+        padding-left: 7px;
+    }
+
+    .table-responsive table {
+        border-bottom-style: solid;
+        border-width: thin;
+        border-color: rgb(24, 28, 50);
+    }
+
+    .table-responsive table thead tr th {
+        border-right-color: white;
+    }
+
+

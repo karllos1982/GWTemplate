@@ -136,7 +136,6 @@ H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debu
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\staticwebassets.build.json
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\staticwebassets.development.json
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\scopedcss\Shared\UnloggedLayout.razor.rz.scp.css
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\scopedcss\bundle\WebBlazorServer.styles.css
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\scopedcss\projectbundle\WebBlazorServer.bundle.scp.css
