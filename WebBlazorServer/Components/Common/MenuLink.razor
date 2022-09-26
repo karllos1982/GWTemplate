@@ -5,7 +5,7 @@
       
         <div class="header-tabs overflow-auto mx-4 ms-lg-10 mb-5 mb-lg-0" id="kt_header_tabs" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_header_navs_wrapper', lg: '#kt_brand_tabs'}">
            
-            <ul class="nav flex-nowrap text-nowrap">
+            <ul class="nav flex-nowrap text-nowrap" >
                 @if (RoleName != null)
                 {
                     @if (GetItems())
@@ -156,9 +156,9 @@
 
          _items.Add(new MenuItem("Anonymous", "Home", "1"){ LinkTitle="Login", LinkURL="Login", State="active show"}) ;         
 
-         _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="superadmin/Users", State="active show"}) ;
-         _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Dados", LinkURL="superadmin/DataLog"}) ;
-         _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Acesso", LinkURL="superadmin/AccessLog"}) ;
+         _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="superadmin/users", State="active show"}) ;
+         _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Dados", LinkURL="superadmin/datalog"}) ;
+         _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Acesso", LinkURL="superadmin/accesslog"}) ;
 
          _items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 1", LinkURL="pag1"}) ;
          _items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 2", LinkURL="pag2"}) ;

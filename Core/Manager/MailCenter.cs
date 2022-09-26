@@ -10,7 +10,7 @@ namespace Template.Core.Manager
 {
     public class TemplateMailCenter : ITemplateMailing
     {
-        public MailSettings Settings { get ; set ; }
+        public MailSettings Settings { get; set; }
 
         public TemplateMailCenter(MailSettings settings)
         {
@@ -20,10 +20,10 @@ namespace Template.Core.Manager
 
         public void Initialize()
         {
-            
+
         }
 
-        
+
 
         public OperationStatus SendTemporaryPassword(string email, string name, string code)
         {
@@ -34,8 +34,8 @@ namespace Template.Core.Manager
             strq.Append("<b>" + code + "</b><BR/>");
             strq.Append("Utilize essa senha pra acessar o site. ");
             strq.Append("Após acessar, recomendamos que você redefina sua senha.");
-            
-            Email e = new Email(Settings);            
+
+            Email e = new Email(Settings);
             ret.Status = e.Send(name, email, Settings.NameSender + " - Recuperação de Senha", strq.ToString());
 
             return ret;
@@ -45,13 +45,13 @@ namespace Template.Core.Manager
         {
             OperationStatus ret = new OperationStatus(true);
             StringBuilder strq = new StringBuilder();
-            
+
             strq.Append("<b>ATIVAÇÃO DE CONTA</b>" + "<BR/> <BR/>");
             strq.Append("Este é o código para a ativação de conta:" + "<BR/>");
             strq.Append("<b>" + code + "</b><BR/>");
             strq.Append("Acesse o site e utilize esse código pra ativação da conta.");
 
-            Email e = new Email(Settings);            
+            Email e = new Email(Settings);
             ret.Status = e.Send(name, email, Settings.NameSender + " - Ativação de Conta", strq.ToString());
 
             return ret;
@@ -77,7 +77,7 @@ namespace Template.Core.Manager
             OperationStatus ret = new OperationStatus(true);
             StringBuilder strq = new StringBuilder();
             strq.Append("<b>CONFIRMAÇÃO DE E-MAIL</b>" + "<BR/> <BR/>");
-            strq.Append("Bem-vindo ao Portal " + Settings.NameSender + "<BR/>" );
+            strq.Append("Bem-vindo ao Portal " + Settings.NameSender + "<BR/>");
             strq.Append("Utilize o código abaixo para confirmar seu cadastro no site o Portal." + "<BR/>");
             strq.Append("<b>" + code + "</b><BR/>");
             strq.Append("Prossiga com a confirmação do cadastro no site.");

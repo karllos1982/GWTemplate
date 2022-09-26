@@ -1,4 +1,4 @@
-﻿@page "/superadmin/sessionlog"
+﻿@page "/superadmin/accesslog"
 @inherits SuperAdminLayout
 @layout SuperAdminLayout
 
@@ -9,118 +9,127 @@
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
 
+<BreadCrumbView IsHome="false" HomeURL="/superadmin/home" PageTitle="Log de Acesso" ></BreadCrumbView>
 
-<section class="hero-1-bg" id="home">
-    <div class="container">
-        <div class="row justify-content-left">
-            <div class="col-lg-6">
-                <div class="text-left mb-5">                        
-                    <h3 class="title mb-3"> 
-                        <span @onclick="GoHome" class="label-text font-weight-semibold bradcrumb-link">home \</span> Log de Acesso
-                     </h3>
-                    <p class="text-muted font-size-15">
-                        Visualização do Log de Acesso dos Usuários
-                    </p>
-                </div>
-            </div>
-            
+   <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+        <div class="content flex-row-fluid" id="kt_content">        
+            <div class="">  
+                @if (view != null)
+                {
 
-            @if (view != null)
-            {
-                <div style="display:@view.SearchingState">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="blog-box mb-4 mb-lg-0">
+                     <div style="display:@view.SearchingState">
 
-                                <span class="text-dark fw-bold h5" style="padding-bottom:10px">Campos de Busca</span>
+                        <div class="row gy-5 g-xl-10">
 
-                               <div class="form-group">
-                                    <label>E-mail do Usuário:</label>
-                                    <input type="email" @bind-value="view.param.pEmail" class="form-control field"
-                                           placeholder="Pesquisar por e-mail">
-                                </div>                              
+                            <div class="col-xl-4">                                
+                                <div class="card card-flush h-xl-100">								      
+								    <div class="card-header pt-7">
+									  
+									    <h3 class="card-title align-items-start flex-column">
+										    <span class="card-label fw-bold text-dark">Pesquisar</span>										
+									    </h3>									        
+									       
+                                    </div>
+                                           
+                                    <div class="card-body">
+							             	
+                                        <div class="form-group">
+                                            <label class="form-label">E-mail do Usuário:</label>
+                                            <input type="email" @bind-value="view.param.pEmail" class="form-control field"
+                                                   placeholder="Pesquisar por e-mail">
+                                        </div>                              
                                  
-                                <div class="form-group">
-                                     <label for="name">Pesquisar por Intervalo de Data:</label>
-                                      <Switch TValue="bool" @bind-Checked="@view.param.SearchByDate"></Switch>
+                                        <div class="form-group">
+                                             <label class="form-label" for="name">Pesquisar por Intervalo de Data:</label>
+                                              <Switch TValue="bool" @bind-Checked="@view.param.SearchByDate"></Switch>
                                     
-                                </div>
+                                        </div>
                                   
-                                @if (view.param.SearchByDate)
-                                {
-                                    <div class="form-group">
+                                        @if (view.param.SearchByDate)
+                                        {
+                                            <div class="form-group">
                                         
-                                        <span>Data início:</span>
-                                        <DateEdit TValue="DateTime" @bind-Date="@view.param.pDate_Start" />
-                                        <br/>
-                                        <span>Data fim:</span>
-                                        <DateEdit TValue="DateTime" @bind-Date="@view.param.pData_End" />                                        
+                                                <span>Data início:</span>
+                                                <DateEdit TValue="DateTime" @bind-Date="@view.param.pDate_Start" />
+                                                <br/>
+                                                <span>Data fim:</span>
+                                                <DateEdit TValue="DateTime" @bind-Date="@view.param.pData_End" />                                        
+
+                                            </div>
+                                        }                                                     
+
+                                        <p class="field" style="padding-top:10px">
+
+                                            <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
+                                                      Description="Clique aqui buscar."
+                                                      ActionLabel="Pesquisando...">
+                                            </TaskButton>
+
+                                        </p>                                            
 
                                     </div>
-                                }                                                     
+							   </div>
+                             </div>
+                                                            
+                            <div class="col-xl-8">
 
-                                <p class="field" style="padding-top:10px">
+                                <div class="card card-flush h-xl-100">
+										
+									<div class="card-header pt-7">
+											
+										<h3 class="card-title align-items-start flex-column">
+											<span class="card-label fw-bold text-dark">Resultado da Busca</span>												
+										</h3>
+                                    </div>
 
-                                    <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
-                                              Description="Clique aqui buscar."
-                                              ActionLabel="Pesquisando...">
-                                    </TaskButton>
-
-                                </p>
-                             
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-8">
-                            <div class="blog-box mb-4 mb-lg-0">
-
-                                <span class="text-dark fw-bold h5" style="padding-bottom:10px">Resultado da Busca</span>
-
-                                @if (view.searchresult != null)
-                                {
-                                    @if (view.searchresult.Count > 0)
-                                    {
-
-                                        <DataGrid TItem="SessionSearchResult" Data="@view.searchresult"  Responsive  ShowPager PageSize=10>                                                                                         
-                                             
-                                            <DataGridColumns>
+                                    <div class="card-body">
                                             
-                                                <DataGridColumn Field="@nameof(SessionSearchResult.Date)" Caption="Data do Acesso" />
-                                                <DataGridColumn Field="@nameof(SessionSearchResult.Email)" Caption="E-mail" />
-                                                <DataGridColumn Field="@nameof(SessionSearchResult.UserName)" Caption="UserName" />                                              
-                                                <DataGridColumn Field="@nameof(SessionSearchResult.IP)" Caption="IP" />   
+                                            @if (view.searchresult != null)
+                                            {
+                                                @if (view.searchresult.Count > 0)
+                                                {
+                                                      <DataGrid TItem="SessionSearchResult" Data="@view.searchresult"  Responsive  ShowPager PageSize=10>                                                                                         
+                                             
+                                                            <DataGridColumns>
+                                            
+                                                                <DataGridColumn Field="@nameof(SessionSearchResult.Date)" Caption="Data do Acesso" />
+                                                                <DataGridColumn Field="@nameof(SessionSearchResult.Email)" Caption="E-mail" />
+                                                                <DataGridColumn Field="@nameof(SessionSearchResult.UserName)" Caption="UserName" />                                              
+                                                                <DataGridColumn Field="@nameof(SessionSearchResult.IP)" Caption="IP" />   
                                                                                                                                            
-                                             </DataGridColumns>
+                                                             </DataGridColumns>
                                       
-                                         </DataGrid>
-                                     
-                                    }
-                                    else
-                                    {
-                                        <p> Nenhum registro encontrado </p>
-                                    }
-                                }
+                                                       </DataGrid>
+                                    
+                                                }
+                                                else
+                                                {
+                                                    <p> Nenhum registro encontrado </p>
+                                                }
+                                            }
+                                         
+                                    </div>
+
+                                </div>
+                                                                  
 
                             </div>
 
+                           
                         </div>
 
-                    </div>
-                </div>
-                            
-            }
-            else
-            {
-                <h5>Carregando a página. Aguarde...</h5>
+                    </div>   
+                
+                }
+                else
+                {
+                    <h5>Carregando a página. Aguarde...</h5>
 
-            }
+                }
 
+             </div>
         </div>
-    </div>
-
-</section>
+   </div>
 
 <MessageBox @ref="msgbox"></MessageBox>
 

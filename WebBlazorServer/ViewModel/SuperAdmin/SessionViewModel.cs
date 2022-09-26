@@ -37,6 +37,8 @@ namespace Template.ViewModel
 
         public override async Task InitializeModels()
         {
+            param.pDate_Start = DateTime.Now.AddDays(-7);
+            param.pData_End = DateTime.Now;
 
             await ClearSummaryValidation();
 
