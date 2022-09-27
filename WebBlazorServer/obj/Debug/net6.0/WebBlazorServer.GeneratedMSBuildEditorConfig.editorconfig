@@ -31,6 +31,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cSWNvbkJ1dHRvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorServer/Components/Common/MasterFooter.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cTWFzdGVyRm9vdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorServer/Components/Common/MasterMobileButton.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cTWFzdGVyTW9iaWxlQnV0dG9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorServer/Components/Common/MenuButton.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cTWVudUJ1dHRvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

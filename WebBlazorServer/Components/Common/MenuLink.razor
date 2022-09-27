@@ -1,4 +1,5 @@
-﻿
+﻿@inject NavigationManager NavigationManager
+
 @if (Display == MENUDISPLAYENUM.TABLINK)
 {
     <div class="align-self-end overflow-auto" id="kt_brand_tabs">
@@ -77,7 +78,64 @@
 
 }
 
+<Modal @ref="modalRef"  >
+    <ModalContent Size="ModalSize.Default" >
+       
+        <ModalHeader>
+
+             <ModalTitle>Menu</ModalTitle> 
+
+            <CloseButton></CloseButton>
+        </ModalHeader>
+
+        <ModalBody>
+                    
+            @if (RoleName != null)
+            {
+                @if (GetItems())
+                {
+                    @foreach (MenuItem g in _groups)
+                    {
+                        <div class="row gy-5 g-xl-10">
+
+                            <div class="col-xl-12" style="margin-top:25px"> 
+                            <Dropdown>
+                                <DropdownToggle Color="Color.Dark">
+                                    @g.Group
+                                </DropdownToggle>
+                                <DropdownMenu>
+
+                                        @foreach (MenuItem i in _items)
+                                        {
+                                            @if (g.Group == i.Group)
+                                            {
+                                                <DropdownItem @onclick="()=>GoToPage(i.LinkURL)" >@i.LinkTitle</DropdownItem>                                                       
+                                            }
+
+                                        }
+                                </DropdownMenu>
+                            </Dropdown>  
+                            </div>
+
+                        </div>
+
+                    }
+
+                }
+            }                                            
+              
+        </ModalBody>   
+             
+
+    </ModalContent>
+</Modal>
+
+
 @code {
+
+    private Modal modalRef;
+
+    private string _groupSelected = "";
 
     public class MenuItem
     {
@@ -127,9 +185,9 @@
         LoadMenuContent();
 
         _items = _items.Where(x => x.Role == RoleName).ToList();
-                   
+
         string g = "";
-        
+
         foreach (MenuItem m in _items)
         {
             if (g != m.Group)
@@ -138,7 +196,7 @@
                 g = m.Group;
             }
         }
-                 
+
         ret = true;
 
         return ret;
@@ -150,25 +208,36 @@
         //List<MenuItem>  ret = new List<MenuItem>();
         // var xmlFile = "Menu_" + RoleName + ".json";        
         //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-         
+
 
         _items.Clear();
 
-         _items.Add(new MenuItem("Anonymous", "Home", "1"){ LinkTitle="Login", LinkURL="Login", State="active show"}) ;         
+        _items.Add(new MenuItem("Anonymous", "Home", "1"){ LinkTitle="Login", LinkURL="Login", State="active show"}) ;         
 
-         _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="superadmin/users", State="active show"}) ;
-         _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Dados", LinkURL="superadmin/datalog"}) ;
-         _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Acesso", LinkURL="superadmin/accesslog"}) ;
+        _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="superadmin/users", State="active show"}) ;
+        _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Dados", LinkURL="superadmin/datalog"}) ;
+        _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Acesso", LinkURL="superadmin/accesslog"}) ;
 
-         _items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 1", LinkURL="pag1"}) ;
-         _items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 2", LinkURL="pag2"}) ;
-         _items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 3", LinkURL="pag3"}) ;
+        _items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 1", LinkURL="pag1"}) ;
+        _items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 2", LinkURL="pag2"}) ;
+        _items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 3", LinkURL="pag3"}) ;
 
-         _items.Add(new MenuItem("Admin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="Users"}) ;
-         _items.Add(new MenuItem("Admin", "Gerenciamento", "1"){ LinkTitle="Log de Dados", LinkURL="DataLog"}) ;
-         _items.Add(new MenuItem("Admin", "Gerenciamento", "1"){ LinkTitle="Log de Acesso", LinkURL="AccessLog"}) ;
+        _items.Add(new MenuItem("Admin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="Users"}) ;
+        _items.Add(new MenuItem("Admin", "Gerenciamento", "1"){ LinkTitle="Log de Dados", LinkURL="DataLog"}) ;
+        _items.Add(new MenuItem("Admin", "Gerenciamento", "1"){ LinkTitle="Log de Acesso", LinkURL="AccessLog"}) ;
+
+    }
+
+    public async Task OpenMobileMenu()
+    {
+        await modalRef.Show(); 
+    }
+
+    public async Task GoToPage(string url)
+    {
+        await modalRef.Hide(); 
+        NavigationManager.NavigateTo(url);
         
-     }
-
+    }
 
 }
