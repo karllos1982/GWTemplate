@@ -156,7 +156,7 @@
     private TaskButton activebtn;
     private TaskButton sendcodebtn;    
     private TaskLoading loadingPwd;
-
+    private bool islogged = false;
 
     protected override Task OnInitializedAsync()
     {
@@ -173,12 +173,25 @@
 
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
 
         if (firstRender)
         {
+            this.InitResources();
+            string url = _settings.Settings.SiteURL;
 
+            islogged = await _appctrl.IsAuthenticated();
+
+            if (islogged)
+            {
+                 await _appctrl.GetSession();
+
+                UserAuthenticated usr = _appctrl.UserInfo;
+               
+                url = _settings.Settings.SiteURL + "/" + usr.HomeURL;
+                NavigationManager.NavigateTo(url);
+            }
 
         }
 

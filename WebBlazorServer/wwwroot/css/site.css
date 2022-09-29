@@ -72,6 +72,14 @@ a, .btn-link {
 }
 
 
+/*messagebox css */
+
+.messagebox {
+    z-index: 9999 !important;
+    background-color: lightgrey;
+    background: rgba(0,0,0,0.5);
+}
+
 
 /*data table css*/
 

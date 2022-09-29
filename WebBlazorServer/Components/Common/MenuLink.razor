@@ -79,7 +79,7 @@
 }
 
 <Modal @ref="modalRef"  >
-    <ModalContent Size="ModalSize.Default" >
+    <ModalContent Size="ModalSize.Large" >
        
         <ModalHeader>
 
@@ -96,7 +96,7 @@
                 {
                     @foreach (MenuItem g in _groups)
                     {
-                        <div class="row gy-5 g-xl-10">
+                        <div class="row gy-5 g-xl-10" style="min-height:500px">
 
                             <div class="col-xl-12" style="margin-top:25px"> 
                             <Dropdown>
@@ -218,9 +218,9 @@
         _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Dados", LinkURL="superadmin/datalog"}) ;
         _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Acesso", LinkURL="superadmin/accesslog"}) ;
 
-        _items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 1", LinkURL="pag1"}) ;
-        _items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 2", LinkURL="pag2"}) ;
-        _items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 3", LinkURL="pag3"}) ;
+        //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 1", LinkURL="pag1"}) ;
+        //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 2", LinkURL="pag2"}) ;
+        //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 3", LinkURL="pag3"}) ;
 
         _items.Add(new MenuItem("Admin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="Users"}) ;
         _items.Add(new MenuItem("Admin", "Gerenciamento", "1"){ LinkTitle="Log de Dados", LinkURL="DataLog"}) ;
