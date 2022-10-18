@@ -5,6 +5,8 @@ using GW.Core.Helpers;
 using Template.API;
 using Template.Core.Manager;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
+
 //using Template.Models;
 
 
@@ -133,8 +135,10 @@ namespace Template.Controllers
             if (opsts.Status)
             {
                 UserModel userM = (UserModel)opsts.Returns;
-                AuthToken token = TokenService.GenerateToken(userM.UserID.ToString(), userM.Role.RoleName,
-                    int.Parse(data.SessionTimeOut));
+                string permissions_content = JsonConvert.SerializeObject(userM.Permissions);
+                
+                AuthToken token = TokenService.GenerateToken(userM.UserID.ToString(), 
+                    userM.Role.RoleName, permissions_content, int.Parse(data.SessionTimeOut));
 
                 UserAuthenticated userA = new UserAuthenticated();
                 userA.UserID = userM.UserID.ToString();
@@ -143,6 +147,7 @@ namespace Template.Controllers
                 userA.RoleName = userM.Role.RoleName;
                 userA.Token = token.TokenValue;
                 userA.Expires = token.ExpiresDate;
+                userA.Permissions = userM.Permissions; 
 
                 UpdateUserLogin uplogin = new UpdateUserLogin()
                 {
@@ -154,10 +159,10 @@ namespace Template.Controllers
 
                 manager = new TemplateManager(apiConfigs);
                 manager.Membership.RegisterLoginState(data, uplogin);
-
+                
                 switch (userA.RoleName)
                 {
-                    case "Administrador":
+                    case "Admin":
                     {
                             userA.HomeURL = "superadmin/home";
                             break;

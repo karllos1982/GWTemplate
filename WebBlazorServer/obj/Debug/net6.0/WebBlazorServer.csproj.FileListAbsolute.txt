@@ -145,3 +145,10 @@ H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debu
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\WebBlazorServer.pdb
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\WebBlazorServer.genruntimeconfig.cache
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\ref\WebBlazorServer.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Authorization.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Components.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Forms.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Web.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.JSInterop.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\System.IO.Pipelines.dll

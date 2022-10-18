@@ -64,11 +64,8 @@ namespace Template.API.Controllers
 
             if (list == null)
             {
-                list = new List<TabelasValueModel>()
-                {
-                    new TabelasValueModel(){ Value="sysUser", Text="sysUser"}
-                };
-
+                list = manager.Membership.DataLogUnit.GetTableList();               
+                
                 memorycache.Set("TABELAS", list, this.GetMemoryCacheOptionsByHour(2));
 
             }

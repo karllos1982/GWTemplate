@@ -9,15 +9,16 @@ namespace Template.Controllers
 {
     [Route("membership/[controller]")]
     [ApiController]
-    [Authorize(Roles = "SuperAdmin")]
+    //[Authorize(Roles = "SuperAdmin")]
     public class DataLogController : APIControllerBase
     {
         public DataLogController(IAppSettingsManager<TemplateSettings> param,
            IWebHostEnvironment hostingEnvironment)
         {
-                AppConfigs = param;
-                AppConfigs.EnvironmentSettings = hostingEnvironment;
-                AppConfigs.LoadSettings();
+            AppConfigs = param;
+            AppConfigs.EnvironmentSettings = hostingEnvironment;
+            AppConfigs.LoadSettings();
+            ObjectCode = "SYSDATALOG";
 
         }
 
@@ -25,14 +26,17 @@ namespace Template.Controllers
         [Route("search")]        
         public object Search(DataLogParam param)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.READ, false);
 
-            List<DataLogSearchResult> list = null;
+            if (IsAllowed)
+            {
+                List<DataLogSearchResult> list = null;
 
-            list = manager.Membership.DataLogUnit.Search(param);
+                list = manager.Membership.DataLogUnit.Search(param);
 
-            SetReturn(list);
-            FinalizeManager();
+                SetReturn(list);
+                FinalizeManager();
+            }
 
             return ret;
         }
@@ -41,14 +45,17 @@ namespace Template.Controllers
         [Route("list")]        
         public object List(DataLogParam param)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.READ, true);
 
-            List<DataLogList> list = null;
+            if (IsAllowed)
+            {
+                List<DataLogList> list = null;
 
-            list = manager.Membership.DataLogUnit.List(param);
+                list = manager.Membership.DataLogUnit.List(param);
 
-            SetReturn(list);
-            FinalizeManager();
+                SetReturn(list);
+                FinalizeManager();
+            }
 
             return ret;
         }
@@ -57,30 +64,34 @@ namespace Template.Controllers
         [Route("get")]        
         public object Get(string id)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.READ, false);
 
-            DataLogModel obj = null;
-
-            obj = manager.Membership.DataLogUnit.Get(Int64.Parse(id));
-
-            if (this.GetDefaultStatus().Status)
+            if (IsAllowed)
             {
-                if (obj != null)
-                {                    
-                    ret = obj;
+                DataLogModel obj = null;
+
+                obj = manager.Membership.DataLogUnit.Get(Int64.Parse(id));
+
+                if (this.GetDefaultStatus().Status)
+                {
+                    if (obj != null)
+                    {
+                        ret = obj;
+                    }
+                    else
+                    {
+                        Response.StatusCode = 500;
+                        ret = GetInnerExceptions("Nenhum registro encontrado.");
+                    }
                 }
                 else
                 {
                     Response.StatusCode = 500;
-                    ret = GetInnerExceptions("Nenhum registro encontrado.");
+                    ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
                 }
+                FinalizeManager();
             }
-            else
-            {
-                Response.StatusCode = 500;
-                ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
-            }
-            FinalizeManager();
+
 
             return ret;
         }
@@ -89,14 +100,17 @@ namespace Template.Controllers
         [Route("gettimeline")]       
         public object GetTimeLine(string id)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.READ, false);
 
-            List<DataLogTimelineModel> list = null;
+            if (IsAllowed)
+            {
+                List<DataLogTimelineModel> list = null;
 
-            list = manager.Membership.DataLogUnit.GetTimeLine(Int64.Parse(id));
+                list = manager.Membership.DataLogUnit.GetTimeLine(Int64.Parse(id));
 
-            SetReturn(list);
-            FinalizeManager();
+                SetReturn(list);
+                FinalizeManager();
+            }
 
             return ret;
         }
@@ -106,14 +120,17 @@ namespace Template.Controllers
         [Route("gettablelist")]        
         public object GetTableList()
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.READ, false);
 
-            List<TabelasValueModel> list = null;
+            if (IsAllowed)
+            {
+                List<TabelasValueModel> list = null;
 
-            list = manager.Membership.DataLogUnit.GetTableList();
+                list = manager.Membership.DataLogUnit.GetTableList();
 
-            SetReturn(list);
-            FinalizeManager();
+                SetReturn(list);
+                FinalizeManager();
+            }
 
             return ret;
         }

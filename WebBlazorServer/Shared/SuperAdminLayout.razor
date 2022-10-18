@@ -44,8 +44,8 @@
                         </div>
                        
                     </div>
-                  
-                        <MenuLink RoleName="SuperAdmin" 
+
+                <MenuLink RoleName="SuperAdmin" Permissions="permissions"
                             Display="MenuLink.MENUDISPLAYENUM.TABITEMS" > 
                         </MenuLink>
                    
@@ -68,6 +68,7 @@
     private bool islogged = false;
     private UserAuthenticated user ; 
     private MenuLink menu;
+    private List<UserPermissions> permissions = null;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -83,9 +84,10 @@
             {
                 await _appctrl.GetSession();
 
-                user = _appctrl.UserInfo;
-
-                if (user.RoleName != "SuperAdmin" && user.RoleName != "Administrador")                    
+                user = _appctrl.UserInfo;                
+                permissions = user.Permissions; 
+                
+                if (user.RoleName != "SuperAdmin" && user.RoleName != "Admin" )                    
                 {
                     NavigationManager.NavigateTo(url + "/login");
                 }               

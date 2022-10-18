@@ -3,6 +3,7 @@ using GW.Membership.Models;
 using GW.Core.Common;
 using Template.API;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 //using Template.Models;
 
 namespace Template.Controllers
@@ -10,7 +11,7 @@ namespace Template.Controllers
 
     [Route("membership/[controller]")]
     [ApiController]
-    [Authorize(Roles="SuperAdmin")]
+    //[Authorize(Roles="SuperAdmin")]
     public class UserController : APIControllerBase
     {
 
@@ -20,7 +21,7 @@ namespace Template.Controllers
             AppConfigs = param;
             AppConfigs.EnvironmentSettings = hostingEnvironment;
             AppConfigs.LoadSettings();
-
+            ObjectCode = "SYSUSER";
         }
 
 
@@ -28,14 +29,18 @@ namespace Template.Controllers
         [Route("search")]        
         public object Search(UserParam param)
         {
-            Init();
-            
-            List<UserSearchResult> list = null;
+            Init(PERMISSION_CHECK_ENUM.READ, false);
 
-            list = manager.Membership.UserUnit.Search(param);
+            if (IsAllowed)
+            {
+                List<UserSearchResult> list = null;
 
-            SetReturn(list);
-            FinalizeManager();
+                list = manager.Membership.UserUnit.Search(param);
+
+                SetReturn(list);
+                FinalizeManager();
+            }
+
 
             return ret;
         }
@@ -44,14 +49,17 @@ namespace Template.Controllers
         [Route("list")]
         public object List(UserParam param)
         {
-            Init();
-           
-            List<UserList> list = null;
-                        
-            list = manager.Membership.UserUnit.List(param);
+            Init(PERMISSION_CHECK_ENUM.READ, true);
 
-            SetReturn(list);
-            FinalizeManager();
+            if (IsAllowed)
+            {
+                List<UserList> list = null;
+
+                list = manager.Membership.UserUnit.List(param);
+
+                SetReturn(list);
+                FinalizeManager();
+            }
 
             return ret;
         }
@@ -60,45 +68,49 @@ namespace Template.Controllers
         [Route("get")]        
         public object Get(string id)
         {
-            Init();
-            var username = User.Identity.Name;
+            Init(PERMISSION_CHECK_ENUM.READ, false);
 
-            UserModel obj = null;
-
-            obj = manager.Membership.UserUnit.Get(Int64.Parse(id));
-
-            if (this.GetDefaultStatus().Status)
+            if (IsAllowed)
             {
-                if (obj != null)
+                var username = User.Identity.Name;
+
+                UserModel obj = null;
+
+                obj = manager.Membership.UserUnit.Get(Int64.Parse(id));
+
+                if (this.GetDefaultStatus().Status)
                 {
-                    obj.ProfileImageURL =
-                         AppConfigs.Settings.SiteURL + "auth/GetUserImageProfile?file=user_anonymous.png";
-
-                    if (obj.ProfileImage != null)
+                    if (obj != null)
                     {
-                        if (obj.ProfileImage != "")
+                        obj.ProfileImageURL =
+                             AppConfigs.Settings.SiteURL + "auth/GetUserImageProfile?file=user_anonymous.png";
+
+                        if (obj.ProfileImage != null)
                         {
-                            obj.ProfileImageURL =
-                                AppConfigs.Settings.SiteURL + "auth/GetUserImageProfile?file=" + obj.ProfileImage;
+                            if (obj.ProfileImage != "")
+                            {
+                                obj.ProfileImageURL =
+                                    AppConfigs.Settings.SiteURL + "auth/GetUserImageProfile?file=" + obj.ProfileImage;
 
+                            }
                         }
-                    }
 
-                    ret = obj;
+                        ret = obj;
+                    }
+                    else
+                    {
+                        Response.StatusCode = 500;
+                        ret = GetInnerExceptions("Nenhum registro encontrado.");
+                    }
                 }
                 else
                 {
                     Response.StatusCode = 500;
-                    ret = GetInnerExceptions("Nenhum registro encontrado.");                 
+                    ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
                 }
-            }
-            else
-            {
-                Response.StatusCode = 500;
-                ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
-            }
 
-            FinalizeManager();
+                FinalizeManager();
+            }
 
             return ret;
         }
@@ -107,23 +119,27 @@ namespace Template.Controllers
         [Route("set")]        
         public object Set(UserModel data)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
-            var userid = User.Identity.Name;
-            opsts = manager.Membership.UserUnit.Set(data, userid);
-
-            if (opsts.Status)
+            if (IsAllowed)
             {
-                ret = opsts.Returns;
-            }
-            else
-            {
-                Response.StatusCode = 500;
-                opsts.InnerExceptions.Insert(0, new InnerException("Error", opsts.Error.Message));
-                ret = opsts.InnerExceptions;
-            }
+                var userid = User.Identity.Name;
 
-            FinalizeManager();
+                opsts = manager.Membership.UserUnit.Set(data, userid);
+
+                if (opsts.Status)
+                {
+                    ret = opsts.Returns;
+                }
+                else
+                {
+                    Response.StatusCode = 500;
+                    opsts.InnerExceptions.Insert(0, new InnerException("Error", opsts.Error.Message));
+                    ret = opsts.InnerExceptions;
+                }
+
+                FinalizeManager();
+            }
 
             return ret;        
         }
@@ -132,25 +148,28 @@ namespace Template.Controllers
         [Route("createnewuser")]        
         public object CreateNewUser(NewUser data)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
-            var userid = User.Identity.Name;
-            opsts = manager.Membership.CreateNewUser(data, true,userid);
-
-            if (opsts.Status)
+            if (IsAllowed)
             {
-                ret = opsts.Returns;
+                var userid = User.Identity.Name;
+                opsts = manager.Membership.CreateNewUser(data, true, userid);
 
+                if (opsts.Status)
+                {
+                    ret = opsts.Returns;
+
+                }
+                else
+                {
+                    opsts.InnerExceptions.Insert(0, new InnerException("Error", opsts.Error.Message));
+                    ret = opsts.InnerExceptions;
+
+                    Response.StatusCode = 500;
+
+                }
+                FinalizeManager();
             }
-            else
-            {
-                opsts.InnerExceptions.Insert(0, new InnerException("Error", opsts.Error.Message)); 
-                ret = opsts.InnerExceptions;
-
-                Response.StatusCode = 500;
-
-            }
-            FinalizeManager();
 
             return ret;
         }
@@ -159,21 +178,24 @@ namespace Template.Controllers
         [Route("addtorole")]        
         public object AddToRole(string userid, string roleid)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
-            opsts = manager.Membership
-                .UserUnit.AddRoleToUser(Int64.Parse(userid), Int64.Parse(roleid),true);
+            if (IsAllowed)
+            {
+                opsts = manager.Membership
+                .UserUnit.AddRoleToUser(Int64.Parse(userid), Int64.Parse(roleid), true);
 
-            if (opsts.Status)
-            {
-                ret = opsts.Returns;
+                if (opsts.Status)
+                {
+                    ret = opsts.Returns;
+                }
+                else
+                {
+                    Response.StatusCode = 500;
+                    ret = GetInnerExceptions(opsts.Error.Message);
+                }
+                FinalizeManager();
             }
-            else
-            {
-                Response.StatusCode = 500;
-                ret = GetInnerExceptions(opsts.Error.Message);
-            }
-            FinalizeManager();
 
             return ret;
         }
@@ -182,21 +204,24 @@ namespace Template.Controllers
         [Route("removefromrole")]        
         public object RemoveFromRole(string userid, string roleid)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.DELETE, false);
 
-            opsts = manager.Membership
-                .UserUnit.RemoveRoleFromUser(Int64.Parse(userid), Int64.Parse(roleid),true);
+            if (IsAllowed)
+            {
+                opsts = manager.Membership
+                .UserUnit.RemoveRoleFromUser(Int64.Parse(userid), Int64.Parse(roleid), true);
 
-            if (opsts.Status)
-            {
-                ret = opsts.Returns;
+                if (opsts.Status)
+                {
+                    ret = opsts.Returns;
+                }
+                else
+                {
+                    Response.StatusCode = 500;
+                    ret = GetInnerExceptions(opsts.Error.Message);
+                }
+                FinalizeManager();
             }
-            else
-            {
-                Response.StatusCode = 500;
-                ret = GetInnerExceptions(opsts.Error.Message);
-            }
-            FinalizeManager();
 
             return ret;
         }
@@ -205,22 +230,25 @@ namespace Template.Controllers
         [Route("changestate")]        
         public object ChangeState(UserChangeState data)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
-            opsts = manager.Membership
-                .UserUnit.ChangeState(data); 
-
-            if (opsts.Status)
+            if (IsAllowed)
             {
-                ret = opsts.Returns;
-            }
-            else
-            {
-                Response.StatusCode = 500;
-                ret = GetInnerExceptions(opsts.Error.Message);
-            }
+                opsts = manager.Membership
+                .UserUnit.ChangeState(data);
 
-            FinalizeManager();
+                if (opsts.Status)
+                {
+                    ret = opsts.Returns;
+                }
+                else
+                {
+                    Response.StatusCode = 500;
+                    ret = GetInnerExceptions(opsts.Error.Message);
+                }
+
+                FinalizeManager();
+            }
 
             return ret;
         }

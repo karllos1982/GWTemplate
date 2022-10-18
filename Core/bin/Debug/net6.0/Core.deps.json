@@ -9,11 +9,11 @@
       "Core/1.0.0": {
         "dependencies": {
           "Dapper": "2.0.123",
-          "GW.Framework": "3.5.3",
-          "GW.Membership": "1.0.0",
+          "GW.Framework": "3.5.6",
+          "GW.Membership": "1.0.4",
           "Models": "1.0.0",
           "Newtonsoft.Json": "13.0.1",
-          "System.Data.SqlClient": "4.8.3"
+          "System.Data.SqlClient": "4.8.4"
         },
         "runtime": {
           "Core.dll": {}
@@ -27,11 +27,11 @@
           }
         }
       },
-      "GW.Framework/3.5.3": {
+      "GW.Framework/3.5.6": {
         "dependencies": {
           "Dapper": "2.0.123",
           "Newtonsoft.Json": "13.0.1",
-          "System.Data.SqlClient": "4.8.3"
+          "System.Data.SqlClient": "4.8.4"
         },
         "runtime": {
           "lib/net6.0/GW.Framework.dll": {
@@ -40,14 +40,14 @@
           }
         }
       },
-      "GW.Membership/1.0.0": {
+      "GW.Membership/1.0.4": {
         "dependencies": {
-          "GW.Framework": "3.5.3"
+          "GW.Framework": "3.5.6"
         },
         "runtime": {
           "lib/net6.0/GW.Membership.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+            "assemblyVersion": "1.0.4.0",
+            "fileVersion": "1.0.4.0"
           }
         }
       },
@@ -100,7 +100,7 @@
           }
         }
       },
-      "System.Data.SqlClient/4.8.3": {
+      "System.Data.SqlClient/4.8.4": {
         "dependencies": {
           "Microsoft.Win32.Registry": "4.7.0",
           "System.Security.Principal.Windows": "4.7.0",
@@ -108,22 +108,22 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/System.Data.SqlClient.dll": {
-            "assemblyVersion": "4.6.1.3",
-            "fileVersion": "4.700.21.41603"
+            "assemblyVersion": "4.6.1.4",
+            "fileVersion": "4.700.22.47702"
           }
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll": {
             "rid": "unix",
             "assetType": "runtime",
-            "assemblyVersion": "4.6.1.3",
-            "fileVersion": "4.700.21.41603"
+            "assemblyVersion": "4.6.1.4",
+            "fileVersion": "4.700.22.47702"
           },
           "runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll": {
             "rid": "win",
             "assetType": "runtime",
-            "assemblyVersion": "4.6.1.3",
-            "fileVersion": "4.700.21.41603"
+            "assemblyVersion": "4.6.1.4",
+            "fileVersion": "4.700.22.47702"
           }
         }
       },
@@ -136,8 +136,8 @@
       "System.Security.Principal.Windows/4.7.0": {},
       "Models/1.0.0": {
         "dependencies": {
-          "GW.Framework": "3.5.3",
-          "GW.Membership": "1.0.0"
+          "GW.Framework": "3.5.6",
+          "GW.Membership": "1.0.4"
         },
         "runtime": {
           "Models.dll": {}
@@ -158,19 +158,19 @@
       "path": "dapper/2.0.123",
       "hashPath": "dapper.2.0.123.nupkg.sha512"
     },
-    "GW.Framework/3.5.3": {
+    "GW.Framework/3.5.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-CxEEc300Wd7Pl9VaSmW4lN95ywjK5iqBaVIi+fTXyJ9bphxa0JEiU8LD5s2Fp/B92QMpkSKIGeGwUzBoIb67yg==",
-      "path": "gw.framework/3.5.3",
-      "hashPath": "gw.framework.3.5.3.nupkg.sha512"
+      "sha512": "sha512-4nkfx0nLz4hklRLWjI80z65tX8MrhX8WU7DWNCgjPo5N/zpfNLlyI4GlWFfuoxIAyv7p5ZGVwsHwR9rhg7I/Gg==",
+      "path": "gw.framework/3.5.6",
+      "hashPath": "gw.framework.3.5.6.nupkg.sha512"
     },
-    "GW.Membership/1.0.0": {
+    "GW.Membership/1.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-eb8VQydWBtKAfq6jezxR7FeN3BzC7Ra2ld6eH07biUwv+KETVd9vOiV4BXaiN6qifHHPVTMKrmhDBzARQEJVRQ==",
-      "path": "gw.membership/1.0.0",
-      "hashPath": "gw.membership.1.0.0.nupkg.sha512"
+      "sha512": "sha512-TH1QvVl1BCjyxAnj+JKQ0yYiVoIy6v77sR6HelFtcessZXwDt7No3D7c6ArJrzf2Rn1tQlYpYOMvtvsGOQDLWw==",
+      "path": "gw.membership/1.0.4",
+      "hashPath": "gw.membership.1.0.4.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/3.1.0": {
       "type": "package",
@@ -221,12 +221,12 @@
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
     },
-    "System.Data.SqlClient/4.8.3": {
+    "System.Data.SqlClient/4.8.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-yERfVLXAY0QbylAgaGLByYN0hFxX28aeEQ0hUgJO+Ntn1AfmWl5HHUoYJA0Yl9HhIUUJHVaS/Sw/RLZr5aaC+A==",
-      "path": "system.data.sqlclient/4.8.3",
-      "hashPath": "system.data.sqlclient.4.8.3.nupkg.sha512"
+      "sha512": "sha512-45YflfcVXAu+Tnf0WnZzQIp9iGm+XvSvh8OosYHqax/nW3gV28NBSRvHFZ/IsuwV4JIypYCKBEOVzW+RB5+zgQ==",
+      "path": "system.data.sqlclient/4.8.4",
+      "hashPath": "system.data.sqlclient.4.8.4.nupkg.sha512"
     },
     "System.Security.AccessControl/4.7.0": {
       "type": "package",

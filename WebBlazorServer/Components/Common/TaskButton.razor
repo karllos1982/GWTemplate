@@ -3,10 +3,18 @@
 {
     if (_disabled == "")
     {
-        <button @onclick="OnClick"  class="btn btn-@_class" title=@Description>
-            @Title
-
-        </button>
+        @if (!_readonly)
+        {
+            <button @onclick="OnClick"  class="btn btn-@_class" title=@Description>
+                @Title
+            </button>
+        }
+        else
+        {
+            <button disabled class="btn btn-@_class" title=@Description>
+                @Title
+            </button>
+        }
     }
     else
     {
@@ -75,6 +83,22 @@
         }
     }
 
+    private bool _readonly = false;
+
+    [Parameter]
+    public bool ReadOnly
+    {
+        get
+        {
+
+            return _visible;
+        }
+
+        set
+        {
+            _readonly = value;
+        }
+    }
 
     private string _disabled = "";
 

@@ -46,11 +46,11 @@
           "dependencies": {
             "GW.Framework": {
               "target": "Package",
-              "version": "[3.5.3, )"
+              "version": "[3.5.6, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.0, )"
+              "version": "[1.0.4, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -119,11 +119,11 @@
           "dependencies": {
             "GW.Framework": {
               "target": "Package",
-              "version": "[3.5.3, )"
+              "version": "[3.5.6, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.0, )"
+              "version": "[1.0.4, )"
             }
           },
           "imports": [
@@ -191,31 +191,31 @@
           "dependencies": {
             "Blazorise": {
               "target": "Package",
-              "version": "[1.0.6, )"
+              "version": "[1.1.1, )"
             },
             "Blazorise.Bootstrap5": {
               "target": "Package",
-              "version": "[1.0.6, )"
+              "version": "[1.1.1, )"
             },
             "Blazorise.Components": {
               "target": "Package",
-              "version": "[1.0.6, )"
+              "version": "[1.1.1, )"
             },
             "Blazorise.DataGrid": {
               "target": "Package",
-              "version": "[1.0.6, )"
+              "version": "[1.1.1, )"
             },
             "Blazorise.Icons.FontAwesome": {
               "target": "Package",
-              "version": "[1.0.6, )"
+              "version": "[1.1.1, )"
             },
             "GW.Framework": {
               "target": "Package",
-              "version": "[3.5.3, )"
+              "version": "[3.5.6, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.0, )"
+              "version": "[1.0.4, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

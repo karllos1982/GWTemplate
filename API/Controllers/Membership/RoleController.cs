@@ -27,7 +27,7 @@ namespace Template.Controllers
             AppConfigs = param;
             AppConfigs.EnvironmentSettings = hostingEnvironment;
             AppConfigs.LoadSettings();
-            
+            ObjectCode = "SYSROLE";
         }
 
         [HttpPost]
@@ -35,23 +35,26 @@ namespace Template.Controllers
         [Authorize]
         public object Search(RoleParam param)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.READ, false);
 
-            List<RoleSearchResult> list = null;
-
-            list = manager.Membership.RoleUnit.Search(param);
-
-            if (this.GetDefaultStatus().Status)
+            if (IsAllowed)
             {
-                ret = list;
-            }
-            else
-            {
-                Response.StatusCode = 500;
-                ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
+                List<RoleSearchResult> list = null;
 
+                list = manager.Membership.RoleUnit.Search(param);
+
+                if (this.GetDefaultStatus().Status)
+                {
+                    ret = list;
+                }
+                else
+                {
+                    Response.StatusCode = 500;
+                    ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
+
+                }
+                FinalizeManager();
             }
-            FinalizeManager();
 
             return ret;
         }
@@ -61,25 +64,28 @@ namespace Template.Controllers
         [Authorize]
         public object List(RoleParam param)
         {
-            Init();
+           
+            Init(PERMISSION_CHECK_ENUM.READ, true);
 
-            Init();
-
-            List<RoleList> list = null;
-
-            list = manager.Membership.RoleUnit.List(param);
-
-            if (this.GetDefaultStatus().Status)
+            if (IsAllowed)
             {
-                ret = list;
-            }
-            else
-            {
-                Response.StatusCode = 500;
-                ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
+                List<RoleList> list = null;
+
+                list = manager.Membership.RoleUnit.List(param);
+
+                if (this.GetDefaultStatus().Status)
+                {
+                    ret = list;
+                }
+                else
+                {
+                    Response.StatusCode = 500;
+                    ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
+
+                }
+                FinalizeManager();
 
             }
-            FinalizeManager();
 
             return ret;
         }
@@ -89,23 +95,27 @@ namespace Template.Controllers
         [Authorize]
         public object Get(string id)
         {
-            Init();
-           
-            RoleModel obj = null;
+            Init(PERMISSION_CHECK_ENUM.READ, false);
 
-            obj = manager.Membership.RoleUnit.Get(Int64.Parse(id));
-
-            if (this.GetDefaultStatus().Status)
+            if (IsAllowed)
             {
-                ret = obj;
-            }
-            else
-            {
-                Response.StatusCode = 500;
-                ret = GetInnerExceptions("Nenhum registro encontrado.");
-            }
-            FinalizeManager();
+                RoleModel obj = null;
 
+                obj = manager.Membership.RoleUnit.Get(Int64.Parse(id));
+
+                if (this.GetDefaultStatus().Status)
+                {
+                    ret = obj;
+                }
+                else
+                {
+                    Response.StatusCode = 500;
+                    ret = GetInnerExceptions("Nenhum registro encontrado.");
+                }
+
+                FinalizeManager();
+
+            }
             return ret;
         }
 
@@ -114,22 +124,26 @@ namespace Template.Controllers
         [Authorize]
         public object Set(RoleModel data)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
-            var userid = User.Identity.Name;
-            
-            opsts = manager.Membership.RoleUnit.Set(data, userid);
+            if (IsAllowed)
+            {
+                var userid = User.Identity.Name;
 
-            if (opsts.Status)
-            {
-                ret = opsts.Returns;
+                opsts = manager.Membership.RoleUnit.Set(data, userid);
+
+                if (opsts.Status)
+                {
+                    ret = opsts.Returns;
+                }
+                else
+                {
+                    Response.StatusCode = 500;
+                    ret = opsts.InnerExceptions;
+                }
+                FinalizeManager();
+
             }
-            else
-            {
-                Response.StatusCode = 500;
-                ret = opsts.InnerExceptions;
-            }
-            FinalizeManager();
 
             return ret;
         }

@@ -42,11 +42,11 @@
           "dependencies": {
             "GW.Framework": {
               "target": "Package",
-              "version": "[3.5.3, )"
+              "version": "[3.5.6, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.0, )"
+              "version": "[1.0.4, )"
             }
           },
           "imports": [

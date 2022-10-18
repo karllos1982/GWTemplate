@@ -15,7 +15,7 @@
           }
         }
       },
-      "GW.Framework/3.5.3": {
+      "GW.Framework/3.5.6": {
         "type": "package",
         "dependencies": {
           "Dapper": "2.0.123",
@@ -29,10 +29,10 @@
           "lib/net6.0/GW.Framework.dll": {}
         }
       },
-      "GW.Membership/1.0.0": {
+      "GW.Membership/1.0.4": {
         "type": "package",
         "dependencies": {
-          "GW.Framework": "3.5.2"
+          "GW.Framework": "3.5.6"
         },
         "compile": {
           "lib/net6.0/GW.Membership.dll": {}
@@ -125,7 +125,7 @@
           }
         }
       },
-      "System.Data.SqlClient/4.8.3": {
+      "System.Data.SqlClient/4.8.4": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.Registry": "4.7.0",
@@ -203,8 +203,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "GW.Framework": "3.5.3",
-          "GW.Membership": "1.0.0"
+          "GW.Framework": "3.5.6",
+          "GW.Membership": "1.0.4"
         },
         "compile": {
           "bin/placeholder/Models.dll": {}
@@ -234,26 +234,26 @@
         "lib/netstandard2.0/Dapper.xml"
       ]
     },
-    "GW.Framework/3.5.3": {
-      "sha512": "CxEEc300Wd7Pl9VaSmW4lN95ywjK5iqBaVIi+fTXyJ9bphxa0JEiU8LD5s2Fp/B92QMpkSKIGeGwUzBoIb67yg==",
+    "GW.Framework/3.5.6": {
+      "sha512": "4nkfx0nLz4hklRLWjI80z65tX8MrhX8WU7DWNCgjPo5N/zpfNLlyI4GlWFfuoxIAyv7p5ZGVwsHwR9rhg7I/Gg==",
       "type": "package",
-      "path": "gw.framework/3.5.3",
+      "path": "gw.framework/3.5.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.framework.3.5.3.nupkg.sha512",
+        "gw.framework.3.5.6.nupkg.sha512",
         "gw.framework.nuspec",
         "lib/net6.0/GW.Framework.dll"
       ]
     },
-    "GW.Membership/1.0.0": {
-      "sha512": "eb8VQydWBtKAfq6jezxR7FeN3BzC7Ra2ld6eH07biUwv+KETVd9vOiV4BXaiN6qifHHPVTMKrmhDBzARQEJVRQ==",
+    "GW.Membership/1.0.4": {
+      "sha512": "TH1QvVl1BCjyxAnj+JKQ0yYiVoIy6v77sR6HelFtcessZXwDt7No3D7c6ArJrzf2Rn1tQlYpYOMvtvsGOQDLWw==",
       "type": "package",
-      "path": "gw.membership/1.0.0",
+      "path": "gw.membership/1.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.membership.1.0.0.nupkg.sha512",
+        "gw.membership.1.0.4.nupkg.sha512",
         "gw.membership.nuspec",
         "lib/net6.0/GW.Membership.dll"
       ]
@@ -412,10 +412,10 @@
         "version.txt"
       ]
     },
-    "System.Data.SqlClient/4.8.3": {
-      "sha512": "yERfVLXAY0QbylAgaGLByYN0hFxX28aeEQ0hUgJO+Ntn1AfmWl5HHUoYJA0Yl9HhIUUJHVaS/Sw/RLZr5aaC+A==",
+    "System.Data.SqlClient/4.8.4": {
+      "sha512": "45YflfcVXAu+Tnf0WnZzQIp9iGm+XvSvh8OosYHqax/nW3gV28NBSRvHFZ/IsuwV4JIypYCKBEOVzW+RB5+zgQ==",
       "type": "package",
-      "path": "system.data.sqlclient/4.8.3",
+      "path": "system.data.sqlclient/4.8.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -492,7 +492,7 @@
         "runtimes/win/lib/netstandard2.0/System.Data.SqlClient.xml",
         "runtimes/win/lib/uap10.0.16299/System.Data.SqlClient.dll",
         "runtimes/win/lib/uap10.0.16299/System.Data.SqlClient.xml",
-        "system.data.sqlclient.4.8.3.nupkg.sha512",
+        "system.data.sqlclient.4.8.4.nupkg.sha512",
         "system.data.sqlclient.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -607,11 +607,11 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Dapper >= 2.0.123",
-      "GW.Framework >= 3.5.3",
-      "GW.Membership >= 1.0.0",
+      "GW.Framework >= 3.5.6",
+      "GW.Membership >= 1.0.4",
       "Models >= 1.0.0",
       "Newtonsoft.Json >= 13.0.1",
-      "System.Data.SqlClient >= 4.8.3"
+      "System.Data.SqlClient >= 4.8.4"
     ]
   },
   "packageFolders": {
@@ -663,11 +663,11 @@
           },
           "GW.Framework": {
             "target": "Package",
-            "version": "[3.5.3, )"
+            "version": "[3.5.6, )"
           },
           "GW.Membership": {
             "target": "Package",
-            "version": "[1.0.0, )"
+            "version": "[1.0.4, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",
@@ -675,7 +675,7 @@
           },
           "System.Data.SqlClient": {
             "target": "Package",
-            "version": "[4.8.3, )"
+            "version": "[4.8.4, )"
           }
         },
         "imports": [

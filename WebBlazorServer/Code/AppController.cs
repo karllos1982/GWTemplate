@@ -1,8 +1,10 @@
 ﻿using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using GW.Core.Common;
+using GW.Core.Helpers;
 using GW.Membership.Models;
 using Template.Gateway;
+using WebBlazorServer.Pages.SuperAdmin;
 
 
 namespace Template.ServerCode
@@ -10,6 +12,9 @@ namespace Template.ServerCode
     public interface IAppControllerAsync<T> where T : UserAuthenticated
     {
         Task<bool> IsAuthenticated();
+
+        PermissionsState CheckPermissions(UserAuthenticated user,
+            string objectcode, bool allownone);
 
         T UserInfo { get; set; }
 
@@ -271,16 +276,40 @@ namespace Template.ServerCode
 
             return ret;
         }
-
      
-
         public async Task Logout()
         {            
             await _cookies.ClearUserInfo();
             await _cookies.ClearUserContext();
         }
 
-    
+        public PermissionsState CheckPermissions(UserAuthenticated user,
+            string objectcode, bool allownone)
+        {
+            PermissionsState ret = new PermissionsState(false,false,false);
+            
+            List<UserPermissions> permissions = user.Permissions;
+
+            List<PermissionBase> list = new List<PermissionBase>();
+
+            foreach (UserPermissions u in permissions)
+            {
+                list.Add(new PermissionBase()
+                {
+                    ObjectCode = u.ObjectCode,
+                    ReadStatus = u.ReadStatus,
+                    SaveStatus = u.SaveStatus,
+                    DeleteStatus = u.DeleteStatus
+                }
+                );
+            }
+
+            ret =
+                Utilities.GetPermissionsState(list, objectcode, allownone);         
+
+            return ret;
+        }
+
     }
 
     public interface IMenuItemActive

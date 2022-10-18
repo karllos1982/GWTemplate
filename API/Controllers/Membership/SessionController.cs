@@ -9,7 +9,7 @@ namespace Template.Controllers
 {
     [Route("membership/[controller]")]
     [ApiController]
-    [Authorize(Roles = "SuperAdmin")]
+    //[Authorize(Roles = "SuperAdmin")]
     public class SessionController : APIControllerBase
     {
 
@@ -19,21 +19,25 @@ namespace Template.Controllers
             AppConfigs = param;
             AppConfigs.EnvironmentSettings = hostingEnvironment;
             AppConfigs.LoadSettings();
-
+            ObjectCode = "SYSSESSION"; 
         }
 
         [HttpPost]
         [Route("search")]        
         public object Search(SessionParam param)
         {
-            Init();
 
-            List<SessionSearchResult> list = null;
+            Init(PERMISSION_CHECK_ENUM.READ, false);
 
-            list = manager.Membership.SessionUnit.Search(param);
+            if (IsAllowed)
+            {
+                List<SessionSearchResult> list = null;
 
-            SetReturn(list);
-            FinalizeManager();
+                list = manager.Membership.SessionUnit.Search(param);
+
+                SetReturn(list);
+                FinalizeManager();
+            }
 
             return ret;
         }
@@ -42,14 +46,17 @@ namespace Template.Controllers
         [Route("list")]        
         public object List(SessionParam param)
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.READ, true);
 
-            List<SessionList> list = null;
+            if (IsAllowed)
+            {
+                List<SessionList> list = null;
 
-            list = manager.Membership.SessionUnit.List(param);
+                list = manager.Membership.SessionUnit.List(param);
 
-            SetReturn(list);
-            FinalizeManager();
+                SetReturn(list);
+                FinalizeManager();
+            }
 
             return ret;
         }
@@ -58,31 +65,34 @@ namespace Template.Controllers
         [Route("get")]        
         public object Get(string id)
         {
-            Init();
+            Init( PERMISSION_CHECK_ENUM.READ,false);
 
-            SessionModel obj = null;
-
-            obj = manager.Membership.SessionUnit.Get(Int64.Parse(id));
-
-            if (this.GetDefaultStatus().Status)
+            if (IsAllowed)
             {
-                if (obj != null)
+                SessionModel obj = null;
+
+                obj = manager.Membership.SessionUnit.Get(Int64.Parse(id));
+
+                if (this.GetDefaultStatus().Status)
                 {
-                    ret = obj;
+                    if (obj != null)
+                    {
+                        ret = obj;
+                    }
+                    else
+                    {
+                        Response.StatusCode = 500;
+                        ret = GetInnerExceptions("Nenhum registro encontrado.");
+                    }
                 }
                 else
                 {
                     Response.StatusCode = 500;
-                    ret = GetInnerExceptions("Nenhum registro encontrado.");
+                    ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
                 }
-            }
-            else
-            {
-                Response.StatusCode = 500;
-                ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
-            }
 
-            FinalizeManager();
+                FinalizeManager();
+            }
             return ret;
         }
       

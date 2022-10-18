@@ -46,23 +46,26 @@
 
                                                 <div class="form-group">
                                                         <label class="form-label">Perfil:</label>
-                                                        @if (view.listRoles != null & view.listRoles.Count > 0)
+                                                        @if (view.listRoles != null )
                                                         {
-                                                             <SelectList TItem="RoleList"
+                                                                @if (view.listRoles.Count > 0)
+                                                                {
+                                                                    <SelectList TItem="RoleList"
                                                                                 TValue="Int64"
                                                                                 Data="@view.listRoles"
                                                                                 TextField="@((item)=>item.RoleName)"
                                                                                 ValueField="@((item)=>item.RoleID)"
                                                                                 @bind-SelectedValue="@view.param.pRoleID"></SelectList>
-                                      
-                                                        }
+                                                                }
+
+                                                         }
 
                                                 </div>
 
                                                 <p class="field" style="padding-top:10px">
 
                                                     <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
-                                                                Description="Clique aqui buscar usuários."
+                                                Description="Clique aqui buscar usuários." ReadOnly=false
                                                                 ActionLabel="Pesquisando...">
                                                     </TaskButton>
 
@@ -70,7 +73,7 @@
 									    
                                                  <p class="field" style="padding-top:10px">
                                                      <TaskButton @ref="newbtn" OnClick="OnNew" Title="Novo Usuário" Class="dark"
-                                                          Description="Clique aqui criar o novo usuário."
+                                                          Description="Clique aqui criar o novo usuário." Disabled="" ReadOnly=!view.Permissions.AllowSave
                                                           ActionLabel="Inserindo...">
                                                         </TaskButton>
 
@@ -139,8 +142,11 @@
 
                                                                             selectedID = user.UserID;
 
-                                                                            <IconButton Icon="IconButton.TYPEICONENUM.DETAILS" 
+                                                                            @if(view.Permissions.AllowSave)
+                                                                            {
+                                                                                 <IconButton Icon="IconButton.TYPEICONENUM.DETAILS" 
                                                                                         OnClick="OnDetClick"></IconButton>                                                                                                                                                   
+                                                                            }
                                                                       }
                                                     
                                                                 </DisplayTemplate>
@@ -331,7 +337,7 @@
 
                                                         <TaskButton @ref="statebtn" Title="Atualizar Status" OnClick="OnChangeState"
                                                                         Description="Clique aqui para altualizar os estados de Ativo e Bloqueado."
-                                                                        ActionLabel="Atualizando...">
+                                                                    ActionLabel="Atualizando..." ReadOnly=!view.Permissions.AllowSave>
                                                         </TaskButton>
 
                                                     </p>
@@ -418,7 +424,7 @@
 
                                                             <TaskButton @ref="savenewbtn" OnClick="OnCreate" Title="Criar Usuário"
                                                                         Description="Clique aqui para salvar os dados do novo usuário."
-                                                                        ActionLabel="Salvando...">
+                                                                         ActionLabel="Salvando..." ReadOnly=!view.Permissions.AllowSave>
                                                             </TaskButton>
 
                                                         </p>  			                  

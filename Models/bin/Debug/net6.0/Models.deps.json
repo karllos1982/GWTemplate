@@ -8,8 +8,8 @@
     ".NETCoreApp,Version=v6.0": {
       "Models/1.0.0": {
         "dependencies": {
-          "GW.Framework": "3.5.3",
-          "GW.Membership": "1.0.0"
+          "GW.Framework": "3.5.6",
+          "GW.Membership": "1.0.4"
         },
         "runtime": {
           "Models.dll": {}
@@ -23,7 +23,7 @@
           }
         }
       },
-      "GW.Framework/3.5.3": {
+      "GW.Framework/3.5.6": {
         "dependencies": {
           "Dapper": "2.0.123",
           "Newtonsoft.Json": "13.0.1",
@@ -36,14 +36,14 @@
           }
         }
       },
-      "GW.Membership/1.0.0": {
+      "GW.Membership/1.0.4": {
         "dependencies": {
-          "GW.Framework": "3.5.3"
+          "GW.Framework": "3.5.6"
         },
         "runtime": {
           "lib/net6.0/GW.Membership.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+            "assemblyVersion": "1.0.4.0",
+            "fileVersion": "1.0.4.0"
           }
         }
       },
@@ -145,19 +145,19 @@
       "path": "dapper/2.0.123",
       "hashPath": "dapper.2.0.123.nupkg.sha512"
     },
-    "GW.Framework/3.5.3": {
+    "GW.Framework/3.5.6": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-CxEEc300Wd7Pl9VaSmW4lN95ywjK5iqBaVIi+fTXyJ9bphxa0JEiU8LD5s2Fp/B92QMpkSKIGeGwUzBoIb67yg==",
-      "path": "gw.framework/3.5.3",
-      "hashPath": "gw.framework.3.5.3.nupkg.sha512"
+      "sha512": "sha512-4nkfx0nLz4hklRLWjI80z65tX8MrhX8WU7DWNCgjPo5N/zpfNLlyI4GlWFfuoxIAyv7p5ZGVwsHwR9rhg7I/Gg==",
+      "path": "gw.framework/3.5.6",
+      "hashPath": "gw.framework.3.5.6.nupkg.sha512"
     },
-    "GW.Membership/1.0.0": {
+    "GW.Membership/1.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-eb8VQydWBtKAfq6jezxR7FeN3BzC7Ra2ld6eH07biUwv+KETVd9vOiV4BXaiN6qifHHPVTMKrmhDBzARQEJVRQ==",
-      "path": "gw.membership/1.0.0",
-      "hashPath": "gw.membership.1.0.0.nupkg.sha512"
+      "sha512": "sha512-TH1QvVl1BCjyxAnj+JKQ0yYiVoIy6v77sR6HelFtcessZXwDt7No3D7c6ArJrzf2Rn1tQlYpYOMvtvsGOQDLWw==",
+      "path": "gw.membership/1.0.4",
+      "hashPath": "gw.membership.1.0.4.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/3.1.0": {
       "type": "package",

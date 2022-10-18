@@ -36,7 +36,11 @@
 {
 
 
-<div class="header-navs d-flex align-items-stretch flex-stack h-lg-70px w-100 py-5 py-lg-0" id="kt_header_navs" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_header_navs_toggle" data-kt-swapper="true" data-kt-swapper-mode="append" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header'}">
+<div class="header-navs d-flex align-items-stretch flex-stack h-lg-70px w-100 py-5 py-lg-0" 
+    id="kt_header_navs" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" 
+    data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" 
+    data-kt-drawer-toggle="#kt_header_navs_toggle" data-kt-swapper="true" data-kt-swapper-mode="append" 
+    data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header'}">
     
     <div class="d-lg-flex container-xxl w-100">
       
@@ -94,32 +98,32 @@
             {
                 @if (GetItems())
                 {
-                    @foreach (MenuItem g in _groups)
-                    {
-                        <div class="row gy-5 g-xl-10" style="min-height:500px">
-
-                            <div class="col-xl-12" style="margin-top:25px"> 
-                            <Dropdown>
-                                <DropdownToggle Color="Color.Dark">
-                                    @g.Group
-                                </DropdownToggle>
-                                <DropdownMenu>
-
-                                        @foreach (MenuItem i in _items)
-                                        {
-                                            @if (g.Group == i.Group)
+                    <div class="accordion" id="accordionMenu" style="min-height:500px">
+                        @foreach (MenuItem g in _groups)
+                        {
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="@g.NavTabIndex">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bg_@g.NavTabIndex" aria-expanded="true" aria-controls="bg_@g.NavTabIndex">
+                                        @g.Group
+                                    </button>
+                                </h2>
+                                <div id="bg_@g.NavTabIndex" class="accordion-collapse collapse" aria-labelledby="@g.NavTabIndex" data-bs-parent="#accordionMenu">
+                                    <div class="accordion-body">
+                                        <ul class="list-group">
+                                            @foreach (MenuItem i in _items)
                                             {
-                                                <DropdownItem @onclick="()=>GoToPage(i.LinkURL)" >@i.LinkTitle</DropdownItem>                                                       
+                                                @if (g.Group == i.Group)
+                                                {
+                                                    <li class="list-group-item" style="cursor:pointer" @onclick="()=>GoToPage(i.LinkURL)">@i.LinkTitle</li>                                                                                                       
+                                                }
                                             }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>                           
 
-                                        }
-                                </DropdownMenu>
-                            </Dropdown>  
-                            </div>
-
-                        </div>
-
-                    }
+                        }
+                    </div>                                             
 
                 }
             }                                            
@@ -155,8 +159,12 @@
         {
             Role = role;
             Group=group;
-            NavTabIndex = "kt_header_navs_tab_" + index;
+            NavTabIndex = "kt_menu_" + index;
         }        
+
+        public string Permission_ObjectCode { get; set; } 
+
+        public bool Permission_Allownone{ get; set; } 
 
     }
 
@@ -171,6 +179,33 @@
 
     [Parameter]
     public MENUDISPLAYENUM Display { get; set; }
+
+    [Parameter]
+    public List<UserPermissions> Permissions 
+    {
+
+        set
+        {
+            if (value != null)
+            {
+                _Permissions = new List<PermissionBase>();
+
+                foreach (UserPermissions u in value)
+                {
+                    _Permissions.Add(new PermissionBase()
+                        {
+                            ObjectCode = u.ObjectCode,
+                            ReadStatus = u.ReadStatus,
+                            SaveStatus = u.SaveStatus,
+                            DeleteStatus = u.DeleteStatus
+                        }
+                    );
+                }
+            }
+        }
+    }
+
+    private List<PermissionBase> _Permissions = null;
 
     private List<MenuItem> _items = new List<MenuItem>();
     private List<MenuItem> _groups = new List<MenuItem>();  
@@ -203,6 +238,7 @@
     }
 
 
+
     private void LoadMenuContent()
     {
         //List<MenuItem>  ret = new List<MenuItem>();
@@ -214,9 +250,10 @@
 
         _items.Add(new MenuItem("Anonymous", "Home", "1"){ LinkTitle="Login", LinkURL="Login", State="active show"}) ;         
 
-        _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="superadmin/users", State="active show"}) ;
-        _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Dados", LinkURL="superadmin/datalog"}) ;
-        _items.Add(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Log de Acesso", LinkURL="superadmin/accesslog"}) ;
+        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="superadmin/users", State="active show", Permission_ObjectCode="SYSUSER",Permission_Allownone=false}) ;
+        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Log de Dados", LinkURL = "superadmin/datalog", Permission_ObjectCode = "SYSDATALOG", Permission_Allownone = true });
+        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Log de Acesso", LinkURL = "superadmin/accesslog", Permission_ObjectCode = "SYSSESSION", Permission_Allownone = true });
+        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Objetos de Permissão", LinkURL = "superadmin/objectpermission", Permission_ObjectCode = "SYSOBJECTPERMISSION", Permission_Allownone = true });
 
         //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 1", LinkURL="pag1"}) ;
         //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 2", LinkURL="pag2"}) ;
@@ -226,6 +263,29 @@
         _items.Add(new MenuItem("Admin", "Gerenciamento", "1"){ LinkTitle="Log de Dados", LinkURL="DataLog"}) ;
         _items.Add(new MenuItem("Admin", "Gerenciamento", "1"){ LinkTitle="Log de Acesso", LinkURL="AccessLog"}) ;
 
+    }
+
+    private PermissionsState _state; 
+
+    private void AddItem(MenuItem item)
+    {
+        if (Display == MENUDISPLAYENUM.TABITEMS)
+    {
+            if (_Permissions != null)
+            {
+                _state = GW.Core.Helpers
+                    .Utilities.GetPermissionsState(_Permissions,
+                            item.Permission_ObjectCode, item.Permission_Allownone);
+
+                if (_state.AllowRead)
+                {
+                    _items.Add(item);
+                }
+            }
+        }
+        else{
+             _items.Add(item);
+        }
     }
 
     public async Task OpenMobileMenu()

@@ -11,12 +11,17 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Caching.Memory;
+using System.Security.Claims;
+using System.Security.Permissions;
 
 namespace Template.API
 {
     public class APIControllerBase: ControllerBase
     {
-        
+        protected bool IsAllowed = false; 
+        protected PERMISSION_STATE_ENUM PermissionState = PERMISSION_STATE_ENUM.NONE;
+
+        public string ObjectCode = "";
         public OperationStatus opsts = new OperationStatus();
         public object ret = null;
 
@@ -38,7 +43,7 @@ namespace Template.API
             return ret;
         }
 
-        public void Init()
+        public void Init_()
         {
             mailSettings = AppConfigs.Settings.MailSettings;
             mailSettings.IsBodyHtml = true;
@@ -48,6 +53,64 @@ namespace Template.API
             apiConfigs.Connections = AppConfigs.Settings.Connections;
             mailCenter = new TemplateMailCenter(mailSettings);
             manager = new TemplateManager(apiConfigs);
+            
+            IsAllowed = true;
+            PermissionState = PERMISSION_STATE_ENUM.NONE;
+        }
+
+        public void Init(PERMISSION_CHECK_ENUM? checking = null, bool? allownone = null)
+        {
+            mailSettings = AppConfigs.Settings.MailSettings;
+            mailSettings.IsBodyHtml = true;
+            apiConfigs = new TemplateConfigs();
+            apiConfigs.ServiceBaseURL = "";
+            apiConfigs.MailSettings = mailSettings;
+            apiConfigs.Connections = AppConfigs.Settings.Connections;
+            mailCenter = new TemplateMailCenter(mailSettings);
+            manager = new TemplateManager(apiConfigs);
+
+            if (checking != null)
+            {
+
+                string content = User.Claims.ToList()[2].Value;
+
+                List<UserPermissions> permissions = JsonConvert.DeserializeObject<List<UserPermissions>>(content);
+
+                List<PermissionBase> list = new List<PermissionBase>();
+
+                foreach (UserPermissions u in permissions)
+                {
+                    list.Add(new PermissionBase()
+                    {
+                        ObjectCode = u.ObjectCode,
+                        ReadStatus = u.ReadStatus,
+                        SaveStatus = u.SaveStatus,
+                        DeleteStatus = u.DeleteStatus
+                    }
+                    );
+                }
+                                      
+                PermissionState = Utilities.CheckPermission(list, ObjectCode, checking.Value);
+                IsAllowed = false;
+                if (PermissionState == PERMISSION_STATE_ENUM.ALLOWED)
+                {
+                    IsAllowed = true;
+                }
+
+                if (allownone.Value && PermissionState == PERMISSION_STATE_ENUM.NONE)
+                {
+                    IsAllowed = true;
+                }
+
+                if (!IsAllowed)
+                {
+                    Response.StatusCode = 403;
+                    manager.DbContext[contextindex].ExecutionStatus = new OperationStatus(false);
+                    manager.DbContext[contextindex].ExecutionStatus.Error =
+                        new Exception("Acesso negado ao recurso: " + ObjectCode + " / " + checking.ToString());
+                    ret = GetInnerExceptions("Acesso negado ao recurso: " + ObjectCode + " / " + checking.ToString());
+                }
+            }
 
         }
 

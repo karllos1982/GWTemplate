@@ -28,6 +28,8 @@ namespace Template.Gateway
 
         public DataLogGateway DataLog = null;
 
+        public ObjectPermissionGateway ObjectPermission = null; 
+
         public MembershipGateway()
         {
 
@@ -39,6 +41,7 @@ namespace Template.Gateway
             Role = new RoleGateway();
             Session = new SessionGateway();
             DataLog = new DataLogGateway();
+            ObjectPermission = new ObjectPermissionGateway();
 
             User.InitializeAPI(http, baseurl + "/membership/user/", token);
             User.IsAuthenticated = true;
@@ -51,6 +54,10 @@ namespace Template.Gateway
 
             DataLog.InitializeAPI(http, baseurl + "/membership/datalog/", token);
             DataLog.IsAuthenticated = true;
+
+            ObjectPermission.InitializeAPI(http, baseurl + "/membership/objectpermission/", token);
+            ObjectPermission.IsAuthenticated = true;
+
         }
 
         //public List<InnerException> GetDefaultError(ref Exception defaulterror)
@@ -339,4 +346,58 @@ namespace Template.Gateway
         }
 
     }
+
+    public class ObjectPermissionGateway : APIGatewayManagerAsync
+    {
+
+        public ObjectPermissionGateway()
+        {
+
+        }
+
+        public async Task<List<ObjectPermissionSearchResult>> Search(ObjectPermissionParam param)
+        {
+            List<ObjectPermissionSearchResult> ret = null;
+
+            ret = await PostAsJSON<List<ObjectPermissionSearchResult>>("search",
+                JsonConvert.SerializeObject(param), null);
+
+
+            return ret;
+        }
+
+        public async Task<List<ObjectPermissionList>> List(ObjectPermissionParam param)
+        {
+            List<ObjectPermissionList> ret = null;
+
+            ret = await PostAsJSON<List<ObjectPermissionList>>("list",
+                JsonConvert.SerializeObject(param), null);
+
+            return ret;
+        }
+
+        public async Task<ObjectPermissionModel> Get(string id)
+        {
+            ObjectPermissionModel ret = null;
+
+            object[] param = new object[1];
+            param[0] = new DefaultGetParam(id);
+
+            ret = await GetAsJSON<ObjectPermissionModel>("get", param);
+
+            return ret;
+        }
+
+        public async Task<ObjectPermissionModel> Set(ObjectPermissionModel data)
+        {
+            ObjectPermissionModel ret = null;
+
+            ret = await PostAsJSON<ObjectPermissionModel>("set", JsonConvert.SerializeObject(data), null);
+
+            return ret;
+        }
+
+
+    }
+
 }

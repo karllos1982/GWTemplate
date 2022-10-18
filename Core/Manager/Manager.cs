@@ -47,8 +47,9 @@ namespace Template.Core.Manager
         public void FinalizeContext()
         {
             foreach (var context in DbContext)
-            {
-                context.End(true);
+            {                
+                 context.End(true);
+               
             }
 
         }

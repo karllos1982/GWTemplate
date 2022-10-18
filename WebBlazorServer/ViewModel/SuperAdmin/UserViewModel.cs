@@ -14,7 +14,7 @@ namespace Template.ViewModel
         {
             _user = user;
             _gateway = service;
-            this.InitializeView();
+            this.InitializeView(_user,"SYSUSER",false);
         }
 
         UserAuthenticated _user;
@@ -58,7 +58,7 @@ namespace Template.ViewModel
 
             if (listRoles == null)
             {
-                ExecutionStatus.InnerExceptions = _gateway.User.GetInnerExceptions(ref ExecutionStatus.Error);
+                ExecutionStatus.InnerExceptions = _gateway.Role.GetInnerExceptions(ref ExecutionStatus.Error);
                 ExecutionStatus.Status = false;
             }
             else

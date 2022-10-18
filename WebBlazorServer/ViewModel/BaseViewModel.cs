@@ -83,7 +83,20 @@ namespace Template.ViewModel
             ModoLabel = "";                        
             
         }
-                
+
+        public void InitializeView(UserAuthenticated user, 
+            string objectcode, bool allownome)
+        {
+            SearchingState = "block";
+            EditingState = "none";
+            ModoLabel = "";
+
+            Permissions = new PermissionsState(false, false, false); 
+
+           Permissions =
+                  this.CheckPermissions(user, objectcode, allownome);   
+
+        }
 
         public OperationStatus ExecutionStatus = null;
 
@@ -93,7 +106,9 @@ namespace Template.ViewModel
 
         public string ModoLabel = "";
 
-        public bool Inserting = false; 
+        public bool Inserting { get; set; }
+
+        public PermissionsState Permissions;
 
         public List<InnerException> SummaryValidation = null;
 
@@ -187,6 +202,35 @@ namespace Template.ViewModel
         public abstract Task Get(object id);
 
         public abstract Task Set();
+
+        public PermissionsState CheckPermissions(UserAuthenticated user,
+            string objectcode, bool allownone)
+        {
+            PermissionsState ret = new PermissionsState(false, false, false);
+
+            List<UserPermissions> permissions = user.Permissions;
+
+            List<PermissionBase> list = new List<PermissionBase>();
+
+            foreach (UserPermissions u in permissions)
+            {
+                list.Add(new PermissionBase()
+                {
+                    ObjectCode = u.ObjectCode,
+                    ReadStatus = u.ReadStatus,
+                    SaveStatus = u.SaveStatus,
+                    DeleteStatus = u.DeleteStatus
+                }
+                );
+            }
+
+            ret =
+               Utilities.GetPermissionsState(list, objectcode, allownone);
+
+            return ret;
+        }
+
+
 
         public static string FormatDate(DateTime? value)
         {
