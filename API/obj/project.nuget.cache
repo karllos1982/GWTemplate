@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "a3IGq/1U4b/S9U2UoC70Y8TdNCpxgYrThu6XKdl+6h2g1up8e82kpmcV9eUF5Ez8nJfDD7ynj9Hd8T7xkrRm7w==",
+  "dgSpecHash": "sa9VpscoaKIPhoXYlSc9JzfVRSgUJTV0OOsxIfTSCZBFsV9s+9bWKdjHUV+V+xPCGfSwc+e5LApy/+Ais+I2ZA==",
   "success": true,
   "projectFilePath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\karll\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
-    "C:\\Users\\karll\\.nuget\\packages\\gw.framework\\3.5.6\\gw.framework.3.5.6.nupkg.sha512",
-    "C:\\Users\\karll\\.nuget\\packages\\gw.membership\\1.0.4\\gw.membership.1.0.4.nupkg.sha512",
+    "C:\\Users\\karll\\.nuget\\packages\\gw.framework\\3.5.7\\gw.framework.3.5.7.nupkg.sha512",
+    "C:\\Users\\karll\\.nuget\\packages\\gw.membership\\1.0.6\\gw.membership.1.0.6.nupkg.sha512",
     "C:\\Users\\karll\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.10\\microsoft.aspnetcore.authentication.jwtbearer.6.0.10.nupkg.sha512",
     "C:\\Users\\karll\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\karll\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",

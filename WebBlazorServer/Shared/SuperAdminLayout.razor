@@ -45,7 +45,7 @@
                        
                     </div>
 
-                <MenuLink RoleName="SuperAdmin" Permissions="permissions"
+                     <MenuLink RoleName="SuperAdmin" Permissions="permissions"
                             Display="MenuLink.MENUDISPLAYENUM.TABITEMS" > 
                         </MenuLink>
                    
@@ -84,14 +84,26 @@
             {
                 await _appctrl.GetSession();
 
-                user = _appctrl.UserInfo;                
-                permissions = user.Permissions; 
-                
+                user = _appctrl.UserInfo;
+                permissions = await _appctrl.GetUserPermissions();
+
                 if (user.RoleName != "SuperAdmin" && user.RoleName != "Admin" )                    
                 {
                     NavigationManager.NavigateTo(url + "/login");
-                }               
-                _appservices.Init(_httpclient,_settings.Settings.ServiceURL, _appctrl.UserInfo.Token);
+                }
+
+                try
+                {
+                    if (_appctrl.UserInfo != null)
+                    {
+                        _appservices.Init(_httpclient, _settings.Settings.ServiceURL, _appctrl.UserInfo.Token);
+                    }
+                    
+                }
+                catch(Exception ex)
+                {
+
+                }
 
                 StateHasChanged();
             }

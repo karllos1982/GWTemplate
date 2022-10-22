@@ -10,11 +10,11 @@ namespace Template.ViewModel
         private MembershipGateway _gateway;
 
         public UserViewModel(MembershipGateway service,
-            UserAuthenticated user)
+                UserAuthenticated user)
         {
             _user = user;
             _gateway = service;
-            this.InitializeView(_user,"SYSUSER",false);
+            this.InitializeView(_user);
         }
 
         UserAuthenticated _user;

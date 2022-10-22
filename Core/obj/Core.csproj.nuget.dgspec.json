@@ -50,11 +50,11 @@
             },
             "GW.Framework": {
               "target": "Package",
-              "version": "[3.5.6, )"
+              "version": "[3.5.7, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.4, )"
+              "version": "[1.0.6, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -123,11 +123,11 @@
           "dependencies": {
             "GW.Framework": {
               "target": "Package",
-              "version": "[3.5.6, )"
+              "version": "[3.5.7, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.4, )"
+              "version": "[1.0.6, )"
             }
           },
           "imports": [

@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "HF/hznFDfTjpalODpR26QnghyRRvf7O0xXfKD8CtH/OXnQk9TsY6VSpY/Kovp3PaeLP3HU2mqvry/rt5OVEs4w==",
+  "dgSpecHash": "OyyWmqKtEcgk2qVYBD3BbDo9F4Fs7ns9Okh/WqS6h67ahlrd7HwzgHfY64P8TMTNfKtCZsqtwHrBgVgaWt2SyA==",
   "success": true,
   "projectFilePath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Gateway\\Gateway.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\karll\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
-    "C:\\Users\\karll\\.nuget\\packages\\gw.framework\\3.5.6\\gw.framework.3.5.6.nupkg.sha512",
-    "C:\\Users\\karll\\.nuget\\packages\\gw.membership\\1.0.4\\gw.membership.1.0.4.nupkg.sha512",
+    "C:\\Users\\karll\\.nuget\\packages\\gw.framework\\3.5.7\\gw.framework.3.5.7.nupkg.sha512",
+    "C:\\Users\\karll\\.nuget\\packages\\gw.membership\\1.0.6\\gw.membership.1.0.6.nupkg.sha512",
     "C:\\Users\\karll\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\karll\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\karll\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

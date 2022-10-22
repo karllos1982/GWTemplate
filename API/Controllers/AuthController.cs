@@ -17,13 +17,13 @@ namespace Template.Controllers
     public class AuthController : APIControllerBase
     {      
 
-        public AuthController(IAppSettingsManager<TemplateSettings> param,
-             IWebHostEnvironment hostingEnvironment)
+        public AuthController(IAppSettingsManager<TemplateSettings> param, 
+                 IWebHostEnvironment hostingEnvironment)
         {
             AppConfigs = param;
             AppConfigs.EnvironmentSettings = hostingEnvironment;
             AppConfigs.LoadSettings();
-           
+         
         }
 
 
@@ -135,11 +135,11 @@ namespace Template.Controllers
             if (opsts.Status)
             {
                 UserModel userM = (UserModel)opsts.Returns;
-                string permissions_content = JsonConvert.SerializeObject(userM.Permissions);
+                string permissions_content =  JsonConvert.SerializeObject(userM.Permissions);
                 
                 AuthToken token = TokenService.GenerateToken(userM.UserID.ToString(), 
                     userM.Role.RoleName, permissions_content, int.Parse(data.SessionTimeOut));
-
+                           
                 UserAuthenticated userA = new UserAuthenticated();
                 userA.UserID = userM.UserID.ToString();
                 userA.UserName = userM.UserName;
@@ -194,6 +194,7 @@ namespace Template.Controllers
 
             return ret;
         }
+   
 
         [HttpPost]
         [Route("recoverypassword")]

@@ -31,6 +31,7 @@ namespace Template.API
         public TemplateManager manager = null;
         public int contextindex = 0; 
         public IAppSettingsManager<TemplateSettings> AppConfigs;
+        public IUserPermissionsManager<UserPermissions> PermissionsManager;
 
         public IMemoryCache memorycache = null; 
 
@@ -74,23 +75,9 @@ namespace Template.API
 
                 string content = User.Claims.ToList()[2].Value;
 
-                List<UserPermissions> permissions = JsonConvert.DeserializeObject<List<UserPermissions>>(content);
-
-                List<PermissionBase> list = new List<PermissionBase>();
-
-                foreach (UserPermissions u in permissions)
-                {
-                    list.Add(new PermissionBase()
-                    {
-                        ObjectCode = u.ObjectCode,
-                        ReadStatus = u.ReadStatus,
-                        SaveStatus = u.SaveStatus,
-                        DeleteStatus = u.DeleteStatus
-                    }
-                    );
-                }
+                List<UserPermissions> permissions = JsonConvert.DeserializeObject<List<UserPermissions>>(content);               
                                       
-                PermissionState = Utilities.CheckPermission(list, ObjectCode, checking.Value);
+                PermissionState = Utilities.CheckPermission(permissions, ObjectCode, checking.Value);
                 IsAllowed = false;
                 if (PermissionState == PERMISSION_STATE_ENUM.ALLOWED)
                 {
@@ -114,6 +101,7 @@ namespace Template.API
 
         }
 
+        
         public void FinalizeManager()
         {
             if (manager != null)

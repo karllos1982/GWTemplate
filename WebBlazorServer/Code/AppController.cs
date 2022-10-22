@@ -32,6 +32,7 @@ namespace Template.ServerCode
 
         Task ReplaceUserInfo(UserAuthenticated user);
 
+        Task<List<UserPermissions>> GetUserPermissions(); 
     }
 
     public class TemplateSettings: AppSettings
@@ -263,8 +264,12 @@ namespace Template.ServerCode
             usr = await ((AuthGateway)apigateway).Login(user);
 
             if (usr != null)
-            {                                
+            {
+                DateTime expires = DateTime.Now.AddMinutes(int.Parse(_settings.SessionTimeOut));
+                await _cookies.SetUserPermissions(usr.Permissions, expires);
+
                 await this.CreateSession(usr);
+                usr.Permissions = null;
 
                 ret.Returns = usr; 
             }
@@ -283,33 +288,28 @@ namespace Template.ServerCode
             await _cookies.ClearUserContext();
         }
 
-        public PermissionsState CheckPermissions(UserAuthenticated user,
+        public  PermissionsState CheckPermissions(UserAuthenticated user,
             string objectcode, bool allownone)
         {
             PermissionsState ret = new PermissionsState(false,false,false);
             
-            List<UserPermissions> permissions = user.Permissions;
-
-            List<PermissionBase> list = new List<PermissionBase>();
-
-            foreach (UserPermissions u in permissions)
-            {
-                list.Add(new PermissionBase()
-                {
-                    ObjectCode = u.ObjectCode,
-                    ReadStatus = u.ReadStatus,
-                    SaveStatus = u.SaveStatus,
-                    DeleteStatus = u.DeleteStatus
-                }
-                );
-            }
+            List<UserPermissions> permissions = user.Permissions;           
 
             ret =
-                Utilities.GetPermissionsState(list, objectcode, allownone);         
+                Utilities.GetPermissionsState(permissions, objectcode, allownone);         
 
             return ret;
         }
 
+        public async Task<List<UserPermissions>> GetUserPermissions()
+        {
+            List<UserPermissions> ret = new List<UserPermissions>();
+
+            ret = await _cookies.GetUserPermissions(); 
+
+            return ret;
+
+        }
     }
 
     public interface IMenuItemActive

@@ -84,17 +84,11 @@ namespace Template.ViewModel
             
         }
 
-        public void InitializeView(UserAuthenticated user, 
-            string objectcode, bool allownome)
+        public void InitializeView(UserAuthenticated user)                
         {
             SearchingState = "block";
             EditingState = "none";
-            ModoLabel = "";
-
-            Permissions = new PermissionsState(false, false, false); 
-
-           Permissions =
-                  this.CheckPermissions(user, objectcode, allownome);   
+            ModoLabel = "";                   
 
         }
 
@@ -108,7 +102,7 @@ namespace Template.ViewModel
 
         public bool Inserting { get; set; }
 
-        public PermissionsState Permissions;
+        public PermissionsState Permissions { get; set; }
 
         public List<InnerException> SummaryValidation = null;
 
@@ -208,26 +202,24 @@ namespace Template.ViewModel
         {
             PermissionsState ret = new PermissionsState(false, false, false);
 
-            List<UserPermissions> permissions = user.Permissions;
+            List<UserPermissions> permissions = user.Permissions;          
 
-            List<PermissionBase> list = new List<PermissionBase>();
+            ret =
+               Utilities.GetPermissionsState(permissions, objectcode, allownone);
 
-            foreach (UserPermissions u in permissions)
-            {
-                list.Add(new PermissionBase()
-                {
-                    ObjectCode = u.ObjectCode,
-                    ReadStatus = u.ReadStatus,
-                    SaveStatus = u.SaveStatus,
-                    DeleteStatus = u.DeleteStatus
-                }
-                );
-            }
+            return ret;
+        }
+
+        public static PermissionsState SetPermissions(List<UserPermissions> list,
+             string objectcode, bool allownone)
+        {
+            PermissionsState ret = new PermissionsState(false, false, false);
 
             ret =
                Utilities.GetPermissionsState(list, objectcode, allownone);
 
-            return ret;
+            return ret; 
+
         }
 
 

@@ -15,13 +15,13 @@ namespace Template.Controllers
     public class UserController : APIControllerBase
     {
 
-        public UserController(IAppSettingsManager<TemplateSettings> param,
-          IWebHostEnvironment hostingEnvironment)
+        public UserController(IAppSettingsManager<TemplateSettings> param, 
+             IWebHostEnvironment hostingEnvironment)
         {
             AppConfigs = param;
             AppConfigs.EnvironmentSettings = hostingEnvironment;
             AppConfigs.LoadSettings();
-            ObjectCode = "SYSUSER";
+            ObjectCode = "SYSUSER";           
         }
 
 

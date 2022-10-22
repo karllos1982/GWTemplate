@@ -188,24 +188,12 @@
         {
             if (value != null)
             {
-                _Permissions = new List<PermissionBase>();
-
-                foreach (UserPermissions u in value)
-                {
-                    _Permissions.Add(new PermissionBase()
-                        {
-                            ObjectCode = u.ObjectCode,
-                            ReadStatus = u.ReadStatus,
-                            SaveStatus = u.SaveStatus,
-                            DeleteStatus = u.DeleteStatus
-                        }
-                    );
-                }
+                _Permissions = value;
             }
         }
     }
 
-    private List<PermissionBase> _Permissions = null;
+    private List<UserPermissions> _Permissions = null;
 
     private List<MenuItem> _items = new List<MenuItem>();
     private List<MenuItem> _groups = new List<MenuItem>();  
@@ -250,7 +238,7 @@
 
         _items.Add(new MenuItem("Anonymous", "Home", "1"){ LinkTitle="Login", LinkURL="Login", State="active show"}) ;         
 
-        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="superadmin/users", State="active show", Permission_ObjectCode="SYSUSER",Permission_Allownone=false}) ;
+        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="superadmin/users", State="active show", Permission_ObjectCode="SYSUSER",Permission_Allownone=true}) ;
         AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Log de Dados", LinkURL = "superadmin/datalog", Permission_ObjectCode = "SYSDATALOG", Permission_Allownone = true });
         AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Log de Acesso", LinkURL = "superadmin/accesslog", Permission_ObjectCode = "SYSSESSION", Permission_Allownone = true });
         AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Objetos de Permissão", LinkURL = "superadmin/objectpermission", Permission_ObjectCode = "SYSOBJECTPERMISSION", Permission_Allownone = true });

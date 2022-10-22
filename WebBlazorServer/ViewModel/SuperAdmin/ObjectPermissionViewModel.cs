@@ -1,6 +1,7 @@
 ﻿using GW.Core.Common;
 using GW.Membership.Models;
 using Template.Gateway;
+using WebBlazorServer.Pages.SuperAdmin;
 
 namespace Template.ViewModel
 {
@@ -13,7 +14,7 @@ namespace Template.ViewModel
             UserAuthenticated user)
         {       
             _gateway = service;
-            this.InitializeView(user, "SYSOBJECTPERMISSION", false);
+            this.InitializeView(user);         
         }
 
     

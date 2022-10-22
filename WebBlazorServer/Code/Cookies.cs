@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Microsoft.JSInterop;
 using GW.Membership.Models;
+using GW.Core.Common;
 
 namespace Template.ServerCode
 {
@@ -42,6 +43,38 @@ namespace Template.ServerCode
         {            
             await utils.SetCookie(_jsruntime, "USERINFO", null, DateTime.Now.ToString(@"yyyy-MM-dd HH:mm:ss"));
         }
+
+        //
+
+
+        public async Task SetUserPermissions(List<UserPermissions> permissions, DateTime expires)
+        {
+            string val = JsonConvert.SerializeObject(permissions);
+
+            await utils.SetCookie(_jsruntime, "USERPERMISSIONS", val, expires.ToString(@"yyyy-MM-dd HH:mm:ss"));
+
+        }
+
+        public async Task<List<UserPermissions>> GetUserPermissions()
+        {
+            List<UserPermissions> ret = null;
+
+            string aux = await utils.GetCookie(_jsruntime, "USERPERMISSIONS");
+
+            if (aux != null)
+            {
+                ret = JsonConvert.DeserializeObject<List<UserPermissions>>(aux);
+            }
+
+            return ret;
+        }
+
+        public async Task ClearUserPermissions()
+        {
+            await utils.SetCookie(_jsruntime, "USERPERMISSIONS", null, DateTime.Now.ToString(@"yyyy-MM-dd HH:mm:ss"));
+        }
+
+
 
         //
 

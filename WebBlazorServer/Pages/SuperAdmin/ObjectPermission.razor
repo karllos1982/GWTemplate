@@ -5,6 +5,7 @@
 @inject IJSRuntime JSRuntime
 @inject IAppControllerAsync<UserAuthenticated> _appctrl
 @inject IMembershipGatewayManager _memberservices
+@inject IAuthGatewayManager _appservices
 @inject IAppSettingsManager<TemplateSettings>  _settings
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
@@ -234,7 +235,12 @@
         {
             LoggedUser = _appctrl.UserInfo;
             _memberservices.Init(_httpclient,_settings.Settings.ServiceURL,LoggedUser.Token);
+            
             view = new ObjectPermissionViewModel((_memberservices as MembershipGateway) ,LoggedUser); 
+
+            List<UserPermissions> list = await _appctrl.GetUserPermissions();
+            view.Permissions
+               = BaseViewModel.SetPermissions(list, "SYSOBJECTPERMISSION", false);
         }
 
     }
