@@ -17,11 +17,12 @@ namespace Template.ViewModel
             this.InitializeView(user);         
         }
 
-    
+        UserAuthenticated _user;
+
         public ObjectPermissionModel model = new ObjectPermissionModel();
         public ObjectPermissionParam param = new ObjectPermissionParam() { pObjectCode="",pObjectName=""};
         public List<ObjectPermissionSearchResult> searchresult = new List<ObjectPermissionSearchResult>();
-   
+              
 
         public override async Task ClearSummaryValidation()
         {
@@ -40,7 +41,7 @@ namespace Template.ViewModel
            
         }
 
-    
+
         public override async Task Set()
         {
             ExecutionStatus = new OperationStatus(true);

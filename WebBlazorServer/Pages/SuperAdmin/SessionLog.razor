@@ -61,7 +61,7 @@
                                         <p class="field" style="padding-top:10px">
 
                                             <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
-                                                      Description="Clique aqui buscar."
+                                                Description="Clique aqui buscar." ReadOnly=!view.Permissions.AllowRead
                                                       ActionLabel="Pesquisando...">
                                             </TaskButton>
 
@@ -159,6 +159,10 @@
             LoggedUser = _appctrl.UserInfo;
             _memberservices.Init(_httpclient,_settings.Settings.ServiceURL,LoggedUser.Token);            
             view = new SessionViewModel((_memberservices as MembershipGateway) ,LoggedUser); 
+
+            List<UserPermissions> list = await _appctrl.GetUserPermissions();
+            view.Permissions
+                = BaseViewModel.SetPermissions(list, "SYSSESSION", false);
         }
 
     }

@@ -1,0 +1,597 @@
+﻿@page "/superadmin/permission"
+@inherits SuperAdminLayout
+@layout SuperAdminLayout
+
+@inject IJSRuntime JSRuntime
+@inject IAppControllerAsync<UserAuthenticated> _appctrl
+@inject IMembershipGatewayManager _memberservices
+@inject IAuthGatewayManager _appservices
+@inject IDataCacheGatewayManager _datacache
+@inject IAppSettingsManager<TemplateSettings> _settings
+@inject NavigationManager NavigationManager
+@inject HttpClient _httpclient
+
+<BreadCrumbView IsHome="false" HomeURL="/superadmin/permission" PageTitle="Gerenciamento de Permissões" ></BreadCrumbView>
+
+     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+            <div class="content flex-row-fluid" id="kt_content">        
+                <div class="">
+
+                    @if (view != null)
+                    {
+                        <div style="display:@view.SearchingState">
+
+                            <div class="row gy-5 g-xl-10">
+
+                                <div class="col-xl-4">                                
+                                    <div class="card card-flush h-xl-100">								      
+								        <div class="card-header pt-7">
+									  
+									        <h3 class="card-title align-items-start flex-column">
+										        <span class="card-label fw-bold text-dark">Pesquisar</span>										
+									        </h3>									        
+									       
+                                        </div>
+                                           
+                                        <div class="card-body">	
+                                            
+                                             <div class="form-group">
+                                                    <label class="form-label">Object Permission:</label>
+                                                    @if (view.listObject != null )
+                                                    {
+                                                            @if (view.listObject.Count > 0)
+                                                            {
+                                                                     <SelectList TItem="ObjectPermissionList"
+                                                                            TValue="Int64"
+                                                                            Data="@view.listObject"
+                                                                            TextField="@((item)=>item.ObjectName)"
+                                                                            ValueField="@((item)=>item.ObjectPermissionID)"
+                                                                            @bind-SelectedValue="@view.param.pObjectPermissionID"></SelectList>
+                                                            }
+
+                                                        }
+
+                                             </div>
+
+                                            @* <div class="form-group">
+                                                    <label class="form-label">TypeGrant:</label>
+                                                    @if (view.listTypeGrant != null )
+                                                    {
+                                                            @if (view.listTypeGrant.Count > 0)
+                                                            {
+                                                                <SelectList TItem="UIBaseItem"
+                                                                        TValue="string"
+                                                                        Data="@view.listTypeGrant"
+                                                                        TextField="@((item)=>item.Value)"
+                                                                        ValueField="@((item)=>item.ID)"
+                                                                        @bind-SelectedValue="@view.pTypeGrant"></SelectList>
+                                                            }
+
+                                                        }
+
+                                                </div>*@
+
+                                             <div class="form-group">
+                                                        <label class="form-label">Role:</label>
+                                                        @if (view.listRoles != null )
+                                                        {
+                                                                @if (view.listRoles.Count > 0)
+                                                                {
+                                                                    <SelectList TItem="RoleList"
+                                                                                TValue="Int64"
+                                                                                Data="@view.listRoles"
+                                                                                TextField="@((item)=>item.RoleName)"
+                                                                                ValueField="@((item)=>item.RoleID)"
+                                                                                @bind-SelectedValue="@view.param.pRoleID"></SelectList>
+                                                                }
+
+                                                         }
+
+                                                </div>
+
+                                             <div class="form-group">
+                                                        <label class="form-label">User:</label>
+                                                        @if (view.listUsers != null )
+                                                        {
+                                                                @if (view.listUsers.Count > 0)
+                                                                {
+                                                                    <SelectList TItem="UserList"
+                                                                                TValue="Int64"
+                                                                                Data="@view.listUsers"
+                                                                                TextField="@((item)=>item.UserName)"
+                                                                                ValueField="@((item)=>item.UserID)"
+                                                                                @bind-SelectedValue="@view.param.pUserID"></SelectList>
+                                                                }
+
+                                                         }
+
+                                                </div>
+
+                                                <p class="field" style="padding-top:10px">
+
+                                                    <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
+                                                Description="Clique aqui buscar usuários." ReadOnly=!view.Permissions.AllowRead
+                                                                ActionLabel="Pesquisando...">
+                                                    </TaskButton>
+
+                                                </p>									       
+									    
+                                                 <p class="field" style="padding-top:10px">
+                                                     <TaskButton @ref="newbtn" OnClick="OnNew" Title="Nova Permissão" Class="dark"
+                                                          Description="Clique aqui inserir uma nova permissão." Disabled="" ReadOnly=!view.Permissions.AllowSave
+                                                          ActionLabel="Inserindo...">
+                                                        </TaskButton>
+
+                                                 </p>
+                                           </div>
+								        </div>
+                                     </div>
+                                                            
+                                <div class="col-xl-8">
+
+                                    <div class="card card-flush h-xl-100">
+										
+										<div class="card-header pt-7">
+											
+											<h3 class="card-title align-items-start flex-column">
+												<span class="card-label fw-bold text-dark">Resultado da Busca</span>												
+											</h3>
+                                        </div>
+
+                                        <div class="card-body">
+                                            @if (view.searchresult != null)
+                                            {
+                                                @if (view.searchresult.Count > 0)
+                                                {
+                                                      <DataGrid TItem="PermissionSearchResult" Data="@view.searchresult"  Responsive  ShowPager >                                                                                                                                      
+                                                        <DataGridColumns>
+
+                                                            <DataGridColumn Field="@nameof(PermissionSearchResult.ObjectName)" Caption="Object Name" Width="20%" />
+                                                            <DataGridColumn Field="@nameof(PermissionSearchResult.RoleName)" Caption="Role Name" Width="20%" />
+                                                            <DataGridColumn Field="@nameof(PermissionSearchResult.UserName)" Caption="UserName" Width="20%" />
+
+                                                             <DataGridColumn Field="@nameof(PermissionSearchResult.ReadStatus)" Caption="Allow Read" Width="10%">
+                                                                <DisplayTemplate>
+                                                                    @{
+                                                                        PermissionSearchResult obj = (context as PermissionSearchResult);
+
+                                                                        @if (obj.ReadStatus==1)
+                                                                        {
+                                                                            <span>YES</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span>NO</span>
+                                                                        }
+
+                                                                    }
+
+                                                                </DisplayTemplate>
+                                                            </DataGridColumn>
+
+                                                             <DataGridColumn Field="@nameof(PermissionSearchResult.SaveStatus)" Caption="Allow Save" Width="10%">
+                                                                <DisplayTemplate>
+                                                                    @{
+                                                                        PermissionSearchResult obj = (context as PermissionSearchResult);
+
+                                                                        @if (obj.SaveStatus ==1)
+                                                                        {
+                                                                            <span>YES</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span>NO</span>
+                                                                        }
+
+                                                                    }
+
+                                                                </DisplayTemplate>
+                                                            </DataGridColumn>
+
+                                                            <DataGridColumn Field="@nameof(PermissionSearchResult.DeleteStatus)" Caption="Allow Delete" Width="10%">
+                                                                <DisplayTemplate>
+                                                                    @{
+                                                                        PermissionSearchResult obj = (context as PermissionSearchResult);
+
+                                                                        @if (obj.DeleteStatus==1)
+                                                                        {
+                                                                            <span>YES</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span>NO</span>
+                                                                        }
+
+                                                                    }
+
+                                                                </DisplayTemplate>
+                                                            </DataGridColumn>
+
+                                                            <DataGridColumn Field="@nameof(PermissionSearchResult.PermissionID)" Caption="Edit" Width="10%">
+                                                                <DisplayTemplate>
+                                                                    @{
+                                                                        PermissionSearchResult obj = (context as PermissionSearchResult);
+                                                                        
+                                                                         @if(view.Permissions.AllowSave)
+                                                                            {
+                                                                                <IconButton Icon="IconButton.TYPEICONENUM.EDIT" 
+                                                                                        OnClick="()=>OnDetClick(obj.PermissionID)"></IconButton>                                                                                                                                                   
+                                                                            }
+
+                                                                    }
+
+                                                                </DisplayTemplate>
+                                                            </DataGridColumn>
+
+                                                        </DataGridColumns>       
+                                                        
+                                            </DataGrid>
+
+                                                }
+                                                else
+                                                {
+                                                    <p> Nenhum registro encontrado </p>
+                                                }
+                                              }
+                                         
+                                        </div>
+
+                                    </div>
+                                                                  
+
+                                </div>
+
+                           
+                             </div>
+
+                        </div>    
+
+                         <div style="display:@view.EditingState">
+                            
+                           <BackButton OnClick="Back"></BackButton>
+                           
+                           <div class="row gy-5 g-xl-10">
+
+                                    <div class="col-xl-8">                                
+                                        <div class="card card-flush h-xl-100">								      
+		                                    <div class="card-header pt-7">
+									  
+			                                    <h3 class="card-title align-items-start flex-column">
+				                                    <span class="card-label fw-bold text-dark">Dados da Permissão</span>										
+			                                    </h3>									        
+									       
+                                            </div>
+                                           
+                                            <div class="card-body">
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+
+                                                              <div class="form-group">
+                                                                <label class="form-label">Object Permission:</label>
+                                                                @if (view.listObject != null )
+                                                                {
+                                                                    @if (view.listObject.Count > 0)
+                                                                    {
+                                                                        <SelectList TItem="ObjectPermissionList"
+                                                                            TValue="Int64"
+                                                                            Data="@view.listObject"
+                                                                            TextField="@((item)=>item.ObjectName)"
+                                                                            ValueField="@((item)=>item.ObjectPermissionID)"
+                                                                            @bind-SelectedValue="@view.model.ObjectPermissionID"></SelectList>
+
+                                                                            <label class="form-label validation_field">@view.GetSummaryMessage("ObjectPermissionID") </label>
+                                                                    }
+
+                                                                }
+
+                                                         </div>
+
+                                                        </div>
+                                                    </div>
+                                                    
+                                                     <div class="row">
+                                                        <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Role:</label>
+                                                                        @if (view.listRoles != null )
+                                                                        {
+                                                                                @if (view.listRoles.Count > 0)
+                                                                                {
+                                                                                    <SelectList TItem="RoleList" Disabled=@view.GetDisabledStatus("R",view.model.TypeGrant)
+                                                                                                TValue="Int64?"
+                                                                                                Data="@view.listRoles"
+                                                                                                TextField="@((item)=>item.RoleName)"
+                                                                                                ValueField="@((item)=>item.RoleID)"
+                                                                                                @bind-SelectedValue="@view.model.RoleID"></SelectList>
+                                                                                      <label class="form-label validation_field">@view.GetSummaryMessage("RoleID") </label>
+                                                                                }
+
+                                                                         }
+
+                                                            </div>                                                    
+                                                        
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="row">
+                                                        <div class="col-md-12">
+                                                             <div class="form-group">
+                                                                    <label class="form-label">User:</label>
+                                                                    @if (view.listUsers != null )
+                                                                    {
+                                                                            @if (view.listUsers.Count > 0)
+                                                                            {
+                                                                                <SelectList TItem="UserList" Disabled=@view.GetDisabledStatus("U",view.model.TypeGrant)
+                                                                                            TValue="Int64?"
+                                                                                            Data="@view.listUsers"
+                                                                                            TextField="@((item)=>item.UserName)"
+                                                                                            ValueField="@((item)=>item.UserID)"
+                                                                                            @bind-SelectedValue="@view.model.UserID"></SelectList>
+                                                                                    <label class="form-label validation_field">@view.GetSummaryMessage("UserID") </label>
+                                                                            }
+
+                                                                     }
+
+                                                            </div>
+                                                        
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                             <div class="form-group">
+                                                                  <label class="form-label">Read Status:</label>
+                                                                    @if (view.listPermissionValue != null )
+                                                                    {
+                                                                            @if (view.listPermissionValue.Count > 0)
+                                                                            {
+                                                                                    <SelectList TItem="SelectBaseItem"
+                                                                                            TValue="int"
+                                                                                            Data="@view.listPermissionValue"
+                                                                                            TextField="@((item)=>item.Text)"
+                                                                                            ValueField="@((item)=>item.Value)"
+                                                                                            @bind-SelectedValue="@view.model.ReadStatus">
+                                                                                        </SelectList>
+                                                                            }
+
+                                                                     }
+
+                                                            </div>
+
+                                                        </div>
+
+                                                         <div class="col-md-4">
+                                                             <div class="form-group">
+                                                                  <label class="form-label">Save Status:</label>
+                                                                    @if (view.listPermissionValue != null )
+                                                                    {
+                                                                            @if (view.listPermissionValue.Count > 0)
+                                                                            {
+                                                                                    <SelectList TItem="SelectBaseItem"
+                                                                                            TValue="int"
+                                                                                            Data="@view.listPermissionValue"
+                                                                                            TextField="@((item)=>item.Text)"
+                                                                                            ValueField="@((item)=>item.Value)"
+                                                                                            @bind-SelectedValue="@view.model.SaveStatus">
+                                                                                        </SelectList>
+                                                                            }
+
+                                                                     }
+
+                                                            </div>
+
+                                                        </div>
+
+                                                         <div class="col-md-4">
+                                                             <div class="form-group">
+                                                                  <label class="form-label">Delete Status:</label>
+                                                                    @if (view.listPermissionValue != null )
+                                                                    {
+                                                                            @if (view.listPermissionValue.Count > 0)
+                                                                            {
+                                                                                    <SelectList TItem="SelectBaseItem"
+                                                                                            TValue="int"
+                                                                                            Data="@view.listPermissionValue"
+                                                                                            TextField="@((item)=>item.Text)"
+                                                                                            ValueField="@((item)=>item.Value)"
+                                                                                            @bind-SelectedValue="@view.model.DeleteStatus">
+                                                                                        </SelectList>
+                                                                            }
+
+                                                                     }
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                     <div class="row">
+                                                        <div class="col-md-12">
+
+                                                            <p class="field" style="padding-top:10px">
+
+                                                                <TaskButton @ref="savenewbtn" OnClick="OnSet" Title="Salvar"
+                                                                    Description="Clique aqui para salvar os dados do Objeto de Permissão."
+                                                                    ActionLabel="Salvando..." ReadOnly=!view.Permissions.AllowSave>
+                                                                </TaskButton>
+
+                                                            </p>
+                                                         </div>
+		                                           </div>
+
+                                             </div>
+		                                </div>
+                                    </div>
+                                                            
+                                                           
+                                 </div>                                                                                   
+
+                        </div>
+                    }
+                    else
+                    {
+                        <h5>Carregando a página. Aguarde...</h5>
+
+                    }
+
+                </div>
+            </div>
+        </div>
+
+<MessageBox @ref="msgbox"></MessageBox>
+
+<MessageBox @ref="msgbox_create" 
+    ButtonNo="true" ButtonYes="true" ButtonOK="false" 
+    OnClickYes="OnNew" >
+</MessageBox>
+
+<TaskLoading @ref="loading" Title="Carregando dados. Aguarde..."></TaskLoading>
+
+
+@code {
+
+
+    private MessageBox msgbox;
+    private MessageBox msgbox_create;
+    private TaskLoading loading;
+    private TaskButton searchbtn;
+    private TaskButton statebtn;
+    private TaskButton newbtn;
+    private TaskButton savenewbtn;
+
+
+    //
+
+    private UserAuthenticated LoggedUser;
+    private PermissionViewModel view;
+
+    //
+
+    private async Task InitResources()
+    {
+        _settings.LoadSettings(_httpclient);
+        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
+
+        if (await _appctrl.IsAuthenticated())
+        {
+            LoggedUser = _appctrl.UserInfo;
+            _memberservices.Init(_httpclient, _settings.Settings.ServiceURL, LoggedUser.Token);
+
+            _datacache.Init(_httpclient,_settings.Settings.ServiceURL, LoggedUser.Token);
+
+            view = new PermissionViewModel((_memberservices as MembershipGateway), 
+                       (_datacache as DataCacheGateway), LoggedUser);
+
+            List<UserPermissions> list = await _appctrl.GetUserPermissions();
+            view.Permissions
+               = BaseViewModel.SetPermissions(list, "SYSPERMISSION", false);
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            await InitResources();
+            await view.InitializeModels();
+            StateHasChanged();
+        }
+    }
+
+    public async Task OnSearch()
+    {
+        searchbtn.Begin();
+        await view.Search();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+        }
+
+        searchbtn.End();
+    }
+
+    public void OnNew()
+    {
+
+        view.InitNew();
+        StateHasChanged();
+    }
+
+    public async Task OnGet(object id)
+    {
+        await loading.Begin();
+
+        await view.Get(id);
+
+        await loading.End();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            view.InitEdit();
+
+        }
+
+        StateHasChanged();
+    }
+
+
+    public async Task OnSet()
+    {
+        savenewbtn.Begin();
+
+        await view.Set();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro salvar.", view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            if (this.view.Inserting)
+            {
+                await msgbox_create.ShowDialog("Sucesso!", "O Objeto foi salvo com sucesso. Deseja continuar inserindo ?");
+            }
+            else
+            {
+                await msgbox.ShowDialog("Sucesso!", "Os dados foram editados com sucesso.");
+                this.Back();
+            }
+
+        }
+
+        savenewbtn.End();
+
+    }
+
+    public async Task OnDetClick(object id)
+    {
+        await OnGet(id);
+
+    }
+
+    public void Back()
+    {
+        view.BackToSearch();
+        StateHasChanged();
+
+    }
+
+    public void GoHome()
+    {
+        string url = _appctrl.UserInfo.HomeURL;
+        NavigationManager.NavigateTo(url);
+
+    }
+
+
+
+}

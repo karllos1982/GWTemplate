@@ -77,6 +77,31 @@ namespace Template.API.Controllers
             return ret;
         }
 
-        
+        [HttpGet]
+        [Route("listroles")]
+        public object ListRoles()
+        {
+            Init();
+
+            List<RoleList> list = null;
+
+            list = memorycache.Get<List<RoleList>>("ROLES");
+
+            if (list == null)
+            {
+                list = manager.Membership.RoleUnit.List(new RoleParam());
+
+                memorycache.Set("ROLES", list, this.GetMemoryCacheOptionsByHour(2));
+
+            }
+
+            ret = list;
+
+            FinalizeManager();
+
+            return ret;
+        }
+
+
     }
 }

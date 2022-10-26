@@ -456,6 +456,13 @@ namespace Template.Gateway
             return ret;
         }
 
+        public async Task<PermissionModel> Delete(PermissionModel data)
+        {
+            PermissionModel ret = null;
 
+            ret = await PostAsJSON<PermissionModel>("delete", JsonConvert.SerializeObject(data), null);
+
+            return ret;
+        }
     }
 }

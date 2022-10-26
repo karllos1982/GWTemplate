@@ -87,6 +87,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxPYmplY3RQZXJtaXNzaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorServer/Pages/SuperAdmin/Permission.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxQZXJtaXNzaW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorServer/Pages/SuperAdmin/SessionLog.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxTZXNzaW9uTG9nLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 

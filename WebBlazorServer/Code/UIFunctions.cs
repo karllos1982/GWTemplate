@@ -52,6 +52,26 @@ public class UIBaseItem
         
 }
 
+public class SelectBaseItem
+{
+    public int Value { get; set; }
+    public string Text { get; set; }
+
+    public SelectBaseItem(int value, string text)
+    {        
+        Value = value;
+        Text = text;    
+
+    }
+
+    public SelectBaseItem()
+    {
+
+    }
+
+
+}
+
 public static class UtilFunctions
 {
     public static string DayName(DateTime date)

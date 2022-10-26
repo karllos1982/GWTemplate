@@ -49,7 +49,15 @@ namespace Template.Gateway
             return ret;
         }
 
-             
+        public async Task<List<RoleList>> ListRoles()
+        {
+            List<RoleList> ret = null;
+
+            ret = await this.GetAsJSON<List<RoleList>>("listroles", null);                
+
+            return ret;
+        }
+
     }
 
 }

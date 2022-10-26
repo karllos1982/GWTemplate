@@ -48,7 +48,7 @@
                                                 <p class="field" style="padding-top:10px">
 
                                                     <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
-                                                                Description="Clique aqui pesquisar." ReadOnly=false
+                                                         Description="Clique aqui pesquisar." ReadOnly=!view.Permissions.AllowRead
                                                                 ActionLabel="Pesquisando...">
                                                     </TaskButton>
 
@@ -186,7 +186,7 @@
                                                            
                                  </div>                                                                                   
 
-                     </div>
+                        </div>
                     }
                     else
                     {
