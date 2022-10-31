@@ -129,3 +129,8 @@ H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\ref
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\API.pdb
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\API.genruntimeconfig.cache
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\ref\API.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Microsoft.OpenApi.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cs

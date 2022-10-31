@@ -9,7 +9,7 @@ namespace Template.Controllers
 {
     [Route("membership/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "SuperAdmin")]
+    [Authorize]
     public class DataLogController : APIControllerBase
     {
         public DataLogController(IAppSettingsManager<TemplateSettings> param,

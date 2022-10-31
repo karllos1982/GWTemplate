@@ -14,7 +14,7 @@
           "Blazorise.DataGrid": "1.1.2",
           "Blazorise.Icons.FontAwesome": "1.1.2",
           "GW.Framework": "3.5.7",
-          "GW.Membership": "1.0.6",
+          "GW.Membership": "1.0.7",
           "Gateway": "1.0.0",
           "Models": "1.0.0",
           "Newtonsoft.Json": "13.0.1"
@@ -128,14 +128,14 @@
           }
         }
       },
-      "GW.Membership/1.0.6": {
+      "GW.Membership/1.0.7": {
         "dependencies": {
           "GW.Framework": "3.5.7"
         },
         "runtime": {
           "lib/net6.0/GW.Membership.dll": {
-            "assemblyVersion": "1.0.6.0",
-            "fileVersion": "1.0.6.0"
+            "assemblyVersion": "1.0.7.0",
+            "fileVersion": "1.0.7.0"
           }
         }
       },
@@ -348,7 +348,7 @@
       "Gateway/1.0.0": {
         "dependencies": {
           "GW.Framework": "3.5.7",
-          "GW.Membership": "1.0.6",
+          "GW.Membership": "1.0.7",
           "Models": "1.0.0",
           "Newtonsoft.Json": "13.0.1",
           "System.Threading": "4.3.0"
@@ -360,7 +360,7 @@
       "Models/1.0.0": {
         "dependencies": {
           "GW.Framework": "3.5.7",
-          "GW.Membership": "1.0.6"
+          "GW.Membership": "1.0.7"
         },
         "runtime": {
           "Models.dll": {}
@@ -430,12 +430,12 @@
       "path": "gw.framework/3.5.7",
       "hashPath": "gw.framework.3.5.7.nupkg.sha512"
     },
-    "GW.Membership/1.0.6": {
+    "GW.Membership/1.0.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Y5AjaBqB7gdyiku7Wwaht/JLwMhKBVphX0xRXa4Jd5axFpok42z90qP/B4fgMviQJ9mK/R8HhktbGFff+6YhrA==",
-      "path": "gw.membership/1.0.6",
-      "hashPath": "gw.membership.1.0.6.nupkg.sha512"
+      "sha512": "sha512-jfeLRvGfQdAyRqkCnWXv03XdsZ5YhqXdBoHqZEHFoCZUe/3wQqRbofh97JlbTuRAah4MtyhRYQKSJDL0ZPbHPQ==",
+      "path": "gw.membership/1.0.7",
+      "hashPath": "gw.membership.1.0.7.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authorization/6.0.9": {
       "type": "package",

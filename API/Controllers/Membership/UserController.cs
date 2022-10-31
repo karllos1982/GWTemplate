@@ -11,7 +11,7 @@ namespace Template.Controllers
 
     [Route("membership/[controller]")]
     [ApiController]
-    //[Authorize(Roles="SuperAdmin")]
+    [Authorize]
     public class UserController : APIControllerBase
     {
 

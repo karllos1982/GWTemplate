@@ -18,6 +18,7 @@ namespace Template.Controllers
 {
     [Route("membership/[controller]")]
     [ApiController]
+    [Authorize]
     public class RoleController : APIControllerBase
     {
 

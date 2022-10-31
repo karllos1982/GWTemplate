@@ -54,7 +54,7 @@
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.6, )"
+              "version": "[1.0.7, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -127,7 +127,7 @@
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.6, )"
+              "version": "[1.0.7, )"
             }
           },
           "imports": [

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "T5v1ikF4KA/BdginkYHfPe0YeDRHrC5EjSR71E1498TPf8Ruk35qDL3oaOy83L/gZAmkW9wxV7T0unBvJgYziw==",
+  "dgSpecHash": "qMO7JhL4KGfytRk89qeCd0pZ5RPvwqYv3NZoaLHh25InzyGFlZ9hdVp8MavNubDbrEMVJpHqa3ta6ANIOr9DfA==",
   "success": true,
   "projectFilePath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
   "expectedPackageFiles": [
@@ -12,7 +12,7 @@
     "C:\\Users\\karll\\.nuget\\packages\\blazorise.snackbar\\1.1.2\\blazorise.snackbar.1.1.2.nupkg.sha512",
     "C:\\Users\\karll\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\karll\\.nuget\\packages\\gw.framework\\3.5.7\\gw.framework.3.5.7.nupkg.sha512",
-    "C:\\Users\\karll\\.nuget\\packages\\gw.membership\\1.0.6\\gw.membership.1.0.6.nupkg.sha512",
+    "C:\\Users\\karll\\.nuget\\packages\\gw.membership\\1.0.7\\gw.membership.1.0.7.nupkg.sha512",
     "C:\\Users\\karll\\.nuget\\packages\\microsoft.aspnetcore.authorization\\6.0.9\\microsoft.aspnetcore.authorization.6.0.9.nupkg.sha512",
     "C:\\Users\\karll\\.nuget\\packages\\microsoft.aspnetcore.components\\6.0.9\\microsoft.aspnetcore.components.6.0.9.nupkg.sha512",
     "C:\\Users\\karll\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\6.0.9\\microsoft.aspnetcore.components.analyzers.6.0.9.nupkg.sha512",

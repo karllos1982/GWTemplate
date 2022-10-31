@@ -35,7 +35,8 @@ namespace Template.API
 
         public IMemoryCache memorycache = null; 
 
-        public MemoryCacheEntryOptions GetMemoryCacheOptionsByHour(int time)
+
+        protected MemoryCacheEntryOptions GetMemoryCacheOptionsByHour(int time)
         {
             MemoryCacheEntryOptions ret = new MemoryCacheEntryOptions();
 
@@ -44,7 +45,7 @@ namespace Template.API
             return ret;
         }
 
-        public void Init_()
+        protected void Init_()
         {
             mailSettings = AppConfigs.Settings.MailSettings;
             mailSettings.IsBodyHtml = true;
@@ -59,7 +60,7 @@ namespace Template.API
             PermissionState = PERMISSION_STATE_ENUM.NONE;
         }
 
-        public void Init(PERMISSION_CHECK_ENUM? checking = null, bool? allownone = null)
+        protected void Init(PERMISSION_CHECK_ENUM? checking = null, bool? allownone = null)
         {
             mailSettings = AppConfigs.Settings.MailSettings;
             mailSettings.IsBodyHtml = true;
@@ -70,9 +71,9 @@ namespace Template.API
             mailCenter = new TemplateMailCenter(mailSettings);
             manager = new TemplateManager(apiConfigs);
 
-            if (checking != null)
+            if (checking != null && User.Claims.ToList().Count > 0)
             {
-
+                
                 string content = User.Claims.ToList()[2].Value;
 
                 List<UserPermissions> permissions = JsonConvert.DeserializeObject<List<UserPermissions>>(content);               
@@ -101,8 +102,8 @@ namespace Template.API
 
         }
 
-        
-        public void FinalizeManager()
+
+        protected void FinalizeManager()
         {
             if (manager != null)
             {
@@ -110,7 +111,7 @@ namespace Template.API
             }
         }
 
-        public void SetReturn(object returncontent)
+        protected void SetReturn(object returncontent)
         {
             if (manager.DbContext[contextindex].ExecutionStatus.Status)
             {
@@ -124,12 +125,12 @@ namespace Template.API
             }
         }
 
-        public OperationStatus GetDefaultStatus()
+        protected OperationStatus GetDefaultStatus()
         {
             return manager.DbContext[contextindex].ExecutionStatus;
         }
 
-        public List<InnerException> GetInnerExceptions(string errormessage)
+        protected List<InnerException> GetInnerExceptions(string errormessage)
         {
             List<InnerException> ret = new List<InnerException>();
 
@@ -138,7 +139,7 @@ namespace Template.API
             return ret;
         }
 
-        public string SerializeObjectToJSON_String(object obj)
+        protected string SerializeObjectToJSON_String(object obj)
         {
             string ret = "[]";
 

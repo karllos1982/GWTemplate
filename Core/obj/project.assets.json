@@ -29,7 +29,7 @@
           "lib/net6.0/GW.Framework.dll": {}
         }
       },
-      "GW.Membership/1.0.6": {
+      "GW.Membership/1.0.7": {
         "type": "package",
         "dependencies": {
           "GW.Framework": "3.5.7"
@@ -204,7 +204,7 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "GW.Framework": "3.5.7",
-          "GW.Membership": "1.0.6"
+          "GW.Membership": "1.0.7"
         },
         "compile": {
           "bin/placeholder/Models.dll": {}
@@ -246,14 +246,14 @@
         "lib/net6.0/GW.Framework.dll"
       ]
     },
-    "GW.Membership/1.0.6": {
-      "sha512": "Y5AjaBqB7gdyiku7Wwaht/JLwMhKBVphX0xRXa4Jd5axFpok42z90qP/B4fgMviQJ9mK/R8HhktbGFff+6YhrA==",
+    "GW.Membership/1.0.7": {
+      "sha512": "jfeLRvGfQdAyRqkCnWXv03XdsZ5YhqXdBoHqZEHFoCZUe/3wQqRbofh97JlbTuRAah4MtyhRYQKSJDL0ZPbHPQ==",
       "type": "package",
-      "path": "gw.membership/1.0.6",
+      "path": "gw.membership/1.0.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.membership.1.0.6.nupkg.sha512",
+        "gw.membership.1.0.7.nupkg.sha512",
         "gw.membership.nuspec",
         "lib/net6.0/GW.Membership.dll"
       ]
@@ -608,7 +608,7 @@
     "net6.0": [
       "Dapper >= 2.0.123",
       "GW.Framework >= 3.5.7",
-      "GW.Membership >= 1.0.6",
+      "GW.Membership >= 1.0.7",
       "Models >= 1.0.0",
       "Newtonsoft.Json >= 13.0.1",
       "System.Data.SqlClient >= 4.8.4"
@@ -667,7 +667,7 @@
           },
           "GW.Membership": {
             "target": "Package",
-            "version": "[1.0.6, )"
+            "version": "[1.0.7, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

@@ -57,7 +57,7 @@
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.6, )"
+              "version": "[1.0.7, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -70,6 +70,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
@@ -153,7 +157,7 @@
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.6, )"
+              "version": "[1.0.7, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -226,7 +230,7 @@
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.6, )"
+              "version": "[1.0.7, )"
             }
           },
           "imports": [
