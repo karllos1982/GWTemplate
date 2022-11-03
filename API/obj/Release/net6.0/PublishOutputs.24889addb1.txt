@@ -1,3 +1,4 @@
+C:\Projetos\OUTROS\GWTemplate\API\obj\Release\net6.0\PubTmp\Out\FileServer\UserProfileImage\user_anonymous.png
 C:\Projetos\OUTROS\GWTemplate\API\obj\Release\net6.0\PubTmp\Out\API.exe
 C:\Projetos\OUTROS\GWTemplate\API\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
 C:\Projetos\OUTROS\GWTemplate\API\obj\Release\net6.0\PubTmp\Out\appsettings.json

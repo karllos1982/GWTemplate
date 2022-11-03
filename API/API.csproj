@@ -16,6 +16,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="FileServer\UserProfileImage\IMG_1000000000000000001.png" />
+    <None Remove="FileServer\UserProfileImage\user_anonymous.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="FileServer\UserProfileImage\IMG_1000000000000000001.png" />
+    <Content Include="FileServer\UserProfileImage\user_anonymous.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="FileServer\UserProfileImage\IMG_1000000000000000001.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="FileServer\UserProfileImage\user_anonymous.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="GW.Framework" Version="3.5.7" />
     <PackageReference Include="GW.Membership" Version="1.0.7" />

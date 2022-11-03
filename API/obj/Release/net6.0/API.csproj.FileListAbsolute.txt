@@ -48,3 +48,4 @@ C:\Projetos\OUTROS\GWTemplate\API\obj\Release\net6.0\refint\API.dll
 C:\Projetos\OUTROS\GWTemplate\API\obj\Release\net6.0\API.pdb
 C:\Projetos\OUTROS\GWTemplate\API\obj\Release\net6.0\API.genruntimeconfig.cache
 C:\Projetos\OUTROS\GWTemplate\API\obj\Release\net6.0\ref\API.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Release\net6.0\FileServer\UserProfileImage\user_anonymous.png
