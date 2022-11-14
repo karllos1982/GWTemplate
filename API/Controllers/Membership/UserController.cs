@@ -176,14 +176,14 @@ namespace Template.Controllers
 
         [HttpPost]
         [Route("addtorole")]        
-        public object AddToRole(string userid, string roleid)
+        public object AddToRole(UserRolesModel data)
         {
             Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
             if (IsAllowed)
             {
                 opsts = manager.Membership
-                .UserUnit.AddRoleToUser(Int64.Parse(userid), Int64.Parse(roleid), true);
+                .UserUnit.AddRoleToUser(data.UserID,data.RoleID, true);
 
                 if (opsts.Status)
                 {
@@ -202,14 +202,14 @@ namespace Template.Controllers
 
         [HttpPost]
         [Route("removefromrole")]        
-        public object RemoveFromRole(string userid, string roleid)
+        public object RemoveFromRole(UserRolesModel data)
         {
             Init(PERMISSION_CHECK_ENUM.DELETE, false);
 
             if (IsAllowed)
             {
                 opsts = manager.Membership
-                .UserUnit.RemoveRoleFromUser(Int64.Parse(userid), Int64.Parse(roleid), true);
+                .UserUnit.RemoveRoleFromUser(data.UserID, data.RoleID, true);
 
                 if (opsts.Status)
                 {

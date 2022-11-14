@@ -135,6 +135,36 @@ namespace Template.Gateway
             return ret;
         }
 
+        public async Task<UserRolesModel> AddToRole(string userid, string roleid)
+        {
+            UserRolesModel ret = null;
+            UserRolesModel data = new UserRolesModel()
+            {
+                UserID = Int64.Parse(userid),
+                RoleID = Int64.Parse(roleid)
+            }
+            ;
+            ret = await this.PostAsJSON<UserRolesModel>("addtorole",
+                JsonConvert.SerializeObject(data), null);
+
+            return ret;
+        }
+
+        public async Task<UserRolesModel> RemoveFromRole(string userid, string roleid)
+        {
+            UserRolesModel ret = null;
+            UserRolesModel data = new UserRolesModel()
+            {
+                UserID = Int64.Parse(userid),
+                RoleID = Int64.Parse(roleid)
+            }
+            ;
+            ret = await this.PostAsJSON<UserRolesModel>("removefromrole",
+                JsonConvert.SerializeObject(data), null);
+
+            return ret;
+        }
+
         public async Task ChangeState(UserChangeState data)
         {
             object ret = null;

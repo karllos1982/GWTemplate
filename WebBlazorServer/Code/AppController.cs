@@ -285,7 +285,7 @@ namespace Template.ServerCode
         public async Task Logout()
         {            
             await _cookies.ClearUserInfo();
-            await _cookies.ClearUserContext();
+            await _cookies.ClearUserPermissions(); 
         }
 
         public  PermissionsState CheckPermissions(UserAuthenticated user,

@@ -88,18 +88,7 @@ public class ServerFunctions
     {
         ValueTask t = jsruntime.InvokeVoidAsync("cookieFunctions.removeCookie", name);
     }
-
-    public static async Task SetNomeClinica(IJSRuntime jsruntime, string text)
-    {
-        
-        await jsruntime.InvokeVoidAsync("appFunctions.setLabelNomeClinica", text);
-    }
-
-    public static async Task habilitarSeletorClinica(IJSRuntime jsruntime)
-    {
-
-        await jsruntime.InvokeVoidAsync("appFunctions.habilitarSeletorClinica", null);
-    }
+  
 
     public class PostFileStatus
     {

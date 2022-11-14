@@ -110,11 +110,11 @@
                                                                                 UserSearchResult user = (context as UserSearchResult);
                                                                                 if (user.IsActive == 1)
                                                                                 {
-                                                                                        <span>SIM</span>
+                                                                                            <span>SIM</span>
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                        <span>NÃO</span>
+                                                                                            <span>NÃO</span>
                                                                                 }
                                                                             }                                            
                                                                 </DisplayTemplate>
@@ -126,11 +126,11 @@
                                                                                 UserSearchResult user = (context as UserSearchResult);
                                                                                 if (user.IsLocked == 1)
                                                                                 {
-                                                                                        <span>SIM</span>
+                                                                                            <span>SIM</span>
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                        <span>NÃO</span>
+                                                                                            <span>NÃO</span>
                                                                                 }
                                                                             }                                           
                                                                 </DisplayTemplate>
@@ -141,9 +141,9 @@
                                                                       @{
                                                                             UserSearchResult user = (context as UserSearchResult);
 
-                                                                              @if(view.Permissions.AllowSave)
+                                                                                  @if(view.Permissions.AllowSave)
                                                                               {
-                                                                                    <IconButton Icon="IconButton.TYPEICONENUM.DETAILS" 
+                                                                                        <IconButton Icon="IconButton.TYPEICONENUM.DETAILS" 
                                                                                             OnClick="()=>OnDetClick(user.UserID)"></IconButton>                                                                                                                                                   
                                                                               }
                                                                            
@@ -185,102 +185,148 @@
                                 <div class="row gy-5 g-xl-10">
 
                                     <div class="col-xl-8">                                
-                                        <div class="card card-flush h-xl-100">								      
-		                                    <div class="card-header pt-7">
-									  
-			                                    <h3 class="card-title align-items-start flex-column">
-				                                    <span class="card-label fw-bold text-dark">Dados do Usuário</span>										
-			                                    </h3>									        
-									       
-                                            </div>
-                                           
-                                            <div class="card-body">										            
-                                                    
-                                                    <div class="row">
-                                                        <div class="col-md-12">                                                            
+                                        <div class="card card-flush h-xl-100">	
+                                            
+		                                     <div class="card-header card-header-stretch">
+                                                   
+                                                        <div class="card-toolbar m-0">
+							                    
+							                                <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bold" role="tablist">
+								                                <li class="nav-item" role="presentation">
+									                                <a id="kt_link_usertab1" class="nav-link justify-content-center text-active-gray-800 active" data-bs-toggle="tab" role="tab" href="#kt_usertab1">Dados Principais</a>
+								                                </li>
+								                                <li class="nav-item" role="presentation">
+									                                <a id="kt_link_usertab2" class="nav-link justify-content-center text-active-gray-800" data-bs-toggle="tab" role="tab" href="#kt_usertab2"> Perfil (Roles) do Usuário </a>
+								                                </li>	
+                                                                 <li class="nav-item" role="presentation">
+                                                                      <a id="kt_link_usertab3" class="nav-link justify-content-center text-active-gray-800" data-bs-toggle="tab" role="tab" href="#kt_usertab3">Instâncias do Usuário </a>
+								                                </li>
+							                                </ul>
+							                    
+						                               </div>
+                                                                                                   
+                                               </div>
 
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="name">UserName:</label>
-                                                                <input type="text" disabled class="form-control field" value="@view.model.UserName" />
+                                               <div class="tab-content">
+                                                    <div id="kt_usertab1" class="card-body p-0 tab-pane fade show active" role="tabpanel" aria-labelledby="kt_link_usertab1">
+                                                         <div class="card-body">
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
 
-                                                   <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label class="form-label"  for="email">E-mail:</label>
-                                                                <input type="text" disabled class="form-control field" value="@view.model.Email" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="form-label" for="name">User Name:</label>
+                                                                        <input type="text" disabled class="form-control field" value="@view.model.UserName" />
 
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="email">Role:</label>
-                                                
-                                                                    @if (view.listRoles != null & view.listRoles.Count > 0)
-                                                                    {
-                                                                        <SelectList TItem="RoleList"
-                                                                            TValue="Int64"
-                                                                            Data="@view.listRoles"
-                                                                            TextField="@((item)=>item.RoleName)"
-                                                                            ValueField="@((item)=>item.RoleID)"
-                                                                            @bind-SelectedValue="@view.model.RoleID"></SelectList>
-                                                        
-                                                                    }
+                                                                    </div>
                                                                 </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label" for="email">E-mail:</label>
+                                                                        <input type="text" disabled class="form-control field" value="@view.model.Email" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                              
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label" for="name">Create Date</label>
+                                                                        <input type="text" disabled class="form-control field" value="@view.model.CreateDate" />
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label" for="email">last Login Date</label>
+                                                                        <input type="text" disabled class="form-control field" value="@view.model.LastLoginDate" />
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label" for="name">Last Login IP</label>
+                                                                        <input type="text" disabled class="form-control field" value="@view.model.LastLoginIP" />
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label" for="email">LoginCounter</label>
+                                                                        <input type="text" disabled class="form-control field" value="@view.model.LoginCounter" />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label" for="email">Password Recovery Code</label>
+                                                                        <input type="text" disabled class="form-control field" value="@view.model.PasswordRecoveryCode" />
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+
                                                         </div>
+
+                                                   </div>
+
+                                                    <div id="kt_usertab2" class="card-body p-0 tab-pane fade" role="tabpanel" aria-labelledby="kt_link_usertab2">
+                                                          <div class="card-body"> 
+                                                                <div class="row">
+
+                                                                     <div class="col-md-12">
+                                                                    <label class="form-label" for="email">Roles:</label>
+
+                                                                    <DataGrid TItem="UserRolesModel" Data="@view.model.RoleList" Responsive ShowPager>
+                                                                        <DataGridColumns>
+
+                                                                            <DataGridColumn Field="@nameof(UserRolesModel.RoleID)" Caption="Role ID" />
+
+                                                                            <DataGridColumn Field="@nameof(UserRolesModel.UserRoleID)" Caption="Excluir">
+                                                                                <DisplayTemplate>
+                                                                                    @{
+                                                                                        UserRolesModel obj = (context as UserRolesModel);
+
+                                                                                            @if (view.Permissions.AllowDelete)
+                                                                                        {
+                                                                                                <IconButton Icon="IconButton.TYPEICONENUM.DELETE"
+                                                                                        OnClick="()=>OnRemoveRoleClick(obj.RoleID)"></IconButton>
+                                                                                        }
+
+                                                                                    }
+
+                                                                                </DisplayTemplate>
+                                                                            </DataGridColumn>
+
+
+                                                                        </DataGridColumns>
+
+                                                                    </DataGrid>
+
+
+                                                                </div>
+
+                                                                </div>
+                                                            </div>
                                                     </div>
 
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="name">Create Date</label>
-                                                                <input type="text" disabled class="form-control field" value="@view.model.CreateDate" />
-
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="email">last Login Date</label>
-                                                                <input type="text" disabled class="form-control field" value="@view.model.LastLoginDate" />
-                                                            </div>
-                                                        </div>
+                                                    <div id="kt_usertab3" class="card-body p-0 tab-pane fade" role="tabpanel" aria-labelledby="kt_link_usertab3">
 
                                                     </div>
-
-                                                     <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="name">Last Login IP</label>
-                                                                <input type="text" disabled class="form-control field" value="@view.model.LastLoginIP" />
-
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="email">LoginCounter</label>
-                                                                <input type="text" disabled class="form-control field" value="@view.model.LoginCounter" />
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="email">Password Recovery Code</label>
-                                                                <input type="text" disabled class="form-control field" value="@view.model.PasswordRecoveryCode" />
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-
-                                               
-                                            </div>
+                                               </div>
+                                                                                          
+                                                
 		                                </div>
+
                                     </div>
                                                             
                                     <div class="col-xl-4">
@@ -351,7 +397,7 @@
                                     </div>
 
                            
-                                 </div>
+                                </div>
                                  
                             }
                             else
@@ -593,10 +639,32 @@
     }
      
     public async Task OnDetClick(object id)
-    {        
+    {            
        await OnGet(id);
 
     }
+
+    public async Task OnRemoveRoleClick(object roleid)
+    {
+        await view.RemoveRole(roleid.ToString());
+
+        await loading.End();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro ao remover Role do Usuário", view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            view.BackToSearch(); 
+            await msgbox.ShowDialog("Aviso", "A Role do Usuário foi removida com sucesso."); 
+            
+        }
+
+        StateHasChanged();
+
+    }
+        
 
     public void Back()
     {

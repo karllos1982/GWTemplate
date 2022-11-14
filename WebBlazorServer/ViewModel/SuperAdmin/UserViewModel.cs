@@ -181,5 +181,20 @@ namespace Template.ViewModel
 
         }
 
+        public  async Task RemoveRole(string roleid)
+        {
+            ExecutionStatus = new OperationStatus(true);
+
+            UserRolesModel ret 
+                = await _gateway.User.RemoveFromRole(model.UserID.ToString(), roleid);
+
+            if (ret != null)
+            {
+                ExecutionStatus.Returns = ret;
+            }         
+
+
+        }
+
     }
 }

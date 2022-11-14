@@ -147,7 +147,7 @@ namespace Template.Controllers
                 userA.RoleName = userM.Role.RoleName;
                 userA.Token = token.TokenValue;
                 userA.Expires = token.ExpiresDate;
-                userA.Permissions = userM.Permissions; 
+                userA.Permissions = userM.Permissions;                 
 
                 UpdateUserLogin uplogin = new UpdateUserLogin()
                 {

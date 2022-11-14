@@ -152,3 +152,4 @@ H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debu
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.JSInterop.dll
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\System.IO.Pipelines.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\appsettings-prod.json
