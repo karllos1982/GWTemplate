@@ -1,14 +1,11 @@
-﻿using GW.Core.Common;
-using GW.Core.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using GW.Core;
+using GW.Common;
+using GW.ApplicationHelpers;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Template.Core.Manager
 {
-    public class TemplateMailCenter : ITemplateMailing
+    public class TemplateMailCenter : MailManager
     {
         public MailSettings Settings { get; set; }
 
@@ -34,9 +31,8 @@ namespace Template.Core.Manager
             strq.Append("<b>" + code + "</b><BR/>");
             strq.Append("Utilize essa senha pra acessar o site. ");
             strq.Append("Após acessar, recomendamos que você redefina sua senha.");
-
-            Email e = new Email(Settings);
-            ret.Status = e.Send(name, email, Settings.NameSender + " - Recuperação de Senha", strq.ToString());
+           
+            ret.Status = Send(name, email, Settings.NameSender + " - Recuperação de Senha", strq.ToString());
 
             return ret;
         }
@@ -50,9 +46,8 @@ namespace Template.Core.Manager
             strq.Append("Este é o código para a ativação de conta:" + "<BR/>");
             strq.Append("<b>" + code + "</b><BR/>");
             strq.Append("Acesse o site e utilize esse código pra ativação da conta.");
-
-            Email e = new Email(Settings);
-            ret.Status = e.Send(name, email, Settings.NameSender + " - Ativação de Conta", strq.ToString());
+          
+            ret.Status = Send(name, email, Settings.NameSender + " - Ativação de Conta", strq.ToString());
 
             return ret;
         }
@@ -65,9 +60,8 @@ namespace Template.Core.Manager
             strq.Append("Este é o código de autorização para a troca da senha:" + "<BR/>");
             strq.Append("<b>" + code + "</b><BR/>");
             strq.Append("Acesse o site e utilize esse código pra trocar a sua senha.");
-
-            Email e = new Email(Settings);
-            ret.Status = e.Send(name, email, Settings.NameSender + " - Redefinição de Senha", strq.ToString());
+            
+            ret.Status = Send(name, email, Settings.NameSender + " - Redefinição de Senha", strq.ToString());
 
             return ret;
         }
@@ -82,8 +76,7 @@ namespace Template.Core.Manager
             strq.Append("<b>" + code + "</b><BR/>");
             strq.Append("Prossiga com a confirmação do cadastro no site.");
 
-            Email e = new Email(Settings);
-            ret.Status = e.Send(name, email, Settings.NameSender + " - Confirmação de Cadastro", strq.ToString());
+            ret.Status = Send(name, email, Settings.NameSender + " - Confirmação de Cadastro", strq.ToString());
 
             return ret;
         }

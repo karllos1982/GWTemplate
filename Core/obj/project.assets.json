@@ -5,22 +5,16 @@
       "Dapper/2.0.123": {
         "type": "package",
         "compile": {
-          "lib/net5.0/Dapper.dll": {
-            "related": ".xml"
-          }
+          "lib/net5.0/Dapper.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Dapper.dll": {
-            "related": ".xml"
-          }
+          "lib/net5.0/Dapper.dll": {}
         }
       },
-      "GW.Framework/3.5.7": {
+      "GW.Framework/4.0.1": {
         "type": "package",
         "dependencies": {
-          "Dapper": "2.0.123",
-          "Newtonsoft.Json": "13.0.1",
-          "System.Data.SqlClient": "4.8.3"
+          "Newtonsoft.Json": "13.0.1"
         },
         "compile": {
           "lib/net6.0/GW.Framework.dll": {}
@@ -29,10 +23,12 @@
           "lib/net6.0/GW.Framework.dll": {}
         }
       },
-      "GW.Membership/1.0.7": {
+      "GW.Membership/2.0.1": {
         "type": "package",
         "dependencies": {
-          "GW.Framework": "3.5.7"
+          "Dapper": "2.0.123",
+          "GW.Framework": "4.0.1",
+          "System.Data.SqlClient": "4.8.5"
         },
         "compile": {
           "lib/net6.0/GW.Membership.dll": {}
@@ -57,14 +53,10 @@
           "System.Security.Principal.Windows": "4.7.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {
-            "related": ".xml"
-          }
+          "ref/netstandard2.0/_._": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {}
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
@@ -77,17 +69,13 @@
           }
         }
       },
-      "Newtonsoft.Json/13.0.1": {
+      "Newtonsoft.Json/13.0.2": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         }
       },
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
@@ -125,7 +113,7 @@
           }
         }
       },
-      "System.Data.SqlClient/4.8.4": {
+      "System.Data.SqlClient/4.8.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.Registry": "4.7.0",
@@ -133,14 +121,10 @@
           "runtime.native.System.Data.SqlClient.sni": "4.7.0"
         },
         "compile": {
-          "ref/netcoreapp2.1/System.Data.SqlClient.dll": {
-            "related": ".xml"
-          }
+          "ref/netcoreapp2.1/System.Data.SqlClient.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp2.1/System.Data.SqlClient.dll": {
-            "related": ".xml"
-          }
+          "lib/netcoreapp2.1/System.Data.SqlClient.dll": {}
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll": {
@@ -160,14 +144,10 @@
           "System.Security.Principal.Windows": "4.7.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {
-            "related": ".xml"
-          }
+          "ref/netstandard2.0/_._": {}
         },
         "runtime": {
-          "lib/netstandard2.0/System.Security.AccessControl.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/System.Security.AccessControl.dll": {}
         },
         "runtimeTargets": {
           "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll": {
@@ -179,14 +159,10 @@
       "System.Security.Principal.Windows/4.7.0": {
         "type": "package",
         "compile": {
-          "ref/netcoreapp3.0/_._": {
-            "related": ".xml"
-          }
+          "ref/netcoreapp3.0/_._": {}
         },
         "runtime": {
-          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {
-            "related": ".xml"
-          }
+          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {}
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
@@ -203,8 +179,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "GW.Framework": "3.5.7",
-          "GW.Membership": "1.0.7"
+          "GW.Framework": "4.0.1",
+          "GW.Membership": "2.0.1"
         },
         "compile": {
           "bin/placeholder/Models.dll": {}
@@ -234,26 +210,26 @@
         "lib/netstandard2.0/Dapper.xml"
       ]
     },
-    "GW.Framework/3.5.7": {
-      "sha512": "9j8U/D0EJDU5QcgyDJT+q4fpPeTqXMVuafZ+2Mk3tlwhPwBxnZxLSIguJS7GhUOHVQMuuhlxM5cpAvKIwwjFnA==",
+    "GW.Framework/4.0.1": {
+      "sha512": "v1hMvifzRvFps/qqgLENJoDjk47sbIcfvUSeoUMhHvLC5XRMf9HCv9o69dM2OOx81igiNcUBimacYBgvtUkvyA==",
       "type": "package",
-      "path": "gw.framework/3.5.7",
+      "path": "gw.framework/4.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.framework.3.5.7.nupkg.sha512",
+        "gw.framework.4.0.1.nupkg.sha512",
         "gw.framework.nuspec",
         "lib/net6.0/GW.Framework.dll"
       ]
     },
-    "GW.Membership/1.0.7": {
-      "sha512": "jfeLRvGfQdAyRqkCnWXv03XdsZ5YhqXdBoHqZEHFoCZUe/3wQqRbofh97JlbTuRAah4MtyhRYQKSJDL0ZPbHPQ==",
+    "GW.Membership/2.0.1": {
+      "sha512": "ryp+HyRkqdPMuZtA1sV6PN1w04MC7xxERgAziy95/QgyyP3/aR22CmuSMVDgtTSGN5dot3a1Su7zkIeXjz/1Cg==",
       "type": "package",
-      "path": "gw.membership/1.0.7",
+      "path": "gw.membership/2.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.membership.1.0.7.nupkg.sha512",
+        "gw.membership.2.0.1.nupkg.sha512",
         "gw.membership.nuspec",
         "lib/net6.0/GW.Membership.dll"
       ]
@@ -322,14 +298,15 @@
         "version.txt"
       ]
     },
-    "Newtonsoft.Json/13.0.1": {
-      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+    "Newtonsoft.Json/13.0.2": {
+      "sha512": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg==",
       "type": "package",
-      "path": "newtonsoft.json/13.0.1",
+      "path": "newtonsoft.json/13.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.md",
+        "README.md",
         "lib/net20/Newtonsoft.Json.dll",
         "lib/net20/Newtonsoft.Json.xml",
         "lib/net35/Newtonsoft.Json.dll",
@@ -338,13 +315,15 @@
         "lib/net40/Newtonsoft.Json.xml",
         "lib/net45/Newtonsoft.Json.dll",
         "lib/net45/Newtonsoft.Json.xml",
+        "lib/net6.0/Newtonsoft.Json.dll",
+        "lib/net6.0/Newtonsoft.Json.xml",
         "lib/netstandard1.0/Newtonsoft.Json.dll",
         "lib/netstandard1.0/Newtonsoft.Json.xml",
         "lib/netstandard1.3/Newtonsoft.Json.dll",
         "lib/netstandard1.3/Newtonsoft.Json.xml",
         "lib/netstandard2.0/Newtonsoft.Json.dll",
         "lib/netstandard2.0/Newtonsoft.Json.xml",
-        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.13.0.2.nupkg.sha512",
         "newtonsoft.json.nuspec",
         "packageIcon.png"
       ]
@@ -412,10 +391,10 @@
         "version.txt"
       ]
     },
-    "System.Data.SqlClient/4.8.4": {
-      "sha512": "45YflfcVXAu+Tnf0WnZzQIp9iGm+XvSvh8OosYHqax/nW3gV28NBSRvHFZ/IsuwV4JIypYCKBEOVzW+RB5+zgQ==",
+    "System.Data.SqlClient/4.8.5": {
+      "sha512": "fRqxut4lrndPHrXD+ht1XRmCL3obuKldm4XjCRYS9p5f7FSR7shBxAwTkDrpFMsHC9BhNgjjmUtiIjvehn5zkg==",
       "type": "package",
-      "path": "system.data.sqlclient/4.8.4",
+      "path": "system.data.sqlclient/4.8.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -492,7 +471,7 @@
         "runtimes/win/lib/netstandard2.0/System.Data.SqlClient.xml",
         "runtimes/win/lib/uap10.0.16299/System.Data.SqlClient.dll",
         "runtimes/win/lib/uap10.0.16299/System.Data.SqlClient.xml",
-        "system.data.sqlclient.4.8.4.nupkg.sha512",
+        "system.data.sqlclient.4.8.5.nupkg.sha512",
         "system.data.sqlclient.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -607,27 +586,27 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Dapper >= 2.0.123",
-      "GW.Framework >= 3.5.7",
-      "GW.Membership >= 1.0.7",
+      "GW.Framework >= 4.0.1",
+      "GW.Membership >= 2.0.1",
       "Models >= 1.0.0",
-      "Newtonsoft.Json >= 13.0.1",
-      "System.Data.SqlClient >= 4.8.4"
+      "Newtonsoft.Json >= 13.0.2",
+      "System.Data.SqlClient >= 4.8.5"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\karll\\.nuget\\packages\\": {}
+    "C:\\Users\\carlos.fonteles\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Core\\Core.csproj",
+      "projectUniqueName": "C:\\Projetos\\OUTROS\\GWTemplate\\Core\\Core.csproj",
       "projectName": "Core",
-      "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Core\\Core.csproj",
-      "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
-      "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Core\\obj\\",
+      "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Core\\Core.csproj",
+      "packagesPath": "C:\\Users\\carlos.fonteles\\.nuget\\packages\\",
+      "outputPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\carlos.fonteles\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -635,14 +614,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://www.nuget.org/api/v2/": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://repo.tic.fgv.br/repository/nuget-fgv/": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj": {
-              "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj"
+            "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj": {
+              "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj"
             }
           }
         }
@@ -663,19 +643,19 @@
           },
           "GW.Framework": {
             "target": "Package",
-            "version": "[3.5.7, )"
+            "version": "[4.0.1, )"
           },
           "GW.Membership": {
             "target": "Package",
-            "version": "[1.0.7, )"
+            "version": "[2.0.1, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",
-            "version": "[13.0.1, )"
+            "version": "[13.0.2, )"
           },
           "System.Data.SqlClient": {
             "target": "Package",
-            "version": "[4.8.4, )"
+            "version": "[4.8.5, )"
           }
         },
         "imports": [
@@ -684,8 +664,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -694,7 +673,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

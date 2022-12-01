@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj": {}
+    "C:\\Projetos\\OUTROS\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj": {}
   },
   "projects": {
-    "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Gateway\\Gateway.csproj": {
+    "C:\\Projetos\\OUTROS\\GWTemplate\\Gateway\\Gateway.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Gateway\\Gateway.csproj",
+        "projectUniqueName": "C:\\Projetos\\OUTROS\\GWTemplate\\Gateway\\Gateway.csproj",
         "projectName": "Gateway",
-        "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Gateway\\Gateway.csproj",
-        "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
-        "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Gateway\\obj\\",
+        "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Gateway\\Gateway.csproj",
+        "packagesPath": "C:\\Users\\carlos.fonteles\\.nuget\\packages\\",
+        "outputPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Gateway\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\carlos.fonteles\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,14 +22,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://www.nuget.org/api/v2/": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://repo.tic.fgv.br/repository/nuget-fgv/": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj": {
-                "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj"
+              "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj": {
+                "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj"
               }
             }
           }
@@ -46,15 +47,15 @@
           "dependencies": {
             "GW.Framework": {
               "target": "Package",
-              "version": "[3.5.7, )"
+              "version": "[4.0.1, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.7, )"
+              "version": "[2.0.1, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.1, )"
+              "version": "[13.0.2, )"
             },
             "System.Threading": {
               "target": "Package",
@@ -67,8 +68,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -77,21 +77,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj": {
+    "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj",
+        "projectUniqueName": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj",
-        "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
-        "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\obj\\",
+        "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj",
+        "packagesPath": "C:\\Users\\carlos.fonteles\\.nuget\\packages\\",
+        "outputPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\carlos.fonteles\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -99,7 +99,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://www.nuget.org/api/v2/": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://repo.tic.fgv.br/repository/nuget-fgv/": {}
         },
         "frameworks": {
           "net6.0": {
@@ -119,11 +120,11 @@
           "dependencies": {
             "GW.Framework": {
               "target": "Package",
-              "version": "[3.5.7, )"
+              "version": "[4.0.1, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.7, )"
+              "version": "[2.0.1, )"
             }
           },
           "imports": [
@@ -132,8 +133,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -142,21 +142,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj": {
+    "C:\\Projetos\\OUTROS\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
+        "projectUniqueName": "C:\\Projetos\\OUTROS\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
         "projectName": "WebBlazorServer",
-        "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
-        "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
-        "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\obj\\",
+        "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
+        "packagesPath": "C:\\Users\\carlos.fonteles\\.nuget\\packages\\",
+        "outputPath": "C:\\Projetos\\OUTROS\\GWTemplate\\WebBlazorServer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\carlos.fonteles\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -164,17 +164,18 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://www.nuget.org/api/v2/": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://repo.tic.fgv.br/repository/nuget-fgv/": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Gateway\\Gateway.csproj": {
-                "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Gateway\\Gateway.csproj"
+              "C:\\Projetos\\OUTROS\\GWTemplate\\Gateway\\Gateway.csproj": {
+                "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Gateway\\Gateway.csproj"
               },
-              "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj": {
-                "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj"
+              "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj": {
+                "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj"
               }
             }
           }
@@ -191,35 +192,35 @@
           "dependencies": {
             "Blazorise": {
               "target": "Package",
-              "version": "[1.1.2, )"
+              "version": "[1.1.4.1, )"
             },
             "Blazorise.Bootstrap5": {
               "target": "Package",
-              "version": "[1.1.2, )"
+              "version": "[1.1.4.1, )"
             },
             "Blazorise.Components": {
               "target": "Package",
-              "version": "[1.1.2, )"
+              "version": "[1.1.4.1, )"
             },
             "Blazorise.DataGrid": {
               "target": "Package",
-              "version": "[1.1.2, )"
+              "version": "[1.1.4.1, )"
             },
             "Blazorise.Icons.FontAwesome": {
               "target": "Package",
-              "version": "[1.1.2, )"
+              "version": "[1.1.4.1, )"
             },
             "GW.Framework": {
               "target": "Package",
-              "version": "[3.5.7, )"
+              "version": "[4.0.1, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[1.0.7, )"
+              "version": "[2.0.1, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.1, )"
+              "version": "[13.0.2, )"
             }
           },
           "imports": [
@@ -228,8 +229,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -241,7 +241,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

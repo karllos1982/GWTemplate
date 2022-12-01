@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GW.Membership.Models;
-using GW.Core.Common;
-using GW.Core.Helpers;
+using GW.Common;
+using GW.Helpers;
 using Template.API;
 using Template.Core.Manager;
 using Microsoft.AspNetCore.Authorization;

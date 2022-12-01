@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Template.API;
-using GW.Core.Common;
+using GW.Common;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Linq;

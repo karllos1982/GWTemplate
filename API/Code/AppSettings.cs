@@ -1,34 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.IO;
-using Microsoft.JSInterop;
-using Microsoft.AspNetCore.Hosting;
-using System.Threading.Tasks;
-using GW.Core.Common;
+using GW.Common;
+using GW.ApplicationHelpers; 
 using Newtonsoft.Json;
-using GW.Core.Helpers;
+using Template.Core.Manager;
 
 namespace Template.API
 {
-    public class TemplateSettings : AppSettings
-    {
-        public List<ConnectionString> Connections { get; set; }
-
-        public string SiteURL { get; set; }
-
-        public string ProfileImageDir { get; set; }
-
-        public string NomeSistema { get; set; }
-
-       // public string ServerRootPath { get; set; }
-                
-        public MailSettings MailSettings { get; set; }
-
-
-    }
-
+ 
     public class TemplateManagerSettings : IAppSettingsManager<TemplateSettings>
     {
         public TemplateSettings Settings { get; set; }
