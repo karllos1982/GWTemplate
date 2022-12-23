@@ -4,7 +4,7 @@ using Blazorise.Icons.FontAwesome;
 using Blazorise.Bootstrap5;
 
 using Template.Gateway;
-using GW.Core.Common;
+using GW.Common;
 using GW.Membership.Models;
 using Template.ServerCode;
 
@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-builder.Services.AddSingleton<IAppSettingsManager<TemplateSettings>, TemplateManagerSettings>();
+builder.Services.AddSingleton<IAppSettings, TemplateAppSettings>();
 builder.Services.AddSingleton<IAuthGatewayManager, AuthGateway>();
 builder.Services.AddSingleton<IMembershipGatewayManager, MembershipGateway>();
 builder.Services.AddSingleton<IDataCacheGatewayManager, DataCacheGateway>();

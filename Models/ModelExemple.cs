@@ -1,4 +1,4 @@
-﻿using GW.Core.Helpers;
+﻿using GW.Helpers;
 
 namespace Models
 {

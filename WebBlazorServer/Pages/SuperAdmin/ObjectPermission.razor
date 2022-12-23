@@ -6,7 +6,7 @@
 @inject IAppControllerAsync<UserAuthenticated> _appctrl
 @inject IMembershipGatewayManager _memberservices
 @inject IAuthGatewayManager _appservices
-@inject IAppSettingsManager<TemplateSettings>  _settings
+@inject IAppSettings _settings
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
 
@@ -82,16 +82,16 @@
                                             {
                                                 @if (view.searchresult.Count > 0)
                                                 {
-                                                      <DataGrid TItem="ObjectPermissionSearchResult" Data="@view.searchresult"  Responsive  ShowPager >                                                                                                                                      
+                                                      <DataGrid TItem="ObjectPermissionResult" Data="@view.searchresult"  Responsive  ShowPager >                                                                                                                                      
                                                         <DataGridColumns>
                                             
-                                                            <DataGridColumn Field="@nameof(ObjectPermissionSearchResult.ObjectName)" Caption="Nome" />
-                                                            <DataGridColumn Field="@nameof(ObjectPermissionSearchResult.ObjectCode)" Caption="Código" />
+                                                            <DataGridColumn Field="@nameof(ObjectPermissionResult.ObjectName)" Caption="Nome" />
+                                                            <DataGridColumn Field="@nameof(ObjectPermissionResult.ObjectCode)" Caption="Código" />
                                                             
-                                                             <DataGridColumn Field="@nameof(ObjectPermissionSearchResult.ObjectPermissionID)" Caption="Editar" >
+                                                             <DataGridColumn Field="@nameof(ObjectPermissionResult.ObjectPermissionID)" Caption="Editar" >
                                                                 <DisplayTemplate>
                                                                       @{
-                                                                            ObjectPermissionSearchResult obj = (context as ObjectPermissionSearchResult);
+                                                                            ObjectPermissionResult obj = (context as ObjectPermissionResult);
                                                                                                                                                    
                                                                             @if(view.Permissions.AllowSave)
                                                                             {
@@ -149,7 +149,7 @@
 
                                                             <div class="form-group">
                                                                 <label class="form-label" for="name">Nome:</label>
-                                                                <input type="text" class="form-control field" @bind-value="@view.model.ObjectName" />
+                                                                <input type="text" class="form-control field" @bind-value="@view.result.ObjectName" />
                                                                 <label class="validation_field">@view.GetSummaryMessage("ObjectName") </label>
                                                             </div>
                                                         </div>
@@ -159,7 +159,7 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label class="form-label"  for="email">Código:</label>
-                                                                <input type="text" class="form-control field" @bind-value="@view.model.ObjectCode" />
+                                                                <input type="text" class="form-control field" @bind-value="@view.result.ObjectCode" />
                                                                  <label class="validation_field">@view.GetSummaryMessage("ObjectCode") </label>
                                                             </div>
                                                         </div>
@@ -227,14 +227,13 @@
     //
 
     private async Task InitResources()
-    {
-        _settings.LoadSettings(_httpclient);
-        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
+    {        
+        ((TemplateAppController)_appctrl).Settings = _settings;
 
         if (await _appctrl.IsAuthenticated())
         {
             LoggedUser = _appctrl.UserInfo;
-            _memberservices.Init(_httpclient,_settings.Settings.ServiceURL,LoggedUser.Token);
+            _memberservices.Init(_httpclient,_settings.ServiceURL,LoggedUser.Token);
             
             view = new ObjectPermissionViewModel((_memberservices as MembershipGateway) ,LoggedUser); 
 

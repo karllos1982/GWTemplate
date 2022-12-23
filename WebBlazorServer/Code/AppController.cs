@@ -1,7 +1,7 @@
 ﻿using Microsoft.JSInterop;
 using Newtonsoft.Json;
-using GW.Core.Common;
-using GW.Core.Helpers;
+using GW.Common;
+using GW.Helpers;
 using GW.Membership.Models;
 using Template.Gateway;
 using WebBlazorServer.Pages.SuperAdmin;
@@ -35,8 +35,36 @@ namespace Template.ServerCode
         Task<List<UserPermissions>> GetUserPermissions(); 
     }
 
-    public class TemplateSettings: AppSettings
+    public interface IAppSettings
     {
+        string SiteURL { get; set; }
+
+        string ServiceURL { get; set; }
+
+        string NomeSistema { get; set; }
+
+        string SessionTimeOut { get; set; }
+
+        string FileContentMenu { get; set; }
+
+        List<MenuObject> ContentMenu { get; set; }
+    }
+
+    public class TemplateAppSettings: IAppSettings
+    {
+
+        private IWebHostEnvironment _env;
+
+        public TemplateAppSettings()
+        {
+
+        }
+
+        public TemplateAppSettings(IWebHostEnvironment webhost)
+        {
+            _env = (IWebHostEnvironment)webhost;
+            LoadSettings();
+        }
 
         public string SiteURL { get; set; }
 
@@ -49,7 +77,47 @@ namespace Template.ServerCode
         public string FileContentMenu { get; set; }
 
         public List<MenuObject> ContentMenu { get; set; }
-         
+
+        public void LoadSettings()
+        {
+            TemplateAppSettings settings = new TemplateAppSettings();
+            string filename = "appsettings.json";
+            string jsontxt = "";
+            string dir = _env.ContentRootPath;
+
+            if (dir == "/app")
+            {
+                dir = $"{Directory.GetCurrentDirectory()}";
+                filename = $"{Directory.GetCurrentDirectory()}{@"/appsettings.json"}";
+            }
+            else
+            {
+                filename = dir + "/" + filename;
+            }
+
+            if (File.Exists(filename))
+            {
+
+                jsontxt = File.ReadAllText(filename);
+
+                if (jsontxt.Length > 0)
+                {
+                    settings = JsonConvert.DeserializeObject<TemplateAppSettings>(jsontxt);
+                    if (settings != null)
+                    {
+                       
+                        this.SiteURL = settings.SiteURL;                        
+                        this.ServiceURL = settings.ServiceURL;
+                        this.NomeSistema = settings.NomeSistema;
+                        this.SessionTimeOut = settings.SessionTimeOut;
+                        this.FileContentMenu = settings.FileContentMenu;
+                        this.ContentMenu = settings.ContentMenu;
+                    }
+
+                }
+            }
+
+        }
     }
 
     public class MenuObject
@@ -71,61 +139,7 @@ namespace Template.ServerCode
         public List<MenuObject> Childs { get; set; }
 
     }
-
-
-
-    public class TemplateManagerSettings : IAppSettingsManager<TemplateSettings>
-    {
-        public TemplateSettings Settings { get; set; }
-        
-        public object EnvironmentSettings  { get; set; }
-
-        private IWebHostEnvironment _env;
-
-       
-        public TemplateManagerSettings(IWebHostEnvironment webhost)
-        {
-            _env = (IWebHostEnvironment)webhost;
-           // LoadSettings(null);
-        }
-
-
-        public void LoadSettings(HttpClient client)
-        {
-            string filename = "appsettings.json";
-            string jsontxt = "";
-            string dir = _env.ContentRootPath;
-
-            if (dir == "/app")
-            {
-                dir = $"{Directory.GetCurrentDirectory()}";
-                filename = $"{Directory.GetCurrentDirectory()}{@"/appsettings.json"}";
-            }
-            else
-            {
-                filename = Path.Combine(dir , filename);
-            }
-
-
-            if (File.Exists(filename))
-            {
-
-                jsontxt = File.ReadAllText(filename);
-
-                if (jsontxt.Length > 0)
-                {
-                    this.Settings = JsonConvert.DeserializeObject<TemplateSettings>(jsontxt);
-
-                    //filename = dir + "/" + this.Settings.FileContentMenu;
-
-                    //jsontxt = File.ReadAllText(filename, System.Text.Encoding.UTF8);
-
-                    //this.Settings.ContentMenu = JsonConvert.DeserializeObject<List<MenuObject>>(jsontxt);
-
-                }
-            }
-        }
-    }
+   
 
     public class UserInfo: UserAuthenticated
     {
@@ -175,8 +189,8 @@ namespace Template.ServerCode
             }
         }
 
-        private TemplateSettings _settings;
-        public TemplateSettings Settings 
+        private IAppSettings _settings;
+        public IAppSettings Settings 
         { 
             get
             {
@@ -268,9 +282,9 @@ namespace Template.ServerCode
                 DateTime expires = DateTime.Now.AddMinutes(int.Parse(_settings.SessionTimeOut));
                 await _cookies.SetUserPermissions(usr.Permissions, expires);
 
-                await this.CreateSession(usr);
                 usr.Permissions = null;
-
+                await this.CreateSession(usr);
+                
                 ret.Returns = usr; 
             }
             else

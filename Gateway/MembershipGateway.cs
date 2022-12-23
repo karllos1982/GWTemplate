@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GW.Core.Common;
-using GW.Core.Helpers;
+using GW.Common;
+using GW.Helpers;
 using GW.Membership.Models;
 using Newtonsoft.Json;
-using GW.Core.APIGateway;
+using GW.ApplicationHelpers;
 using Newtonsoft.Json.Linq;
 
 namespace Template.Gateway
@@ -30,6 +30,8 @@ namespace Template.Gateway
 
         public ObjectPermissionGateway ObjectPermission = null;
 
+        public InstanceGateway Instance = null; 
+
         public PermissionGateway Permission = null;
 
         public MembershipGateway()
@@ -45,9 +47,13 @@ namespace Template.Gateway
             DataLog = new DataLogGateway();
             ObjectPermission = new ObjectPermissionGateway();
             Permission = new PermissionGateway();
+            Instance = new InstanceGateway();
 
             User.InitializeAPI(http, baseurl + "/membership/user/", token);
             User.IsAuthenticated = true;
+
+            Instance.InitializeAPI(http, baseurl + "/membership/instance/", token);
+            Instance.IsAuthenticated = true;
 
             Role.InitializeAPI(http, baseurl + "/membership/role/", token);
             Role.IsAuthenticated = true;
@@ -83,11 +89,11 @@ namespace Template.Gateway
 
         }
 
-        public async Task<List<UserSearchResult>> Search(UserParam data)
+        public async Task<List<UserResult>> Search(UserParam data)
         {
-            List<UserSearchResult> ret = null;
+            List<UserResult> ret = null;
             
-            ret = await PostAsJSON<List<UserSearchResult>>("search", 
+            ret = await PostAsJSON<List<UserResult>>("search", 
                 JsonConvert.SerializeObject(data),null);
             
 
@@ -104,62 +110,82 @@ namespace Template.Gateway
             return ret;
         }
 
-        public async Task<UserModel> Get(string id)
+        public async Task<UserResult> Get(string id)
         {
-            UserModel ret = null;
+            UserResult ret = null;
 
             object[] param = new object[1];       
             param[0] = new DefaultGetParam(id) ;
             
-            ret = await GetAsJSON<UserModel>("get", param);
+            ret = await GetAsJSON<UserResult>("get", param);
            
             return ret;
         }
 
-        public async Task<UserModel> Set(UserModel data)
+        public async Task<UserEntry> Set(UserEntry data)
         {
-            UserModel ret = null;
+            UserEntry ret = null;
 
-            ret = await PostAsJSON<UserModel>("set", JsonConvert.SerializeObject(data),null);            
+            ret = await PostAsJSON<UserEntry>("set", JsonConvert.SerializeObject(data),null);            
 
             return ret;
         }
 
-        public async Task<UserModel> CreateNewUser(NewUser data)
+        public async Task<UserEntry> CreateNewUser(NewUser data)
         {
-            UserModel ret = null;
+            UserEntry ret = null;
             
-            ret = await this.PostAsJSON<UserModel>("createnewuser", 
+            ret = await this.PostAsJSON<UserEntry>("createnewuser", 
                 JsonConvert.SerializeObject(data), null);
                        
             return ret;
         }
 
-        public async Task<UserRolesModel> AddToRole(string userid, string roleid)
+        public async Task<UserRolesEntry> AddToRole(string userid, string roleid)
         {
-            UserRolesModel ret = null;
-            UserRolesModel data = new UserRolesModel()
+            UserRolesEntry ret = null;
+            UserRolesEntry data = new UserRolesEntry()
             {
                 UserID = Int64.Parse(userid),
                 RoleID = Int64.Parse(roleid)
             }
             ;
-            ret = await this.PostAsJSON<UserRolesModel>("addtorole",
+            ret = await this.PostAsJSON<UserRolesEntry>("addtorole",
                 JsonConvert.SerializeObject(data), null);
 
             return ret;
         }
 
-        public async Task<UserRolesModel> RemoveFromRole(string userid, string roleid)
+        public async Task<UserRolesEntry> RemoveFromRole(string userid, string roleid)
         {
-            UserRolesModel ret = null;
-            UserRolesModel data = new UserRolesModel()
+            UserRolesEntry ret = null;
+            UserRolesEntry data = new UserRolesEntry()
             {
                 UserID = Int64.Parse(userid),
                 RoleID = Int64.Parse(roleid)
             }
             ;
-            ret = await this.PostAsJSON<UserRolesModel>("removefromrole",
+            ret = await this.PostAsJSON<UserRolesEntry>("removefromrole",
+                JsonConvert.SerializeObject(data), null);
+
+            return ret;
+        }
+
+        public async Task<bool> AlterInstance(UserInstancesResult data)
+        {
+            bool ret = false;
+            
+            ret = await this.PostAsJSON<bool>("alterinstance",
+                JsonConvert.SerializeObject(data), null);
+
+            return ret;
+        }
+
+        public async Task<bool> AlterRole(UserRolesResult data)
+        {
+            bool ret = false;
+
+            ret = await this.PostAsJSON<bool>("alterrole",
                 JsonConvert.SerializeObject(data), null);
 
             return ret;
@@ -175,6 +201,60 @@ namespace Template.Gateway
        
     }
 
+    public class InstanceGateway : APIGatewayManagerAsync
+    {
+
+        public InstanceGateway()
+        {
+
+        }
+
+        public async Task<List<InstanceResult>> Search(InstanceParam param)
+        {
+            List<InstanceResult> ret = null;
+
+            ret = await PostAsJSON<List<InstanceResult>>("search",
+                JsonConvert.SerializeObject(param), null);
+
+
+            return ret;
+        }
+
+        public async Task<List<InstanceList>> List(InstanceParam param)
+        {
+            List<InstanceList> ret = null;
+
+            ret = await PostAsJSON<List<InstanceList>>("list",
+                JsonConvert.SerializeObject(param), null);
+
+            return ret;
+        }
+
+        public async Task<InstanceResult> Get(string id)
+        {
+            InstanceResult ret = null;
+
+            object[] param = new object[1];
+            param[0] = new DefaultGetParam(id);
+
+            ret = await GetAsJSON<InstanceResult>("get", param);
+
+            return ret;
+        }
+
+        public async Task<InstanceEntry> Set(InstanceEntry data)
+        {
+            InstanceEntry ret = null;
+
+            ret = await PostAsJSON<InstanceEntry>("set", JsonConvert.SerializeObject(data), null);
+
+            return ret;
+        }
+
+
+    }
+
+
     public class RoleGateway : APIGatewayManagerAsync
     {
      
@@ -183,11 +263,11 @@ namespace Template.Gateway
 
         }
 
-        public async Task<List<RoleSearchResult>> Search(RoleParam param)
+        public async Task<List<RoleResult>> Search(RoleParam param)
         {
-            List<RoleSearchResult> ret = null;
+            List<RoleResult> ret = null;
 
-            ret = await PostAsJSON<List<RoleSearchResult>>("search",
+            ret = await PostAsJSON<List<RoleResult>>("search",
                 JsonConvert.SerializeObject(param), null);
 
 
@@ -204,23 +284,23 @@ namespace Template.Gateway
             return ret;
         }
 
-        public async Task<RoleModel> Get(string id)
+        public async Task<RoleResult> Get(string id)
         {
-            RoleModel ret = null;
+            RoleResult ret = null;
 
             object[] param = new object[1];
             param[0] = new DefaultGetParam(id);
 
-            ret = await GetAsJSON<RoleModel>("get", param);
+            ret = await GetAsJSON<RoleResult>("get", param);
 
             return ret;
         }
 
-        public async Task<RoleModel> Set(RoleModel data)
+        public async Task<RoleEntry> Set(RoleEntry data)
         {
-            RoleModel ret = null;
+            RoleEntry ret = null;
 
-            ret = await PostAsJSON<RoleModel>("set", JsonConvert.SerializeObject(data), null);
+            ret = await PostAsJSON<RoleEntry>("set", JsonConvert.SerializeObject(data), null);
 
             return ret;
         }
@@ -236,11 +316,11 @@ namespace Template.Gateway
 
         }
 
-        public async Task<List<SessionSearchResult>> Search(SessionParam data)
+        public async Task<List<SessionLogResult>> Search(SessionLogParam data)
         {
-            List<SessionSearchResult> ret = null;
+            List<SessionLogResult> ret = null;
 
-            ret = await PostAsJSON<List<SessionSearchResult>>("search",
+            ret = await PostAsJSON<List<SessionLogResult>>("search",
                 JsonConvert.SerializeObject(data), null);
 
 
@@ -248,25 +328,25 @@ namespace Template.Gateway
         }
 
 
-        public async Task<List<SessionList>> List(SessionParam data)
+        public async Task<List<SessionLogList>> List(SessionLogParam data)
         {
-            List<SessionList> ret = null;
+            List<SessionLogList> ret = null;
 
-            ret = await PostAsJSON<List<SessionList>>("list",
+            ret = await PostAsJSON<List<SessionLogList>>("list",
                 JsonConvert.SerializeObject(data), null);
 
             return ret;
         }
 
 
-        public async Task<SessionModel> Get(string id)
+        public async Task<SessionLogResult> Get(string id)
         {
-            SessionModel ret = null;
+            SessionLogResult ret = null;
 
             object[] param = new object[1];
             param[0] = new DefaultGetParam(id);
 
-            ret = await GetAsJSON<SessionModel>("get", param);
+            ret = await GetAsJSON<SessionLogResult>("get", param);
 
             return ret;
         }
@@ -282,11 +362,11 @@ namespace Template.Gateway
 
         }
 
-        public async Task<List<DataLogSearchResult>> Search(DataLogParam data)
+        public async Task<List<DataLogResult>> Search(DataLogParam data)
         {
-            List<DataLogSearchResult> ret = null;
+            List<DataLogResult> ret = null;
 
-            ret = await PostAsJSON<List<DataLogSearchResult>>("search",
+            ret = await PostAsJSON<List<DataLogResult>>("search",
                 JsonConvert.SerializeObject(data), null);
 
 
@@ -303,14 +383,14 @@ namespace Template.Gateway
             return ret;
         }
 
-        public async Task<DataLogModel> Get(string id)
+        public async Task<DataLogResult> Get(string id)
         {
-            DataLogModel ret = null;
+            DataLogResult ret = null;
 
             object[] param = new object[1];
             param[0] = new DefaultGetParam(id);
 
-            ret = await GetAsJSON<DataLogModel>("get", param);
+            ret = await GetAsJSON<DataLogResult>("get", param);
 
             return ret;
         }
@@ -391,11 +471,11 @@ namespace Template.Gateway
 
         }
 
-        public async Task<List<ObjectPermissionSearchResult>> Search(ObjectPermissionParam param)
+        public async Task<List<ObjectPermissionResult>> Search(ObjectPermissionParam param)
         {
-            List<ObjectPermissionSearchResult> ret = null;
+            List<ObjectPermissionResult> ret = null;
 
-            ret = await PostAsJSON<List<ObjectPermissionSearchResult>>("search",
+            ret = await PostAsJSON<List<ObjectPermissionResult>>("search",
                 JsonConvert.SerializeObject(param), null);
 
 
@@ -412,23 +492,23 @@ namespace Template.Gateway
             return ret;
         }
 
-        public async Task<ObjectPermissionModel> Get(string id)
+        public async Task<ObjectPermissionResult> Get(string id)
         {
-            ObjectPermissionModel ret = null;
+            ObjectPermissionResult ret = null;
 
             object[] param = new object[1];
             param[0] = new DefaultGetParam(id);
 
-            ret = await GetAsJSON<ObjectPermissionModel>("get", param);
+            ret = await GetAsJSON<ObjectPermissionResult>("get", param);
 
             return ret;
         }
 
-        public async Task<ObjectPermissionModel> Set(ObjectPermissionModel data)
+        public async Task<ObjectPermissionEntry> Set(ObjectPermissionEntry data)
         {
-            ObjectPermissionModel ret = null;
+            ObjectPermissionEntry ret = null;
 
-            ret = await PostAsJSON<ObjectPermissionModel>("set", JsonConvert.SerializeObject(data), null);
+            ret = await PostAsJSON<ObjectPermissionEntry>("set", JsonConvert.SerializeObject(data), null);
 
             return ret;
         }
@@ -444,11 +524,11 @@ namespace Template.Gateway
 
         }
 
-        public async Task<List<PermissionSearchResult>> Search(PermissionParam param)
+        public async Task<List<PermissionResult>> Search(PermissionParam param)
         {
-            List<PermissionSearchResult> ret = null;
+            List<PermissionResult> ret = null;
 
-            ret = await PostAsJSON<List<PermissionSearchResult>>("search",
+            ret = await PostAsJSON<List<PermissionResult>>("search",
                 JsonConvert.SerializeObject(param), null);
 
 
@@ -465,32 +545,32 @@ namespace Template.Gateway
             return ret;
         }
 
-        public async Task<PermissionModel> Get(string id)
+        public async Task<PermissionResult> Get(string id)
         {
-            PermissionModel ret = null;
+            PermissionResult ret = null;
 
             object[] param = new object[1];
             param[0] = new DefaultGetParam(id);
 
-            ret = await GetAsJSON<PermissionModel>("get", param);
+            ret = await GetAsJSON<PermissionResult>("get", param);
 
             return ret;
         }
 
-        public async Task<PermissionModel> Set(PermissionModel data)
+        public async Task<PermissionEntry> Set(PermissionEntry data)
         {
-            PermissionModel ret = null;
+            PermissionEntry ret = null;
 
-            ret = await PostAsJSON<PermissionModel>("set", JsonConvert.SerializeObject(data), null);
+            ret = await PostAsJSON<PermissionEntry>("set", JsonConvert.SerializeObject(data), null);
 
             return ret;
         }
 
-        public async Task<PermissionModel> Delete(PermissionModel data)
+        public async Task<PermissionEntry> Delete(PermissionEntry data)
         {
-            PermissionModel ret = null;
+            PermissionEntry ret = null;
 
-            ret = await PostAsJSON<PermissionModel>("delete", JsonConvert.SerializeObject(data), null);
+            ret = await PostAsJSON<PermissionEntry>("delete", JsonConvert.SerializeObject(data), null);
 
             return ret;
         }

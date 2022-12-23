@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GW.Membership.Models;
-using GW.Core.Common;
-using GW.Core.Helpers;
+using GW.Common;
+using GW.Helpers;
 using Template.API;
 using Microsoft.AspNetCore.Authorization;
 //using Template.Models;
 using Microsoft.Extensions.Caching.Memory;
+using GW.Membership.Contracts.Domain;
+using Core.Data;
+using GW.Core;
 
 namespace Template.API.Controllers
 {
@@ -14,12 +17,13 @@ namespace Template.API.Controllers
     [Authorize]
     public class DataCacheController : APIControllerBase
     {
-        public DataCacheController(IAppSettingsManager<TemplateSettings> param,
-           IWebHostEnvironment hostingEnvironment,IMemoryCache _cache)
+        public DataCacheController(IMembershipManager membership,
+           IWebHostEnvironment hostingEnvironment,
+           IMemoryCache _cache, IContextBuilder contextbuilder)
         {
-            AppConfigs = param;
-            AppConfigs.EnvironmentSettings = hostingEnvironment;
-            AppConfigs.LoadSettings();
+            Context = membership.Context;
+            contextbuilder.BuilderContext(Context);
+            this.Membership = membership;
             memorycache = _cache;
         }
 
@@ -54,7 +58,7 @@ namespace Template.API.Controllers
 
         [HttpGet]
         [Route("listtabelas")]
-        public object ListTabelas()
+        public async Task<object> ListTabelas()
         {
             Init();
 
@@ -64,7 +68,7 @@ namespace Template.API.Controllers
 
             if (list == null)
             {
-                list = manager.Membership.DataLogUnit.GetTableList();               
+                list = await Membership.DataLog.GetTableList();               
                 
                 memorycache.Set("TABELAS", list, this.GetMemoryCacheOptionsByHour(2));
 
@@ -79,7 +83,7 @@ namespace Template.API.Controllers
 
         [HttpGet]
         [Route("listroles")]
-        public object ListRoles()
+        public async Task<object> ListRoles()
         {
             Init();
 
@@ -89,7 +93,7 @@ namespace Template.API.Controllers
 
             if (list == null)
             {
-                list = manager.Membership.RoleUnit.List(new RoleParam());
+                list = await Membership.Role.List(new RoleParam());
 
                 memorycache.Set("ROLES", list, this.GetMemoryCacheOptionsByHour(2));
 

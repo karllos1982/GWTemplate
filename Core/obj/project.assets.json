@@ -5,16 +5,20 @@
       "Dapper/2.0.123": {
         "type": "package",
         "compile": {
-          "lib/net5.0/Dapper.dll": {}
+          "lib/net5.0/Dapper.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net5.0/Dapper.dll": {}
+          "lib/net5.0/Dapper.dll": {
+            "related": ".xml"
+          }
         }
       },
-      "GW.Framework/4.0.1": {
+      "GW.Framework/4.0.12": {
         "type": "package",
         "dependencies": {
-          "Newtonsoft.Json": "13.0.1"
+          "Newtonsoft.Json": "13.0.2"
         },
         "compile": {
           "lib/net6.0/GW.Framework.dll": {}
@@ -23,11 +27,11 @@
           "lib/net6.0/GW.Framework.dll": {}
         }
       },
-      "GW.Membership/2.0.1": {
+      "GW.Membership/2.0.12": {
         "type": "package",
         "dependencies": {
           "Dapper": "2.0.123",
-          "GW.Framework": "4.0.1",
+          "GW.Framework": "4.0.12",
           "System.Data.SqlClient": "4.8.5"
         },
         "compile": {
@@ -53,10 +57,14 @@
           "System.Security.Principal.Windows": "4.7.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {}
+          "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
@@ -72,10 +80,14 @@
       "Newtonsoft.Json/13.0.2": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
@@ -121,10 +133,14 @@
           "runtime.native.System.Data.SqlClient.sni": "4.7.0"
         },
         "compile": {
-          "ref/netcoreapp2.1/System.Data.SqlClient.dll": {}
+          "ref/netcoreapp2.1/System.Data.SqlClient.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp2.1/System.Data.SqlClient.dll": {}
+          "lib/netcoreapp2.1/System.Data.SqlClient.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll": {
@@ -144,10 +160,14 @@
           "System.Security.Principal.Windows": "4.7.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Security.AccessControl.dll": {}
+          "lib/netstandard2.0/System.Security.AccessControl.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll": {
@@ -159,10 +179,14 @@
       "System.Security.Principal.Windows/4.7.0": {
         "type": "package",
         "compile": {
-          "ref/netcoreapp3.0/_._": {}
+          "ref/netcoreapp3.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {}
+          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
@@ -179,8 +203,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "GW.Framework": "4.0.1",
-          "GW.Membership": "2.0.1"
+          "GW.Framework": "4.0.12",
+          "GW.Membership": "2.0.12"
         },
         "compile": {
           "bin/placeholder/Models.dll": {}
@@ -210,26 +234,26 @@
         "lib/netstandard2.0/Dapper.xml"
       ]
     },
-    "GW.Framework/4.0.1": {
-      "sha512": "v1hMvifzRvFps/qqgLENJoDjk47sbIcfvUSeoUMhHvLC5XRMf9HCv9o69dM2OOx81igiNcUBimacYBgvtUkvyA==",
+    "GW.Framework/4.0.12": {
+      "sha512": "Qdsdt43cIYo35UxUZD2AlFAZgA91UJXVilpXB9uJt3QPqsZmX9BBDqP3Lp+buXm+c7hsaO1hGavX32THkXBmvg==",
       "type": "package",
-      "path": "gw.framework/4.0.1",
+      "path": "gw.framework/4.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.framework.4.0.1.nupkg.sha512",
+        "gw.framework.4.0.12.nupkg.sha512",
         "gw.framework.nuspec",
         "lib/net6.0/GW.Framework.dll"
       ]
     },
-    "GW.Membership/2.0.1": {
-      "sha512": "ryp+HyRkqdPMuZtA1sV6PN1w04MC7xxERgAziy95/QgyyP3/aR22CmuSMVDgtTSGN5dot3a1Su7zkIeXjz/1Cg==",
+    "GW.Membership/2.0.12": {
+      "sha512": "KOnmI/gLlvUVfHeO0tV17oqiSKx38Nh5ItwoA1gRwymkoSmkm7eA/5eyBGcmW5BS5qbclgeHboBfQMWHp+nqqA==",
       "type": "package",
-      "path": "gw.membership/2.0.1",
+      "path": "gw.membership/2.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.membership.2.0.1.nupkg.sha512",
+        "gw.membership.2.0.12.nupkg.sha512",
         "gw.membership.nuspec",
         "lib/net6.0/GW.Membership.dll"
       ]
@@ -586,27 +610,27 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Dapper >= 2.0.123",
-      "GW.Framework >= 4.0.1",
-      "GW.Membership >= 2.0.1",
+      "GW.Framework >= 4.0.12",
+      "GW.Membership >= 2.0.12",
       "Models >= 1.0.0",
       "Newtonsoft.Json >= 13.0.2",
       "System.Data.SqlClient >= 4.8.5"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\carlos.fonteles\\.nuget\\packages\\": {}
+    "C:\\Users\\karll\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projetos\\OUTROS\\GWTemplate\\Core\\Core.csproj",
+      "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Core\\Core.csproj",
       "projectName": "Core",
-      "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Core\\Core.csproj",
-      "packagesPath": "C:\\Users\\carlos.fonteles\\.nuget\\packages\\",
-      "outputPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Core\\obj\\",
+      "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Core\\Core.csproj",
+      "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
+      "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\carlos.fonteles\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -614,15 +638,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://repo.tic.fgv.br/repository/nuget-fgv/": {}
+        "https://www.nuget.org/api/v2/": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj": {
-              "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj"
+            "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj": {
+              "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj"
             }
           }
         }
@@ -643,11 +666,11 @@
           },
           "GW.Framework": {
             "target": "Package",
-            "version": "[4.0.1, )"
+            "version": "[4.0.12, )"
           },
           "GW.Membership": {
             "target": "Package",
-            "version": "[2.0.1, )"
+            "version": "[2.0.12, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",
@@ -664,7 +687,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -673,7 +697,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

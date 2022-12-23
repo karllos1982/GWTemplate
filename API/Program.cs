@@ -9,6 +9,15 @@ using Newtonsoft.Json.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using System.Diagnostics.Metrics;
 using System.Reflection.Metadata;
+using Template.Core.Manager;
+using GW.Core;
+using Microsoft.AspNetCore;
+using GW.Membership.Data;
+using GW.Membership.Contracts.Data;
+using GW.Membership.Contracts.Domain;
+using GW.Membership.Domain;
+using GW.ApplicationHelpers;
+using Core.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +30,12 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddMemoryCache();
 
-builder.Services.AddSingleton<IAppSettingsManager<TemplateSettings>, TemplateManagerSettings>();
+builder.Services.AddSingleton<ISettings, TemplateSettings>();
+builder.Services.AddScoped<IContextBuilder, ContextBuilder>();
+builder.Services.AddScoped<IContext, DapperContext>();
+builder.Services.AddScoped<IMembershipRepositorySet, MembershipRepositorySet>();
+builder.Services.AddScoped<IMembershipManager, MembershipManager>();
+builder.Services.AddScoped<MailManager, TemplateMailCenter>(); 
 
 //configure auth
 

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projetos\\OUTROS\\GWTemplate\\Core\\Core.csproj": {}
+    "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Core\\Core.csproj": {}
   },
   "projects": {
-    "C:\\Projetos\\OUTROS\\GWTemplate\\Core\\Core.csproj": {
+    "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos\\OUTROS\\GWTemplate\\Core\\Core.csproj",
+        "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\carlos.fonteles\\.nuget\\packages\\",
-        "outputPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Core\\obj\\",
+        "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
+        "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\carlos.fonteles\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,15 +22,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://repo.tic.fgv.br/repository/nuget-fgv/": {}
+          "https://www.nuget.org/api/v2/": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj": {
-                "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj"
+              "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj": {
+                "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj"
               }
             }
           }
@@ -51,11 +50,11 @@
             },
             "GW.Framework": {
               "target": "Package",
-              "version": "[4.0.1, )"
+              "version": "[4.0.12, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[2.0.1, )"
+              "version": "[2.0.12, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -72,7 +71,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -81,21 +81,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj": {
+    "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj",
+        "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj",
-        "packagesPath": "C:\\Users\\carlos.fonteles\\.nuget\\packages\\",
-        "outputPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\obj\\",
+        "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj",
+        "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
+        "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\carlos.fonteles\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -103,8 +103,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://repo.tic.fgv.br/repository/nuget-fgv/": {}
+          "https://www.nuget.org/api/v2/": {}
         },
         "frameworks": {
           "net6.0": {
@@ -124,11 +123,11 @@
           "dependencies": {
             "GW.Framework": {
               "target": "Package",
-              "version": "[4.0.1, )"
+              "version": "[4.0.12, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[2.0.1, )"
+              "version": "[2.0.12, )"
             }
           },
           "imports": [
@@ -137,7 +136,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -146,7 +146,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

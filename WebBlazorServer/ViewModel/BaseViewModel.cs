@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
-using GW.Core.Common;
-using GW.Core.Helpers;
+using GW.Common;
+using GW.Helpers;
 using GW.Membership.Models;
 using Newtonsoft.Json;
-using GW.Core.APIGateway;
+using GW.ApplicationHelpers;
 using System.Globalization;
 
 namespace Template.ViewModel
@@ -143,12 +143,15 @@ namespace Template.ViewModel
 
               ClearSummaryValidation();
 
-            foreach (InnerException ex in validations)
+            if (validations != null)
             {
-                InnerException s = SummaryValidation.Where(i => i.Key == ex.Key).FirstOrDefault();
-                if (s != null)
+                foreach (InnerException ex in validations)
                 {
-                    s.Description = ex.Description;
+                    InnerException s = SummaryValidation.Where(i => i.Key == ex.Key).FirstOrDefault();
+                    if (s != null)
+                    {
+                        s.Description = ex.Description;
+                    }
                 }
             }
         }
@@ -230,7 +233,7 @@ namespace Template.ViewModel
 
             if (value != null)
             {
-                ret = GW.Core.Helpers.DateHelper.ToDateStringBR(value.ToString(), "/");
+                ret = GW.Helpers.DateHelper.ToDateStringBR(value.ToString(), "/");
             }
 
             return ret;
@@ -242,7 +245,7 @@ namespace Template.ViewModel
 
             if (value != null)
             {
-                string aux = GW.Core.Helpers.DateHelper.ToShortDateString(value.ToString(), "-");
+                string aux = GW.Helpers.DateHelper.ToShortDateString(value.ToString(), "-");
                 
                 ret = DateTime.Parse(aux + " " + time); 
             }

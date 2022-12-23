@@ -1,4 +1,4 @@
-﻿using GW.Core.Common;
+﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
 
@@ -20,11 +20,14 @@ namespace Template.ViewModel
         UserAuthenticated _user;
 
 
-        public UserModel model = new UserModel();
+        public UserResult result = new UserResult();
         public NewUser newModel = new NewUser();
         public UserParam param = new UserParam();
-        public List<UserSearchResult> searchresult = new List<UserSearchResult>();
+        public List<UserResult> searchresult = new List<UserResult>();
         public List<RoleList> listRoles = new List<RoleList>();
+        public List<InstanceList> listInstances = new List<InstanceList>();
+        public UserRolesResult RoleSelected = new UserRolesResult();
+        public UserInstancesResult InstanceSelected = new UserInstancesResult(); 
 
         public bool isUserActive { get; set; }
         public bool isUserLocked { get; set; }
@@ -33,6 +36,7 @@ namespace Template.ViewModel
         {
             SummaryValidation = new List<InnerException>()
             {
+                new InnerException("InstanceID",""),
                 new InnerException("RoleID",""),
                 new InnerException("Email",""),
                 new InnerException("UserName",""),
@@ -47,6 +51,7 @@ namespace Template.ViewModel
             await ClearSummaryValidation();
 
             await LoadRolesList();
+            await LoadInstancesList(); 
         }
 
         public async Task LoadRolesList()
@@ -57,7 +62,7 @@ namespace Template.ViewModel
             listRoles = await _gateway.Role.List(new RoleParam());
 
             if (listRoles == null)
-            {
+            {                
                 ExecutionStatus.InnerExceptions = _gateway.Role.GetInnerExceptions(ref ExecutionStatus.Error);
                 ExecutionStatus.Status = false;
             }
@@ -68,11 +73,34 @@ namespace Template.ViewModel
 
         }
 
+        public async Task LoadInstancesList()
+        {
+            listInstances= new List<InstanceList>();
+
+            ExecutionStatus = new OperationStatus(true);
+            listInstances = await _gateway.Instance.List(new InstanceParam());
+
+            if (listRoles == null)
+            {
+                ExecutionStatus.InnerExceptions = _gateway.Instance.GetInnerExceptions(ref ExecutionStatus.Error);
+                ExecutionStatus.Status = false;
+            }
+            else
+            {
+                listInstances.Insert(0, new InstanceList() { InstanceID = 0,InstanceName = "Selecione uma Instancia" });
+            }
+
+        }
+
+
         public override async Task Set()
         {
             ExecutionStatus = new OperationStatus(true);
 
-            UserModel ret = await _gateway.User.Set(model);
+            UserEntry entry = new UserEntry();
+            
+
+            UserEntry ret = await _gateway.User.Set(entry);
 
             if (ret != null)
             {
@@ -92,17 +120,19 @@ namespace Template.ViewModel
 
             ExecutionStatus = new OperationStatus(true);
 
-            model = await _gateway.User.Get(id.ToString());
+            result = await _gateway.User.Get(id.ToString());
 
-            if (model == null)
+            if (result == null)
             {
                 ExecutionStatus.InnerExceptions = _gateway.User.GetInnerExceptions(ref ExecutionStatus.Error);
                 ExecutionStatus.Status = false;
             }
             else
             {
-                this.isUserActive = Convert.ToBoolean(model.IsActive);
-                this.isUserLocked = Convert.ToBoolean(model.IsLocked);
+                this.isUserActive = Convert.ToBoolean(result.IsActive);
+                this.isUserLocked = Convert.ToBoolean(result.IsLocked);
+                RoleSelected = result.Roles[0];
+                InstanceSelected = result.Instances[0];  
             }
 
         }
@@ -111,7 +141,7 @@ namespace Template.ViewModel
         {
             ExecutionStatus = new OperationStatus(true);
 
-            UserModel ret = await _gateway.User.CreateNewUser(newModel);
+            UserEntry ret = await _gateway.User.CreateNewUser(newModel);
 
             if (ret != null)
             {
@@ -131,7 +161,7 @@ namespace Template.ViewModel
             UserChangeState state = new UserChangeState();
             ExecutionStatus = new OperationStatus(true);
 
-            state.UserID = model.UserID;
+            state.UserID = result.UserID;
             state.ActiveValue = 0;
             state.LockedValue = 0;
 
@@ -181,18 +211,41 @@ namespace Template.ViewModel
 
         }
 
-        public  async Task RemoveRole(string roleid)
+        public  async Task AlterInstance()
         {
             ExecutionStatus = new OperationStatus(true);
 
-            UserRolesModel ret 
-                = await _gateway.User.RemoveFromRole(model.UserID.ToString(), roleid);
+            bool ret
+               = await _gateway.User.AlterInstance(InstanceSelected);
 
-            if (ret != null)
+            if (ret)
             {
                 ExecutionStatus.Returns = ret;
-            }         
+            }
+            else
+            {
+                ExecutionStatus.InnerExceptions = _gateway.User.GetInnerExceptions(ref ExecutionStatus.Error);
+                ExecutionStatus.Status = false;
+            }
 
+        }
+
+        public async Task AlterRole()
+        {
+            ExecutionStatus = new OperationStatus(true);
+
+            bool ret
+               = await _gateway.User.AlterRole(RoleSelected);
+
+            if (ret)
+            {
+                ExecutionStatus.Returns = ret;
+            }
+            else
+            {
+                ExecutionStatus.InnerExceptions = _gateway.User.GetInnerExceptions(ref ExecutionStatus.Error);
+                ExecutionStatus.Status = false;
+            }
 
         }
 

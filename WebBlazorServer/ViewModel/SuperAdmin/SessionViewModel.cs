@@ -1,4 +1,4 @@
-﻿using GW.Core.Common;
+﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
 
@@ -21,9 +21,10 @@ namespace Template.ViewModel
         UserAuthenticated _user;
 
 
-        public SessionModel model = new SessionModel();
-        public SessionParam param = new SessionParam();
-        public List<SessionSearchResult> searchresult = new List<SessionSearchResult>();
+        public SessionLogEntry entry = new SessionLogEntry();
+        public SessionLogResult result = new SessionLogResult();
+        public SessionLogParam param = new SessionLogParam();
+        public List<SessionLogResult> searchresult = new List<SessionLogResult>();
 
 
         public override async Task ClearSummaryValidation()
@@ -55,9 +56,9 @@ namespace Template.ViewModel
 
             ExecutionStatus = new OperationStatus(true);
 
-            model = await _gateway.Session.Get(id.ToString());
+            result = await _gateway.Session.Get(id.ToString());
 
-            if (model == null)
+            if (result == null)
             {
                 ExecutionStatus.InnerExceptions = _gateway.Session.GetInnerExceptions(ref ExecutionStatus.Error);
                 ExecutionStatus.Status = false;

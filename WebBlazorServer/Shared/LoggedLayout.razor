@@ -3,7 +3,7 @@
 @inject IJSRuntime JSRuntime
 @inject IAppControllerAsync<UserAuthenticated> _appctrl
 @inject IAuthGatewayManager _appservices
-@inject IAppSettingsManager<TemplateSettings>  _settings
+@inject IAppSettings _settings
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
 
@@ -97,7 +97,7 @@
         if (firstRender)
         {
             this.InitResources();
-            string url = _settings.Settings.SiteURL;
+            string url = _settings.SiteURL;
 
             islogged = await _appctrl.IsAuthenticated();
 
@@ -125,9 +125,8 @@
     }
 
     private void InitResources()
-    {
-        _settings.LoadSettings(_httpclient);
-        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
+    {        
+        ((TemplateAppController)_appctrl).Settings = _settings;
 
     }
 
@@ -140,7 +139,7 @@
         }
 
          await _appctrl.Logout();
-        string url = _settings.Settings.SiteURL;
+        string url = _settings.SiteURL;
         NavigationManager.NavigateTo(url);
         islogged = false;
         StateHasChanged();

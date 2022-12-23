@@ -7,7 +7,7 @@
 @inject IMembershipGatewayManager _memberservices
 @inject IAuthGatewayManager _appservices
 @inject IDataCacheGatewayManager _datacache
-@inject IAppSettingsManager<TemplateSettings> _settings
+@inject IAppSettings _settings
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
 
@@ -143,17 +143,17 @@
                                             {
                                                 @if (view.searchresult.Count > 0)
                                                 {
-                                                      <DataGrid TItem="PermissionSearchResult" Data="@view.searchresult"  Responsive  ShowPager >                                                                                                                                      
+                                                      <DataGrid TItem="PermissionResult" Data="@view.searchresult"  Responsive  ShowPager >                                                                                                                                      
                                                         <DataGridColumns>
 
-                                                            <DataGridColumn Field="@nameof(PermissionSearchResult.ObjectName)" Caption="Object Name" Width="20%" />
-                                                            <DataGridColumn Field="@nameof(PermissionSearchResult.RoleName)" Caption="Role Name" Width="20%" />
-                                                            <DataGridColumn Field="@nameof(PermissionSearchResult.UserName)" Caption="UserName" Width="20%" />
+                                                            <DataGridColumn Field="@nameof(PermissionResult.ObjectName)" Caption="Object Name" Width="20%" />
+                                                            <DataGridColumn Field="@nameof(PermissionResult.RoleName)" Caption="Role Name" Width="20%" />
+                                                            <DataGridColumn Field="@nameof(PermissionResult.UserName)" Caption="UserName" Width="20%" />
 
-                                                             <DataGridColumn Field="@nameof(PermissionSearchResult.ReadStatus)" Caption="Allow Read" Width="10%">
+                                                             <DataGridColumn Field="@nameof(PermissionResult.ReadStatus)" Caption="Allow Read" Width="10%">
                                                                 <DisplayTemplate>
                                                                     @{
-                                                                        PermissionSearchResult obj = (context as PermissionSearchResult);
+                                                                        PermissionResult obj = (context as PermissionResult);
 
                                                                         @if (obj.ReadStatus==1)
                                                                         {
@@ -169,10 +169,10 @@
                                                                 </DisplayTemplate>
                                                             </DataGridColumn>
 
-                                                             <DataGridColumn Field="@nameof(PermissionSearchResult.SaveStatus)" Caption="Allow Save" Width="10%">
+                                                             <DataGridColumn Field="@nameof(PermissionResult.SaveStatus)" Caption="Allow Save" Width="10%">
                                                                 <DisplayTemplate>
                                                                     @{
-                                                                        PermissionSearchResult obj = (context as PermissionSearchResult);
+                                                                        PermissionResult obj = (context as PermissionResult);
 
                                                                         @if (obj.SaveStatus ==1)
                                                                         {
@@ -188,10 +188,10 @@
                                                                 </DisplayTemplate>
                                                             </DataGridColumn>
 
-                                                            <DataGridColumn Field="@nameof(PermissionSearchResult.DeleteStatus)" Caption="Allow Delete" Width="10%">
+                                                            <DataGridColumn Field="@nameof(PermissionResult.DeleteStatus)" Caption="Allow Delete" Width="10%">
                                                                 <DisplayTemplate>
                                                                     @{
-                                                                        PermissionSearchResult obj = (context as PermissionSearchResult);
+                                                                        PermissionResult obj = (context as PermissionResult);
 
                                                                         @if (obj.DeleteStatus==1)
                                                                         {
@@ -207,10 +207,10 @@
                                                                 </DisplayTemplate>
                                                             </DataGridColumn>
 
-                                                            <DataGridColumn Field="@nameof(PermissionSearchResult.PermissionID)" Caption="Edit" Width="10%">
+                                                            <DataGridColumn Field="@nameof(PermissionResult.PermissionID)" Caption="Edit" Width="10%">
                                                                 <DisplayTemplate>
                                                                     @{
-                                                                        PermissionSearchResult obj = (context as PermissionSearchResult);
+                                                                        PermissionResult obj = (context as PermissionResult);
                                                                         
                                                                          @if(view.Permissions.AllowSave)
                                                                             {
@@ -278,7 +278,7 @@
                                                                             Data="@view.listObject"
                                                                             TextField="@((item)=>item.ObjectName)"
                                                                             ValueField="@((item)=>item.ObjectPermissionID)"
-                                                                            @bind-SelectedValue="@view.model.ObjectPermissionID"></SelectList>
+                                                                            @bind-SelectedValue="@view.result.ObjectPermissionID"></SelectList>
 
                                                                             <label class="form-label validation_field">@view.GetSummaryMessage("ObjectPermissionID") </label>
                                                                     }
@@ -298,12 +298,13 @@
                                                                         {
                                                                                 @if (view.listRoles.Count > 0)
                                                                                 {
-                                                                                    <SelectList TItem="RoleList" Disabled=@view.GetDisabledStatus("R",view.model.TypeGrant)
-                                                                                                TValue="Int64?"
+                                                                                    <SelectList TItem="RoleList" Disabled=@view.GetDisabledStatus("R",view.result.TypeGrant)
+                                                                                                TValue="Int64"
                                                                                                 Data="@view.listRoles"
                                                                                                 TextField="@((item)=>item.RoleName)"
                                                                                                 ValueField="@((item)=>item.RoleID)"
-                                                                                                @bind-SelectedValue="@view.model.RoleID"></SelectList>
+                                                                                                @bind-SelectedValue="@view.result.RoleID">
+                                                                                            </SelectList>
                                                                                       <label class="form-label validation_field">@view.GetSummaryMessage("RoleID") </label>
                                                                                 }
 
@@ -322,12 +323,12 @@
                                                                     {
                                                                             @if (view.listUsers.Count > 0)
                                                                             {
-                                                                                <SelectList TItem="UserList" Disabled=@view.GetDisabledStatus("U",view.model.TypeGrant)
-                                                                                            TValue="Int64?"
+                                                                                <SelectList TItem="UserList" Disabled=@view.GetDisabledStatus("U",view.result.TypeGrant)
+                                                                                            TValue="Int64"
                                                                                             Data="@view.listUsers"
                                                                                             TextField="@((item)=>item.UserName)"
                                                                                             ValueField="@((item)=>item.UserID)"
-                                                                                            @bind-SelectedValue="@view.model.UserID"></SelectList>
+                                                                                            @bind-SelectedValue="@view.result.UserID"></SelectList>
                                                                                     <label class="form-label validation_field">@view.GetSummaryMessage("UserID") </label>
                                                                             }
 
@@ -351,7 +352,7 @@
                                                                                             Data="@view.listPermissionValue"
                                                                                             TextField="@((item)=>item.Text)"
                                                                                             ValueField="@((item)=>item.Value)"
-                                                                                            @bind-SelectedValue="@view.model.ReadStatus">
+                                                                                            @bind-SelectedValue="@view.result.ReadStatus">
                                                                                         </SelectList>
                                                                             }
 
@@ -373,7 +374,7 @@
                                                                                             Data="@view.listPermissionValue"
                                                                                             TextField="@((item)=>item.Text)"
                                                                                             ValueField="@((item)=>item.Value)"
-                                                                                            @bind-SelectedValue="@view.model.SaveStatus">
+                                                                                            @bind-SelectedValue="@view.result.SaveStatus">
                                                                                         </SelectList>
                                                                             }
 
@@ -395,7 +396,7 @@
                                                                                             Data="@view.listPermissionValue"
                                                                                             TextField="@((item)=>item.Text)"
                                                                                             ValueField="@((item)=>item.Value)"
-                                                                                            @bind-SelectedValue="@view.model.DeleteStatus">
+                                                                                            @bind-SelectedValue="@view.result.DeleteStatus">
                                                                                         </SelectList>
                                                                             }
 
@@ -470,16 +471,15 @@
     //
 
     private async Task InitResources()
-    {
-        _settings.LoadSettings(_httpclient);
-        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
+    {       
+        ((TemplateAppController)_appctrl).Settings = _settings;
 
         if (await _appctrl.IsAuthenticated())
         {
             LoggedUser = _appctrl.UserInfo;
-            _memberservices.Init(_httpclient, _settings.Settings.ServiceURL, LoggedUser.Token);
+            _memberservices.Init(_httpclient, _settings.ServiceURL, LoggedUser.Token);
 
-            _datacache.Init(_httpclient,_settings.Settings.ServiceURL, LoggedUser.Token);
+            _datacache.Init(_httpclient,_settings.ServiceURL, LoggedUser.Token);
 
             view = new PermissionViewModel((_memberservices as MembershipGateway), 
                        (_datacache as DataCacheGateway), LoggedUser);

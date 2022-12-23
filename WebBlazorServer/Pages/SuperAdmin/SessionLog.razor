@@ -5,7 +5,7 @@
 @inject IJSRuntime JSRuntime
 @inject IAppControllerAsync<UserAuthenticated> _appctrl
 @inject IMembershipGatewayManager _memberservices
-@inject IAppSettingsManager<TemplateSettings>  _settings
+@inject IAppSettings _settings
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
 
@@ -88,14 +88,14 @@
                                             {
                                                 @if (view.searchresult.Count > 0)
                                                 {
-                                                      <DataGrid TItem="SessionSearchResult" Data="@view.searchresult"  Responsive  ShowPager PageSize=10>                                                                                         
+                                                      <DataGrid TItem="SessionLogResult" Data="@view.searchresult"  Responsive  ShowPager PageSize=10>                                                                                         
                                              
                                                             <DataGridColumns>
                                             
-                                                                <DataGridColumn Field="@nameof(SessionSearchResult.Date)" Caption="Data do Acesso" />
-                                                                <DataGridColumn Field="@nameof(SessionSearchResult.Email)" Caption="E-mail" />
-                                                                <DataGridColumn Field="@nameof(SessionSearchResult.UserName)" Caption="UserName" />                                              
-                                                                <DataGridColumn Field="@nameof(SessionSearchResult.IP)" Caption="IP" />   
+                                                                <DataGridColumn Field="@nameof(SessionLogResult.Date)" Caption="Data do Acesso" />
+                                                                <DataGridColumn Field="@nameof(SessionLogResult.Email)" Caption="E-mail" />
+                                                                <DataGridColumn Field="@nameof(SessionLogResult.UserName)" Caption="UserName" />                                              
+                                                                <DataGridColumn Field="@nameof(SessionLogResult.IP)" Caption="IP" />   
                                                                                                                                            
                                                              </DataGridColumns>
                                       
@@ -151,13 +151,13 @@
 
     private async Task InitResources()
     {
-        _settings.LoadSettings(_httpclient);
-        ((TemplateAppController)_appctrl).Settings = _settings.Settings;
+      
+        ((TemplateAppController)_appctrl).Settings = _settings;
 
         if (await _appctrl.IsAuthenticated())
         {
             LoggedUser = _appctrl.UserInfo;
-            _memberservices.Init(_httpclient,_settings.Settings.ServiceURL,LoggedUser.Token);            
+            _memberservices.Init(_httpclient,_settings.ServiceURL,LoggedUser.Token);            
             view = new SessionViewModel((_memberservices as MembershipGateway) ,LoggedUser); 
 
             List<UserPermissions> list = await _appctrl.GetUserPermissions();

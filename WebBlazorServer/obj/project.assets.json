@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net6.0": {
-      "Blazorise/1.1.4.1": {
+      "Blazorise/1.1.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Components": "6.0.9",
@@ -10,10 +10,14 @@
           "Microsoft.Extensions.Logging.Abstractions": "6.0.3"
         },
         "compile": {
-          "lib/net6.0/Blazorise.dll": {}
+          "lib/net6.0/Blazorise.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Blazorise.dll": {}
+          "lib/net6.0/Blazorise.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/Blazorise.props": {}
@@ -22,10 +26,10 @@
           "buildMultiTargeting/Blazorise.props": {}
         }
       },
-      "Blazorise.Bootstrap5/1.1.4.1": {
+      "Blazorise.Bootstrap5/1.1.5": {
         "type": "package",
         "dependencies": {
-          "Blazorise": "1.1.4.1",
+          "Blazorise": "1.1.5",
           "Microsoft.AspNetCore.Components": "6.0.9",
           "Microsoft.AspNetCore.Components.Web": "6.0.9",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.3"
@@ -43,35 +47,43 @@
           "buildMultiTargeting/Blazorise.Bootstrap5.props": {}
         }
       },
-      "Blazorise.Components/1.1.4.1": {
+      "Blazorise.Components/1.1.5": {
         "type": "package",
         "dependencies": {
-          "Blazorise": "1.1.4.1",
-          "Blazorise.Snackbar": "1.1.4.1",
+          "Blazorise": "1.1.5",
+          "Blazorise.Snackbar": "1.1.5",
           "Microsoft.AspNetCore.Components": "6.0.9",
           "Microsoft.AspNetCore.Components.Web": "6.0.9",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.3"
         },
         "compile": {
-          "lib/net6.0/Blazorise.Components.dll": {}
+          "lib/net6.0/Blazorise.Components.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Blazorise.Components.dll": {}
+          "lib/net6.0/Blazorise.Components.dll": {
+            "related": ".xml"
+          }
         }
       },
-      "Blazorise.DataGrid/1.1.4.1": {
+      "Blazorise.DataGrid/1.1.5": {
         "type": "package",
         "dependencies": {
-          "Blazorise": "1.1.4.1",
+          "Blazorise": "1.1.5",
           "Microsoft.AspNetCore.Components": "6.0.9",
           "Microsoft.AspNetCore.Components.Web": "6.0.9",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.3"
         },
         "compile": {
-          "lib/net6.0/Blazorise.DataGrid.dll": {}
+          "lib/net6.0/Blazorise.DataGrid.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Blazorise.DataGrid.dll": {}
+          "lib/net6.0/Blazorise.DataGrid.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/Blazorise.DataGrid.props": {}
@@ -80,10 +92,10 @@
           "buildMultiTargeting/Blazorise.DataGrid.props": {}
         }
       },
-      "Blazorise.Icons.FontAwesome/1.1.4.1": {
+      "Blazorise.Icons.FontAwesome/1.1.5": {
         "type": "package",
         "dependencies": {
-          "Blazorise": "1.1.4.1",
+          "Blazorise": "1.1.5",
           "Microsoft.AspNetCore.Components": "6.0.9",
           "Microsoft.AspNetCore.Components.Web": "6.0.9",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.3"
@@ -95,19 +107,23 @@
           "lib/net6.0/Blazorise.Icons.FontAwesome.dll": {}
         }
       },
-      "Blazorise.Snackbar/1.1.4.1": {
+      "Blazorise.Snackbar/1.1.5": {
         "type": "package",
         "dependencies": {
-          "Blazorise": "1.1.4.1",
+          "Blazorise": "1.1.5",
           "Microsoft.AspNetCore.Components": "6.0.9",
           "Microsoft.AspNetCore.Components.Web": "6.0.9",
           "Microsoft.Extensions.Logging.Abstractions": "6.0.3"
         },
         "compile": {
-          "lib/net6.0/Blazorise.Snackbar.dll": {}
+          "lib/net6.0/Blazorise.Snackbar.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Blazorise.Snackbar.dll": {}
+          "lib/net6.0/Blazorise.Snackbar.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/Blazorise.Snackbar.props": {}
@@ -119,16 +135,20 @@
       "Dapper/2.0.123": {
         "type": "package",
         "compile": {
-          "lib/net5.0/Dapper.dll": {}
+          "lib/net5.0/Dapper.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net5.0/Dapper.dll": {}
+          "lib/net5.0/Dapper.dll": {
+            "related": ".xml"
+          }
         }
       },
-      "GW.Framework/4.0.1": {
+      "GW.Framework/4.0.12": {
         "type": "package",
         "dependencies": {
-          "Newtonsoft.Json": "13.0.1"
+          "Newtonsoft.Json": "13.0.2"
         },
         "compile": {
           "lib/net6.0/GW.Framework.dll": {}
@@ -137,11 +157,11 @@
           "lib/net6.0/GW.Framework.dll": {}
         }
       },
-      "GW.Membership/2.0.1": {
+      "GW.Membership/2.0.12": {
         "type": "package",
         "dependencies": {
           "Dapper": "2.0.123",
-          "GW.Framework": "4.0.1",
+          "GW.Framework": "4.0.12",
           "System.Data.SqlClient": "4.8.5"
         },
         "compile": {
@@ -159,10 +179,14 @@
           "Microsoft.Extensions.Options": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/Microsoft.AspNetCore.Authorization.dll": {}
+          "lib/net6.0/Microsoft.AspNetCore.Authorization.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.AspNetCore.Authorization.dll": {}
+          "lib/net6.0/Microsoft.AspNetCore.Authorization.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNetCore.Components/6.0.9": {
@@ -172,10 +196,14 @@
           "Microsoft.AspNetCore.Components.Analyzers": "6.0.9"
         },
         "compile": {
-          "lib/net6.0/Microsoft.AspNetCore.Components.dll": {}
+          "lib/net6.0/Microsoft.AspNetCore.Components.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.AspNetCore.Components.dll": {}
+          "lib/net6.0/Microsoft.AspNetCore.Components.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNetCore.Components.Analyzers/6.0.9": {
@@ -190,10 +218,14 @@
           "Microsoft.AspNetCore.Components": "6.0.9"
         },
         "compile": {
-          "lib/net6.0/Microsoft.AspNetCore.Components.Forms.dll": {}
+          "lib/net6.0/Microsoft.AspNetCore.Components.Forms.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.AspNetCore.Components.Forms.dll": {}
+          "lib/net6.0/Microsoft.AspNetCore.Components.Forms.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNetCore.Components.Web/6.0.9": {
@@ -206,19 +238,27 @@
           "System.IO.Pipelines": "6.0.3"
         },
         "compile": {
-          "lib/net6.0/Microsoft.AspNetCore.Components.Web.dll": {}
+          "lib/net6.0/Microsoft.AspNetCore.Components.Web.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.AspNetCore.Components.Web.dll": {}
+          "lib/net6.0/Microsoft.AspNetCore.Components.Web.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.AspNetCore.Metadata/6.0.9": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Microsoft.AspNetCore.Metadata.dll": {}
+          "lib/net6.0/Microsoft.AspNetCore.Metadata.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.AspNetCore.Metadata.dll": {}
+          "lib/net6.0/Microsoft.AspNetCore.Metadata.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.DependencyInjection/6.0.0": {
@@ -228,10 +268,14 @@
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/Microsoft.Extensions.DependencyInjection.dll": {}
+          "lib/net6.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.Extensions.DependencyInjection.dll": {}
+          "lib/net6.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -240,10 +284,14 @@
       "Microsoft.Extensions.DependencyInjection.Abstractions/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
+          "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
+          "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -252,10 +300,14 @@
       "Microsoft.Extensions.Logging.Abstractions/6.0.3": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
+          "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
+          "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/Microsoft.Extensions.Logging.Abstractions.targets": {}
@@ -268,10 +320,14 @@
           "Microsoft.Extensions.Primitives": "6.0.0"
         },
         "compile": {
-          "lib/netstandard2.1/Microsoft.Extensions.Options.dll": {}
+          "lib/netstandard2.1/Microsoft.Extensions.Options.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.1/Microsoft.Extensions.Options.dll": {}
+          "lib/netstandard2.1/Microsoft.Extensions.Options.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.Primitives/6.0.0": {
@@ -280,10 +336,14 @@
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         },
         "compile": {
-          "lib/net6.0/Microsoft.Extensions.Primitives.dll": {}
+          "lib/net6.0/Microsoft.Extensions.Primitives.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.Extensions.Primitives.dll": {}
+          "lib/net6.0/Microsoft.Extensions.Primitives.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -292,10 +352,14 @@
       "Microsoft.JSInterop/6.0.9": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Microsoft.JSInterop.dll": {}
+          "lib/net6.0/Microsoft.JSInterop.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.JSInterop.dll": {}
+          "lib/net6.0/Microsoft.JSInterop.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.NETCore.Platforms/3.1.0": {
@@ -323,10 +387,14 @@
           "System.Security.Principal.Windows": "4.7.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {}
+          "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
@@ -342,10 +410,14 @@
       "Newtonsoft.Json/13.0.2": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
@@ -391,10 +463,14 @@
           "runtime.native.System.Data.SqlClient.sni": "4.7.0"
         },
         "compile": {
-          "ref/netcoreapp2.1/System.Data.SqlClient.dll": {}
+          "ref/netcoreapp2.1/System.Data.SqlClient.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netcoreapp2.1/System.Data.SqlClient.dll": {}
+          "lib/netcoreapp2.1/System.Data.SqlClient.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll": {
@@ -410,10 +486,14 @@
       "System.IO.Pipelines/6.0.3": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.IO.Pipelines.dll": {}
+          "lib/net6.0/System.IO.Pipelines.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.IO.Pipelines.dll": {}
+          "lib/net6.0/System.IO.Pipelines.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -426,16 +506,22 @@
           "Microsoft.NETCore.Targets": "1.1.0"
         },
         "compile": {
-          "ref/netstandard1.5/System.Runtime.dll": {}
+          "ref/netstandard1.5/System.Runtime.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -448,10 +534,14 @@
           "System.Security.Principal.Windows": "4.7.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Security.AccessControl.dll": {}
+          "lib/netstandard2.0/System.Security.AccessControl.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll": {
@@ -463,10 +553,14 @@
       "System.Security.Principal.Windows/4.7.0": {
         "type": "package",
         "compile": {
-          "ref/netcoreapp3.0/_._": {}
+          "ref/netcoreapp3.0/_._": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {}
+          "lib/netstandard2.0/System.Security.Principal.Windows.dll": {
+            "related": ".xml"
+          }
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
@@ -486,7 +580,9 @@
           "System.Threading.Tasks": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/System.Threading.dll": {}
+          "ref/netstandard1.3/System.Threading.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/netstandard1.3/System.Threading.dll": {}
@@ -500,15 +596,17 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/System.Threading.Tasks.dll": {}
+          "ref/netstandard1.3/System.Threading.Tasks.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Gateway/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "GW.Framework": "4.0.1",
-          "GW.Membership": "2.0.1",
+          "GW.Framework": "4.0.12",
+          "GW.Membership": "2.0.12",
           "Models": "1.0.0",
           "Newtonsoft.Json": "13.0.2",
           "System.Threading": "4.3.0"
@@ -524,8 +622,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "GW.Framework": "4.0.1",
-          "GW.Membership": "2.0.1"
+          "GW.Framework": "4.0.12",
+          "GW.Membership": "2.0.12"
         },
         "compile": {
           "bin/placeholder/Models.dll": {}
@@ -537,16 +635,16 @@
     }
   },
   "libraries": {
-    "Blazorise/1.1.4.1": {
-      "sha512": "GRgH9+Wno304u5xr2ytG4Nm93v7L9yn5a0siHLmEPzQfBenvgPilIS1qzSCyvp7LBONg6Uj2rm7rLs7fXTHzNw==",
+    "Blazorise/1.1.5": {
+      "sha512": "MFfCLdI8nnStv0RNWyovRGAIvRIQSpgPJioxuo1C7aXEdZs4jBjykSAnCf0IGZgN+omDQhPb+P8wrGDAAjSOiA==",
       "type": "package",
-      "path": "blazorise/1.1.4.1",
+      "path": "blazorise/1.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.1.1.4.1.nupkg.sha512",
+        "blazorise.1.1.5.nupkg.sha512",
         "blazorise.nuspec",
         "build/Blazorise.props",
         "build/Microsoft.AspNetCore.StaticWebAssets.props",
@@ -590,16 +688,16 @@
         "staticwebassets/vendors/inputmask.js"
       ]
     },
-    "Blazorise.Bootstrap5/1.1.4.1": {
-      "sha512": "ead2UFpZ35jqmUR+K6enr2BvWMfWEu604On2SGi+OVU0QHtm7pWHeYa5wiYf2/9xfu7Hum20eS1ZVfafefmTZQ==",
+    "Blazorise.Bootstrap5/1.1.5": {
+      "sha512": "xgPZ/XuSAn9EZ4Hrc3Xe4OQwWFiCQjRCZK1h6E5urd1drVDLF9vjD5aTqaPOtrgOwvKfKXflgpHUh11W+ayKSw==",
       "type": "package",
-      "path": "blazorise.bootstrap5/1.1.4.1",
+      "path": "blazorise.bootstrap5/1.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.bootstrap5.1.1.4.1.nupkg.sha512",
+        "blazorise.bootstrap5.1.1.5.nupkg.sha512",
         "blazorise.bootstrap5.nuspec",
         "build/Blazorise.Bootstrap5.props",
         "build/Microsoft.AspNetCore.StaticWebAssets.props",
@@ -613,16 +711,16 @@
         "staticwebassets/tooltip.js"
       ]
     },
-    "Blazorise.Components/1.1.4.1": {
-      "sha512": "GDpLQCqWvpMXJlBVUGk19KaynctyC0fFdGyV3ped3gcYkc0KNCc7vH/zwLK2bHLxikfF6/77RdxgJ9p6cdSAsg==",
+    "Blazorise.Components/1.1.5": {
+      "sha512": "HJcx3AXv6k6nffMzc3CnwPWgZpgdlu+euAtWJ3wYlOphnf49EHBWpeNgoOZwSRIbE4r1MZHaFNrre3CBcOASBQ==",
       "type": "package",
-      "path": "blazorise.components/1.1.4.1",
+      "path": "blazorise.components/1.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.components.1.1.4.1.nupkg.sha512",
+        "blazorise.components.1.1.5.nupkg.sha512",
         "blazorise.components.nuspec",
         "lib/net6.0/Blazorise.Components.dll",
         "lib/net6.0/Blazorise.Components.xml",
@@ -630,16 +728,16 @@
         "lib/net7.0/Blazorise.Components.xml"
       ]
     },
-    "Blazorise.DataGrid/1.1.4.1": {
-      "sha512": "WTSMVn9cjTscjhArXLXO6fqIcyKva+rzrpQLQyc1uW6rOiJZllclcpMMuMvr7N5KewOGT8JuV8zFIP5sOLTk+A==",
+    "Blazorise.DataGrid/1.1.5": {
+      "sha512": "ghnrLqKYJrIVCMzH8jPdhqs3+0Dno+wl0Olz48XYr+HmWbYz2yCwQlZ1DxXcSq9jcX8GNE6IpOEfozcaZER94Q==",
       "type": "package",
-      "path": "blazorise.datagrid/1.1.4.1",
+      "path": "blazorise.datagrid/1.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.datagrid.1.1.4.1.nupkg.sha512",
+        "blazorise.datagrid.1.1.5.nupkg.sha512",
         "blazorise.datagrid.nuspec",
         "build/Blazorise.DataGrid.props",
         "build/Microsoft.AspNetCore.StaticWebAssets.props",
@@ -652,31 +750,31 @@
         "staticwebassets/datagrid.js"
       ]
     },
-    "Blazorise.Icons.FontAwesome/1.1.4.1": {
-      "sha512": "f1oIZjjk///NAs3pawaT7GX7ppij11bE5HRXdlHBVzxdFzdb8KVI03CtJmbGv5wS+e5FuMRV938Pb6e7f7xVQQ==",
+    "Blazorise.Icons.FontAwesome/1.1.5": {
+      "sha512": "/nc8fgNFCXhznFsK1GM4SHI5dBGYcfQSFZbvMlaXpyYF1DuWi95a2pmm8XwmRsyghiWpjYIdBi5M9k9pj5Cu4g==",
       "type": "package",
-      "path": "blazorise.icons.fontawesome/1.1.4.1",
+      "path": "blazorise.icons.fontawesome/1.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.icons.fontawesome.1.1.4.1.nupkg.sha512",
+        "blazorise.icons.fontawesome.1.1.5.nupkg.sha512",
         "blazorise.icons.fontawesome.nuspec",
         "lib/net6.0/Blazorise.Icons.FontAwesome.dll",
         "lib/net7.0/Blazorise.Icons.FontAwesome.dll"
       ]
     },
-    "Blazorise.Snackbar/1.1.4.1": {
-      "sha512": "A/qaioF6eG3SNRCrBOZWOqqDDfSnJn3vaWcmUOGypeTTGunvuthWvK2ap0/VeHfS6uOgn1MPhp8zG5D3HE+DAQ==",
+    "Blazorise.Snackbar/1.1.5": {
+      "sha512": "zjyaOkbeuACq6geGeqN/x7HHlv/LPJNEzn8Q9yVB493nVbf3+Yv9i/KeZBqvRAcv/NxTW42mvCJcuT8HWlQmJA==",
       "type": "package",
-      "path": "blazorise.snackbar/1.1.4.1",
+      "path": "blazorise.snackbar/1.1.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Blazorise.png",
         "LICENSE.md",
-        "blazorise.snackbar.1.1.4.1.nupkg.sha512",
+        "blazorise.snackbar.1.1.5.nupkg.sha512",
         "blazorise.snackbar.nuspec",
         "build/Blazorise.Snackbar.props",
         "build/Microsoft.AspNetCore.StaticWebAssets.props",
@@ -708,26 +806,26 @@
         "lib/netstandard2.0/Dapper.xml"
       ]
     },
-    "GW.Framework/4.0.1": {
-      "sha512": "v1hMvifzRvFps/qqgLENJoDjk47sbIcfvUSeoUMhHvLC5XRMf9HCv9o69dM2OOx81igiNcUBimacYBgvtUkvyA==",
+    "GW.Framework/4.0.12": {
+      "sha512": "Qdsdt43cIYo35UxUZD2AlFAZgA91UJXVilpXB9uJt3QPqsZmX9BBDqP3Lp+buXm+c7hsaO1hGavX32THkXBmvg==",
       "type": "package",
-      "path": "gw.framework/4.0.1",
+      "path": "gw.framework/4.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.framework.4.0.1.nupkg.sha512",
+        "gw.framework.4.0.12.nupkg.sha512",
         "gw.framework.nuspec",
         "lib/net6.0/GW.Framework.dll"
       ]
     },
-    "GW.Membership/2.0.1": {
-      "sha512": "ryp+HyRkqdPMuZtA1sV6PN1w04MC7xxERgAziy95/QgyyP3/aR22CmuSMVDgtTSGN5dot3a1Su7zkIeXjz/1Cg==",
+    "GW.Membership/2.0.12": {
+      "sha512": "KOnmI/gLlvUVfHeO0tV17oqiSKx38Nh5ItwoA1gRwymkoSmkm7eA/5eyBGcmW5BS5qbclgeHboBfQMWHp+nqqA==",
       "type": "package",
-      "path": "gw.membership/2.0.1",
+      "path": "gw.membership/2.0.12",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.membership.2.0.1.nupkg.sha512",
+        "gw.membership.2.0.12.nupkg.sha512",
         "gw.membership.nuspec",
         "lib/net6.0/GW.Membership.dll"
       ]
@@ -1646,32 +1744,32 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Blazorise >= 1.1.4.1",
-      "Blazorise.Bootstrap5 >= 1.1.4.1",
-      "Blazorise.Components >= 1.1.4.1",
-      "Blazorise.DataGrid >= 1.1.4.1",
-      "Blazorise.Icons.FontAwesome >= 1.1.4.1",
-      "GW.Framework >= 4.0.1",
-      "GW.Membership >= 2.0.1",
+      "Blazorise >= 1.1.5",
+      "Blazorise.Bootstrap5 >= 1.1.5",
+      "Blazorise.Components >= 1.1.5",
+      "Blazorise.DataGrid >= 1.1.5",
+      "Blazorise.Icons.FontAwesome >= 1.1.5",
+      "GW.Framework >= 4.0.12",
+      "GW.Membership >= 2.0.12",
       "Gateway >= 1.0.0",
       "Models >= 1.0.0",
       "Newtonsoft.Json >= 13.0.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\carlos.fonteles\\.nuget\\packages\\": {}
+    "C:\\Users\\karll\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projetos\\OUTROS\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
+      "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
       "projectName": "WebBlazorServer",
-      "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
-      "packagesPath": "C:\\Users\\carlos.fonteles\\.nuget\\packages\\",
-      "outputPath": "C:\\Projetos\\OUTROS\\GWTemplate\\WebBlazorServer\\obj\\",
+      "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\WebBlazorServer.csproj",
+      "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
+      "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\carlos.fonteles\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1679,18 +1777,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://repo.tic.fgv.br/repository/nuget-fgv/": {}
+        "https://www.nuget.org/api/v2/": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Projetos\\OUTROS\\GWTemplate\\Gateway\\Gateway.csproj": {
-              "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Gateway\\Gateway.csproj"
+            "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Gateway\\Gateway.csproj": {
+              "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Gateway\\Gateway.csproj"
             },
-            "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj": {
-              "projectPath": "C:\\Projetos\\OUTROS\\GWTemplate\\Models\\Models.csproj"
+            "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj": {
+              "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj"
             }
           }
         }
@@ -1707,31 +1804,31 @@
         "dependencies": {
           "Blazorise": {
             "target": "Package",
-            "version": "[1.1.4.1, )"
+            "version": "[1.1.5, )"
           },
           "Blazorise.Bootstrap5": {
             "target": "Package",
-            "version": "[1.1.4.1, )"
+            "version": "[1.1.5, )"
           },
           "Blazorise.Components": {
             "target": "Package",
-            "version": "[1.1.4.1, )"
+            "version": "[1.1.5, )"
           },
           "Blazorise.DataGrid": {
             "target": "Package",
-            "version": "[1.1.4.1, )"
+            "version": "[1.1.5, )"
           },
           "Blazorise.Icons.FontAwesome": {
             "target": "Package",
-            "version": "[1.1.4.1, )"
+            "version": "[1.1.5, )"
           },
           "GW.Framework": {
             "target": "Package",
-            "version": "[4.0.1, )"
+            "version": "[4.0.12, )"
           },
           "GW.Membership": {
             "target": "Package",
-            "version": "[2.0.1, )"
+            "version": "[2.0.12, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",
@@ -1744,7 +1841,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -1756,7 +1854,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GW.Membership.Models;
-using GW.Core.Common;
+using GW.Common;
 using Template.API;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using GW.Core;
+using GW.Membership.Contracts.Domain;
 //using Template.Models;
 
 namespace Template.Controllers
@@ -15,27 +17,27 @@ namespace Template.Controllers
     public class UserController : APIControllerBase
     {
 
-        public UserController(IAppSettingsManager<TemplateSettings> param, 
-             IWebHostEnvironment hostingEnvironment)
+        public UserController(IMembershipManager membership,
+                IContextBuilder contextbuilder)
         {
-            AppConfigs = param;
-            AppConfigs.EnvironmentSettings = hostingEnvironment;
-            AppConfigs.LoadSettings();
+            Context = membership.Context;
+            contextbuilder.BuilderContext(Context);
+            this.Membership = membership;
             ObjectCode = "SYSUSER";           
         }
 
 
         [HttpPost]
         [Route("search")]        
-        public object Search(UserParam param)
+        public async Task<object> Search(UserParam param)
         {
             Init(PERMISSION_CHECK_ENUM.READ, false);
 
             if (IsAllowed)
             {
-                List<UserSearchResult> list = null;
+                List<UserResult> list = null;
 
-                list = manager.Membership.UserUnit.Search(param);
+                list = await Membership.User.Search(param);
 
                 SetReturn(list);
                 FinalizeManager();
@@ -47,7 +49,7 @@ namespace Template.Controllers
 
         [HttpPost]
         [Route("list")]
-        public object List(UserParam param)
+        public async Task<object> List(UserParam param)
         {
             Init(PERMISSION_CHECK_ENUM.READ, true);
 
@@ -55,7 +57,7 @@ namespace Template.Controllers
             {
                 List<UserList> list = null;
 
-                list = manager.Membership.UserUnit.List(param);
+                list = await Membership.User.List(param);
 
                 SetReturn(list);
                 FinalizeManager();
@@ -66,7 +68,7 @@ namespace Template.Controllers
 
         [HttpGet]
         [Route("get")]        
-        public object Get(string id)
+        public async Task<object> Get(string id)
         {
             Init(PERMISSION_CHECK_ENUM.READ, false);
 
@@ -74,23 +76,23 @@ namespace Template.Controllers
             {
                 var username = User.Identity.Name;
 
-                UserModel obj = null;
+                UserResult obj = null;
 
-                obj = manager.Membership.UserUnit.Get(Int64.Parse(id));
+                obj = await Membership.User.Get( new UserParam() { pUserID = Int64.Parse(id) });
 
                 if (this.GetDefaultStatus().Status)
                 {
                     if (obj != null)
                     {
                         obj.ProfileImageURL =
-                             AppConfigs.Settings.SiteURL + "auth/GetUserImageProfile?file=user_anonymous.png";
+                             Context.Settings.SiteURL + "auth/GetUserImageProfile?file=user_anonymous.png";
 
                         if (obj.ProfileImage != null)
                         {
                             if (obj.ProfileImage != "")
                             {
                                 obj.ProfileImageURL =
-                                    AppConfigs.Settings.SiteURL + "auth/GetUserImageProfile?file=" + obj.ProfileImage;
+                                    Context.Settings.SiteURL + "auth/GetUserImageProfile?file=" + obj.ProfileImage;
 
                             }
                         }
@@ -117,7 +119,7 @@ namespace Template.Controllers
 
         [HttpPost]
         [Route("set")]        
-        public object Set(UserModel data)
+        public async Task<object> Set(UserEntry data)
         {
             Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
@@ -125,17 +127,17 @@ namespace Template.Controllers
             {
                 var userid = User.Identity.Name;
 
-                opsts = manager.Membership.UserUnit.Set(data, userid);
+                UserEntry obj = await Membership.User.Set(data, userid);
 
-                if (opsts.Status)
+                if (this.GetDefaultStatus().Status)
                 {
-                    ret = opsts.Returns;
+                    ret = obj;
                 }
                 else
                 {
                     Response.StatusCode = 500;
-                    opsts.InnerExceptions.Insert(0, new InnerException("Error", opsts.Error.Message));
-                    ret = opsts.InnerExceptions;
+                    this.GetDefaultStatus().InnerExceptions.Insert(0, new InnerException("Error", this.GetDefaultStatus().Error.Message));
+                    ret = this.GetDefaultStatus().InnerExceptions;
                 }
 
                 FinalizeManager();
@@ -146,24 +148,25 @@ namespace Template.Controllers
 
         [HttpPost]
         [Route("createnewuser")]        
-        public object CreateNewUser(NewUser data)
+        public async Task<object> CreateNewUser(NewUser data)
         {
             Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
             if (IsAllowed)
             {
                 var userid = User.Identity.Name;
-                opsts = manager.Membership.CreateNewUser(data, true, userid);
+                UserEntry obj = await Membership.CreateNewUser(data, true, userid);
 
-                if (opsts.Status)
+                if (this.GetDefaultStatus().Status)
                 {
-                    ret = opsts.Returns;
+                    ret = obj;
 
                 }
                 else
                 {
-                    opsts.InnerExceptions.Insert(0, new InnerException("Error", opsts.Error.Message));
-                    ret = opsts.InnerExceptions;
+                    this.GetDefaultStatus().InnerExceptions
+                        .Insert(0, new InnerException("Error", this.GetDefaultStatus().Error.Message));
+                    ret = this.GetDefaultStatus().InnerExceptions;
 
                     Response.StatusCode = 500;
 
@@ -176,23 +179,23 @@ namespace Template.Controllers
 
         [HttpPost]
         [Route("addtorole")]        
-        public object AddToRole(UserRolesModel data)
+        public async Task<object> AddToRole(UserRolesEntry data)
         {
             Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
             if (IsAllowed)
             {
-                opsts = manager.Membership
-                .UserUnit.AddRoleToUser(data.UserID,data.RoleID, true);
+                UserRolesEntry obj = await Membership
+                    .User.AddRoleToUser(data.UserID,data.RoleID);
 
-                if (opsts.Status)
+                if (this.GetDefaultStatus().Status)
                 {
-                    ret = opsts.Returns;
+                    ret = obj;
                 }
                 else
                 {
                     Response.StatusCode = 500;
-                    ret = GetInnerExceptions(opsts.Error.Message);
+                    ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
                 }
                 FinalizeManager();
             }
@@ -202,23 +205,23 @@ namespace Template.Controllers
 
         [HttpPost]
         [Route("removefromrole")]        
-        public object RemoveFromRole(UserRolesModel data)
+        public async Task<object> RemoveFromRole(UserRolesEntry data)
         {
             Init(PERMISSION_CHECK_ENUM.DELETE, false);
 
             if (IsAllowed)
             {
-                opsts = manager.Membership
-                .UserUnit.RemoveRoleFromUser(data.UserID, data.RoleID, true);
+                UserRolesEntry obj = await Membership
+                    .User.RemoveRoleFromUser(data.UserID, data.RoleID);
 
-                if (opsts.Status)
+                if (this.GetDefaultStatus().Status)
                 {
-                    ret = opsts.Returns;
+                    ret = obj;
                 }
                 else
                 {
                     Response.StatusCode = 500;
-                    ret = GetInnerExceptions(opsts.Error.Message);
+                    ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
                 }
                 FinalizeManager();
             }
@@ -228,14 +231,14 @@ namespace Template.Controllers
 
         [HttpPost]
         [Route("changestate")]        
-        public object ChangeState(UserChangeState data)
+        public async Task<object> ChangeState(UserChangeState data)
         {
             Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
             if (IsAllowed)
             {
-                opsts = manager.Membership
-                .UserUnit.ChangeState(data);
+                opsts = await Membership
+                    .User.ChangeState(data);
 
                 if (opsts.Status)
                 {
@@ -252,7 +255,61 @@ namespace Template.Controllers
 
             return ret;
         }
-     
 
+        [HttpPost]
+        [Route("alterinstance")]
+        public async Task<object> AlterInstance(UserInstancesResult data)
+        {
+            Init(PERMISSION_CHECK_ENUM.SAVE, false);
+            ret = false;
+
+            if (IsAllowed)
+            {
+                await Membership
+                   .User.AlterInstance(data.UserInstanceID, data.InstanceID);
+
+                if (!this.GetDefaultStatus().Status)
+                {               
+                    Response.StatusCode = 500;
+                    ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
+                }
+                else
+                {
+                    ret = true;
+                }
+
+                FinalizeManager();
+            }
+
+            return ret;
+        }
+
+        [HttpPost]
+        [Route("alterrole")]
+        public async Task<object> AlterRole(UserRolesResult data)
+        {
+            Init(PERMISSION_CHECK_ENUM.SAVE, false);
+            ret = false;
+
+            if (IsAllowed)
+            {
+                await Membership
+                   .User.AlterRole(data.UserRoleID, data.RoleID);
+
+                if (!this.GetDefaultStatus().Status)
+                {
+                    Response.StatusCode = 500;
+                    ret = GetInnerExceptions(this.GetDefaultStatus().Error.Message);
+                }
+                else
+                {
+                    ret = true;
+                }
+
+                FinalizeManager();
+            }
+
+            return ret;
+        }
     }
 }

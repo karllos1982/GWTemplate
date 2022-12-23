@@ -1,4 +1,4 @@
-﻿using GW.Core.Common;
+﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
 using WebBlazorServer.Pages.SuperAdmin;
@@ -18,10 +18,10 @@ namespace Template.ViewModel
         }
 
         UserAuthenticated _user;
-
-        public ObjectPermissionModel model = new ObjectPermissionModel();
+        
+        public ObjectPermissionResult result = new ObjectPermissionResult();
         public ObjectPermissionParam param = new ObjectPermissionParam() { pObjectCode="",pObjectName=""};
-        public List<ObjectPermissionSearchResult> searchresult = new List<ObjectPermissionSearchResult>();
+        public List<ObjectPermissionResult> searchresult = new List<ObjectPermissionResult>();
               
 
         public override async Task ClearSummaryValidation()
@@ -46,7 +46,13 @@ namespace Template.ViewModel
         {
             ExecutionStatus = new OperationStatus(true);
 
-            ObjectPermissionModel ret = await _gateway.ObjectPermission.Set(model);
+            ObjectPermissionEntry entry = new ObjectPermissionEntry();
+
+            entry.ObjectPermissionID = result.ObjectPermissionID;
+            entry.ObjectName = result.ObjectName;
+            entry.ObjectCode = result.ObjectCode;
+            
+            ObjectPermissionEntry ret = await _gateway.ObjectPermission.Set(entry);
 
             if (ret != null)
             {
@@ -67,9 +73,9 @@ namespace Template.ViewModel
 
             ExecutionStatus = new OperationStatus(true);
 
-            model = await _gateway.ObjectPermission.Get(id.ToString());
+            result = await _gateway.ObjectPermission.Get(id.ToString());
 
-            if (model == null)
+            if (result == null)
             {
                 ExecutionStatus.InnerExceptions = _gateway.ObjectPermission.GetInnerExceptions(ref ExecutionStatus.Error);
                 ExecutionStatus.Status = false;
@@ -92,7 +98,7 @@ namespace Template.ViewModel
         public override void InitNew()
         {
             this.BaseInitNew();
-            model = new ObjectPermissionModel();
+            result = new ObjectPermissionResult();
            
         }
 

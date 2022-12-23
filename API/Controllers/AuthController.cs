@@ -6,6 +6,11 @@ using Template.API;
 using Template.Core.Manager;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using GW.Core;
+using GW.Membership.Contracts.Domain;
+using GW.ApplicationHelpers;
+using Template.Core;
+using GW.Membership.Data;
 
 //using Template.Models;
 
@@ -17,13 +22,14 @@ namespace Template.Controllers
     public class AuthController : APIControllerBase
     {      
 
-        public AuthController(IAppSettingsManager<TemplateSettings> param, 
-                 IWebHostEnvironment hostingEnvironment)
+        public AuthController(IMembershipManager membership,
+                IContextBuilder contextbuilder, MailManager mail  )
         {
-            AppConfigs = param;
-            AppConfigs.EnvironmentSettings = hostingEnvironment;
-            AppConfigs.LoadSettings();
-         
+            Context = membership.Context;
+            contextbuilder.BuilderContext(Context);
+            this.Membership = membership;
+            this.MailCenter = mail;            
+
         }
 
 
@@ -33,7 +39,7 @@ namespace Template.Controllers
         public object Index()
         {
             Init();
-            UserModel ret = new UserModel();
+            UserEntry ret = new UserEntry();
             List<InnerException> list = new List<InnerException>();
 
             opsts = new OperationStatus(true);
@@ -56,22 +62,22 @@ namespace Template.Controllers
         [HttpPost]
         [Route("registraruser")]
         [Authorize]
-        public object RegistrarUser(NewUser data)
+        public async Task<object> RegistrarUser(NewUser data)
         {
             Init();
 
             data.RoleID = 3; // id do perfil
            
-            opsts = manager.Membership.CreateNewUser(data, true, null); 
+            UserEntry obj = await Membership.CreateNewUser(data, true, null); 
 
-            if (opsts.Status)
-            {               
-                ret = opsts.Returns;
+            if (Context.ExecutionStatus.Status)
+            {
+                ret = obj;
                 
             }
             else
             {
-                ret = opsts.InnerExceptions;
+                ret = Context.ExecutionStatus.InnerExceptions;
                 
                 Response.StatusCode = 500;
 
@@ -97,7 +103,7 @@ namespace Template.Controllers
                 data.Code = Utilities.GenerateCode(6);
 
                 opsts =
-                  mailCenter.SendEmailConfirmationCode(data.Email, data.UserName, data.Code);
+                  ((TemplateMailCenter)MailCenter).SendEmailConfirmationCode(data.Email, data.UserName, data.Code);
                                
                 if (opsts.Status)
                 {
@@ -124,27 +130,27 @@ namespace Template.Controllers
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public object Login(UserLogin data)
+        public async Task<object> Login(UserLogin data)
         {
             Init();
            
             data.Password = Utilities.ConvertFromBase64(data.Password);
             data.Password = MD5.BuildMD5(data.Password);
-            opsts = manager.Membership.Login(data);
+            UserResult userM = await Membership.Login(data);
 
-            if (opsts.Status)
-            {
-                UserModel userM = (UserModel)opsts.Returns;
+            if (Context.ExecutionStatus.Status)
+            {                
                 string permissions_content =  JsonConvert.SerializeObject(userM.Permissions);
                 
-                AuthToken token = TokenService.GenerateToken(userM.UserID.ToString(), 
-                    userM.Role.RoleName, permissions_content, int.Parse(data.SessionTimeOut));
+                AuthToken token = TokenService.GenerateToken(userM.UserID.ToString(),
+                    userM.Roles[0].RoleName, permissions_content, int.Parse(data.SessionTimeOut));
                            
                 UserAuthenticated userA = new UserAuthenticated();
                 userA.UserID = userM.UserID.ToString();
                 userA.UserName = userM.UserName;
                 userA.Email = userM.Email;
-                userA.RoleName = userM.Role.RoleName;
+                userA.RoleName = userM.Roles[0].RoleName;
+                userA.InstanceName = userM.Instances[0].InstanceName;
                 userA.Token = token.TokenValue;
                 userA.Expires = token.ExpiresDate;
                 userA.Permissions = userM.Permissions;                 
@@ -156,9 +162,8 @@ namespace Template.Controllers
                     AuthToken = token.TokenValue,
                     AuthTokenExpires = token.ExpiresDate
                 };
-
-                manager = new TemplateManager(apiConfigs);
-                manager.Membership.RegisterLoginState(data, uplogin);
+            
+               await Membership.RegisterLoginState(data, uplogin);
                 
                 switch (userA.RoleName)
                 {
@@ -178,8 +183,8 @@ namespace Template.Controllers
                 }
 
                 string filename = "IMG_" + userM.UserID.ToString() + ".png";
-                userA.ProfileImageURL = 
-                    AppConfigs.Settings.SiteURL+ "auth/GetUserImageProfile?file=" + filename;
+                userA.ProfileImageURL =
+                    Context.Settings.SiteURL+ "auth/GetUserImageProfile?file=" + filename;
                 
                 ret = userA;
 
@@ -187,10 +192,11 @@ namespace Template.Controllers
             else
             {
                 Response.StatusCode = 500;
-                ret = GetInnerExceptions(opsts.Error.Message);
+                ret = GetInnerExceptions(Context.ExecutionStatus.Error.Message);
             }
 
-            FinalizeManager();
+            ((DapperContext)Context).Commit();
+            ((DapperContext)Context).Dispose();
 
             return ret;
         }
@@ -199,15 +205,15 @@ namespace Template.Controllers
         [HttpPost]
         [Route("recoverypassword")]
         [AllowAnonymous]
-        public object RecoveryPassword(ChangeUserPassword data)
+        public async Task<object> RecoveryPassword(ChangeUserPassword data)
         {
             Init();
 
-            opsts = manager.Membership.GetTemporaryPassword(data);
+            opsts = await Membership.GetTemporaryPassword(data);
 
             if (opsts.Status)
             {
-                mailCenter.SendTemporaryPassword(data.Email, "Usuário", opsts.Returns.ToString());                 
+                ((TemplateMailCenter)MailCenter).SendTemporaryPassword(data.Email, "Usuário", opsts.Returns.ToString());                 
             }
             else
             {
@@ -224,15 +230,15 @@ namespace Template.Controllers
         [HttpPost]
         [Route("requestactiveaccountcode")]
         [AllowAnonymous]
-        public object RequestActiveAccountCode(ActiveUserAccount data)
+        public async Task<object> RequestActiveAccountCode(ActiveUserAccount data)
         {
             Init();
 
-            opsts = manager.Membership.GetActiveAccountCode(data); 
+            opsts = await Membership.GetActiveAccountCode(data); 
 
             if (opsts.Status)
             {
-                mailCenter.SendActiveAccountCode(data.Email, "Usuário", opsts.Returns.ToString());
+                ((TemplateMailCenter)MailCenter).SendActiveAccountCode(data.Email, "Usuário", opsts.Returns.ToString());
             }
             else
             {
@@ -248,11 +254,11 @@ namespace Template.Controllers
         [HttpPost]
         [Route("activeaccount")]
         [AllowAnonymous]
-        public object ActiveAccount(ActiveUserAccount data)
+        public async Task<object> ActiveAccount(ActiveUserAccount data)
         {
             Init();
 
-            opsts = manager.Membership.UserUnit.ActiveUserAccount(data); 
+            opsts = await Membership.User.ActiveUserAccount(data); 
 
             if (opsts.Status)
             {
@@ -271,15 +277,15 @@ namespace Template.Controllers
         [HttpPost]
         [Route("requestchangepasswordcode")]
         [Authorize]
-        public object RequestChangePasswordCode(ChangeUserPassword data)
+        public async Task<object> RequestChangePasswordCode(ChangeUserPassword data)
         {
             Init();
             
-            opsts = manager.Membership.GetChangePasswordCode(data);
+            opsts = await Membership.GetChangePasswordCode(data);
 
             if (opsts.Status)
             {
-                mailCenter.SendChangePassowordCode(data.Email,"Usuário", 
+                ((TemplateMailCenter)MailCenter).SendChangePassowordCode(data.Email,"Usuário", 
                     opsts.Returns.ToString());
             }
             else
@@ -295,11 +301,11 @@ namespace Template.Controllers
         [HttpPost]
         [Route("changepassword")]
         [Authorize]
-        public object ChangePassword(ChangeUserPassword data)
+        public async Task<object> ChangePassword(ChangeUserPassword data)
         {
             Init();        
 
-            opsts = manager.Membership.UserUnit.ChangeUserPassword(data); 
+            opsts = await Membership.User.ChangeUserPassword(data); 
 
             if (opsts.Status)
             {                
@@ -317,7 +323,7 @@ namespace Template.Controllers
         [HttpPost]
         [Route("changeuserimageprofile")]
         [Authorize]
-        public object ChangeUserImageProfile()
+        public async Task<object> ChangeUserImageProfile()
         {
             Init();
 
@@ -329,16 +335,16 @@ namespace Template.Controllers
             data.UserID = Int64.Parse(userid);
             data.FileName = "IMG_" + userid + ".png";
 
-            opsts = manager.Membership.ChangeUserProfileImage(data);
+            opsts = await Membership.ChangeUserProfileImage(data);
 
             
-            string path = AppConfigs.Settings.ProfileImageDir + "\\" + data.FileName;
+            string path = Context.Settings.ProfileImageDir + "\\" + data.FileName;
             
             if (opsts.Status)
             {
                 using (fs = new FileStream(path,FileMode.OpenOrCreate ))
                 {
-                    body.CopyToAsync(fs);
+                   await body.CopyToAsync(fs);
                 }
 
                 ret = data; 
@@ -359,11 +365,11 @@ namespace Template.Controllers
         {
             Init();
 
-            string path = AppConfigs.Settings.ProfileImageDir + "\\" + file;
+            string path = Membership.Context.Settings.ProfileImageDir + "\\" + file;
 
             if (!System.IO.File.Exists(path))
             {
-                path =  AppConfigs.Settings.ProfileImageDir + "\\user_anonymous.png";                
+                path = Context.Settings.ProfileImageDir + "\\user_anonymous.png";                
             }
 
             FileStream str = new FileStream(path,FileMode.Open);
@@ -377,12 +383,12 @@ namespace Template.Controllers
         [HttpGet]
         [Route("logout")]
         [Authorize]
-        public object Logout()
+        public async Task<object> Logout()
         {
             Init();
 
             string userid = User.Identity.Name;
-            manager.Membership.Logout(Int64.Parse(userid));
+            await Membership.Logout(Int64.Parse(userid));
 
             FinalizeManager();
 

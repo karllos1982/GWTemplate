@@ -1,5 +1,5 @@
 ﻿using Microsoft.JSInterop;
-using GW.Core.Helpers;
+using GW.Helpers;
 
 /// <summary>
 /// Summary description for UtilFunctions

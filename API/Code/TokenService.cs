@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Text;
 using GW.Membership.Models;
-using GW.Core.Common;
+using GW.Common;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 

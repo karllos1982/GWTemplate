@@ -6,13 +6,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using GW.Membership.Models;
 using Template.Core.Manager;
-using GW.Core.Common;
-using GW.Core.Helpers;
+using GW.Common;
+using GW.Helpers;
 using Template.API;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Core.Data;
+using GW.Core;
+using GW.Membership.Contracts.Domain;
 
 namespace Template.Controllers
 {
@@ -22,27 +25,27 @@ namespace Template.Controllers
     public class ObjectPermissionController : APIControllerBase
     {
 
-        public ObjectPermissionController(IAppSettingsManager<TemplateSettings> param,
-            IWebHostEnvironment hostingEnvironment)
+        public ObjectPermissionController(IMembershipManager membership,
+                IContextBuilder contextbuilder)
         {
-            AppConfigs = param;
-            AppConfigs.EnvironmentSettings = hostingEnvironment;
-            AppConfigs.LoadSettings();
+            Context = membership.Context;
+            contextbuilder.BuilderContext(Context);
+            this.Membership = membership;
             ObjectCode = "SYSOBJECTPERMISSION";
         }
 
         [HttpPost]
         [Route("search")]
         [Authorize]
-        public object Search(ObjectPermissionParam param)
+        public async Task<object> Search(ObjectPermissionParam param)
         {
             Init(PERMISSION_CHECK_ENUM.READ, false);
 
             if (IsAllowed)
             {
-                List<ObjectPermissionSearchResult> list = null;
+                List<ObjectPermissionResult> list = null;
 
-                list = manager.Membership.ObjectPermissionUnit.Search(param);
+                list = await Membership.ObjectPermission.Search(param);
 
                 if (this.GetDefaultStatus().Status)
                 {
@@ -63,7 +66,7 @@ namespace Template.Controllers
         [HttpPost]
         [Route("list")]
         [Authorize]
-        public object List(ObjectPermissionParam param)
+        public async Task<object> List(ObjectPermissionParam param)
         {
            
             Init(PERMISSION_CHECK_ENUM.READ, true);
@@ -72,7 +75,7 @@ namespace Template.Controllers
             {
                 List<ObjectPermissionList> list = null;
 
-                list = manager.Membership.ObjectPermissionUnit.List(param);
+                list = await Membership.ObjectPermission.List(param);
 
                 if (this.GetDefaultStatus().Status)
                 {
@@ -94,15 +97,18 @@ namespace Template.Controllers
         [HttpGet]
         [Route("get")]
         [Authorize]
-        public object Get(string id)
+        public async Task<object> Get(string id)
         {
             Init(PERMISSION_CHECK_ENUM.READ, false);
 
             if (IsAllowed)
             {
-                ObjectPermissionModel obj = null;
+                ObjectPermissionResult obj = null;
 
-                obj = manager.Membership.ObjectPermissionUnit.Get(Int64.Parse(id));
+                obj = await Membership.ObjectPermission.Get(new ObjectPermissionParam()
+                {
+                    pObjectPermissionID = Int64.Parse(id)
+                });
 
                 if (this.GetDefaultStatus().Status)
                 {
@@ -123,7 +129,7 @@ namespace Template.Controllers
         [HttpPost]
         [Route("set")]
         [Authorize]
-        public object Set(ObjectPermissionModel data)
+        public async Task<object> Set(ObjectPermissionEntry data)
         {
             Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
@@ -131,16 +137,16 @@ namespace Template.Controllers
             {
                 var userid = User.Identity.Name;
 
-                opsts = manager.Membership.ObjectPermissionUnit.Set(data, userid);
+                ObjectPermissionEntry obj = await Membership.ObjectPermission.Set(data, userid);
 
-                if (opsts.Status)
+                if (this.GetDefaultStatus().Status)
                 {
-                    ret = opsts.Returns;
+                    ret = obj;
                 }
                 else
                 {
                     Response.StatusCode = 500;
-                    ret = opsts.InnerExceptions;
+                    ret = this.GetDefaultStatus().InnerExceptions;
                 }
                 FinalizeManager();
 

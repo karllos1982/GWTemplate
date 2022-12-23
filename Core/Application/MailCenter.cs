@@ -9,9 +9,9 @@ namespace Template.Core.Manager
     {
         public MailSettings Settings { get; set; }
 
-        public TemplateMailCenter(MailSettings settings)
+        public TemplateMailCenter(ISettings settings)
         {
-            Settings = settings;
+            Settings = settings.MailSettings;
             Settings.ContentEncoding = System.Text.Encoding.UTF8;
         }
 

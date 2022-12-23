@@ -13,6 +13,9 @@ using Newtonsoft.Json;
 using Microsoft.Extensions.Caching.Memory;
 using System.Security.Claims;
 using System.Security.Permissions;
+using GW.Core;
+using GW.Membership.Contracts.Domain;
+using GW.ApplicationHelpers;
 
 namespace Template.API
 {
@@ -24,17 +27,13 @@ namespace Template.API
         public string ObjectCode = "";
         public OperationStatus opsts = new OperationStatus();
         public object ret = null;
-
-        public MailSettings mailSettings = null;
-        public TemplateConfigs apiConfigs = null;
-        public TemplateMailCenter mailCenter = null;
-        public TemplateManager manager = null;
-        public int contextindex = 0; 
-        public IAppSettingsManager<TemplateSettings> AppConfigs;
+        public int contextindex = 0;       
         public IUserPermissionsManager<UserPermissions> PermissionsManager;
 
-        public IMemoryCache memorycache = null; 
-
+        public IMemoryCache memorycache = null;
+        public IContext Context; 
+        public IMembershipManager Membership;
+        public MailManager MailCenter; 
 
         protected MemoryCacheEntryOptions GetMemoryCacheOptionsByHour(int time)
         {
@@ -47,30 +46,14 @@ namespace Template.API
 
         protected void Init_()
         {
-            mailSettings = AppConfigs.Settings.MailSettings;
-            mailSettings.IsBodyHtml = true;
-            apiConfigs = new TemplateConfigs();            
-            apiConfigs.ServiceBaseURL = "";
-            apiConfigs.MailSettings = mailSettings;
-            apiConfigs.Connections = AppConfigs.Settings.Connections;
-            mailCenter = new TemplateMailCenter(mailSettings);
-            manager = new TemplateManager(apiConfigs);
-            
+                       
             IsAllowed = true;
             PermissionState = PERMISSION_STATE_ENUM.NONE;
         }
 
-        protected void Init(PERMISSION_CHECK_ENUM? checking = null, bool? allownone = null)
+        protected void Init( PERMISSION_CHECK_ENUM? checking = null, bool? allownone = null)
         {
-            mailSettings = AppConfigs.Settings.MailSettings;
-            mailSettings.IsBodyHtml = true;
-            apiConfigs = new TemplateConfigs();
-            apiConfigs.ServiceBaseURL = "";
-            apiConfigs.MailSettings = mailSettings;
-            apiConfigs.Connections = AppConfigs.Settings.Connections;
-            mailCenter = new TemplateMailCenter(mailSettings);
-            manager = new TemplateManager(apiConfigs);
-
+           
             if (checking != null && User.Claims.ToList().Count > 0)
             {
                 
@@ -93,8 +76,8 @@ namespace Template.API
                 if (!IsAllowed)
                 {
                     Response.StatusCode = 403;
-                    manager.DbContext[contextindex].ExecutionStatus = new OperationStatus(false);
-                    manager.DbContext[contextindex].ExecutionStatus.Error =
+                    Context.ExecutionStatus = new OperationStatus(false);
+                    Context.ExecutionStatus.Error =
                         new Exception("Acesso negado ao recurso: " + ObjectCode + " / " + checking.ToString());
                     ret = GetInnerExceptions("Acesso negado ao recurso: " + ObjectCode + " / " + checking.ToString());
                 }
@@ -105,29 +88,26 @@ namespace Template.API
 
         protected void FinalizeManager()
         {
-            if (manager != null)
-            {
-                manager.FinalizeContext();
-            }
+            Context.End(); 
         }
 
         protected void SetReturn(object returncontent)
         {
-            if (manager.DbContext[contextindex].ExecutionStatus.Status)
+            if (Context.ExecutionStatus.Status)
             {
                 ret = returncontent;
             }
             else
             {
                 Response.StatusCode = 500;
-                ret = GetInnerExceptions(manager.DbContext[contextindex].ExecutionStatus.Error.Message);
+                ret = GetInnerExceptions(Context.ExecutionStatus.Error.Message);
 
             }
         }
 
         protected OperationStatus GetDefaultStatus()
         {
-            return manager.DbContext[contextindex].ExecutionStatus;
+            return Context.ExecutionStatus;
         }
 
         protected List<InnerException> GetInnerExceptions(string errormessage)

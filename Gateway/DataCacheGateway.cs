@@ -1,8 +1,8 @@
-﻿using GW.Core.Common;
+﻿using GW.Common;
 using GW.Membership.Models;
 using System.Linq; 
 using Newtonsoft.Json;
-using GW.Core.APIGateway;
+using GW.ApplicationHelpers;
 //using Template.Models;
 
 namespace Template.Gateway

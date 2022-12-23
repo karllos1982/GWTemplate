@@ -1,4 +1,4 @@
-﻿using GW.Core.Common;
+﻿using GW.Common;
 using GW.Membership.Models;
 using Microsoft.AspNetCore.Components.Web;
 using System.Runtime.InteropServices;
@@ -22,9 +22,10 @@ namespace Template.ViewModel
         }
 
     
-        public PermissionModel model = new PermissionModel();
+        public PermissionEntry entry= new PermissionEntry();
+        public PermissionResult result = new PermissionResult();
         public PermissionParam param = new PermissionParam() { };
-        public List<PermissionSearchResult> searchresult = new List<PermissionSearchResult>();
+        public List<PermissionResult> searchresult = new List<PermissionResult>();
         public List<RoleList> listRoles = new List<RoleList>();
         public List<UserList> listUsers = new List<UserList>();
         public List<ObjectPermissionList> listObject = new List<ObjectPermissionList>();
@@ -130,10 +131,10 @@ namespace Template.ViewModel
         {
             ExecutionStatus = new OperationStatus(true);
 
-            if (model.UserID == 0) { model.UserID = null; }
-            if (model.RoleID == 0) { model.RoleID = null; }
+            if (entry.UserID == 0) { entry.UserID = null; }
+            if (entry.RoleID == 0) { entry.RoleID = null; }
 
-            PermissionModel ret = await _gateway.Permission.Set(model);
+            PermissionEntry ret = await _gateway.Permission.Set(entry);
 
             if (ret != null)
             {
@@ -154,9 +155,9 @@ namespace Template.ViewModel
 
             ExecutionStatus = new OperationStatus(true);
 
-            model = await _gateway.Permission.Get(id.ToString());
+            result = await _gateway.Permission.Get(id.ToString());
 
-            if (model == null)
+            if (result == null)
             {
                 ExecutionStatus.InnerExceptions = _gateway.Permission.GetInnerExceptions(ref ExecutionStatus.Error);
                 ExecutionStatus.Status = false;
@@ -179,12 +180,12 @@ namespace Template.ViewModel
         public override void InitNew()
         {
             this.BaseInitNew();
-            model = new PermissionModel();
-            model.PermissionID = 0;
-            model.ReadStatus = 1;
-            model.SaveStatus = 1;
-            model.DeleteStatus = 1;
-            model.TypeGrant = "";
+            entry = new PermissionEntry();
+            entry.PermissionID = 0;
+            entry.ReadStatus = 1;
+            entry.SaveStatus = 1;
+            entry.DeleteStatus = 1;
+            entry.TypeGrant = "";
 
         }
 

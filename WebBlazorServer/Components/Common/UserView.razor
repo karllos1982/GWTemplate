@@ -31,8 +31,9 @@
                     <div class="btn btn-flex align-items-center bg-hover-white bg-hover-opacity-10 py-2 px-2 px-md-3" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
              
                         <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
-                            <span class="text-white opacity-75 fs-8 fw-semibold lh-1 mb-1">@User.UserName</span>
+                             <span class="text-white opacity-75 fs-8 fw-semibold lh-1 mb-1">@User.UserName</span>
                             <span class="text-white fs-8 fw-bold lh-1">@User.Email</span>
+                        
                         </div>
             
                         <div class="symbol symbol-30px symbol-md-40px">
@@ -129,16 +130,21 @@
 												<div class="d-flex flex-column">
 													<!--begin::Name-->
 													<div class="d-flex align-items-center mb-2">
-														<a class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">@User.UserName</a>													
+														 <a class="text-gray-900 text-hover-primary fs-2 fw-bold me-1" title="User Name">@User.UserName</a>													
 													</div>
 
                                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-														<a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"> @User.RoleName </a>
+														 <a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2" title="Role Name"> @User.RoleName </a>
                                                     </div>
 
                                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-														<a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"> @User.Email </a>
+                                                            <a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2" title="E-mail"> @User.Email </a>
                                                     </div>
+
+                                                    <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
+                                                            <a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2" title="Instance Name"> @User.InstanceName </a>
+                                                    </div>
+
 
                                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
                                                         <span>Alterar a imagem de perfil:</span> 

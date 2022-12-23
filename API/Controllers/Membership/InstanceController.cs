@@ -6,43 +6,46 @@ using System.Linq;
 using System.Threading.Tasks;
 using GW.Membership.Models;
 using Template.Core.Manager;
-using GW.Core.Common;
-using GW.Core.Helpers;
+using GW.Common;
+using GW.Helpers;
 using Template.API;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Core.Data;
+using GW.Core;
+using GW.Membership.Contracts.Domain;
 
 namespace Template.Controllers
 {
     [Route("membership/[controller]")]
     [ApiController]
     [Authorize]
-    public class PermissionController : APIControllerBase
+    public class InstanceController : APIControllerBase
     {
 
-        public PermissionController(IAppSettingsManager<TemplateSettings> param,
-            IWebHostEnvironment hostingEnvironment)
+        public InstanceController(IMembershipManager membership,
+                IContextBuilder contextbuilder)
         {
-            AppConfigs = param;
-            AppConfigs.EnvironmentSettings = hostingEnvironment;
-            AppConfigs.LoadSettings();
-            ObjectCode = "SYSPERMISSION";
+            Context = membership.Context;
+            contextbuilder.BuilderContext(Context);
+            this.Membership = membership;
+            ObjectCode = "SYSROLE";
         }
 
         [HttpPost]
         [Route("search")]
         [Authorize]
-        public object Search(PermissionParam param)
+        public async Task<object> Search(InstanceParam param)
         {
             Init(PERMISSION_CHECK_ENUM.READ, false);
 
             if (IsAllowed)
             {
-                List<PermissionSearchResult> list = null;
+                List<InstanceResult> list = null;
 
-                list = manager.Membership.PermissionUnit.Search(param);
+                list = await Membership.Instance.Search(param);
 
                 if (this.GetDefaultStatus().Status)
                 {
@@ -63,16 +66,16 @@ namespace Template.Controllers
         [HttpPost]
         [Route("list")]
         [Authorize]
-        public object List(PermissionParam param)
+        public async Task<object> List(InstanceParam param)
         {
            
             Init(PERMISSION_CHECK_ENUM.READ, true);
 
             if (IsAllowed)
             {
-                List<PermissionList> list = null;
+                List<InstanceList> list = null;
 
-                list = manager.Membership.PermissionUnit.List(param);
+                list = await Membership.Instance.List(param);
 
                 if (this.GetDefaultStatus().Status)
                 {
@@ -94,15 +97,15 @@ namespace Template.Controllers
         [HttpGet]
         [Route("get")]
         [Authorize]
-        public object Get(string id)
+        public async Task<object> Get(string id)
         {
             Init(PERMISSION_CHECK_ENUM.READ, false);
 
             if (IsAllowed)
             {
-                PermissionModel obj = null;
+                InstanceResult obj = null;
 
-                obj = manager.Membership.PermissionUnit.Get(Int64.Parse(id));
+                obj =  await Membership.Instance.Get(new InstanceParam() { pInstanceID = Int64.Parse(id) });
 
                 if (this.GetDefaultStatus().Status)
                 {
@@ -123,7 +126,7 @@ namespace Template.Controllers
         [HttpPost]
         [Route("set")]
         [Authorize]
-        public object Set(PermissionModel data)
+        public async Task<object> Set(InstanceEntry data)
         {
             Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
@@ -131,45 +134,16 @@ namespace Template.Controllers
             {
                 var userid = User.Identity.Name;
 
-                opsts = manager.Membership.PermissionUnit.Set(data, userid);
+                InstanceEntry obj = await Membership.Instance.Set(data, userid);
 
-                if (opsts.Status)
+                if (this.GetDefaultStatus().Status)
                 {
-                    ret = opsts.Returns;
+                    ret = this.GetDefaultStatus().Returns;
                 }
                 else
                 {
                     Response.StatusCode = 500;
-                    ret = opsts.InnerExceptions;
-                }
-                FinalizeManager();
-
-            }
-
-            return ret;
-        }
-
-        [HttpPost]
-        [Route("delete")]
-        [Authorize]
-        public object Delete(PermissionModel data)
-        {
-            Init(PERMISSION_CHECK_ENUM.DELETE, false);
-
-            if (IsAllowed)
-            {
-                var userid = User.Identity.Name;
-
-                opsts = manager.Membership.PermissionUnit.Delete(data, userid);
-
-                if (opsts.Status)
-                {
-                    ret = opsts.Returns;
-                }
-                else
-                {
-                    Response.StatusCode = 500;
-                    ret = opsts.InnerExceptions;
+                    ret = this.GetDefaultStatus().InnerExceptions;
                 }
                 FinalizeManager();
 

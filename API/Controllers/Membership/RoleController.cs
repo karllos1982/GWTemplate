@@ -6,13 +6,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using GW.Membership.Models;
 using Template.Core.Manager;
-using GW.Core.Common;
-using GW.Core.Helpers;
+using GW.Common;
+using GW.Helpers;
 using Template.API;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Core.Data;
+using GW.Core;
+using GW.Membership.Contracts.Domain;
 
 namespace Template.Controllers
 {
@@ -22,27 +25,27 @@ namespace Template.Controllers
     public class RoleController : APIControllerBase
     {
 
-        public RoleController(IAppSettingsManager<TemplateSettings> param,
-            IWebHostEnvironment hostingEnvironment)
+        public RoleController(IMembershipManager membership,
+                IContextBuilder contextbuilder)
         {
-            AppConfigs = param;
-            AppConfigs.EnvironmentSettings = hostingEnvironment;
-            AppConfigs.LoadSettings();
+            Context = membership.Context;
+            contextbuilder.BuilderContext(Context);
+            this.Membership = membership;
             ObjectCode = "SYSROLE";
         }
 
         [HttpPost]
         [Route("search")]
         [Authorize]
-        public object Search(RoleParam param)
+        public async Task<object> Search(RoleParam param)
         {
             Init(PERMISSION_CHECK_ENUM.READ, false);
 
             if (IsAllowed)
             {
-                List<RoleSearchResult> list = null;
+                List<RoleResult> list = null;
 
-                list = manager.Membership.RoleUnit.Search(param);
+                list = await Membership.Role.Search(param);
 
                 if (this.GetDefaultStatus().Status)
                 {
@@ -63,7 +66,7 @@ namespace Template.Controllers
         [HttpPost]
         [Route("list")]
         [Authorize]
-        public object List(RoleParam param)
+        public async Task<object> List(RoleParam param)
         {
            
             Init(PERMISSION_CHECK_ENUM.READ, true);
@@ -72,7 +75,7 @@ namespace Template.Controllers
             {
                 List<RoleList> list = null;
 
-                list = manager.Membership.RoleUnit.List(param);
+                list = await Membership.Role.List(param);
 
                 if (this.GetDefaultStatus().Status)
                 {
@@ -94,15 +97,15 @@ namespace Template.Controllers
         [HttpGet]
         [Route("get")]
         [Authorize]
-        public object Get(string id)
+        public async Task<object> Get(string id)
         {
             Init(PERMISSION_CHECK_ENUM.READ, false);
 
             if (IsAllowed)
             {
-                RoleModel obj = null;
+                RoleResult obj = null;
 
-                obj = manager.Membership.RoleUnit.Get(Int64.Parse(id));
+                obj =  await Membership.Role.Get(new RoleParam() { pRoleID = Int64.Parse(id) });
 
                 if (this.GetDefaultStatus().Status)
                 {
@@ -123,7 +126,7 @@ namespace Template.Controllers
         [HttpPost]
         [Route("set")]
         [Authorize]
-        public object Set(RoleModel data)
+        public async Task<object> Set(RoleEntry data)
         {
             Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
@@ -131,16 +134,16 @@ namespace Template.Controllers
             {
                 var userid = User.Identity.Name;
 
-                opsts = manager.Membership.RoleUnit.Set(data, userid);
+                RoleEntry obj = await Membership.Role.Set(data, userid);
 
-                if (opsts.Status)
+                if (this.GetDefaultStatus().Status)
                 {
-                    ret = opsts.Returns;
+                    ret = this.GetDefaultStatus().Returns;
                 }
                 else
                 {
                     Response.StatusCode = 500;
-                    ret = opsts.InnerExceptions;
+                    ret = this.GetDefaultStatus().InnerExceptions;
                 }
                 FinalizeManager();
 

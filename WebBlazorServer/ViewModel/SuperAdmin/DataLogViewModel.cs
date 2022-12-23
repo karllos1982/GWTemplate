@@ -1,4 +1,4 @@
-﻿using GW.Core.Common;
+﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
 
@@ -20,9 +20,10 @@ namespace Template.ViewModel
         UserAuthenticated _user;
 
 
-        public DataLogModel model = new DataLogModel();
+        public DataLogEntry entry = new DataLogEntry();
+        public DataLogResult result = new DataLogResult();
         public DataLogParam param = new DataLogParam();
-        public List<DataLogSearchResult> searchresult = new List<DataLogSearchResult>();
+        public List<DataLogResult> searchresult = new List<DataLogResult>();
         public List<TipoOperacaoValueModel> listTipoOperacao = new List<TipoOperacaoValueModel>();
         public List<TabelasValueModel> listTabelas = new List<TabelasValueModel>();
 
@@ -92,9 +93,9 @@ namespace Template.ViewModel
 
             ExecutionStatus = new OperationStatus(true);
 
-            model = await _gateway.DataLog.Get(id.ToString());
+            result = await _gateway.DataLog.Get(id.ToString());
 
-            if (model == null)
+            if (result == null)
             {
                 ExecutionStatus.InnerExceptions = _gateway.DataLog.GetInnerExceptions(ref ExecutionStatus.Error);
                 ExecutionStatus.Status = false;
@@ -107,7 +108,7 @@ namespace Template.ViewModel
 
             ExecutionStatus = new OperationStatus(true);
 
-            timeline = await _gateway.DataLog.GetTimeLine(model.ID.ToString());
+            timeline = await _gateway.DataLog.GetTimeLine(result.ID.ToString());
 
             if (timeline == null)
             {
@@ -127,15 +128,15 @@ namespace Template.ViewModel
         {
             this.BaseInitEdit();
 
-            if (model != null)
+            if (result != null)
             {
-                GetDataLogContent(model);
+                GetDataLogContent(result);
 
             }
 
         }
 
-        public void GetDataLogContent(DataLogModel log)
+        public void GetDataLogContent(DataLogResult log)
         {
             logold_content = new List<DataLogItem>();
             logcurrent_content = new List<DataLogItem>();

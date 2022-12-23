@@ -1,7 +1,7 @@
-﻿using GW.Core.Common;
+﻿using GW.Common;
 using GW.Membership.Models;
 using Newtonsoft.Json;
-using GW.Core.APIGateway;
+using GW.ApplicationHelpers;
 
 //using Template.Models;
 
@@ -36,11 +36,11 @@ namespace Template.Gateway
             return base.GetInnerExceptions(ref defaulterror); 
         }
 
-        public async Task<UserModel> Registrar(NewUser data)
+        public async Task<UserEntry> Registrar(NewUser data)
         {
-            UserModel ret = null;
+            UserEntry ret = null;
             
-            ret = await this.PostAsJSON<UserModel>("registraruser", JsonConvert.SerializeObject(data),null);
+            ret = await this.PostAsJSON<UserEntry>("registraruser", JsonConvert.SerializeObject(data),null);
                        
             return ret;
         }
