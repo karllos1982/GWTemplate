@@ -85,17 +85,7 @@ namespace Template.Controllers
                     if (obj != null)
                     {
                         obj.ProfileImageURL =
-                             Context.Settings.SiteURL + "auth/GetUserImageProfile?file=user_anonymous.png";
-
-                        if (obj.ProfileImage != null)
-                        {
-                            if (obj.ProfileImage != "")
-                            {
-                                obj.ProfileImageURL =
-                                    Context.Settings.SiteURL + "auth/GetUserImageProfile?file=" + obj.ProfileImage;
-
-                            }
-                        }
+                                    Context.Settings.SiteURL + "auth/GetUserImageProfile?file=" + obj.ProfileImage;                      
 
                         ret = obj;
                     }

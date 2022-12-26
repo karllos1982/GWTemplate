@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="GW.Framework" Version="4.0.12" />
     <PackageReference Include="GW.Membership" Version="2.0.12" />

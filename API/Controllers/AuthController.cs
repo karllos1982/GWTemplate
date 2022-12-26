@@ -180,11 +180,10 @@ namespace Template.Controllers
                     }
                   
 
-                }
-
-                string filename = "IMG_" + userM.UserID.ToString() + ".png";
+                }         
+                
                 userA.ProfileImageURL =
-                    Context.Settings.SiteURL+ "auth/GetUserImageProfile?file=" + filename;
+                    Context.Settings.SiteURL+ "auth/GetUserImageProfile?file=" + userM.ProfileImage;
                 
                 ret = userA;
 
@@ -327,27 +326,32 @@ namespace Template.Controllers
         {
             Init();
 
-            FileStream fs;
+            TemplateSettings settings = (TemplateSettings)Context.Settings;
+
+            FileService service = new FileService(settings.FileStorageConnection, settings.ProfileImageDir); 
             Stream body = Request.Body; 
             
             string userid = User.Identity.Name;
             ChangeUserImage data = new ChangeUserImage();
             data.UserID = Int64.Parse(userid);
-            data.FileName = "IMG_" + userid + ".png";
+            data.FileName = "IMG_" +  Guid.NewGuid()  + ".png";
 
             opsts = await Membership.ChangeUserProfileImage(data);
-
-            
-            string path = Context.Settings.ProfileImageDir + "\\" + data.FileName;
-            
+                                   
             if (opsts.Status)
-            {
-                using (fs = new FileStream(path,FileMode.OpenOrCreate ))
-                {
-                   await body.CopyToAsync(fs);
-                }
+            {                               
+                opsts = await service.UploadFile(body, data.FileName); 
 
-                ret = data; 
+                if (opsts.Status)
+                {
+                    ret = data;
+                }
+                else
+                {
+                    Response.StatusCode = 500;
+                    ret = GetInnerExceptions(opsts.Error.Message);
+                }
+                
             }
             else
             {
@@ -365,14 +369,11 @@ namespace Template.Controllers
         {
             Init();
 
-            string path = Membership.Context.Settings.ProfileImageDir + "\\" + file;
+            TemplateSettings settings = (TemplateSettings)Context.Settings;
+            FileService service = new FileService(settings.FileStorageConnection, settings.ProfileImageDir);
 
-            if (!System.IO.File.Exists(path))
-            {
-                path = Context.Settings.ProfileImageDir + "\\user_anonymous.png";                
-            }
 
-            FileStream str = new FileStream(path,FileMode.Open);
+            Stream str =  service.GetFile(file);
 
             FileStreamResult result = new FileStreamResult(str, "application/octet-stream");
 

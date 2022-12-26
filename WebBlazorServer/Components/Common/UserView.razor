@@ -335,6 +335,7 @@
 
         foreach ( var file in e.Files )
         {         
+
             using ( var stream = new MemoryStream() )
             {                
                 await file.WriteToStreamAsync( stream );
@@ -351,7 +352,7 @@
         if (gateway.APIResponse.StatusOK)
         {
 
-            await  imgbox.ShowDialog("Imagem alterada", "A imagem de perfil foi alterada.");
+            await  imgbox.ShowDialog("Imagem alterada", "A imagem de perfil foi alterada. No próximo login a nova imagem será exibida.");
 
         }
         else

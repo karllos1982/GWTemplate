@@ -27,6 +27,8 @@ namespace Template.API
 
         public string ProfileImageDir { get; set; }
 
+        public string FileStorageConnection { get; set; }
+
         public string ApplicationName { get; set; }
 
         public MailSettings MailSettings { get; set; }
@@ -70,6 +72,7 @@ namespace Template.API
                         this.Sources = settings.Sources;
                         this.SiteURL = settings.SiteURL;
                         this.ProfileImageDir = settings.ProfileImageDir;
+                        this.FileStorageConnection = settings.FileStorageConnection;
                         this.ApplicationName = settings.ApplicationName;
                         this.MailSettings = settings.MailSettings;
                         this.LocalizationLanguage = settings.LocalizationLanguage;

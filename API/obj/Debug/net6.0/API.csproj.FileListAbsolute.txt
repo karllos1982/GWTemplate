@@ -141,3 +141,9 @@ C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagge
 C:\Projetos\OUTROS\GWTemplate\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cs
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\appsettings-prd.json
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\FileServer\UserProfileImage\user_anonymous.png
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Azure.Core.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Azure.Storage.Blobs.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Azure.Storage.Common.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\System.IO.Hashing.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\System.Memory.Data.dll
