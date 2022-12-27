@@ -264,6 +264,7 @@
                                            
                                             <div class="card-body">
 
+                                          
                                                     <div class="row">
                                                         <div class="col-md-12">
 
@@ -290,6 +291,32 @@
                                                         </div>
                                                     </div>
                                                     
+
+                                                     <div class="row">
+                                                            <div class="col-md-12">
+
+                                                                  <div class="form-group">
+                                                                    <label class="form-label">Tipo de Permissão:</label>
+                                                                    @if (view.listTypeGrant != null )
+                                                                    {
+                                                                        @if (view.listTypeGrant.Count > 0)
+                                                                        {
+                                                                            <SelectList TItem="UIBaseItem"
+                                                                                TValue="String"
+                                                                                Data="@view.listTypeGrant"
+                                                                                TextField="@((item)=>item.Value)"
+                                                                                ValueField="@((item)=>item.ID)"
+                                                                                @bind-SelectedValue="@view.result.TypeGrant"></SelectList>
+                                                                            
+                                                                        }
+
+                                                                    }
+
+                                                             </div>
+
+                                                            </div>
+                                                    </div>
+
                                                      <div class="row">
                                                         <div class="col-md-12">
                                                                 <div class="form-group">

@@ -300,6 +300,7 @@ namespace Template.ServerCode
         {            
             await _cookies.ClearUserInfo();
             await _cookies.ClearUserPermissions(); 
+            await _cookies.ClearAllCookies();
         }
 
         public  PermissionsState CheckPermissions(UserAuthenticated user,

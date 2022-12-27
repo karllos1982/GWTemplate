@@ -72,7 +72,7 @@ namespace Template.Controllers
             {
                 DataLogResult obj = null;
 
-                obj = await Membership.DataLog.Get(new DataLogParam() { pUserID = Int64.Parse(id) });
+                obj = await Membership.DataLog.Get(new DataLogParam() { pDataLogID = Int64.Parse(id) });
 
                 if (this.GetDefaultStatus().Status)
                 {

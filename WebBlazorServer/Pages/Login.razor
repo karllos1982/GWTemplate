@@ -165,7 +165,7 @@
 
     private void InitResources()
     {
-      
+
         ((TemplateAppController)_appctrl).Settings = _settings;
 
         _authservices.Init(_httpclient,_settings.ServiceURL,"");
@@ -177,19 +177,26 @@
 
         if (firstRender)
         {
-            this.InitResources();
-            string url = _settings.SiteURL;
-
-            islogged = await _appctrl.IsAuthenticated();
-
-            if (islogged)
+            try
             {
-                 await _appctrl.GetSession();
+                this.InitResources();
+                string url = _settings.SiteURL;
 
-                UserAuthenticated usr = _appctrl.UserInfo;
-               
-                url = _settings.SiteURL + "/" + usr.HomeURL;
-                NavigationManager.NavigateTo(url);
+                islogged = await _appctrl.IsAuthenticated();
+
+                if (islogged)
+                {
+                    await _appctrl.GetSession();
+
+                    UserAuthenticated usr = _appctrl.UserInfo;
+
+                    url = _settings.SiteURL + "/" + usr.HomeURL;
+                    NavigationManager.NavigateTo(url);
+                }
+            }
+            catch(Exception ex)
+            {
+
             }
 
         }

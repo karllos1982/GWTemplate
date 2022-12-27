@@ -131,6 +131,15 @@ namespace Template.ViewModel
         {
             ExecutionStatus = new OperationStatus(true);
 
+            entry = new PermissionEntry();
+            entry.ObjectPermissionID = result.ObjectPermissionID; 
+            entry.TypeGrant = result.TypeGrant;
+            entry.UserID = result.UserID;
+            entry.RoleID = result.RoleID;            
+            entry.ReadStatus = result.ReadStatus;
+            entry.SaveStatus= result.SaveStatus;
+            entry.DeleteStatus= result.DeleteStatus;
+
             if (entry.UserID == 0) { entry.UserID = null; }
             if (entry.RoleID == 0) { entry.RoleID = null; }
 
@@ -180,13 +189,13 @@ namespace Template.ViewModel
         public override void InitNew()
         {
             this.BaseInitNew();
-            entry = new PermissionEntry();
-            entry.PermissionID = 0;
-            entry.ReadStatus = 1;
-            entry.SaveStatus = 1;
-            entry.DeleteStatus = 1;
-            entry.TypeGrant = "";
-
+            result = new PermissionResult();
+            result.PermissionID = 0;
+            result.ReadStatus = 1;
+            result.SaveStatus = 1;
+            result.DeleteStatus = 1;
+            result.TypeGrant = "R";
+        
         }
 
         public override async Task Search()

@@ -74,8 +74,7 @@ namespace Template.ServerCode
             await utils.SetCookie(_jsruntime, "USERPERMISSIONS", null, DateTime.Now.ToString(@"yyyy-MM-dd HH:mm:ss"));
         }
 
-
-
+   
         //
 
         public async Task SetUserContext(UserConext value, DateTime expires)
@@ -104,7 +103,17 @@ namespace Template.ServerCode
         {
             await utils.SetCookie(_jsruntime, "USERCONTEXT", null, DateTime.Now.ToString(@"yyyy-MM-dd HH:mm:ss"));
         }
-      
+
+        //
+
+        public async Task ClearAllCookies()
+        {
+            await utils.SetCookie(_jsruntime, "ai_session", null, DateTime.Now.ToString(@"yyyy-MM-dd HH:mm:ss"));
+            await utils.SetCookie(_jsruntime, "ai_user", null, DateTime.Now.ToString(@"yyyy-MM-dd HH:mm:ss"));
+            await utils.SetCookie(_jsruntime, "ARRAffinitySameSite", null, DateTime.Now.ToString(@"yyyy-MM-dd HH:mm:ss"));
+            await utils.SetCookie(_jsruntime, "ARRAffinity", null, DateTime.Now.ToString(@"yyyy-MM-dd HH:mm:ss"));
+
+        }
 
     }
 
