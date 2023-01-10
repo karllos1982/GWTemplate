@@ -1,10 +1,11 @@
 ﻿using GW.Common;
 using GW.Core;
 
-namespace Core.Contracts.Domain
+namespace Template.Contracts.Domain
 {
     public interface  ITemplateManager: IManager
     {
+        IClientDomain Client { get; set; }
 
     }
 }

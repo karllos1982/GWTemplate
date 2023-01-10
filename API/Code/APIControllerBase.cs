@@ -16,6 +16,7 @@ using System.Security.Permissions;
 using GW.Core;
 using GW.Membership.Contracts.Domain;
 using GW.ApplicationHelpers;
+using Template.Contracts.Domain;
 
 namespace Template.API
 {
@@ -33,7 +34,8 @@ namespace Template.API
         public IMemoryCache memorycache = null;
         public IContext Context; 
         public IMembershipManager Membership;
-        public MailManager MailCenter; 
+        public MailManager MailCenter;
+        public ITemplateManager Manager;
 
         protected MemoryCacheEntryOptions GetMemoryCacheOptionsByHour(int time)
         {
@@ -56,7 +58,7 @@ namespace Template.API
            
             if (checking != null && User.Claims.ToList().Count > 0)
             {
-                
+                 
                 string content = User.Claims.ToList()[2].Value;
 
                 List<UserPermissions> permissions = JsonConvert.DeserializeObject<List<UserPermissions>>(content);               

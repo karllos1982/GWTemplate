@@ -169,7 +169,7 @@ namespace Template.Controllers
                 {
                     case "Admin":
                     {
-                            userA.HomeURL = "superadmin/home";
+                            userA.HomeURL = "admin/home";
                             break;
                     }
 

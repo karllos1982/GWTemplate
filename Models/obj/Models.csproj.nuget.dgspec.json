@@ -10,11 +10,15 @@
         "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj",
         "projectName": "Models",
         "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj",
-        "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
         "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +26,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://www.nuget.org/api/v2/": {}
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
@@ -42,11 +47,11 @@
           "dependencies": {
             "GW.Framework": {
               "target": "Package",
-              "version": "[4.0.12, )"
+              "version": "[4.0.13, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[2.0.12, )"
+              "version": "[2.0.13, )"
             }
           },
           "imports": [
@@ -65,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

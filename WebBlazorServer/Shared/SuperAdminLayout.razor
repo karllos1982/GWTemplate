@@ -87,7 +87,7 @@
                 user = _appctrl.UserInfo;
                 permissions = await _appctrl.GetUserPermissions();
 
-                if (user.RoleName != "SuperAdmin" && user.RoleName != "Admin" )                    
+                if (user.RoleName != "SuperAdmin" )                    
                 {
                     NavigationManager.NavigateTo(url + "/login");
                 }

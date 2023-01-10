@@ -73,6 +73,65 @@ namespace Template.ViewModel
         }
     }
 
+    public abstract class SummaryManager
+    {
+        public List<InnerException> SummaryValidation = null;
+
+        public string GetSummaryState(string text)
+        {
+            string ret = "none";
+
+            if (text != null)
+            {
+                if (text != "")
+                {
+                    ret = "display";
+                }
+            }
+
+            return ret;
+        }
+
+        public string GetSummaryMessage(string fieldkey)
+        {
+            string ret = "";
+
+            foreach (InnerException ex in SummaryValidation)
+            {
+                if (ex.Key == fieldkey)
+                {
+                    ret = ex.Description;
+                    break;
+
+                }
+            }
+
+            return ret;
+        }
+
+        public void ShowSummaryValidation(List<InnerException> validations)
+        {
+
+            ClearSummaryValidation();
+
+            if (validations != null)
+            {
+                foreach (InnerException ex in validations)
+                {
+                    InnerException s = SummaryValidation.Where(i => i.Key == ex.Key).FirstOrDefault();
+                    if (s != null)
+                    {
+                        s.Description = ex.Description;
+                    }
+                }
+            }
+        }
+
+        public abstract void ClearSummaryValidation();
+        
+    }
+
+
     public abstract class BaseViewModel
     {
 

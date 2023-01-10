@@ -37,8 +37,8 @@
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="GW.Framework" Version="4.0.12" />
-    <PackageReference Include="GW.Membership" Version="2.0.12" />
+    <PackageReference Include="GW.Framework" Version="4.0.13" />
+    <PackageReference Include="GW.Membership" Version="2.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />

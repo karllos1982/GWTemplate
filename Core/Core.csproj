@@ -25,19 +25,14 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="GW.Framework" Version="4.0.12" />
-    <PackageReference Include="GW.Membership" Version="2.0.12" />
+    <PackageReference Include="GW.Framework" Version="4.0.13" />
+    <PackageReference Include="GW.Membership" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Repository\" />
-    <Folder Include="Data\QueryBuilder\" />
   </ItemGroup>
 
 </Project>

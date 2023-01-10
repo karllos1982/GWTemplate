@@ -1,8 +1,8 @@
 ﻿using GW.Common;
 using GW.Core;
-using Core.Contracts.Data;
+using Template.Contracts.Data;
 
-namespace Core.Data
+namespace Template.Data
 {
     public class TemplateRepositorySet : ITemplateRepositorySet
     {
@@ -12,9 +12,15 @@ namespace Core.Data
             this.InitializeRespositories(context);
         }
 
+        public IClientRepository Client { get; set ; }
+
+        public IClientContactsRepository ClientContacts { get; set ; }
+
         public void InitializeRespositories(IContext context)
         {
-            
+            Client= new ClientRepository(context);
+            ClientContacts = new ClientContactsRespository(context);    
+
         }
     }
 

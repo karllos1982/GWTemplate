@@ -5,6 +5,7 @@ build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WebBlazorServer
 build_property.RootNamespace = WebBlazorServer
@@ -67,6 +68,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cVXNlclZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorServer/Pages/Admin/Client.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cQ2xpZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorServer/Pages/Admin/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorServer/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -97,6 +106,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorServer/Pages/SuperAdmin/Users.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxVc2Vycy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorServer/Shared/AdminLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEFkbWluTGF5b3V0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorServer/Shared/LoggedLayout.razor]

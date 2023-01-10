@@ -15,7 +15,7 @@
           }
         }
       },
-      "GW.Framework/4.0.12": {
+      "GW.Framework/4.0.13": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "13.0.2"
@@ -27,11 +27,11 @@
           "lib/net6.0/GW.Framework.dll": {}
         }
       },
-      "GW.Membership/2.0.12": {
+      "GW.Membership/2.0.13": {
         "type": "package",
         "dependencies": {
           "Dapper": "2.0.123",
-          "GW.Framework": "4.0.12",
+          "GW.Framework": "4.0.13",
           "System.Data.SqlClient": "4.8.5"
         },
         "compile": {
@@ -220,26 +220,26 @@
         "lib/netstandard2.0/Dapper.xml"
       ]
     },
-    "GW.Framework/4.0.12": {
-      "sha512": "Qdsdt43cIYo35UxUZD2AlFAZgA91UJXVilpXB9uJt3QPqsZmX9BBDqP3Lp+buXm+c7hsaO1hGavX32THkXBmvg==",
+    "GW.Framework/4.0.13": {
+      "sha512": "mVacac3p9ACB0Whz8U9mpolvk9vWhS5f0Y4Oy+YlV84BmjP5QB4uxasuKiLAWQGgfWHjK7Kg4Hp3I/7L3I0v2g==",
       "type": "package",
-      "path": "gw.framework/4.0.12",
+      "path": "gw.framework/4.0.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.framework.4.0.12.nupkg.sha512",
+        "gw.framework.4.0.13.nupkg.sha512",
         "gw.framework.nuspec",
         "lib/net6.0/GW.Framework.dll"
       ]
     },
-    "GW.Membership/2.0.12": {
-      "sha512": "KOnmI/gLlvUVfHeO0tV17oqiSKx38Nh5ItwoA1gRwymkoSmkm7eA/5eyBGcmW5BS5qbclgeHboBfQMWHp+nqqA==",
+    "GW.Membership/2.0.13": {
+      "sha512": "4O2uHLngkYGQhIyZgfz3PWu8UWsjWg2fs7lBwqEQqYOF/QjtZ3tZ6xAbshX8mRwK2UIKFAuZGbJ2qQw53yYiNg==",
       "type": "package",
-      "path": "gw.membership/2.0.12",
+      "path": "gw.membership/2.0.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.membership.2.0.12.nupkg.sha512",
+        "gw.membership.2.0.13.nupkg.sha512",
         "gw.membership.nuspec",
         "lib/net6.0/GW.Membership.dll"
       ]
@@ -590,12 +590,13 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "GW.Framework >= 4.0.12",
-      "GW.Membership >= 2.0.12"
+      "GW.Framework >= 4.0.13",
+      "GW.Membership >= 2.0.13"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\karll\\.nuget\\packages\\": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -603,11 +604,15 @@
       "projectUniqueName": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj",
       "projectName": "Models",
       "projectPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj",
-      "packagesPath": "C:\\Users\\karll\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
       "outputPath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\karll\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -615,7 +620,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://www.nuget.org/api/v2/": {}
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
@@ -635,11 +641,11 @@
         "dependencies": {
           "GW.Framework": {
             "target": "Package",
-            "version": "[4.0.12, )"
+            "version": "[4.0.13, )"
           },
           "GW.Membership": {
             "target": "Package",
-            "version": "[2.0.12, )"
+            "version": "[2.0.13, )"
           }
         },
         "imports": [
@@ -658,7 +664,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -5,19 +5,18 @@ using Template.API;
 using GW.Common;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Linq;
-using static System.Net.Mime.MediaTypeNames;
-using System.Diagnostics.Metrics;
-using System.Reflection.Metadata;
 using Template.Core.Manager;
 using GW.Core;
-using Microsoft.AspNetCore;
 using GW.Membership.Data;
 using GW.Membership.Contracts.Data;
 using GW.Membership.Contracts.Domain;
 using GW.Membership.Domain;
 using GW.ApplicationHelpers;
 using Core.Data;
+using Template.Contracts.Domain;
+using Template.Contracts.Data;
+using Template.Domain;
+using Template.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +34,8 @@ builder.Services.AddScoped<IContextBuilder, ContextBuilder>();
 builder.Services.AddScoped<IContext, DapperContext>();
 builder.Services.AddScoped<IMembershipRepositorySet, MembershipRepositorySet>();
 builder.Services.AddScoped<IMembershipManager, MembershipManager>();
+builder.Services.AddScoped<ITemplateRepositorySet, TemplateRepositorySet>();
+builder.Services.AddScoped<ITemplateManager, TemplateManager>();
 builder.Services.AddScoped<MailManager, TemplateMailCenter>(); 
 
 //configure auth

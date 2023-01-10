@@ -1,26 +1,31 @@
 ﻿using GW.Core;
-using Core.Contracts.Domain;
-using Core.Contracts.Data;
+using Template.Contracts.Domain;
+using Template.Contracts.Data;
 using GW.Common;
 using GW.Helpers;
+using GW.Membership.Domain;
 
-namespace Core.Domain
+namespace Template.Domain
 {
     public class TemplateManager : ITemplateManager
     {
+        private string lang = "";
+
         public TemplateManager(IContext context, ITemplateRepositorySet repositorySet)
         {
             Context = context;
             InitializeDomains(context, repositorySet);
+
+            lang = Context.Settings.LocalizationLanguage;
         }
 
         public void InitializeDomains(IContext context, IRepositorySet repositorySet)
         {            
-
+            Client = new ClientDomain(context,(ITemplateRepositorySet)repositorySet);
         }
 
         public IContext Context { get; set; }
-                
 
+        public IClientDomain Client { get ; set ; }
     }
 }

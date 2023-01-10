@@ -1,0 +1,591 @@
+﻿@page "/admin/client"
+@inherits AdminLayout
+@layout AdminLayout
+
+@inject IJSRuntime JSRuntime
+@inject IAppControllerAsync<UserAuthenticated> _appctrl
+@inject IAuthGatewayManager _appservices
+@inject ITemplateGatewayManager _gateway
+@inject IAppSettings _settings
+@inject NavigationManager NavigationManager
+@inject HttpClient _httpclient
+
+<BreadCrumbView IsHome="false" HomeURL="/admin/home" PageTitle="Client"></BreadCrumbView>
+
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+    <div class="content flex-row-fluid" id="kt_content">
+        <div class="">
+
+            @if (view != null)
+            {
+                <div style="display:@view.SearchingState">
+
+                    <div class="row gy-5 g-xl-10">
+
+                        <div class="col-xl-4">
+                            <div class="card card-flush h-xl-100">
+                                <div class="card-header pt-7">
+
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bold text-dark">Pesquisar</span>
+                                    </h3>
+
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">Client Name:</label>
+                                        <input type="text" @bind-value="view.param.pClientName" class="form-control"
+                                           placeholder="Pesquisar por Nome do Cliente">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">E-mail:</label>
+                                        <input type="text" maxlength="50" @bind-value="view.param.pEmail" class="form-control"
+                                           placeholder="Pesquisar por E-mail">
+                                    </div>
+
+                                    <p class="field" style="padding-top:10px">
+
+                                        <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
+                                                Description="Clique aqui pesquisar." ReadOnly=!view.Permissions.AllowRead
+                                                ActionLabel="Pesquisando...">
+                                        </TaskButton>
+
+                                    </p>
+
+                                    <p class="field" style="padding-top:10px">
+                                        <TaskButton @ref="newbtn" OnClick="OnNew" Title="Novo Client" Class="dark"
+                                                Description="Clique aqui criar um novo Client." Disabled=""
+                                                ReadOnly=!view.Permissions.AllowSave
+                                                ActionLabel="Inserindo...">
+                                        </TaskButton>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-8">
+
+                            <div class="card card-flush h-xl-100">
+
+                                <div class="card-header pt-7">
+
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bold text-dark">Resultado da Busca</span>
+                                    </h3>
+                                </div>
+
+                                <div class="card-body">
+                                    @if (view.searchresult != null)
+                                    {
+                                        @if (view.searchresult.Count > 0)
+                                        {
+                                            <DataGrid TItem="ClientResult" Data="@view.searchresult" Responsive ShowPager>
+                                                <DataGridColumns>
+
+                                                    <DataGridColumn Field="@nameof(ClientResult.ClientName)" Caption="Name" />
+                                                    <DataGridColumn Field="@nameof(ClientResult.Email)" Caption="E-mail" />
+
+                                                    <DataGridColumn Field="@nameof(ClientResult.ClientID)" Caption="Editar">
+                                                        <DisplayTemplate>
+                                                            @{
+                                                                ClientResult obj = (context as ClientResult);
+
+                                                                @if (view.Permissions.AllowSave)
+                                                                {
+                                                                    <IconButton Icon="IconButton.TYPEICONENUM.EDIT"
+                                                                    OnClick="()=>OnDetClick(obj.ClientID)"></IconButton>
+                                                                }
+                                                            }
+
+                                                        </DisplayTemplate>
+                                                    </DataGridColumn>
+
+                                                </DataGridColumns>
+
+                                            </DataGrid>
+
+                                        }
+                                        else
+                                        {
+                                            <p> Nenhum registro encontrado </p>
+                                        }
+                                    }
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div style="display:@view.EditingState">
+
+                    <BackButton OnClick="Back"></BackButton>
+
+                    <div class="row gy-5 g-xl-10">
+
+                        <div class="col-xl-8">
+                            <div class="card card-flush h-xl-100">
+                    
+                                <div class="card">
+                                    <div class="card-header card-header-stretch">
+                                        <div class="card-toolbar m-0">
+                                    
+                                            <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bold" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link justify-content-center text-active-gray-800 active" @onclick="()=>SwitchAbas()"
+                                                            data-bs-toggle="tab" role="tab" href="#kt_tab1">Dados do Client
+                                                     </a>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <a  class="nav-link justify-content-center text-active-gray-800" @onclick="()=>SwitchAbas()"
+                                                        data-bs-toggle="tab" role="tab" href="#kt_tab2">Contatos
+                                                    </a>
+                                                </li>
+                                            </ul>                                
+                                        </div>
+                                     </div>
+                                </div>
+
+                                <div class="tab-content">
+
+                                    @if (Aba1State=="active")
+                                    {
+                                        <div  class="card-body p-0 tab-pane fade show @Aba1State" role="tabpanel" >
+
+                                            <div class="card-body">
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="name">Client Name:</label>
+                                                            <input type="text" class="form-control field" @bind-value="@view.result.ClientName" />
+                                                            <label class="validation_field">@view.GetSummaryMessage("ClientName") </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="email">E-mail:</label>
+                                                            <input type="text" class="form-control field" @bind-value="@view.result.Email" />
+                                                            <label class="validation_field">@view.GetSummaryMessage("Email") </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="phonenumber">Phone Number:</label>
+                                                            <InputMask Mask="(99)9999-9999" @bind-Value="@view.result.PhoneNamber" />
+                                                            <label class="validation_field">@view.GetSummaryMessage("PhoneNamber") </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="isactive">Is Active:</label>
+                                                            <Switch TValue="bool" @bind-Checked="@view.result.IsActive"></Switch>                                               
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="isactive">Create Date:</label>
+                                                            <input type="text" disabled
+                                                            class="form-control field" @bind-value="@view.result.CreateDate" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <p class="field" style="padding-top:10px">
+
+                                                            <TaskButton @ref="savenewbtn" OnClick="OnSet" Title="Salvar"
+                                                                Description="Clique aqui para salvar os dados do Client."
+                                                                ActionLabel="Salvando..." ReadOnly=!view.Permissions.AllowSave>
+                                                            </TaskButton>
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    }
+
+                                    @if (Aba2State=="active")
+                                    {
+                                        <div class="card-body p-0 tab-pane fade show @Aba2State" role="tabpanel">
+                                            <div class="card-body">
+                                                @if (view.result.Contacts != null)
+                                                {
+                                                    @if (view.result.Contacts.Count > 0)
+                                                    {
+                                                        <DataGrid TItem="ClientContactsResult" Data="@view.result.Contacts" Responsive ShowPager>
+                                                            <DataGridColumns>
+
+                                                                <DataGridColumn Field="@nameof(ClientContactsResult.ContactName)" Caption="Name" />
+                                                                <DataGridColumn Field="@nameof(ClientContactsResult.Email)" Caption="E-mail" />
+
+                                                                <DataGridColumn Field="@nameof(ClientContactsResult.ClientContactID)" Caption="Editar">
+                                                                    <DisplayTemplate>
+                                                                        @{
+                                                                            ClientContactsResult obj = (context as ClientContactsResult);
+
+                                                                            @if (view.Permissions.AllowSave)
+                                                                            {
+                                                                                <IconButton Icon="IconButton.TYPEICONENUM.EDIT"
+                                                                                 OnClick="()=>OnDetContactsClick(obj.ClientContactID)"></IconButton>
+                                                                            }
+                                                                        }
+
+                                                                    </DisplayTemplate>
+                                                                </DataGridColumn>
+
+                                                                @* <DataGridColumn Field="@nameof(ClientResult.ClientID)" Caption="Editar">
+                                                                    <DisplayTemplate>
+                                                                        @{
+                                                                            ClientResult obj = (context as ClientResult);
+
+                                                                            @if (view.Permissions.AllowSave)
+                                                                            {
+                                                                                <IconButton Icon="IconButton.TYPEICONENUM.EDIT"
+                                                                        OnClick="()=>OnDetClick(obj.ClientID)"></IconButton>
+                                                                            }
+                                                                        }
+
+                                                                    </DisplayTemplate>
+                                                                </DataGridColumn>*@
+
+                                                            </DataGridColumns>
+
+                                                        </DataGrid>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <p> Nenhum registro encontrado </p>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <p> Nenhum registro encontrado </p>
+                                                }
+                                           </div>
+                                        </div>
+                                    }
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <h5>Carregando a página. Aguarde...</h5>
+
+            }
+        </div>
+    </div>
+</div>
+
+
+<Modal @ref="modalRef">
+    <ModalContent Centered Size="ModalSize.Large">
+
+        <ModalHeader>
+            @if (view != null)
+            {
+                <ModalTitle>@view.contactstate</ModalTitle>
+            }
+            <Blazorise.Bootstrap5.CloseButton></Blazorise.Bootstrap5.CloseButton>
+        </ModalHeader>
+
+        <ModalBody>
+           
+            @if (view != null)
+            {
+                <div class="row" style="min-height:500px;padding-left: 25px;">
+
+                     <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label class="form-label" for="name">Client Name:</label>
+                                <input type="text" class="form-control field" @bind-value="@view.contact.ContactName" />
+                                <label class="validation_field">@view.ContactSummary.GetSummaryMessage("ContactName") </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label" for="email">E-mail:</label>
+                                <input type="text" class="form-control field" @bind-value="@view.contact.Email" />
+                                    <label class="validation_field">@view.ContactSummary.GetSummaryMessage("Email") </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="phonenumber">Cell Phone Number:</label>
+                                <InputMask Mask="(99)99999-9999" @bind-Value="@view.contact.CellPhoneNumber" />
+                                    <label class="validation_field">@view.ContactSummary.GetSummaryMessage("CellPhoneNumber") </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <p class="field" style="padding-top:10px">
+
+                                <TaskButton @ref="savecontactbtn" OnClick="OnSetContact" Title="Salvar"
+                                            Description="Clique aqui para salvar os dados do Contact."
+                                            ActionLabel="Salvando..." ReadOnly=!view.Permissions.AllowSave>
+                                </TaskButton>
+
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                 </div>
+            }
+
+        </ModalBody>
+                
+
+    </ModalContent>
+</Modal>
+
+
+
+<MessageBox @ref="msgbox"></MessageBox>
+
+<MessageBox @ref="msgbox_create"
+            ButtonNo="true" ButtonYes="true" ButtonOK="false"
+            OnClickYes="OnNew">
+</MessageBox>
+
+<TaskLoading @ref="loading" Title="Carregando dados. Aguarde..."></TaskLoading>
+
+@code {
+
+
+    private MessageBox msgbox;
+    private MessageBox msgbox_create;
+    private TaskLoading loading;
+    private TaskButton searchbtn;
+    private TaskButton statebtn;
+    private TaskButton newbtn;
+    private TaskButton savenewbtn;
+    private TaskButton savecontactbtn;
+
+
+    private Modal modalRef;
+    private string Aba1State = "active";
+    private string Aba2State = "";
+
+
+    //
+
+    private UserAuthenticated LoggedUser;
+    private ClientViewModel view;
+
+    //
+
+    private async Task InitResources()
+    {
+        ((TemplateAppController)_appctrl).Settings = _settings;
+
+        if (await _appctrl.IsAuthenticated())
+        {
+            LoggedUser = _appctrl.UserInfo;
+            _gateway.Init(_httpclient, _settings.ServiceURL, LoggedUser.Token);
+
+            view = new ClientViewModel((_gateway as TemplateGateway), LoggedUser);
+
+            List<UserPermissions> list = await _appctrl.GetUserPermissions();
+            view.Permissions
+               = BaseViewModel.SetPermissions(list, "CLIENT", false);
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            await InitResources();
+            await view.InitializeModels();
+            StateHasChanged();
+        }
+    }
+
+    public async Task OnSearch()
+    {
+        searchbtn.Begin();
+        await view.Search();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+        }
+
+        searchbtn.End();
+    }
+
+    public void OnNew()
+    {
+
+        view.InitNew();
+        StateHasChanged();
+    }
+
+    public async Task OnGet(object id)
+    {
+        await loading.Begin();
+
+        await view.Get(id);
+
+        await loading.End();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            view.InitEdit();
+
+        }
+
+        StateHasChanged();
+    }
+
+
+    public async Task OnSet()
+    {
+        savenewbtn.Begin();
+
+        await view.Set();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Erro salvar.", view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            if (this.view.Inserting)
+            {
+                await msgbox_create.ShowDialog("Sucesso!", "O Client foi salvo com sucesso. Deseja continuar inserindo ?");
+            }
+            else
+            {
+                await msgbox.ShowDialog("Sucesso!", "Os dados foram editados com sucesso.");
+                this.Back();
+            }
+
+        }
+
+        savenewbtn.End();
+
+    }
+
+    public async Task OnDetClick(object id)
+    {
+        await OnGet(id);
+
+    }
+
+    public void OnDetContactsClick(object id)
+    {
+        view.GetContactToEdit(Int64.Parse(id.ToString())); 
+        modalRef.Show(); 
+    }
+
+    public async Task OnSetContact()
+    {
+
+        savecontactbtn.Begin();
+
+         await view.SaveContact();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog("Aviso", "Erros de validação de dados.");
+        }
+        else
+        {
+            await modalRef.Hide();
+        }
+
+        savecontactbtn.End();
+
+    }
+
+
+    public void Back()
+    {
+        view.BackToSearch();
+        StateHasChanged();
+
+    }
+
+    public void GoHome()
+    {
+        string url = _appctrl.UserInfo.HomeURL;
+        NavigationManager.NavigateTo(url);
+
+    }
+
+    public void SwitchAbas()
+    {
+        if (Aba1State=="active")
+        {
+            Aba1State = "";
+            Aba2State = "active";
+        }
+        else
+        {
+            Aba1State = "active";
+            Aba2State = "";
+        }
+    }
+
+
+}

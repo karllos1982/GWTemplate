@@ -8,8 +8,8 @@
     ".NETCoreApp,Version=v6.0": {
       "Models/1.0.0": {
         "dependencies": {
-          "GW.Framework": "4.0.12",
-          "GW.Membership": "2.0.12"
+          "GW.Framework": "4.0.13",
+          "GW.Membership": "2.0.13"
         },
         "runtime": {
           "Models.dll": {}
@@ -23,27 +23,27 @@
           }
         }
       },
-      "GW.Framework/4.0.12": {
+      "GW.Framework/4.0.13": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.2"
         },
         "runtime": {
           "lib/net6.0/GW.Framework.dll": {
-            "assemblyVersion": "4.0.12.0",
-            "fileVersion": "4.0.12.0"
+            "assemblyVersion": "4.0.13.0",
+            "fileVersion": "4.0.13.0"
           }
         }
       },
-      "GW.Membership/2.0.12": {
+      "GW.Membership/2.0.13": {
         "dependencies": {
           "Dapper": "2.0.123",
-          "GW.Framework": "4.0.12",
+          "GW.Framework": "4.0.13",
           "System.Data.SqlClient": "4.8.5"
         },
         "runtime": {
           "lib/net6.0/GW.Membership.dll": {
-            "assemblyVersion": "2.0.12.0",
-            "fileVersion": "2.0.12.0"
+            "assemblyVersion": "2.0.13.0",
+            "fileVersion": "2.0.13.0"
           }
         }
       },
@@ -145,19 +145,19 @@
       "path": "dapper/2.0.123",
       "hashPath": "dapper.2.0.123.nupkg.sha512"
     },
-    "GW.Framework/4.0.12": {
+    "GW.Framework/4.0.13": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Qdsdt43cIYo35UxUZD2AlFAZgA91UJXVilpXB9uJt3QPqsZmX9BBDqP3Lp+buXm+c7hsaO1hGavX32THkXBmvg==",
-      "path": "gw.framework/4.0.12",
-      "hashPath": "gw.framework.4.0.12.nupkg.sha512"
+      "sha512": "sha512-mVacac3p9ACB0Whz8U9mpolvk9vWhS5f0Y4Oy+YlV84BmjP5QB4uxasuKiLAWQGgfWHjK7Kg4Hp3I/7L3I0v2g==",
+      "path": "gw.framework/4.0.13",
+      "hashPath": "gw.framework.4.0.13.nupkg.sha512"
     },
-    "GW.Membership/2.0.12": {
+    "GW.Membership/2.0.13": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-KOnmI/gLlvUVfHeO0tV17oqiSKx38Nh5ItwoA1gRwymkoSmkm7eA/5eyBGcmW5BS5qbclgeHboBfQMWHp+nqqA==",
-      "path": "gw.membership/2.0.12",
-      "hashPath": "gw.membership.2.0.12.nupkg.sha512"
+      "sha512": "sha512-4O2uHLngkYGQhIyZgfz3PWu8UWsjWg2fs7lBwqEQqYOF/QjtZ3tZ6xAbshX8mRwK2UIKFAuZGbJ2qQw53yYiNg==",
+      "path": "gw.membership/2.0.13",
+      "hashPath": "gw.membership.2.0.13.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/3.1.0": {
       "type": "package",

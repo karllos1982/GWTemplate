@@ -147,3 +147,8 @@ H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Azu
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\System.IO.Hashing.dll
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\System.Memory.Data.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\staticwebassets\msbuild.build.API.props
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.API.props
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.API.props
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\staticwebassets.pack.json
