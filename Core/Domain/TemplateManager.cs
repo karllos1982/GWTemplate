@@ -9,14 +9,12 @@ namespace Template.Domain
 {
     public class TemplateManager : ITemplateManager
     {
-        private string lang = "";
-
+        
         public TemplateManager(IContext context, ITemplateRepositorySet repositorySet)
         {
             Context = context;
             InitializeDomains(context, repositorySet);
-
-            lang = Context.Settings.LocalizationLanguage;
+         
         }
 
         public void InitializeDomains(IContext context, IRepositorySet repositorySet)

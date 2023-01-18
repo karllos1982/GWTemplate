@@ -1,0 +1,52 @@
+﻿
+    <div class="toolbar mb-n1 pt-3 mb-lg-n3 pt-lg-6" id="kt_toolbar">     
+        <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap gap-2">            
+            <div class="page-title d-flex flex-column align-items-start me-3 py-2 py-lg-0 gap-2">
+
+                <div class="row">
+                    
+                        <h5> <a href="@GetURL()" class="text-gray-600 text-hover-primary"> Voltar pra Home</a> </h5> 
+                   
+                        <h1 class="d-flex text-dark fw-bold m-0 fs-3">@PageTitle</h1>                    
+
+                </div>
+
+                             
+                <ul style="display:none" class="breadcrumb breadcrumb-dot fw-semibold text-gray-600 fs-7">
+                    
+                    <li class="breadcrumb-item text-gray-600">
+                        <a href="@GetURL()" class="text-gray-600 text-hover-primary">Home</a>
+                    </li>   
+                    
+                    @if (!IsHome)
+                    {                       
+                        <li class="breadcrumb-item text-gray-600">@PageTitle</li>
+                        
+                    }
+                </ul>
+               
+            </div>
+                 
+        </div>
+       
+    </div>
+ 
+
+
+@code {
+
+    [Parameter]    
+    public string PageTitle { get; set; }
+
+    [Parameter]    
+    public string HomeURL { get; set; }
+
+    [Parameter]
+    public bool IsHome { get; set; }
+
+    private string GetURL()
+    {
+        return HomeURL;
+    }
+
+}

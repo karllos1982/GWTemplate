@@ -1,0 +1,290 @@
+﻿@inject NavigationManager NavigationManager
+
+@if (Display == MENUDISPLAYENUM.TABLINK)
+{
+    <div class="align-self-end overflow-auto" id="kt_brand_tabs">
+      
+        <div class="header-tabs overflow-auto mx-4 ms-lg-10 mb-5 mb-lg-0" id="kt_header_tabs" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_header_navs_wrapper', lg: '#kt_brand_tabs'}">
+           
+            <ul class="nav flex-nowrap text-nowrap" >
+                @if (RoleName != null)
+                {
+                    @if (GetItems())
+                    {
+                        @foreach (MenuItem i in _groups)
+                        {
+                            <li class="nav-item">
+                                
+                                  <a class="nav-link @i.State" data-bs-toggle="tab" href="#@i.NavTabIndex">@i.Group</a>                                
+
+                            </li>
+
+                        }
+
+                    }
+                }
+
+
+            </ul>
+           
+        </div>
+      
+    </div>
+}
+
+@if (Display == MENUDISPLAYENUM.TABITEMS)
+{
+
+
+<div class="header-navs d-flex align-items-stretch flex-stack h-lg-70px w-100 py-5 py-lg-0" 
+    id="kt_header_navs" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" 
+    data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" 
+    data-kt-drawer-toggle="#kt_header_navs_toggle" data-kt-swapper="true" data-kt-swapper-mode="append" 
+    data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header'}">
+    
+    <div class="d-lg-flex container-xxl w-100">
+      
+        <div class="d-lg-flex flex-column justify-content-lg-center w-100" id="kt_header_navs_wrapper">
+            
+            <div class="tab-content" data-kt-scroll="true" data-kt-scroll-activate="{default: true, lg: false}" data-kt-scroll-height="auto" data-kt-scroll-offset="70px">
+                                  
+                @if (RoleName != null)
+                {
+                    @if (GetItems())
+                    {
+                        @foreach (MenuItem g in _groups)
+                        {
+                            <div class="tab-pane fade @g.State" id="@g.NavTabIndex">
+                                <div class="d-flex flex-column flex-lg-row flex-lg-stack flex-wrap gap-2 px-4 px-lg-0">
+                                    <div class="d-flex flex-column flex-lg-row gap-2">
+                                        
+                                            @foreach (MenuItem i in _items)
+                                            {
+                                                @if (g.Group == i.Group)
+                                                {
+                                                    <a class="btn btn-sm btn-light-dark fw-bold" href="@i.LinkURL">@i.LinkTitle</a>
+                                                }
+
+                                            }
+                                    </div>  
+                                </div> 
+                            </div>       
+                        }
+
+                    }
+                }
+            
+             </div>           
+        </div>        
+    </div>    
+</div>
+
+
+}
+
+<Modal @ref="modalRef"  >
+    <ModalContent Size="ModalSize.Large" >
+       
+        <ModalHeader>
+
+             <ModalTitle>Menu</ModalTitle> 
+
+            <CloseButton></CloseButton>
+        </ModalHeader>
+
+        <ModalBody>
+                    
+            @if (RoleName != null)
+            {
+                @if (GetItems())
+                {
+                    <div class="accordion" id="accordionMenu" style="min-height:500px">
+                        @foreach (MenuItem g in _groups)
+                        {
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="@g.NavTabIndex">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bg_@g.NavTabIndex" aria-expanded="true" aria-controls="bg_@g.NavTabIndex">
+                                        @g.Group
+                                    </button>
+                                </h2>
+                                <div id="bg_@g.NavTabIndex" class="accordion-collapse collapse" aria-labelledby="@g.NavTabIndex" data-bs-parent="#accordionMenu">
+                                    <div class="accordion-body">
+                                        <ul class="list-group">
+                                            @foreach (MenuItem i in _items)
+                                            {
+                                                @if (g.Group == i.Group)
+                                                {
+                                                    <li class="list-group-item" style="cursor:pointer" @onclick="()=>GoToPage(i.LinkURL)">@i.LinkTitle</li>                                                                                                       
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>                           
+
+                        }
+                    </div>                                             
+
+                }
+            }                                            
+              
+        </ModalBody>   
+             
+
+    </ModalContent>
+</Modal>
+
+
+@code {
+
+    private Modal modalRef;
+
+    private string _groupSelected = "";
+
+    public class MenuItem
+    {
+        public string Role{ get; set; }
+
+        public string Group { get; set; }
+
+        public string LinkTitle { get; set; }
+
+        public string LinkURL { get; set; }
+
+        public string NavTabIndex { get; set; }
+
+        public string State { get; set; }
+
+        public MenuItem(string role, string group, string index)
+        {
+            Role = role;
+            Group=group;
+            NavTabIndex = "kt_menu_" + index;
+        }        
+
+        public string Permission_ObjectCode { get; set; } 
+
+        public bool Permission_Allownone{ get; set; } 
+
+    }
+
+    public enum MENUDISPLAYENUM
+    {
+        TABLINK = 1,
+        TABITEMS = 2
+    }
+
+    [Parameter]
+    public string RoleName { get; set; }
+
+    [Parameter]
+    public MENUDISPLAYENUM Display { get; set; }
+
+    [Parameter]
+    public List<UserPermissions> Permissions 
+    {
+
+        set
+        {
+            if (value != null)
+            {
+                _Permissions = value;
+            }
+        }
+    }
+
+    private List<UserPermissions> _Permissions = null;
+
+    private List<MenuItem> _items = new List<MenuItem>();
+    private List<MenuItem> _groups = new List<MenuItem>();  
+
+    public bool GetItems()
+    {
+        bool ret = false;
+
+        _items.Clear();
+        _groups.Clear();
+
+        LoadMenuContent();
+
+        _items = _items.Where(x => x.Role == RoleName).ToList();
+
+        string g = "";
+
+        foreach (MenuItem m in _items)
+        {
+            if (g != m.Group)
+            {
+                _groups.Add(m);
+                g = m.Group;
+            }
+        }
+
+        ret = true;
+
+        return ret;
+    }
+
+
+
+    private void LoadMenuContent()
+    {
+        //List<MenuItem>  ret = new List<MenuItem>();
+        // var xmlFile = "Menu_" + RoleName + ".json";        
+        //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+
+        _items.Clear();
+
+        _items.Add(new MenuItem("Anonymous", "Home", "1"){ LinkTitle="Login", LinkURL="Login", State="active show"}) ;         
+
+        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="superadmin/users", State="active show", Permission_ObjectCode="SYSUSER",Permission_Allownone=true}) ;
+        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Log de Dados", LinkURL = "superadmin/datalog", Permission_ObjectCode = "SYSDATALOG", Permission_Allownone = true });
+        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Log de Acesso", LinkURL = "superadmin/accesslog", Permission_ObjectCode = "SYSSESSION", Permission_Allownone = true });
+        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Objetos de Permissão", LinkURL = "superadmin/objectpermission", Permission_ObjectCode = "SYSOBJECTPERMISSION", Permission_Allownone = true });
+        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Gerenciamento de Permissões", LinkURL = "superadmin/permission", Permission_ObjectCode = "SYSPERMISSION", Permission_Allownone = true });
+
+        //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 1", LinkURL="pag1"}) ;
+        //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 2", LinkURL="pag2"}) ;
+        //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 3", LinkURL="pag3"}) ;
+        
+        AddItem(new MenuItem("Admin", "Gerenciamento", "2") { LinkTitle = "Cient", LinkURL = "admin/client", State = "active show", Permission_ObjectCode = "CLIENT", Permission_Allownone = true });
+    
+    }
+
+    private PermissionsState _state; 
+
+    private void AddItem(MenuItem item)
+    {
+        if (Display == MENUDISPLAYENUM.TABITEMS)
+    {
+            if (_Permissions != null)
+            {
+                _state = GW.Helpers
+                    .Utilities.GetPermissionsState(_Permissions,
+                            item.Permission_ObjectCode, item.Permission_Allownone);
+
+                if (_state.AllowRead)
+                {
+                    _items.Add(item);
+                }
+            }
+        }
+        else{
+             _items.Add(item);
+        }
+    }
+
+    public async Task OpenMobileMenu()
+    {
+        await modalRef.Show(); 
+    }
+
+    public async Task GoToPage(string url)
+    {
+        await modalRef.Hide(); 
+        NavigationManager.NavigateTo(url);
+        
+    }
+
+}

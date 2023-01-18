@@ -7,18 +7,17 @@ using Template.Contracts.Data;
 using GW.Helpers;
 using Microsoft.SqlServer.Server;
 using static System.Net.Mime.MediaTypeNames;
+using System.Threading.Tasks.Sources;
 
 namespace Template.Domain
 {
     public class ClientDomain : IClientDomain
     {
-        private string lang = ""; 
-
+        
         public ClientDomain(IContext context, ITemplateRepositorySet repositorySet)
         {
             Context = context;
-            RepositorySet = repositorySet;
-            lang = Context.Settings.LocalizationLanguage;
+            RepositorySet = repositorySet;            
         }
 
         public IContext Context { get; set; }
@@ -76,53 +75,82 @@ namespace Template.Domain
         {
             OperationStatus ret = null;
 
-            ret = PrimaryValidation.Execute(obj, new List<string>(), lang);
+            ret = PrimaryValidation.Execute(obj, new List<string>(), Context.LocalizationLanguage);
 
-            if (!ret.Status)
+            OperationStatus aux = ContactsEntriesValidation(obj.Contacts);
+
+            if (ret.Status)
             {
-                ret.Error 
-                    = new Exception(GW.Localization.GetItem("Validation-Error", lang).Text);
-
-            }
-
-            bool contacts_exp = false; 
-
-            if (obj.Contacts == null)
-            { 
-                contacts_exp = true;  
+                ret = aux; 
             }
             else
             {
-                if (obj.Contacts.Count == 0)
+                if (!aux.Status)
                 {
-                    contacts_exp = true;
-                }
-
+                    ret.InnerExceptions.Add(aux.InnerExceptions[0]); 
+                }                
             }
 
+            if (!ret.Status)
+            {               
+                ret.Error 
+                    = new Exception(GW.Localization.GetItem("Validation-Error", Context.LocalizationLanguage).Text);
+            }
+          
+            Context.ExecutionStatus = ret;
 
-            if (contacts_exp)
+        }
+
+        public OperationStatus ContactsEntriesValidation(List<ClientContactsEntry> entries)
+        {
+            OperationStatus ret = new OperationStatus(true);
+
+            entries = entries
+                .Where(e => e.RecordState != RECORDSTATEENUM.DELETED).ToList();
+
+            if (entries == null)
             {
-                if (ret.Error == null)
-                {
-                    ret.Error
-                    = new Exception(GW.Localization.GetItem("Validation-Error", lang).Text);
-                }
+                ret.Status = false;
+            }
+            else
+            {
+                if (entries.Count == 0) { ret.Status = false; }                                                                                                   
+            }
 
+            if (!ret.Status)
+            {               
                 if (ret.InnerExceptions == null)
                 {
                     ret.InnerExceptions = new List<InnerException>();
                 }
 
-                ret.AddInnerException("Contacts", 
-                    GW.Localization.GetItem("Validation-Error", lang).Text);
-
-                ret.Status = false; 
+                ret.AddInnerException("Contacts",
+                   "Contacts: " +  GW.Localization.GetItem("Validation-NotNull", Context.LocalizationLanguage).Text);               
             }
+            else
+            {               
 
+                foreach (ClientContactsEntry item in entries)
+                {
+                     if (PrimaryValidation.Execute(item, new List<string>(), Context.LocalizationLanguage).Status==false)
+                     {
+                        if (ret.InnerExceptions == null)
+                        {
+                            ret.InnerExceptions = new List<InnerException>();
+                        }
 
-            Context.ExecutionStatus = ret;
+                        ret.Status = false; 
+                        ret.AddInnerException("Contacts",
+                              "Contacts: " + GW.Localization.GetItem("Validation-Error", Context.LocalizationLanguage).Text);
 
+                        break;
+
+                     }                 
+                }
+
+            }
+        
+            return ret;
         }
 
         public async Task InsertValidation(ClientEntry obj)
@@ -142,7 +170,8 @@ namespace Template.Domain
                 {
                     ret.Status = false;
                     string msg
-                        = string.Format(GW.Localization.GetItem("Validation-Unique-Value", lang).Text, "Client Name"); 
+                        = string.Format(GW.Localization.GetItem("Validation-Unique-Value", 
+                            Context.LocalizationLanguage).Text, "Client Name"); 
                     ret.Error = new Exception(msg);
                     ret.AddInnerException("ClientName", msg);
                 }
@@ -167,7 +196,8 @@ namespace Template.Domain
                     {
                         ret.Status = false;
                         string msg 
-                            = string.Format(GW.Localization.GetItem("Validation-Unique-Value", lang).Text, "Client Name");
+                            = string.Format(GW.Localization.GetItem("Validation-Unique-Value", 
+                                Context.LocalizationLanguage).Text, "Client Name");
                         ret.Error = new Exception(msg);
                         ret.AddInnerException("ClientName", msg);
                     }
@@ -305,7 +335,7 @@ namespace Template.Domain
             {
                 Context.ExecutionStatus.Status = false;
                 Context.ExecutionStatus.Error 
-                    = new System.Exception(GW.Localization.GetItem("Record-NotFound", lang).Text);
+                    = new System.Exception(GW.Localization.GetItem("Record-NotFound", Context.LocalizationLanguage).Text);
 
             }
 
@@ -317,12 +347,12 @@ namespace Template.Domain
             ClientContactsEntry ret = entry;
 
             Context.ExecutionStatus 
-                = PrimaryValidation.Execute(entry, new List<string>(), lang);
+                = PrimaryValidation.Execute(entry, new List<string>(), Context.LocalizationLanguage);
 
             if (!Context.ExecutionStatus.Status)
             {
                 Context.ExecutionStatus.Error
-                    = new Exception(GW.Localization.GetItem("Validation-Error", lang).Text);
+                    = new Exception(GW.Localization.GetItem("Validation-Error", Context.LocalizationLanguage).Text);
                 ret = null; 
             }
 

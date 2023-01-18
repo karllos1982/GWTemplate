@@ -60,6 +60,16 @@ namespace Template.API
             {
                  
                 string content = User.Claims.ToList()[2].Value;
+                string lang = User.Claims.ToList()[3].Value;
+                
+                if (lang!=null)
+                {
+                    Context.LocalizationLanguage = lang;
+                }
+                else
+                {
+                    Context.LocalizationLanguage = Context.Settings.LocalizationLanguage;
+                }
 
                 List<UserPermissions> permissions = JsonConvert.DeserializeObject<List<UserPermissions>>(content);               
                                       
@@ -80,8 +90,8 @@ namespace Template.API
                     Response.StatusCode = 403;
                     Context.ExecutionStatus = new OperationStatus(false);
                     Context.ExecutionStatus.Error =
-                        new Exception("Acesso negado ao recurso: " + ObjectCode + " / " + checking.ToString());
-                    ret = GetInnerExceptions("Acesso negado ao recurso: " + ObjectCode + " / " + checking.ToString());
+                        new Exception("Access denied to resource: " + ObjectCode + " / " + checking.ToString());
+                    ret = GetInnerExceptions("Access denied to resource: " + ObjectCode + " / " + checking.ToString());
                 }
             }
 

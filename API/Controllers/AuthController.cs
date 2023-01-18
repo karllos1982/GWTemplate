@@ -26,6 +26,7 @@ namespace Template.Controllers
                 IContextBuilder contextbuilder, MailManager mail  )
         {
             Context = membership.Context;
+            Context.LocalizationLanguage = Context.Settings.LocalizationLanguage;
             contextbuilder.BuilderContext(Context);
             this.Membership = membership;
             this.MailCenter = mail;            
@@ -143,7 +144,8 @@ namespace Template.Controllers
                 string permissions_content =  JsonConvert.SerializeObject(userM.Permissions);
                 
                 AuthToken token = TokenService.GenerateToken(userM.UserID.ToString(),
-                    userM.Roles[0].RoleName, permissions_content, int.Parse(data.SessionTimeOut));
+                    userM.Roles[0].RoleName, permissions_content, 
+                    int.Parse(data.SessionTimeOut), userM.DefaultLanguage );
                            
                 UserAuthenticated userA = new UserAuthenticated();
                 userA.UserID = userM.UserID.ToString();
@@ -153,7 +155,8 @@ namespace Template.Controllers
                 userA.InstanceName = userM.Instances[0].InstanceName;
                 userA.Token = token.TokenValue;
                 userA.Expires = token.ExpiresDate;
-                userA.Permissions = userM.Permissions;                 
+                userA.Permissions = userM.Permissions;
+                userA.LocalizationLanguage = userM.DefaultLanguage; 
 
                 UpdateUserLogin uplogin = new UpdateUserLogin()
                 {

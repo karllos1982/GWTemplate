@@ -1,0 +1,154 @@
+﻿@inherits LayoutComponentBase
+
+@inject IJSRuntime JSRuntime
+@inject IAppControllerAsync<UserAuthenticated> _appctrl
+@inject IAuthGatewayManager _appservices
+@inject IAppSettings _settings
+@inject NavigationManager NavigationManager
+@inject HttpClient _httpclient
+
+<PageTitle>Super Admin</PageTitle>
+
+<div class="d-flex flex-column flex-root">
+    <div class="page d-flex flex-row flex-column-fluid">
+        <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+            <div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+                <div class="header-top d-flex align-items-stretch flex-grow-1">
+                    <div class="d-flex container-xxl align-items-stretch">
+                        <div class="d-flex align-items-center align-items-lg-stretch me-5 flex-row-fluid">
+
+                            <MasterMobileButton OnClick="OpenMenu">
+
+                            </MasterMobileButton>
+
+                            <a href="/home" class="d-flex align-items-center">
+                                <img alt="Logo" src="https://preview.keenthemes.com/metronic8/demo20/assets/media/logos/demo20.svg" class="h-25px h-lg-30px" />
+                            </a>
+
+                            <MenuLink RoleName="Admin" @ref="menu"
+                                      Display="MenuLink.MENUDISPLAYENUM.TABLINK">
+                            </MenuLink>
+
+                        </div>
+
+                        @if (islogged)
+                        {
+                            <UserView Service=@GetService()
+                                  User=@user
+                                  OnLogout="Logout" Islogged=@islogged>
+                            </UserView>
+                        }
+
+
+                    </div>
+
+                </div>
+
+                <MenuLink RoleName="Admin" Permissions="permissions"
+                          Display="MenuLink.MENUDISPLAYENUM.TABITEMS">
+                </MenuLink>
+
+            </div>
+
+            @Body
+
+            <MasterFooter></MasterFooter>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@code {
+
+    private bool islogged = false;
+    private UserAuthenticated user;
+    private MenuLink menu;
+    private List<UserPermissions> permissions = null;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            this.InitResources();
+            string url = _settings.SiteURL;
+
+            islogged = await _appctrl.IsAuthenticated();
+
+            if (islogged)
+            {
+                await _appctrl.GetSession();
+
+                user = _appctrl.UserInfo;
+                permissions = await _appctrl.GetUserPermissions();
+
+                if ( user.RoleName != "Admin")
+                {
+                    NavigationManager.NavigateTo(url + "/login");
+                }
+
+                try
+                {
+                    if (_appctrl.UserInfo != null)
+                    {
+                        _appservices.Init(_httpclient, _settings.ServiceURL, _appctrl.UserInfo.Token);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                StateHasChanged();
+            }
+            else
+            {
+
+                NavigationManager.NavigateTo(url + "/login");
+            }
+
+        }
+
+    }
+
+    private void InitResources()
+    {
+        ((TemplateAppController)_appctrl).Settings = _settings;
+
+    }
+
+    private async Task Logout()
+    {
+        string url = _settings.SiteURL;
+
+        if (_appctrl.UserInfo != null)
+        {
+            await ((AuthGateway)_appservices).Logout();
+        }
+
+        await _appctrl.Logout();
+        
+        NavigationManager.NavigateTo(url);
+        islogged = false;
+        StateHasChanged();
+       
+    }
+
+    private AuthGateway GetService()
+    {
+
+        return (AuthGateway)_appservices;
+    }
+
+    private async Task OpenMenu()
+    {
+        await menu.OpenMobileMenu();
+
+    }
+
+}

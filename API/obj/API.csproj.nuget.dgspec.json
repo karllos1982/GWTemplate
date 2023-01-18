@@ -62,11 +62,11 @@
             },
             "GW.Framework": {
               "target": "Package",
-              "version": "[4.0.13, )"
+              "version": "[4.0.18, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[2.0.13, )"
+              "version": "[2.0.18, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -167,11 +167,11 @@
             },
             "GW.Framework": {
               "target": "Package",
-              "version": "[4.0.13, )"
+              "version": "[4.0.18, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[2.0.13, )"
+              "version": "[2.0.18, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -245,11 +245,11 @@
           "dependencies": {
             "GW.Framework": {
               "target": "Package",
-              "version": "[4.0.13, )"
+              "version": "[4.0.18, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[2.0.13, )"
+              "version": "[2.0.18, )"
             }
           },
           "imports": [

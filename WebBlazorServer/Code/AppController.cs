@@ -50,19 +50,89 @@ namespace Template.ServerCode
         List<MenuObject> ContentMenu { get; set; }
     }
 
-    public class TemplateAppSettings: IAppSettings
+    //public class TemplateAppSettings: IAppSettings
+    //{
+
+    //    private IWebHostEnvironment _env;
+
+    //    public TemplateAppSettings()
+    //    {
+
+    //    }
+
+    //    public TemplateAppSettings(IWebHostEnvironment webhost)
+    //    {
+    //        _env = (IWebHostEnvironment)webhost;
+    //        LoadSettings();
+    //    }
+
+    //    public string SiteURL { get; set; }
+
+    //    public string ServiceURL { get; set; }
+
+    //    public string NomeSistema { get; set; }
+
+    //    public string SessionTimeOut { get; set; }
+
+    //    public string FileContentMenu { get; set; }
+
+    //    public List<MenuObject> ContentMenu { get; set; }
+
+    //    public void LoadSettings()
+    //    {
+    //        TemplateAppSettings settings = new TemplateAppSettings();
+    //        string filename = "appsettings.json";
+    //        string jsontxt = "";
+    //        string dir = _env.ContentRootPath;
+
+    //        if (dir == "/app")
+    //        {
+    //            dir = $"{Directory.GetCurrentDirectory()}";
+    //            filename = $"{Directory.GetCurrentDirectory()}{@"/appsettings.json"}";
+    //        }
+    //        else
+    //        {
+    //            filename = dir + "/" + filename;
+    //        }
+
+    //        if (File.Exists(filename))
+    //        {
+
+    //            jsontxt = File.ReadAllText(filename);
+
+    //            if (jsontxt.Length > 0)
+    //            {
+    //                settings = JsonConvert.DeserializeObject<TemplateAppSettings>(jsontxt);
+    //                if (settings != null)
+    //                {
+
+    //                    this.SiteURL = settings.SiteURL;                        
+    //                    this.ServiceURL = settings.ServiceURL;
+    //                    this.NomeSistema = settings.NomeSistema;
+    //                    this.SessionTimeOut = settings.SessionTimeOut;
+    //                    this.FileContentMenu = settings.FileContentMenu;
+    //                    this.ContentMenu = settings.ContentMenu;
+    //                }
+
+    //            }
+    //        }
+
+    //    }
+    //}
+
+    public class TemplateAppSettings : IAppSettings
     {
 
-        private IWebHostEnvironment _env;
+        private IConfiguration _env;
 
         public TemplateAppSettings()
         {
 
         }
 
-        public TemplateAppSettings(IWebHostEnvironment webhost)
+        public TemplateAppSettings(IConfiguration webhost)
         {
-            _env = (IWebHostEnvironment)webhost;
+            _env = webhost;
             LoadSettings();
         }
 
@@ -78,44 +148,14 @@ namespace Template.ServerCode
 
         public List<MenuObject> ContentMenu { get; set; }
 
-        public void LoadSettings()
+        public void LoadSettings(HttpClient http = null)
         {
-            TemplateAppSettings settings = new TemplateAppSettings();
-            string filename = "appsettings.json";
-            string jsontxt = "";
-            string dir = _env.ContentRootPath;
 
-            if (dir == "/app")
-            {
-                dir = $"{Directory.GetCurrentDirectory()}";
-                filename = $"{Directory.GetCurrentDirectory()}{@"/appsettings.json"}";
-            }
-            else
-            {
-                filename = dir + "/" + filename;
-            }
-
-            if (File.Exists(filename))
-            {
-
-                jsontxt = File.ReadAllText(filename);
-
-                if (jsontxt.Length > 0)
-                {
-                    settings = JsonConvert.DeserializeObject<TemplateAppSettings>(jsontxt);
-                    if (settings != null)
-                    {
-                       
-                        this.SiteURL = settings.SiteURL;                        
-                        this.ServiceURL = settings.ServiceURL;
-                        this.NomeSistema = settings.NomeSistema;
-                        this.SessionTimeOut = settings.SessionTimeOut;
-                        this.FileContentMenu = settings.FileContentMenu;
-                        this.ContentMenu = settings.ContentMenu;
-                    }
-
-                }
-            }
+            this.SiteURL = _env["SiteURL"];
+            this.ServiceURL = _env["ServiceURL"];
+            this.NomeSistema = _env["NomeSistema"];
+            this.SessionTimeOut = _env["SessionTimeOut"];
+            this.FileContentMenu = _env["FileContentMenu"];
 
         }
     }
@@ -148,9 +188,9 @@ namespace Template.ServerCode
    
     public class UserConext
     {
-        public string IdClinicaSelecionada { get; set; }
+        public string Id { get; set; }
 
-        public string NomeClinicaSelecionada { get; set; }
+        public string Name { get; set; }
 
 
     }

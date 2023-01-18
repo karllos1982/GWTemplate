@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Xk53f1/gthawwT7OjQlx8fEjSveSG2+1GEcpCiBLq2g/ADgQUQiWU+F4dmstQBU2wIsh+wPAoUUdt9Qc7S6xOw==",
+  "dgSpecHash": "FPbhApGplVU2YCI1FcHzUBpGWbvj9fpSP8LVrtfINH23bfFrz9X/iY7XeYe9Ldrk3dUjNAF7QexvivRVj8Bxvw==",
   "success": true,
   "projectFilePath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\API\\API.csproj",
   "expectedPackageFiles": [
@@ -8,8 +8,8 @@
     "C:\\Users\\Admin\\.nuget\\packages\\azure.storage.blobs\\12.14.1\\azure.storage.blobs.12.14.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\azure.storage.common\\12.13.0\\azure.storage.common.12.13.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\gw.framework\\4.0.13\\gw.framework.4.0.13.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\gw.membership\\2.0.13\\gw.membership.2.0.13.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\gw.framework\\4.0.18\\gw.framework.4.0.18.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\gw.membership\\2.0.18\\gw.membership.2.0.18.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.10\\microsoft.aspnetcore.authentication.jwtbearer.6.0.10.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

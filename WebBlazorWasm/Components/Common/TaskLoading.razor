@@ -1,0 +1,46 @@
+﻿@inject NavigationManager NavigationManager
+
+<Modal @ref="modalRef"   >
+    <ModalContent Centered Style="border-width:3px;" >       
+        <ModalBody >
+             <div class="row">
+                <div class="col-md-10">
+                     <h5>
+                        @Title
+                    </h5>
+                </div>
+
+                  <div class="col-md-2">
+                      <img src="../images/circle_loader.gif" style="width:64px;height:64px" />
+                </div>
+
+             </div>
+            
+
+        </ModalBody>       
+    </ModalContent>
+</Modal>
+
+
+@code {
+
+    private Modal modalRef;
+   
+    [Parameter]
+    public string Title { get; set; }
+
+    public async Task Begin()
+    {               
+        await modalRef.Show();
+    
+    }
+
+
+    public async Task End()
+    {
+        await modalRef.Hide();
+    }
+
+
+
+}

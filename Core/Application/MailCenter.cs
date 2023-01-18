@@ -7,12 +7,11 @@ namespace Template.Core.Manager
 {
     public class TemplateMailCenter : MailManager
     {
-        public MailSettings Settings { get; set; }
-
+       
         public TemplateMailCenter(ISettings settings)
         {
-            Settings = settings.MailSettings;
-            Settings.ContentEncoding = System.Text.Encoding.UTF8;
+            Config = settings.MailSettings;
+            Config.ContentEncoding = System.Text.Encoding.UTF8;
         }
 
         public void Initialize()
@@ -32,7 +31,7 @@ namespace Template.Core.Manager
             strq.Append("Utilize essa senha pra acessar o site. ");
             strq.Append("Após acessar, recomendamos que você redefina sua senha.");
            
-            ret.Status = Send(name, email, Settings.NameSender + " - Recuperação de Senha", strq.ToString());
+            ret.Status = Send(name, email, Config.NameSender + " - Recuperação de Senha", strq.ToString());
 
             return ret;
         }
@@ -47,7 +46,7 @@ namespace Template.Core.Manager
             strq.Append("<b>" + code + "</b><BR/>");
             strq.Append("Acesse o site e utilize esse código pra ativação da conta.");
           
-            ret.Status = Send(name, email, Settings.NameSender + " - Ativação de Conta", strq.ToString());
+            ret.Status = Send(name, email, Config.NameSender + " - Ativação de Conta", strq.ToString());
 
             return ret;
         }
@@ -61,7 +60,7 @@ namespace Template.Core.Manager
             strq.Append("<b>" + code + "</b><BR/>");
             strq.Append("Acesse o site e utilize esse código pra trocar a sua senha.");
             
-            ret.Status = Send(name, email, Settings.NameSender + " - Redefinição de Senha", strq.ToString());
+            ret.Status = Send(name, email, Config.NameSender + " - Redefinição de Senha", strq.ToString());
 
             return ret;
         }
@@ -71,12 +70,12 @@ namespace Template.Core.Manager
             OperationStatus ret = new OperationStatus(true);
             StringBuilder strq = new StringBuilder();
             strq.Append("<b>CONFIRMAÇÃO DE E-MAIL</b>" + "<BR/> <BR/>");
-            strq.Append("Bem-vindo ao Portal " + Settings.NameSender + "<BR/>");
+            strq.Append("Bem-vindo ao Portal " + Config.NameSender + "<BR/>");
             strq.Append("Utilize o código abaixo para confirmar seu cadastro no site o Portal." + "<BR/>");
             strq.Append("<b>" + code + "</b><BR/>");
             strq.Append("Prossiga com a confirmação do cadastro no site.");
 
-            ret.Status = Send(name, email, Settings.NameSender + " - Confirmação de Cadastro", strq.ToString());
+            ret.Status = Send(name, email, Config.NameSender + " - Confirmação de Cadastro", strq.ToString());
 
             return ret;
         }

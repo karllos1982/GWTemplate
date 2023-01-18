@@ -20,11 +20,8 @@ builder.Services.AddSingleton<IAuthGatewayManager, AuthGateway>();
 builder.Services.AddSingleton<IMembershipGatewayManager, MembershipGateway>();
 builder.Services.AddSingleton<ITemplateGatewayManager, TemplateGateway>();
 builder.Services.AddSingleton<IDataCacheGatewayManager, DataCacheGateway>();
-//builder.Services.AddSingleton<IAdminGatewayManager, AdminGateway>();
-//builder.Services.AddSingleton<IDentistaGatewayManager, ModuloDentistaGateway>();
 
 builder.Services.AddScoped<IAppControllerAsync<UserAuthenticated>, TemplateAppController>();
-//builder.Services.AddScoped<IMenuItemActive, MenuItemActive>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Environment.WebRootPath) });
 

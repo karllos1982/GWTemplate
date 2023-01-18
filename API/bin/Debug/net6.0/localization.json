@@ -1,36 +1,36 @@
 [
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "1",
     "Name": "Execution-Error",
     "Text": "Execution error:"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "2",
     "Name": "Validation-Error",
     "Text": "Data validation error."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "3",
     "Name": "Record-NotFound",
     "Text": "The requested record was not found."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "4",
     "Name": "Login-Invalid-Password",
     "Text": "Invalid password. You still have {0} attempts before the account is deactivated."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "5",
     "Name": "Login-Attempts",
     "Text": "You have already used access attempts and the account has been disabled. Request activation."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "6",
     "Name": "Login-Inactive-Account",
     "Text": "The account associated with the User is not active. Request account activation."
@@ -41,127 +41,127 @@
     "Text": "The account associated with the User is locked out. Contact your system administrator."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "8",
     "Name": "Login-User-NotFound",
     "Text": "User not found."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "9",
     "Name": "User-Exists",
     "Text": "There is already a user with the email:"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "10",
     "Name": "Email-Exists",
     "Text": "The email you entered already exists."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "11",
     "Name": "Profile-NotBe-Null",
     "Text": "The Profile cannot be null."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "12",
     "Name": "User-Error-Exclude-Childs",
     "Text": "There was an error deleting child items (Roles)."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "13",
     "Name": "User-Invalid-Password-Code",
     "Text": "The password exchange authorization code is invalid."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "14",
     "Name": "Account-Active",
     "Text": "The account associated with the User is already active."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "15",
     "Name": "User-Invalid-Activation-Code",
     "Text": "The activation authorization code is invalid."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "16",
     "Name": "User-No-Image",
     "Text": "Send the image file."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "17",
     "Name": "User-Role-Exists",
     "Text": "This Role is already associated with the user."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "18",
     "Name": "User-Role-No-Exists",
     "Text": "This Role does not belong to the user."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "19",
     "Name": "Http-Unauthorized",
     "Text": "Unauthorized access"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "20",
     "Name": "Http-NotFound",
     "Text": "The resource could not be found"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "21",
     "Name": "Http-Forbidden",
     "Text": "User profile without access permission."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "22",
     "Name": "Http-500Error",
     "Text": "An error occurred in the processing of the request."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "23",
     "Name": "Http-ServiceUnavailable",
     "Text": "The requested service is unavailable."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "24",
     "Name": "API-Unexpected-Exception",
     "Text": "Unexpected error not identified:: GetInnerExceptions@f2]"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "25",
     "Name": "ShortDayName-1",
     "Text": "Sun"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "26",
     "Name": "ShortDayName-2",
     "Text": "Mon"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "27",
     "Name": "ShortDayName-3",
     "Text": "Tue"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "28",
     "Name": "ShortDayName-4",
     "Text": "Wed"
@@ -172,7 +172,7 @@
     "Text": "Thu"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "30",
     "Name": "ShortDayName-6",
     "Text": "Fri"
@@ -183,416 +183,416 @@
     "Text": "Sat"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "32",
     "Name": "MonthName-1",
     "Text": "JANUARY"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "33",
     "Name": "MonthName-2",
     "Text": "FEBRUARY"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "34",
     "Name": "MonthName-3",
     "Text": "MARCH"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "35",
     "Name": "MonthName-4",
     "Text": "APRIL"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "36",
     "Name": "MonthName-5",
     "Text": "MAY"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "37",
     "Name": "MonthName-6",
     "Text": "JUNE"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "38",
     "Name": "MonthName-7",
     "Text": "JULY"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "39",
     "Name": "MonthName-8",
     "Text": "AUGUST"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "40",
     "Name": "MonthName-9",
     "Text": "SEPTEMBER"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "41",
     "Name": "MonthName-10",
     "Text": "OCTOBER"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "42",
     "Name": "MonthName-11",
     "Text": "NOVEMBER"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "43",
     "Name": "MonthName-12",
     "Text": "DECEMBER"
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "44",
     "Name": "Validation-NotNull",
     "Text": "cannot be null."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "45",
     "Name": "Validation-Max-Characters",
     "Text": "The {0} field cannot have more than {1} characters."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "46",
     "Name": "Validation-Invalid-Field",
     "Text": "The {0} field is invalid."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "47",
     "Name": "Validation-Invalid-UserName",
     "Text": "The {0} field is invalid. Do not use special characters or spaces."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "48",
     "Name": "Validation-Unique-Value",
     "Text": "The {0} field is invalid. Value must be unique."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "49",
     "Name": "User-Instance-Exists",
     "Text": "This Instance is already associated with the user."
   },
   {
-    "Language" : "eng", 
+    "Language" : "en-us", 
     "Code": "50",
     "Name": "User-Instance-No-Exists",
     "Text": "This Instance does not belong to the user."
   }
 ,
  {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "1",
     "Name": "Execution-Error",
     "Text": "Erro de execução: "
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "2",
     "Name": "Validation-Error",
     "Text": "Erro na validação de dados."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "3",
     "Name": "Record-NotFound",
     "Text": "O registro solicitado não foi encontrado."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "4",
     "Name": "Login-Invalid-Password",
     "Text": "Senha inválida. Você ainda tem {0} tentativas antes da conta ser desativada."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "5",
     "Name": "Login-Attempts",
     "Text": "Você já utilizou as tentativas de acesso e a conta foi desativada. Solicite a ativação."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "6",
     "Name": "Login-Inactive-Account",
     "Text": "A conta associada ao Usuário não está ativa. Solicite a ativação da conta."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "7",
     "Name": "Login-Locked-Account",
     "Text": "A conta associada ao Usuário está bloqueada. Contate o administrador do sistema."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "8",
     "Name": "Login-User-NotFound",
     "Text": "Usuário não encontrado."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "9",
     "Name": "User-Exists",
     "Text": "Já existe um usuário com o e-mail: "
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "10",
     "Name": "Email-Exists",
     "Text": "O e-mail informado já existe."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "11",
     "Name": "Profile-NotBe-Null",
     "Text": "O Perfil não pode ser nulo."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "12",
     "Name": "User-Error-Exclude-Childs",
     "Text": "Houve um erro ao excluir os itens filhos (Roles)."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "13",
     "Name": "User-Invalid-Password-Code",
     "Text": "O código de autorização de troca de senha é inválido."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "14",
     "Name": "Account-Active",
     "Text": "A conta associada ao Usuário já está ativa."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "15",
     "Name": "User-Invalid-Activation-Code",
     "Text": "O código de autorização de ativação é inválido."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "16",
     "Name": "User-No-Image",
     "Text": "Envie o arquivo da imagem."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "17",
     "Name": "User-Role-Exists",
     "Text": "Esta Role já está associada ao usuário."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "18",
     "Name": "User-Role-No-Exists",
     "Text": "Esta Role não pertence ao usuário."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "19",
     "Name": "Http-Unauthorized",
     "Text": "Acesso não autorizado"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "20",
     "Name": "Http-NotFound",
     "Text": "O recurso não foi encontrado"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "21",
     "Name": "Http-Forbidden",
     "Text": "Perfil do usuário sem permissão de acesso"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "22",
     "Name": "Http-500Error",
     "Text": "Ocorreu um erro no processamento da requisição."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "23",
     "Name": "Http-ServiceUnavailable",
     "Text": "O serviço solicitado está indisponível."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "24",
     "Name": "API-Unexpected-Exception",
     "Text": "Erro inesperado não identificado: GetInnerExceptions@f2]"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "25",
     "Name": "ShortDayName-1",
     "Text": "Dom"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "26",
     "Name": "ShortDayName-2",
     "Text": "Seg"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "27",
     "Name": "ShortDayName-3",
     "Text": "Ter"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "28",
     "Name": "ShortDayName-4",
     "Text": "Qua"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "29",
     "Name": "ShortDayName-5",
     "Text": "Qui"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "30",
     "Name": "ShortDayName-6",
     "Text": "Sex"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "31",
     "Name": "ShortDayName-7",
     "Text": "Sáb"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "32",
     "Name": "MonthName-1",
     "Text": "JANEIRO"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "33",
     "Name": "MonthName-2",
     "Text": "FEVEREIRO"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "34",
     "Name": "MonthName-3",
     "Text": "MARÇO"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "35",
     "Name": "MonthName-4",
     "Text": "ABRIL"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "36",
     "Name": "MonthName-5",
     "Text": "MAIO"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "37",
     "Name": "MonthName-6",
     "Text": "JUNHO"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "38",
     "Name": "MonthName-7",
     "Text": "JULHO"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "39",
     "Name": "MonthName-8",
     "Text": "AGOSTO"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "40",
     "Name": "MonthName-9",
     "Text": "SETEMBRO"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "41",
     "Name": "MonthName-10",
     "Text": "OUTUBRO"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "42",
     "Name": "MonthName-11",
     "Text": "NOVEMBRO"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "43",
     "Name": "MonthName-12",
     "Text": "DEZEMBRO"
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "44",
     "Name": "Validation-NotNull",
     "Text": "não pode ser nulo."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "45",
     "Name": "Validation-Max-Characters",
     "Text": "O campo {0} não pode ter mais de {maxlength} caracteres."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "46",
     "Name": "Validation-Invalid-Field",
     "Text": "O campo {0} é inválido."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "47",
     "Name": "Validation-Invalid-UserName",
     "Text": "O campo {0} é inválido. Não use caracteres especiais ou espaços."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "48",
     "Name": "Validation-Unique-Value",
     "Text": "O campo {0} é inválido. O valor informado deve ser único."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "49",
     "Name": "User-Instance-Exists",
     "Text": "Esta Instância já está associada ao Usuário."
   },
   {
-    "Language" : "pt", 
+    "Language" : "pt-br", 
     "Code": "50",
     "Name": "User-Instance-No-Exists",
     "Text": "Esta Instância não pertence ao Usuário."

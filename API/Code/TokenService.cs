@@ -17,7 +17,7 @@ namespace Template.API
         public const string PRIVATEKEY = "AB725B66-DC4A-40FC-8061-5CFAE0F4C8AB";
 
         public static AuthToken GenerateToken(string username,string rolename, 
-                string permissions, int timeout)
+                string permissions, int timeout, string language)
         {
             AuthToken ret = new AuthToken();
 
@@ -29,11 +29,13 @@ namespace Template.API
             Claim cName = new Claim(ClaimTypes.Name, username);
             Claim cRole = new Claim(ClaimTypes.Role, rolename);
             Claim cPermissions = new Claim(ClaimTypes.UserData , permissions);
+            Claim cLang = new Claim(ClaimTypes.Locality , language);
 
-            Claim[] claims = new Claim[3];
+            Claim[] claims = new Claim[4];
             claims[0] = cName;
             claims[1] = cRole;
             claims[2] = cPermissions;
+            claims[3] = cLang;
 
             var tokenDesc = new SecurityTokenDescriptor
             {
