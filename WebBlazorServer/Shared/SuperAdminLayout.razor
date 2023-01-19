@@ -82,18 +82,19 @@
 
             if (islogged)
             {
-                await _appctrl.GetSession();
-
-                user = _appctrl.UserInfo;
-                permissions = await _appctrl.GetUserPermissions();
-
-                if (user.RoleName != "SuperAdmin" )                    
-                {
-                    NavigationManager.NavigateTo(url + "/login");
-                }
-
                 try
                 {
+
+                    await _appctrl.GetSession();
+
+                    user = _appctrl.UserInfo;
+                    permissions = await _appctrl.GetUserPermissions();
+
+                    if (user.RoleName != "SuperAdmin" )                    
+                    {
+                        NavigationManager.NavigateTo(url + "/login");
+                    }
+               
                     if (_appctrl.UserInfo != null)
                     {
                         _appservices.Init(_httpclient, _settings.ServiceURL, _appctrl.UserInfo.Token);

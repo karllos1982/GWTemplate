@@ -8,16 +8,16 @@ namespace Template.API
     public class TemplateSettings : ISettings
     {
 
-        private IWebHostEnvironment _env;
+        private IConfiguration _env;
 
         public TemplateSettings()
         {
             
         }
 
-        public TemplateSettings(IWebHostEnvironment webhost)
+        public TemplateSettings(IConfiguration webhost)
         {
-            _env = (IWebHostEnvironment)webhost;
+            _env = webhost;
             LoadSettings();
         }
 
@@ -39,49 +39,27 @@ namespace Template.API
 
         public void LoadSettings()
         {
-            TemplateSettings settings = new TemplateSettings();
-            string filename = "appsettings.json";
-            string jsontxt = "";
-            string dir = _env.ContentRootPath;
+            this.Sources= new SourceConfig[1];
 
-            if (dir == "/app")
-            {
-                dir = $"{Directory.GetCurrentDirectory()}";
-                filename = $"{Directory.GetCurrentDirectory()}{@"/appsettings.json"}";
-            }
-            else
-            {
-                filename = dir + "/" + filename;
-            }
+            this.Sources[0] = new SourceConfig(); 
+            this.Sources[0].SourceValue = _env["Sources01"];
+            this.Sources[0].SourceName = "Default";
 
-            if (File.Exists(filename))
-            {
+            this.SiteURL = _env["SiteURL"];
+            this.ProfileImageDir = _env["ProfileImageDir"];
+            this.FileStorageConnection = _env["FileStorageConnection"];
+            this.ApplicationName = _env["ApplicationName"];            
+            this.LocalizationLanguage = _env["LocalizationLanguage"];
+            this.ContextLength = (int)_env.GetValue(typeof(int), "ContextLength");
+                       
+            this.MailSettings = new MailSettings();
+            this.MailSettings.SMTPServer = _env["SMTPServer"];
+            this.MailSettings.SMTPUser = _env["SMTPUser"];
+            this.MailSettings.SMTPPassword = _env["SMTPPassword"];
+            this.MailSettings.Port = _env["Port"];
+            this.MailSettings.EmailSender = _env["EmailSender"];
+            this.MailSettings.NameSender = _env["NameSender"];
 
-                jsontxt = File.ReadAllText(filename);
-
-                if (jsontxt.Length > 0)
-                {
-                    settings = JsonConvert.DeserializeObject<TemplateSettings>(jsontxt);
-                    if (settings != null)
-                    {
-                        if (settings.ProfileImageDir == "")
-                        {
-                            settings.ProfileImageDir = _env.ContentRootPath + @"FileServer\UserProfileImage";
-                        }
-
-                        this.Sources = settings.Sources;
-                        this.SiteURL = settings.SiteURL;
-                        this.ProfileImageDir = settings.ProfileImageDir;
-                        this.FileStorageConnection = settings.FileStorageConnection;
-                        this.ApplicationName = settings.ApplicationName;
-                        this.MailSettings = settings.MailSettings;
-                        this.LocalizationLanguage = settings.LocalizationLanguage;
-                        this.ContextLength = settings.ContextLength;
-                    }
-
-                }
-            }
-            
         }
 
 

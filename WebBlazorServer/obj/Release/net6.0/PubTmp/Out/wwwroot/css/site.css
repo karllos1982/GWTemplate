@@ -111,4 +111,8 @@ a, .btn-link {
         border-right-color: white;
     }
 
+    .table-responsive table tbody tr td del {        
+        color: red !important;
+        text-decoration: line-through;
+    }
 
