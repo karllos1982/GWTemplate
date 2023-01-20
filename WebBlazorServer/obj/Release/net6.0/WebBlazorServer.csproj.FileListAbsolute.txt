@@ -116,3 +116,4 @@ H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Rele
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Release\net6.0\WebBlazorServer.pdb
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Release\net6.0\WebBlazorServer.genruntimeconfig.cache
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Release\net6.0\ref\WebBlazorServer.dll
+C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Release\net6.0\appsettings-prod.json

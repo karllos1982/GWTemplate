@@ -5,129 +5,131 @@ build_property.UsingMicrosoftNETSdkWeb =
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = false
 build_property.PlatformNeutralAssembly = 
-build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = browser
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = true
+build_property.IncludeAllContentForSelfExtract = 
 build_property.RootNamespace = WebBlazorWasm
 build_property.RootNamespace = WebBlazorWasm
-build_property.ProjectDir = H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\
+build_property.ProjectDir = C:\Projetos\OUTROS\GWTemplate\WebBlazorWasm\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm
+build_property.MSBuildProjectDirectory = C:\Projetos\OUTROS\GWTemplate\WebBlazorWasm
 build_property._RazorSourceGeneratorDebug = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/App.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/BackButton.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/BackButton.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cQmFja0J1dHRvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/BreadCrumbView.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/BreadCrumbView.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cQnJlYWRDcnVtYlZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/IconButton.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/IconButton.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cSWNvbkJ1dHRvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/MasterFooter.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/MasterFooter.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cTWFzdGVyRm9vdGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/MasterMobileButton.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/MasterMobileButton.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cTWFzdGVyTW9iaWxlQnV0dG9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/MenuButton.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/MenuButton.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cTWVudUJ1dHRvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/MenuLink.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/MenuLink.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cTWVudUxpbmsucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/MessageBox.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/MessageBox.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cTWVzc2FnZUJveC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/TaskButton.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/TaskButton.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cVGFza0J1dHRvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/TaskIconButton.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/TaskIconButton.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cVGFza0ljb25CdXR0b24ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/TaskLoading.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/TaskLoading.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cVGFza0xvYWRpbmcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Components/Common/UserView.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Components/Common/UserView.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21tb25cVXNlclZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Pages/Admin/Client.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Pages/Admin/Client.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cQ2xpZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Pages/Admin/Index.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Pages/Admin/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Pages/Index.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Pages/Login.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Pages/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/DataLog.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/DataLog.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxEYXRhTG9nLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/Index.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxJbmRleC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/ObjectPermission.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/ObjectPermission.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxPYmplY3RQZXJtaXNzaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/Permission.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/Permission.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxQZXJtaXNzaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/SessionLog.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/SessionLog.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxTZXNzaW9uTG9nLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/Users.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Pages/SuperAdmin/Users.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VwZXJBZG1pblxVc2Vycy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Shared/AdminLayout.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Shared/AdminLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEFkbWluTGF5b3V0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Shared/LoggedLayout.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Shared/LoggedLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvZ2dlZExheW91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Shared/SuperAdminLayout.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Shared/SuperAdminLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cGVyQWRtaW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/_Imports.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Shared/MainLayout.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-hz2gusntmj
 
-[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebBlazorWasm/Shared/UnloggedLayout.razor]
+[C:/Projetos/OUTROS/GWTemplate/WebBlazorWasm/Shared/UnloggedLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFVubG9nZ2VkTGF5b3V0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-wtlsdfsdmh

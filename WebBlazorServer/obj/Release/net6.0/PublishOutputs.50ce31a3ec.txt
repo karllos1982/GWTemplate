@@ -1,4 +1,5 @@
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Release\net6.0\PubTmp\Out\WebBlazorServer.exe
+C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Release\net6.0\PubTmp\Out\appsettings-prod.json
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Release\net6.0\PubTmp\Out\appsettings.json
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Release\net6.0\PubTmp\Out\WebBlazorServer.dll

@@ -152,3 +152,11 @@ H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\sta
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.API.props
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.API.props
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\appsettings-prd.json
+C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\FileServer\UserProfileImage\user_anonymous.png
+C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\Azure.Core.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\Azure.Storage.Blobs.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\Azure.Storage.Common.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\System.IO.Hashing.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\System.Memory.Data.dll

@@ -87,7 +87,6 @@ C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Models.pdb
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Debug\net6.0\staticwebassets.build.json
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Debug\net6.0\staticwebassets.development.json
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Debug\net6.0\scopedcss\Shared\UnloggedLayout.razor.rz.scp.css
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Debug\net6.0\scopedcss\bundle\WebBlazorServer.styles.css
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\obj\Debug\net6.0\scopedcss\projectbundle\WebBlazorServer.bundle.scp.css
@@ -158,3 +157,11 @@ H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debu
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.WebBlazorServer.props
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.WebBlazorServer.props
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\appsettings-prod.json
+C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Authorization.dll
+C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Components.dll
+C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
+C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.JSInterop.dll
+C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\System.IO.Pipelines.dll

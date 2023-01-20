@@ -112,3 +112,10 @@ H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Release\net6.0\r
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Release\net6.0\API.pdb
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Release\net6.0\API.genruntimeconfig.cache
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\obj\Release\net6.0\ref\API.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Release\net6.0\appsettings-prd.json
+C:\Projetos\OUTROS\GWTemplate\API\bin\Release\net6.0\Azure.Core.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Release\net6.0\Azure.Storage.Blobs.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Release\net6.0\Azure.Storage.Common.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Release\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Release\net6.0\System.IO.Hashing.dll
+C:\Projetos\OUTROS\GWTemplate\API\bin\Release\net6.0\System.Memory.Data.dll
