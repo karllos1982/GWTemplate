@@ -6,6 +6,7 @@
 @inject IAppControllerAsync<UserAuthenticated> _appctrl
 @inject IMembershipGatewayManager _memberservices
 @inject IAuthGatewayManager _appservices
+@inject IDataCacheGatewayManager _cache
 @inject IAppSettings _settings
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
@@ -27,7 +28,7 @@
 								        <div class="card-header pt-7">
 									  
 									        <h3 class="card-title align-items-start flex-column">
-										        <span class="card-label fw-bold text-dark">Pesquisar</span>										
+										        <span class="card-label fw-bold text-dark">@view.texts.SearchButtonLabel</span>										
 									        </h3>									        
 									       
                                         </div>
@@ -83,9 +84,9 @@
 
                                                 <p class="field" style="padding-top:10px">
 
-                                                    <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
-                                                Description="Clique aqui buscar usuários." ReadOnly=!view.Permissions.AllowRead
-                                                                ActionLabel="Pesquisando...">
+                                                        <TaskButton @ref="searchbtn" OnClick="OnSearch" Title=@view.texts.SearchButtonLabel
+                                                             Description="Clique aqui buscar usuários." ReadOnly=!view.Permissions.AllowRead
+                                                                    ActionLabel=@view.texts.SearchingLabel>
                                                     </TaskButton>
 
                                                 </p>									       
@@ -93,7 +94,7 @@
                                                  <p class="field" style="padding-top:10px">
                                                      <TaskButton @ref="newbtn" OnClick="OnNew" Title="Novo Usuário" Class="dark"
                                                           Description="Clique aqui criar o novo usuário." Disabled="" ReadOnly=!view.Permissions.AllowSave
-                                                          ActionLabel="Inserindo...">
+                                                             ActionLabel=@view.texts.InsertingLoadingLabel>
                                                         </TaskButton>
 
                                                  </p>
@@ -108,7 +109,7 @@
 										<div class="card-header pt-7">
 											
 											<h3 class="card-title align-items-start flex-column">
-												<span class="card-label fw-bold text-dark">Resultado da Busca</span>												
+												<span class="card-label fw-bold text-dark">@view.texts.SearchResultLabel</span>												
 											</h3>
                                         </div>
 
@@ -154,7 +155,7 @@
                                                                 </DisplayTemplate>
                                                             </DataGridColumn>                                              
                                             
-                                                             <DataGridColumn Field="@nameof(UserResult.UserID)" Caption="Detalhes" >
+                                                             <DataGridColumn Field="@nameof(UserResult.UserID)" Caption=@view.texts.DetailsLabel >
                                                                 <DisplayTemplate>
                                                                       @{
                                                                             UserResult user = (context as UserResult);
@@ -177,7 +178,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <p> Nenhum registro encontrado </p>
+                                                    <p> @view.texts.NoRecordsFound </p>
                                                 }
                                               }
                                          
@@ -546,8 +547,22 @@
                                                             <div class="col-md-6">
                                                                 <div class="">
                                                                     <label class="form-label" >Default Language :</label>
-                                                                    <input type="text" @bind-value="@view.newModel.DefaultLanguage" maxlength="5" class="form-control" />
-                                                                        <label class="validation_field">@view.GetSummaryMessage("DefaultLanguage") </label>
+                                                                                                                                                                                                                                                                                          
+                                                                    @if (view.listLangs != null)
+                                                                    {
+                                                                        @if (view.listLangs.Count > 0)
+                                                                        {
+                                                                            <SelectList TItem="LocalizationTextList"
+                                                                                TValue="string"
+                                                                                Data="@view.listLangs"
+                                                                                TextField="@((item)=>item.Language)"
+                                                                                ValueField="@((item)=>item.Language)"
+                                                                                @bind-SelectedValue="@view.newModel.DefaultLanguage"></SelectList>
+                                                                        }
+
+                                                                    }
+                                                                     <label class="validation_field">@view.GetSummaryMessage("DefaultLanguage") </label>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -577,7 +592,8 @@
                     }
                     else
                     {
-                        <h5>Carregando a página. Aguarde...</h5>
+
+                        <h5>Loading page...</h5>
 
                     }
                 </div>
@@ -625,8 +641,10 @@
         {
             LoggedUser = _appctrl.UserInfo;
             _memberservices.Init(_httpclient,_settings.ServiceURL,LoggedUser.Token);
+            _cache.Init(_httpclient,_settings.ServiceURL,LoggedUser.Token);
 
-            view = new UserViewModel((_memberservices as MembershipGateway), LoggedUser);
+            view = new UserViewModel((_memberservices as MembershipGateway), 
+                  (_cache as DataCacheGateway),LoggedUser );
 
             List<UserPermissions> list = await _appctrl.GetUserPermissions();
             view.Permissions 
@@ -654,7 +672,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnExecuteSearch, view.ExecutionStatus.Error.Message);
         }
 
         searchbtn.End();
@@ -677,7 +695,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnReturnData, view.ExecutionStatus.Error.Message);
         }
         else
         {
@@ -699,7 +717,7 @@
         }
         else
         {
-            await msgbox.ShowDialog("Aviso", "O status do usuário foi alterado.");
+            await msgbox.ShowDialog(view.texts.NoticeLabel, "O status do usuário foi alterado.");
         }
 
         statebtn.End();
@@ -714,12 +732,12 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro criar novo usuário.", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnCreateNewRecord, view.ExecutionStatus.Error.Message);
         }
         else
         {
             this.Back();
-            await  msgbox_create.ShowDialog("Sucesso!", "O novo usuário foi criado com sucesso. Deseja continuar inserindo ?");
+            await  msgbox_create.ShowDialog(view.texts.NoticeLabel, view.texts.AfterSaveAnswering);
 
         }
 
@@ -760,7 +778,7 @@
         }
         else
         {
-            await msgbox.ShowDialog("Aviso", "A Instância do usuário foi alterado.");
+            await msgbox.ShowDialog(view.texts.NoticeLabel, "A Instância do usuário foi alterado.");
         }
 
         alterinstancebtn.End();
@@ -779,7 +797,7 @@
         }
         else
         {
-            await msgbox.ShowDialog("Aviso", "O Perfil do usuário foi alterado.");
+            await msgbox.ShowDialog(view.texts.NoticeLabel, "O Perfil do usuário foi alterado.");
         }
 
         alterrolebtn.End();

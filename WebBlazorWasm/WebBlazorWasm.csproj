@@ -19,8 +19,8 @@
     <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.1.5" />
     <PackageReference Include="Blazorise.Snackbar" Version="1.1.5" />
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="GW.Framework" Version="4.0.18" />
-    <PackageReference Include="GW.Membership" Version="2.0.18" />
+    <PackageReference Include="GW.Framework" Version="4.0.21" />
+    <PackageReference Include="GW.Membership" Version="2.0.21" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Analyzers" Version="7.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.11" />

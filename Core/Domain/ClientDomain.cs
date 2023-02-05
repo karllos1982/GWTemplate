@@ -94,7 +94,7 @@ namespace Template.Domain
             if (!ret.Status)
             {               
                 ret.Error 
-                    = new Exception(GW.Localization.GetItem("Validation-Error", Context.LocalizationLanguage).Text);
+                    = new Exception(GW.LocalizationText.Get("Validation-Error", Context.LocalizationLanguage).Text);
             }
           
             Context.ExecutionStatus = ret;
@@ -125,7 +125,7 @@ namespace Template.Domain
                 }
 
                 ret.AddInnerException("Contacts",
-                   "Contacts: " +  GW.Localization.GetItem("Validation-NotNull", Context.LocalizationLanguage).Text);               
+                   "Contacts: " +  GW.LocalizationText.Get("Validation-NotNull", Context.LocalizationLanguage).Text);               
             }
             else
             {               
@@ -141,7 +141,7 @@ namespace Template.Domain
 
                         ret.Status = false; 
                         ret.AddInnerException("Contacts",
-                              "Contacts: " + GW.Localization.GetItem("Validation-Error", Context.LocalizationLanguage).Text);
+                              "Contacts: " + GW.LocalizationText.Get("Validation-Error", Context.LocalizationLanguage).Text);
 
                         break;
 
@@ -170,7 +170,7 @@ namespace Template.Domain
                 {
                     ret.Status = false;
                     string msg
-                        = string.Format(GW.Localization.GetItem("Validation-Unique-Value", 
+                        = string.Format(GW.LocalizationText.Get("Validation-Unique-Value", 
                             Context.LocalizationLanguage).Text, "Client Name"); 
                     ret.Error = new Exception(msg);
                     ret.AddInnerException("ClientName", msg);
@@ -196,7 +196,7 @@ namespace Template.Domain
                     {
                         ret.Status = false;
                         string msg 
-                            = string.Format(GW.Localization.GetItem("Validation-Unique-Value", 
+                            = string.Format(GW.LocalizationText.Get("Validation-Unique-Value", 
                                 Context.LocalizationLanguage).Text, "Client Name");
                         ret.Error = new Exception(msg);
                         ret.AddInnerException("ClientName", msg);
@@ -335,7 +335,7 @@ namespace Template.Domain
             {
                 Context.ExecutionStatus.Status = false;
                 Context.ExecutionStatus.Error 
-                    = new System.Exception(GW.Localization.GetItem("Record-NotFound", Context.LocalizationLanguage).Text);
+                    = new System.Exception(GW.LocalizationText.Get("Record-NotFound", Context.LocalizationLanguage).Text);
 
             }
 
@@ -352,7 +352,7 @@ namespace Template.Domain
             if (!Context.ExecutionStatus.Status)
             {
                 Context.ExecutionStatus.Error
-                    = new Exception(GW.Localization.GetItem("Validation-Error", Context.LocalizationLanguage).Text);
+                    = new Exception(GW.LocalizationText.Get("Validation-Error", Context.LocalizationLanguage).Text);
                 ret = null; 
             }
 

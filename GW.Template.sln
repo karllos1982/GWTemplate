@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway", "Gateway\Gateway.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebBlazorServer", "WebBlazorServer\WebBlazorServer.csproj", "{13EA3322-4056-4853-8E98-A49F7B6FF2B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBlazorWasm", "WebBlazorWasm\WebBlazorWasm.csproj", "{54847296-D5F1-49EF-AA17-657AE0414A23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebBlazorWasm", "WebBlazorWasm\WebBlazorWasm.csproj", "{54847296-D5F1-49EF-AA17-657AE0414A23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -238,18 +238,24 @@
 
         _items.Add(new MenuItem("Anonymous", "Home", "1"){ LinkTitle="Login", LinkURL="Login", State="active show"}) ;         
 
-        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1"){ LinkTitle="Usuários", LinkURL="superadmin/users", State="active show", Permission_ObjectCode="SYSUSER",Permission_Allownone=true}) ;
-        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Log de Dados", LinkURL = "superadmin/datalog", Permission_ObjectCode = "SYSDATALOG", Permission_Allownone = true });
-        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Log de Acesso", LinkURL = "superadmin/accesslog", Permission_ObjectCode = "SYSSESSION", Permission_Allownone = true });
-        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Objetos de Permissão", LinkURL = "superadmin/objectpermission", Permission_ObjectCode = "SYSOBJECTPERMISSION", Permission_Allownone = true });
-        AddItem(new MenuItem("SuperAdmin", "Gerenciamento", "1") { LinkTitle = "Gerenciamento de Permissões", LinkURL = "superadmin/permission", Permission_ObjectCode = "SYSPERMISSION", Permission_Allownone = true });
+    
+        AddItem(new MenuItem("SuperAdmin", "Basics Data", "1") { LinkTitle = "Users", LinkURL = "superadmin/users", State = "active show", Permission_ObjectCode = "SYSUSER", Permission_Allownone = true });
+        AddItem(new MenuItem("SuperAdmin", "Basics Data", "1") { LinkTitle = "Permission Objects", LinkURL = "superadmin/objectpermission", Permission_ObjectCode = "SYSOBJECTPERMISSION", Permission_Allownone = true });
+        AddItem(new MenuItem("SuperAdmin", "Basics Data", "1") { LinkTitle = "Permissions Manager", LinkURL = "superadmin/permission", Permission_ObjectCode = "SYSPERMISSION", Permission_Allownone = true });
+        AddItem(new MenuItem("SuperAdmin", "Basics Data", "1") { LinkTitle = "Localization Text", LinkURL = "superadmin/localizationtext", Permission_ObjectCode = "SYSPERMISSION", Permission_Allownone = true });
+
+        AddItem(new MenuItem("SuperAdmin", "Monitoring", "2") { LinkTitle = "Data Log", LinkURL = "superadmin/datalog", Permission_ObjectCode = "SYSDATALOG", Permission_Allownone = true });
+        AddItem(new MenuItem("SuperAdmin", "Monitoring", "2") { LinkTitle = "Access Log", LinkURL = "superadmin/accesslog", Permission_ObjectCode = "SYSSESSION", Permission_Allownone = true });
+
 
         //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 1", LinkURL="pag1"}) ;
         //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 2", LinkURL="pag2"}) ;
         //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 3", LinkURL="pag3"}) ;
-        
-        AddItem(new MenuItem("Admin", "Gerenciamento", "2") { LinkTitle = "Cient", LinkURL = "admin/client", State = "active show", Permission_ObjectCode = "CLIENT", Permission_Allownone = true });
-    
+
+        AddItem(new MenuItem("Admin", "Management", "1") { LinkTitle = "Cient", LinkURL = "admin/client", State = "active show", Permission_ObjectCode = "CLIENT", Permission_Allownone = true });
+
+
+
     }
 
     private PermissionsState _state; 

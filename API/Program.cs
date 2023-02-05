@@ -17,6 +17,7 @@ using Template.Contracts.Domain;
 using Template.Contracts.Data;
 using Template.Domain;
 using Template.Data;
+using API.Code;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +63,7 @@ builder.Services.AddAuthentication(x =>
 
 builder.Services.AddSwaggerGen(c =>
 {
+   
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Template-API", Version = "v1" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -99,8 +101,8 @@ builder.Services.AddMvc()
 
 var app = builder.Build();
 
-app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
-           );
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()  );
+         
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

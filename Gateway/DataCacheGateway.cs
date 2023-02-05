@@ -58,6 +58,24 @@ namespace Template.Gateway
             return ret;
         }
 
+        public async Task<List<LocalizationTextList>> ListLanguages()
+        {
+            List<LocalizationTextList> ret = null;
+
+            ret = await this.GetAsJSON<List<LocalizationTextList>>("listlangs", null);
+
+            return ret;
+        }
+
+        public async Task<List<LocalizationTextResult>> ListLocalizationTexts()
+        {
+            List<LocalizationTextResult> ret = null;
+
+            ret = await this.GetAsJSON<List<LocalizationTextResult>>("listlocalizationtexts", null);
+
+            return ret;
+        }
+
     }
 
 }

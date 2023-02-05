@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GW.Framework" Version="4.0.18" />
-    <PackageReference Include="GW.Membership" Version="2.0.18" />
+    <PackageReference Include="GW.Framework" Version="4.0.21" />
+    <PackageReference Include="GW.Membership" Version="2.0.21" />
   </ItemGroup>
 
 </Project>

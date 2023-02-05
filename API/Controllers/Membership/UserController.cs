@@ -20,7 +20,7 @@ namespace Template.Controllers
         public UserController(IMembershipManager membership,
                 IContextBuilder contextbuilder)
         {
-            Context = membership.Context;
+            Context = membership.Context;         
             contextbuilder.BuilderContext(Context);
             this.Membership = membership;
             ObjectCode = "SYSUSER";           

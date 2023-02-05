@@ -34,6 +34,9 @@ namespace Template.Gateway
 
         public PermissionGateway Permission = null;
 
+
+        public LocalizationTextGateway LocalizationText= null;
+
         public MembershipGateway()
         {
 
@@ -48,6 +51,7 @@ namespace Template.Gateway
             ObjectPermission = new ObjectPermissionGateway();
             Permission = new PermissionGateway();
             Instance = new InstanceGateway();
+            LocalizationText= new LocalizationTextGateway();
 
             User.InitializeAPI(http, baseurl + "/membership/user/", token);
             User.IsAuthenticated = true;
@@ -69,6 +73,9 @@ namespace Template.Gateway
 
             Permission.InitializeAPI(http, baseurl + "/membership/permission/", token);
             Permission.IsAuthenticated = true;
+
+            LocalizationText.InitializeAPI(http, baseurl + "/membership/localizationtext/", token);
+            LocalizationText.IsAuthenticated = true;
 
         }
 
@@ -575,4 +582,59 @@ namespace Template.Gateway
             return ret;
         }
     }
+
+
+    public class LocalizationTextGateway : APIGatewayManagerAsync
+    {
+
+        public LocalizationTextGateway()
+        {
+
+        }
+
+        public async Task<List<LocalizationTextResult>> Search(LocalizationTextParam param)
+        {
+            List<LocalizationTextResult> ret = null;
+
+            ret = await PostAsJSON<List<LocalizationTextResult>>("search",
+                JsonConvert.SerializeObject(param), null);
+
+
+            return ret;
+        }
+
+        public async Task<List<LocalizationTextList>> List(LocalizationTextParam param)
+        {
+            List<LocalizationTextList> ret = null;
+
+            ret = await PostAsJSON<List<LocalizationTextList>>("list",
+                JsonConvert.SerializeObject(param), null);
+
+            return ret;
+        }
+
+        public async Task<LocalizationTextResult> Get(string id)
+        {
+            LocalizationTextResult ret = null;
+
+            object[] param = new object[1];
+            param[0] = new DefaultGetParam(id);
+
+            ret = await GetAsJSON<LocalizationTextResult>("get", param);
+
+            return ret;
+        }
+
+        public async Task<LocalizationTextEntry> Set(LocalizationTextEntry data)
+        {
+            LocalizationTextEntry ret = null;
+
+            ret = await PostAsJSON<LocalizationTextEntry>("set", JsonConvert.SerializeObject(data), null);
+
+            return ret;
+        }
+
+
+    }
 }
+

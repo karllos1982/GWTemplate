@@ -14,7 +14,7 @@ namespace Template.Domain
         {
             Context = context;
             InitializeDomains(context, repositorySet);
-         
+          
         }
 
         public void InitializeDomains(IContext context, IRepositorySet repositorySet)

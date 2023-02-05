@@ -132,6 +132,7 @@ namespace Template.ViewModel
             ExecutionStatus = new OperationStatus(true);
 
             entry = new PermissionEntry();
+            entry.PermissionID = result.PermissionID;
             entry.ObjectPermissionID = result.ObjectPermissionID; 
             entry.TypeGrant = result.TypeGrant;
             entry.UserID = result.UserID;

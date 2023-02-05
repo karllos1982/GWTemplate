@@ -138,7 +138,7 @@ namespace Template.Controllers
 
                 if (this.GetDefaultStatus().Status)
                 {
-                    ret = this.GetDefaultStatus().Returns;
+                    ret = obj;
                 }
                 else
                 {

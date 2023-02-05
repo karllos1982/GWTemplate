@@ -19,6 +19,7 @@ namespace Template.API
         {
             _env = webhost;
             LoadSettings();
+
         }
 
         public SourceConfig[] Sources { get; set; }

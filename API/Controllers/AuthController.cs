@@ -11,6 +11,7 @@ using GW.Membership.Contracts.Domain;
 using GW.ApplicationHelpers;
 using Template.Core;
 using GW.Membership.Data;
+using API.Code;
 
 //using Template.Models;
 
@@ -20,16 +21,18 @@ namespace Template.Controllers
     [Route("[controller]")]
     [ApiController]
     public class AuthController : APIControllerBase
-    {      
-
+    {
+       
         public AuthController(IMembershipManager membership,
-                IContextBuilder contextbuilder, MailManager mail  )
+                IContextBuilder contextbuilder, 
+                MailManager mail)
         {
             Context = membership.Context;
             Context.LocalizationLanguage = Context.Settings.LocalizationLanguage;
             contextbuilder.BuilderContext(Context);
             this.Membership = membership;
-            this.MailCenter = mail;            
+            this.MailCenter = mail;
+            GW.LocalizationText.LoadData(Context);
 
         }
 

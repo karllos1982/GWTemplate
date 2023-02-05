@@ -9,6 +9,7 @@ using Microsoft.Extensions.Caching.Memory;
 using GW.Membership.Contracts.Domain;
 using Core.Data;
 using GW.Core;
+using GW;
 
 namespace Template.API.Controllers
 {
@@ -25,14 +26,15 @@ namespace Template.API.Controllers
             contextbuilder.BuilderContext(Context);
             this.Membership = membership;
             memorycache = _cache;
+            ObjectCode = "SYSROLES";
         }
 
         [HttpGet]
         [Route("listtipoperacao")]
         public object ListTipoOperacao()
         {
-            Init();
-                        
+            Init(PERMISSION_CHECK_ENUM.READ, true);
+
             List<TipoOperacaoValueModel> list = null;
 
             list = memorycache.Get<List<TipoOperacaoValueModel>>("TIPOOPERACAO");
@@ -60,7 +62,7 @@ namespace Template.API.Controllers
         [Route("listtabelas")]
         public async Task<object> ListTabelas()
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.READ, true);
 
             List<TabelasValueModel> list = null;
 
@@ -85,7 +87,7 @@ namespace Template.API.Controllers
         [Route("listroles")]
         public async Task<object> ListRoles()
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.READ, true);
 
             List<RoleList> list = null;
 
@@ -106,6 +108,55 @@ namespace Template.API.Controllers
             return ret;
         }
 
+        [HttpGet]
+        [Route("listlangs")]
+        public async Task<object> ListLanguages()
+        {
+            Init(PERMISSION_CHECK_ENUM.READ, true);
+
+            List<LocalizationTextList> list = null;
+
+            list = memorycache.Get<List<LocalizationTextList>>("LANGS");
+
+            if (list == null)
+            {
+                list = await Membership.LocalizationText.GetListOfLanguages();
+
+                memorycache.Set("LANGS", list, this.GetMemoryCacheOptionsByHour(2));
+
+            }
+
+            ret = list;
+
+            FinalizeManager();
+
+            return ret;
+        }
+
+        [HttpGet]
+        [Route("listlocalizationtexts")]
+        public async Task<object> ListLocalizationTexts()
+        {
+            Init(PERMISSION_CHECK_ENUM.READ, true);
+
+            List<LocalizationTextResult> list = null;
+
+            list = memorycache.Get<List<LocalizationTextResult>>("LOCALIZATIONTEXTS");
+
+            if (list == null)
+            {
+                list = await Membership.LocalizationText.Search(new LocalizationTextParam()); 
+
+                memorycache.Set("LOCALIZATIONTEXTS", list, this.GetMemoryCacheOptionsByHour(2));
+
+            }
+
+            ret = list;
+
+            FinalizeManager();
+
+            return ret;
+        }
 
     }
 }

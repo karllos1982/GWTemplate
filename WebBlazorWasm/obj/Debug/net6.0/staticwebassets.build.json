@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3nAq/QoLVY/vKaq76KnweseRv8h9g3ZeRza4vb+syqE=",
+  "Hash": "6c67Jtq4AQXag3i7e2OFG3g6OUzanhZS0IDnCgH9y2c=",
   "Source": "WebBlazorWasm",
   "BasePath": "/",
   "Mode": "Root",
@@ -932,7 +932,7 @@
       "AssetTraitValue": "runtime",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Admin\\.nuget\\packages\\gw.framework\\4.0.18\\lib\\net6.0\\GW.Framework.dll"
+      "OriginalItemSpec": "C:\\Users\\Admin\\.nuget\\packages\\gw.framework\\4.0.19\\lib\\net6.0\\GW.Framework.dll"
     },
     {
       "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\GW.Membership.dll",
@@ -949,7 +949,7 @@
       "AssetTraitValue": "runtime",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "C:\\Users\\Admin\\.nuget\\packages\\gw.membership\\2.0.18\\lib\\net6.0\\GW.Membership.dll"
+      "OriginalItemSpec": "C:\\Users\\Admin\\.nuget\\packages\\gw.membership\\2.0.19\\lib\\net6.0\\GW.Membership.dll"
     },
     {
       "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\icudt.dat",
@@ -4607,23 +4607,6 @@
       "OriginalItemSpec": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Net.ServicePoint.dll"
     },
     {
-      "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\obj\\Debug\\net6.0\\build-gz\\+Y1Rh9CJ.gz",
-      "SourceId": "WebBlazorWasm",
-      "SourceType": "Computed",
-      "ContentRoot": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/GW.Membership.dll.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "RelatedAsset": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\GW.Membership.dll",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\GW.Membership.dll"
-    },
-    {
       "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\obj\\Debug\\net6.0\\build-gz\\05lwOaUM.gz",
       "SourceId": "WebBlazorWasm",
       "SourceType": "Computed",
@@ -5217,6 +5200,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Net.NameResolution.dll"
+    },
+    {
+      "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\obj\\Debug\\net6.0\\build-gz\\A1PJhzXI.gz",
+      "SourceId": "WebBlazorWasm",
+      "SourceType": "Computed",
+      "ContentRoot": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/GW.Framework.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\GW.Framework.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\GW.Framework.dll"
     },
     {
       "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\obj\\Debug\\net6.0\\build-gz\\ajuDV9Oh.gz",
@@ -5999,6 +5999,23 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.ComponentModel.Annotations.dll"
+    },
+    {
+      "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\obj\\Debug\\net6.0\\build-gz\\IaqtfNgk.gz",
+      "SourceId": "WebBlazorWasm",
+      "SourceType": "Computed",
+      "ContentRoot": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "_framework/GW.Membership.dll.gz",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "RelatedAsset": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\GW.Membership.dll",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\GW.Membership.dll"
     },
     {
       "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\obj\\Debug\\net6.0\\build-gz\\IhV+9q4M.gz",
@@ -7495,23 +7512,6 @@
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\System.Runtime.CompilerServices.Unsafe.dll"
-    },
-    {
-      "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\obj\\Debug\\net6.0\\build-gz\\vQti2z2N.gz",
-      "SourceId": "WebBlazorWasm",
-      "SourceType": "Computed",
-      "ContentRoot": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "_framework/GW.Framework.dll.gz",
-      "AssetKind": "Build",
-      "AssetMode": "All",
-      "AssetRole": "Alternative",
-      "RelatedAsset": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\GW.Framework.dll",
-      "AssetTraitName": "Content-Encoding",
-      "AssetTraitValue": "gzip",
-      "CopyToOutputDirectory": "PreserveNewest",
-      "CopyToPublishDirectory": "Never",
-      "OriginalItemSpec": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\bin\\Debug\\net6.0\\wwwroot\\_framework\\GW.Framework.dll"
     },
     {
       "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorWasm\\obj\\Debug\\net6.0\\build-gz\\VY0DJQpb.gz",

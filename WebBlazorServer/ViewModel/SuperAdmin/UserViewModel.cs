@@ -1,6 +1,8 @@
-﻿using GW.Common;
+﻿using Blazorise.States;
+using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
+using WebBlazorServer.Localization;
 
 namespace Template.ViewModel
 {
@@ -8,13 +10,16 @@ namespace Template.ViewModel
     {
 
         private MembershipGateway _gateway;
+        private DataCacheGateway _cache; 
 
-        public UserViewModel(MembershipGateway service,
+        public UserViewModel(MembershipGateway service, DataCacheGateway cache,
                 UserAuthenticated user)
         {
             _user = user;
             _gateway = service;
+            _cache= cache;
             this.InitializeView(_user);
+          
         }
 
         UserAuthenticated _user;
@@ -26,8 +31,12 @@ namespace Template.ViewModel
         public List<UserResult> searchresult = new List<UserResult>();
         public List<RoleList> listRoles = new List<RoleList>();
         public List<InstanceList> listInstances = new List<InstanceList>();
+        public List<LocalizationTextList> listLangs = new List<LocalizationTextList>();
+        
         public UserRolesResult RoleSelected = new UserRolesResult();
-        public UserInstancesResult InstanceSelected = new UserInstancesResult(); 
+        public UserInstancesResult InstanceSelected = new UserInstancesResult();
+
+        public UserLocalization texts = null;
 
         public bool isUserActive { get; set; }
         public bool isUserLocked { get; set; }
@@ -52,7 +61,12 @@ namespace Template.ViewModel
             await ClearSummaryValidation();
 
             await LoadRolesList();
-            await LoadInstancesList(); 
+            await LoadInstancesList();
+            await LoadLangsList();
+
+            this.texts = new UserLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
+
         }
 
         public async Task LoadRolesList()
@@ -70,6 +84,26 @@ namespace Template.ViewModel
             else
             {
                 listRoles.Insert(0, new RoleList() { RoleID = 0, RoleName = "Selecione uma Role" });
+            }
+
+        }
+
+        public async Task LoadLangsList()
+        {
+            listLangs = new List<LocalizationTextList>();
+
+            ExecutionStatus = new OperationStatus(true);
+            listLangs = await _cache.ListLanguages();
+
+            if (listRoles == null)
+            {
+                ExecutionStatus.InnerExceptions = _gateway.Role.GetInnerExceptions(ref ExecutionStatus.Error);
+                ExecutionStatus.Status = false;
+            }
+            else
+            {
+                listLangs.Insert(0, new LocalizationTextList()
+                { LocalizationTextID = 0, Language = "Selecione um item" });
             }
 
         }

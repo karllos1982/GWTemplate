@@ -656,8 +656,6 @@ H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\build-gz\AL1C8Knx.gz
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\build-gz\CkQ8EmcY.gz
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\build-gz\Po2wN6Ha.gz
-H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\build-gz\vQti2z2N.gz
-H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\build-gz\+Y1Rh9CJ.gz
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\build-gz\OQEb7IFo.gz
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\build-gz\DyyLaarw.gz
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\build-gz\+C91w+gH.gz
@@ -880,3 +878,5 @@ H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\refint\WebBlazorWasm.dll
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\WebBlazorWasm.pdb
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\ref\WebBlazorWasm.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\build-gz\A1PJhzXI.gz
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorWasm\obj\Debug\net6.0\build-gz\IaqtfNgk.gz
