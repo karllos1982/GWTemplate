@@ -126,7 +126,7 @@
                                                                 <DisplayTemplate>
                                                                             @{
                                                                                 UserResult user = (context as UserResult);
-                                                                                if (user.IsActive == 1)
+                                                                                if (user.IsActive)
                                                                                 {
                                                                                                 <span>SIM</span>
                                                                                 }
@@ -142,7 +142,7 @@
                                                                 <DisplayTemplate>
                                                                           @{
                                                                                 UserResult user = (context as UserResult);
-                                                                                if (user.IsLocked == 1)
+                                                                                if (user.IsLocked)
                                                                                 {
                                                                                                 <span>SIM</span>
                                                                                 }

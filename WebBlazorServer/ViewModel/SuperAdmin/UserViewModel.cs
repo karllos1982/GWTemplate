@@ -60,13 +60,13 @@ namespace Template.ViewModel
 
             await ClearSummaryValidation();
 
-            await LoadRolesList();
-            await LoadInstancesList();
-            await LoadLangsList();
-
             this.texts = new UserLocalization();
             this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
 
+            await LoadRolesList();
+            await LoadInstancesList();
+            await LoadLangsList();
+          
         }
 
         public async Task LoadRolesList()
@@ -83,7 +83,7 @@ namespace Template.ViewModel
             }
             else
             {
-                listRoles.Insert(0, new RoleList() { RoleID = 0, RoleName = "Selecione uma Role" });
+                listRoles.Insert(0, new RoleList() { RoleID = 0, RoleName = this.texts.SelectItem_Description });
             }
 
         }
@@ -97,13 +97,13 @@ namespace Template.ViewModel
 
             if (listRoles == null)
             {
-                ExecutionStatus.InnerExceptions = _gateway.Role.GetInnerExceptions(ref ExecutionStatus.Error);
+                ExecutionStatus.InnerExceptions = _cache.GetInnerExceptions(ref ExecutionStatus.Error);
                 ExecutionStatus.Status = false;
             }
             else
             {
                 listLangs.Insert(0, new LocalizationTextList()
-                { LocalizationTextID = 0, Language = "Selecione um item" });
+                { LocalizationTextID = 0, Language = this.texts.SelectItem_Description });
             }
 
         }
@@ -122,7 +122,7 @@ namespace Template.ViewModel
             }
             else
             {
-                listInstances.Insert(0, new InstanceList() { InstanceID = 0,InstanceName = "Selecione uma Instancia" });
+                listInstances.Insert(0, new InstanceList() { InstanceID = 0,InstanceName = this.texts.SelectItem_Description });
             }
 
         }
@@ -197,11 +197,11 @@ namespace Template.ViewModel
             ExecutionStatus = new OperationStatus(true);
 
             state.UserID = result.UserID;
-            state.ActiveValue = 0;
-            state.LockedValue = 0;
+            state.ActiveValue = false;
+            state.LockedValue = false;
 
-            if (this.isUserActive) { state.ActiveValue = 1; }
-            if (this.isUserLocked) { state.LockedValue = 1; }
+            state.ActiveValue = this.isUserActive; 
+            state.LockedValue = this.isUserLocked; 
 
             await _gateway.User.ChangeState(state);
 

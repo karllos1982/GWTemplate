@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "i/8hy30JtPqb52I+wmAUDebZn+jPKui+JktGsOM7gfN8SNNIogt3QZttNOZweZfRfVmZZ0lOjomczqyazYePJQ==",
+  "dgSpecHash": "8NPjH6Sm2Fng83vmJuBYmzFsCkBDj/2NGfaUuz5CYUeQQaNLOTglI7Kkge8psSxqGy0fe7NefM1KXecTZFjjuA==",
   "success": true,
   "projectFilePath": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\Models\\Models.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\gw.framework\\4.0.21\\gw.framework.4.0.21.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\gw.membership\\2.0.21\\gw.membership.2.0.21.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\gw.framework\\4.0.23\\gw.framework.4.0.23.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\gw.membership\\2.0.23\\gw.membership.2.0.23.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",

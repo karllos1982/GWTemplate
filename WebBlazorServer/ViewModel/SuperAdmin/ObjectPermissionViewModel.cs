@@ -1,6 +1,7 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
+using WebBlazorServer.Localization;
 using WebBlazorServer.Pages.SuperAdmin;
 
 namespace Template.ViewModel
@@ -9,11 +10,14 @@ namespace Template.ViewModel
     {
 
         private MembershipGateway _gateway;
+        private DataCacheGateway _cache;
 
-        public ObjectPermissionViewModel(MembershipGateway service,
+        public ObjectPermissionViewModel(MembershipGateway service, DataCacheGateway cache,
             UserAuthenticated user)
-        {       
+        {
+            _user = user;
             _gateway = service;
+            _cache = cache;
             this.InitializeView(user);         
         }
 
@@ -22,7 +26,8 @@ namespace Template.ViewModel
         public ObjectPermissionResult result = new ObjectPermissionResult();
         public ObjectPermissionParam param = new ObjectPermissionParam() { pObjectCode="",pObjectName=""};
         public List<ObjectPermissionResult> searchresult = new List<ObjectPermissionResult>();
-              
+
+        public ObjectPermissionLocalization texts = null; 
 
         public override async Task ClearSummaryValidation()
         {
@@ -31,6 +36,9 @@ namespace Template.ViewModel
                 new InnerException("ObjectName",""),
                 new InnerException("ObjectCode",""),              
             };
+
+            this.texts = new ObjectPermissionLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
 
         }
 

@@ -130,8 +130,8 @@ namespace Template.ViewModel
             }
             else
             {
-                this.isUserActive = Convert.ToBoolean(result.IsActive);
-                this.isUserLocked = Convert.ToBoolean(result.IsLocked);
+                this.isUserActive = result.IsActive;
+                this.isUserLocked = result.IsLocked;
                 RoleSelected = result.Roles[0];
                 InstanceSelected = result.Instances[0];  
             }
@@ -163,11 +163,11 @@ namespace Template.ViewModel
             ExecutionStatus = new OperationStatus(true);
 
             state.UserID = result.UserID;
-            state.ActiveValue = 0;
-            state.LockedValue = 0;
+            state.ActiveValue = false;
+            state.LockedValue = false;
 
-            if (this.isUserActive) { state.ActiveValue = 1; }
-            if (this.isUserLocked) { state.LockedValue = 1; }
+            state.ActiveValue = this.isUserActive; 
+            state.LockedValue = this.isUserLocked; 
 
             await _gateway.User.ChangeState(state);
 

@@ -1,6 +1,7 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
+using WebBlazorServer.Localization;
 using WebBlazorServer.Pages.SuperAdmin;
 
 namespace Template.ViewModel
@@ -9,11 +10,14 @@ namespace Template.ViewModel
     {
 
         private MembershipGateway _gateway;
+        private DataCacheGateway _cache;
 
-        public RoleViewModel(MembershipGateway service,
+        public RoleViewModel(MembershipGateway service, DataCacheGateway cache,
             UserAuthenticated user)
         {
+            _user = user;
             _gateway = service;
+            _cache = cache;
             this.InitializeView(user);
         }
 
@@ -23,6 +27,7 @@ namespace Template.ViewModel
         public RoleParam param = new RoleParam() { };
         public List<RoleResult> searchresult = new List<RoleResult>();
 
+        public RoleLocalization texts = null;
 
         public override async Task ClearSummaryValidation()
         {
@@ -31,6 +36,9 @@ namespace Template.ViewModel
                 new InnerException("RoleName",""),                
                 new InnerException("IsActive", ""),
             };
+
+            this.texts = new RoleLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
 
         }
 
@@ -99,7 +107,7 @@ namespace Template.ViewModel
         {
             this.BaseInitNew();
             result = new RoleResult();
-            result.IsActive = 1;
+            result.IsActive = true;
         }
 
         public override async Task Search()

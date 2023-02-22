@@ -11,7 +11,13 @@
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
 
-<BreadCrumbView IsHome="false" HomeURL="/superadmin/home" PageTitle="Log de Dados" ></BreadCrumbView>
+<BreadCrumbView IsHome="false" HomeURL="/superadmin/home"
+                PageTitle=@_PageTitle></BreadCrumbView>
+
+<MessageBox @ref="msgbox"></MessageBox>
+
+<TaskLoading @ref="loading" Title=@_LoadingData_Text></TaskLoading>
+
 
    <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">        
@@ -28,14 +34,14 @@
 								    <div class="card-header pt-7">
 									  
 									    <h3 class="card-title align-items-start flex-column">
-										    <span class="card-label fw-bold text-dark">Pesquisar</span>										
-									    </h3>									        
+                                        <span class="card-label fw-bold text-dark">@view.texts.SearchButtonLabel</span>
+                                    </h3>									        
 									       
                                     </div>
                                            
                                     <div class="card-body">
 							             <div class="form-group">
-                                                <label class="form-label" >Por Tipo de Operação:</label>
+                                        <label class="form-label">@view.texts.SearchByOperationType_Label:</label>
 
                                                 @if (view.listTipoOperacao.Count > 0)
                                                 {
@@ -52,7 +58,7 @@
                                         </div>		
                                         
                                          <div class="form-group">
-                                            <label class="form-label">Por Tabela / Objeto:</label>
+                                        <label class="form-label">@view.texts.SearchByObject_Label:</label>
 
                                                 @if (view.listTabelas.Count > 0)
                                                 {
@@ -68,35 +74,34 @@
                                           </div>
                                          
                                         <div class="form-group">
-                                            <label class="form-label" for="name">Pesquisar por Intervalo de Data:</label>
+                                        <label class="form-label" for="name">@view.texts.SearchByIntervalDate_Label:</label>
                                             <Switch TValue="bool" @bind-Checked="@view.param.SearchByDate"></Switch>
                                 
                                         </div>
                                           
                                          @if (view.param.SearchByDate)
                                          {
-                                                <div class="form-group">     
-                                                     <span>Data início:</span>
+                                                <div class="form-group">
+                                            <span>@view.texts.SearchByInicialDate_Label:</span>
                                                     <DateEdit TValue="DateTime" @bind-Date="@view.param.pDate_Start" />
                                                     <br/>
-                                                    <span>Data fim:</span>
+                                            <span>@view.texts.SearchByFinalDate_Label:</span>
                                                     <DateEdit TValue="DateTime" @bind-Date="@view.param.pData_End" />                                            
 
                                                 </div>
                                            }
 
                                            <div class="form-group">
-                                                <label class="form-label">Por ID do Registro:</label>
-                                                <input type="text" class="form-control" maxlength="20" @bind-value="@view.param.pDataLogID"
-                                                       placeholder="Pesquisar por ID do Registro">
+                                        <label class="form-label">@view.texts.SearchByRecordID_Label:</label>
+                                                <input type="text" class="form-control" maxlength="20" @bind-value="@view.param.pDataLogID">
+                                                
                                            </div>
 
                                            <p class="field" style="padding-top:10px">
 
-                                                <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
-                                                         Description="Clique aqui buscar usuários." 
+                                                  <TaskButton @ref="searchbtn" OnClick="OnSearch" Title=@view.texts.SearchButtonLabel                                                         
                                                           ReadOnly=!view.Permissions.AllowRead
-                                                          ActionLabel="Pesquisando...">
+                                                         ActionLabel=@view.texts.SearchingLabel>
                                                 </TaskButton>
 
                                             </p>
@@ -112,8 +117,8 @@
 									<div class="card-header pt-7">
 											
 										<h3 class="card-title align-items-start flex-column">
-											<span class="card-label fw-bold text-dark">Resultado da Busca</span>												
-										</h3>
+                                        <span class="card-label fw-bold text-dark">@view.texts.SearchResultLabel</span>
+                                    </h3>
                                     </div>
 
                                     <div class="card-body">
@@ -125,12 +130,12 @@
                                                        <DataGrid TItem="DataLogResult" Data="@view.searchresult"  Responsive  ShowPager PageSize=10 >                                                                                         
                                              
                                                             <DataGridColumns>
-                                            
-                                                                <DataGridColumn Field="@nameof(DataLogResult.Email)" Caption="Email" />
-                                                                <DataGridColumn Field="@nameof(DataLogResult.TableName)" Caption="TableName" />
-                                                                <DataGridColumn Field="@nameof(DataLogResult.OperationText)" Caption="OperationText" />
-                                                                <DataGridColumn Field="@nameof(DataLogResult.Date)" Caption="Date" />
-                                                                <DataGridColumn Field="@nameof(DataLogResult.DataLogID)" Caption="Detalhes" >
+
+                                                                <DataGridColumn Field="@nameof(DataLogResult.Email)" Caption=@view.texts.Email_Label />
+                                                                <DataGridColumn Field="@nameof(DataLogResult.TableName)" Caption=@view.texts.TableName_Label />
+                                                                <DataGridColumn Field="@nameof(DataLogResult.OperationText)" Caption=@view.texts.OperationText_Label />
+                                                                <DataGridColumn Field="@nameof(DataLogResult.Date)" Caption=@view.texts.Date_Label />
+                                                                <DataGridColumn Field="@nameof(DataLogResult.DataLogID)" Caption=@view.texts.DetailsLabel>
                                                                     <DisplayTemplate>
                                                                          @{
                                                                                 DataLogResult obj = (context as DataLogResult);
@@ -154,7 +159,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <p> Nenhum registro encontrado </p>
+                                            <p> @view.texts.NoRecordsFound </p>
                                                 }
                                             }
                                          
@@ -181,8 +186,8 @@
 		                                <div class="card-header pt-7">
 									  
 			                                <h3 class="card-title align-items-start flex-column">
-				                                <span class="card-label fw-bold text-dark">Detalhes do Registro</span>										
-			                                </h3>									        
+                                        <span class="card-label fw-bold text-dark">@view.texts.DetailsLabel</span>
+                                    </h3>									        
 									       
                                         </div>
                                            
@@ -191,15 +196,15 @@
 
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label class="form-label">Log ID:</label>
+                                                            <label class="form-label">@view.texts.LogID_Label:</label>
                                                             <input type="text" value="@view.result.DataLogID" class="form-control" disabled />
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-8">
                                                         <div class="form-group">
-                                                            <label class="form-label">Informações do Log:</label>
-                                                <input type="text" value="@view.result.TableName | @view.result.OperationText | @view.result.Date | @view.result.Email"
+                                                            <label class="form-label">@view.texts.LogInformation_Label:</label>
+                                                            <input type="text" value="@view.result.TableName | @view.result.OperationText | @view.result.Date | @view.result.Email"
                                                                    class="form-control" disabled />
                                                         </div>
                                                     </div>
@@ -214,7 +219,7 @@
                                                                         <path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="currentColor"></path>
                                                                     </svg>
                                                                 </span>
-                                                                 Mostrar Timeline
+                                                                @view.texts.ShowTimeLine_Label
                                                             </button>
                                                         </div>
                                                                                                                                                                          
@@ -227,7 +232,7 @@
                                                 <div class="row" style="margin-top: 15px">
                                                     <div class="col-lg-6">
 
-                                                        <h5>Dados da Versão Anterior</h5>
+                                                       <h5>@view.texts.OldVersionData_Label</h5>
 
                                                         @if (view.logold_content != null)
                                                         {
@@ -236,24 +241,24 @@
                                                                     <DataGrid TItem="DataLogItem" Data="@view.logold_content"  Responsive >                                                                                         
                                              
                                                                         <DataGridColumns>
-                                                                                <DataGridColumn Field="@nameof(DataLogItem.ItemName)" Caption="Campo" />
-                                                                                <DataGridColumn Field="@nameof(DataLogItem.ItemValue )" Caption="Valor" />                                                   
-                                            
-                                                                            </DataGridColumns>
+                                                                                <DataGridColumn Field="@nameof(DataLogItem.ItemName)" Caption=@view.texts.Field_Label />
+                                                                                <DataGridColumn Field="@nameof(DataLogItem.ItemValue )" Caption=@view.texts.Value_Label />
+
+                                                                        </DataGridColumns>
                                       
                                                                     </DataGrid>
                                       
                                                             }
                                                             else
                                                             {
-                                                                <p> Não existe versão anterior </p>
+                                                                <p> @view.texts.HasNoOldVersion_Label </p>
                                                             }
                                                         }
 
                                                   </div>
 
                                                     <div class="col-lg-6">
-                                                        <h5>Dados da Versão de Edição</h5>
+                                                        <h5>@view.texts.CurrentVersionData_Label</h5>
 
                                                         @if (view.logcurrent_content != null)
                                                         {
@@ -262,9 +267,9 @@
                                                                 <DataGrid TItem="DataLogItem" Data="@view.logcurrent_content"  Responsive >                                                                                         
                                              
                                                                         <DataGridColumns>
-                                                                                <DataGridColumn Field="@nameof(DataLogItem.ItemName)" Caption="Campo" />
-                                                                       
-                                                                                <DataGridColumn Field="@nameof(DataLogItem.ItemValue)" Caption="Cadastro" >
+                                                                                 <DataGridColumn Field="@nameof(DataLogItem.ItemName)" Caption=@view.texts.Field_Label />
+
+                                                                                    <DataGridColumn Field="@nameof(DataLogItem.ItemValue)" Caption=@view.texts.DetailsLabel>
                                                                                     <DisplayTemplate>
                                                                                             @{
                                                                                                 DataLogItem obj = (context as DataLogItem);
@@ -288,7 +293,7 @@
                                                             }
                                                             else
                                                             {
-                                                                <p> Não existe versão de edição </p>
+                                                                 <p> @view.texts.HasNoCurrentVersion_Label  </p>
                                                             }
                                                         }
 
@@ -301,7 +306,7 @@
                                                      <div class="row" style="margin-top: 15px">
                                                         <div class="col-lg-12">
 
-                                                            <h5>Time Line do Registro</h5>
+                                                            <h5>@view.texts.ShowTimeLine_Label </h5>
 
                                                             @if (view.timeline != null)
                                                             {
@@ -310,16 +315,16 @@
                                                                         <DataGrid TItem="DataLogTimelineModel" Data="@view.timeline"  Responsive >                                                                                         
                                              
                                                                             <DataGridColumns>
-                                                                                    <DataGridColumn Field="@nameof(DataLogTimelineModel.Date)" Caption="Data" />
-                                                                                    <DataGridColumn Field="@nameof(DataLogTimelineModel.OperationText )" Caption="Valor" />                                                   
-                                                                                    <DataGridColumn Field="@nameof(DataLogTimelineModel.UserEmail )" Caption="Usuário" /> 
+                                                                                    <DataGridColumn Field="@nameof(DataLogTimelineModel.Date)" Caption=@view.texts.Date_Label />
+                                                                                    <DataGridColumn Field="@nameof(DataLogTimelineModel.OperationText )" Caption=@view.texts.Value_Label />
+                                                                                    <DataGridColumn Field="@nameof(DataLogTimelineModel.UserEmail )" Caption=@view.texts.Email_Label /> 
                                                                                 </DataGridColumns>
                                       
                                                                         </DataGrid>                                        
                                                                 }
                                                                 else
                                                                 {
-                                                                    <p> Timeline do registro não disponível </p>
+                                                                    <p> @view.texts.HasNoTimeLine_Label  </p>
                                                                 }
                                                             }
 
@@ -339,7 +344,7 @@
                 }
                 else
                 {
-                    <h5>Carregando a página. Aguarde...</h5>
+                   <img src="../images/circle_loader.gif" style="width:32px;height:32px" />
 
                 }
             </div>
@@ -347,9 +352,7 @@
    </div>
 
 
-<MessageBox @ref="msgbox"></MessageBox>
 
-<TaskLoading @ref="loading" Title="Carregando dados. Aguarde..."></TaskLoading>
 
 @code {
 
@@ -358,6 +361,10 @@
     private TaskLoading loading;
     private TaskButton searchbtn;
     private TaskIconButton timelinebtn;
+
+   private string _LoadingData_Text;
+
+    private string _PageTitle;
 
 
     //
@@ -376,7 +383,8 @@
             LoggedUser = _appctrl.UserInfo;
             _memberservices.Init(_httpclient,_settings.ServiceURL,LoggedUser.Token);
             _cacheservices.Init(_httpclient,_settings.ServiceURL,LoggedUser.Token);
-            view = new DataLogViewModel((_memberservices as MembershipGateway) ,LoggedUser); 
+            view = new DataLogViewModel((_memberservices as MembershipGateway) ,
+               (_cacheservices as DataCacheGateway), LoggedUser);
 
             List<UserPermissions> list = await _appctrl.GetUserPermissions();
             view.Permissions
@@ -395,6 +403,9 @@
             await view.LoadTipoOperacaoList((_cacheservices as DataCacheGateway));
             await view.LoadTabelaList((_cacheservices as DataCacheGateway));
 
+            _LoadingData_Text = view.texts.LoadingData;
+            _PageTitle = view.texts.DataLog_PageTitle;
+
             StateHasChanged();
         }
     }
@@ -406,7 +417,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnExecuteSearch, view.ExecutionStatus.Error.Message);
         }
 
         searchbtn.End();
@@ -429,7 +440,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnReturnData, view.ExecutionStatus.Error.Message);
         }
         else
         {
@@ -447,7 +458,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnReturnData, view.ExecutionStatus.Error.Message);
             view.ShowTimeline = false; 
         }
         else

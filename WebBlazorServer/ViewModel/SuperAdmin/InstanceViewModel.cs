@@ -1,6 +1,7 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
+using WebBlazorServer.Localization;
 using WebBlazorServer.Pages.SuperAdmin;
 
 namespace Template.ViewModel
@@ -9,11 +10,14 @@ namespace Template.ViewModel
     {
 
         private MembershipGateway _gateway;
+        private DataCacheGateway _cache;
 
-        public InstanceViewModel(MembershipGateway service,
+        public InstanceViewModel(MembershipGateway service, DataCacheGateway cache,
             UserAuthenticated user)
         {
+            _user = user;
             _gateway = service;
+            _cache = cache;
             this.InitializeView(user);
         }
 
@@ -23,6 +27,7 @@ namespace Template.ViewModel
         public InstanceParam param = new InstanceParam() {  };
         public List<InstanceResult> searchresult = new List<InstanceResult>();
 
+        public InstanceLocalization texts = null; 
 
         public override async Task ClearSummaryValidation()
         {
@@ -39,6 +44,10 @@ namespace Template.ViewModel
         {
 
             await ClearSummaryValidation();
+
+            this.texts = new InstanceLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
+
 
         }
 
@@ -101,7 +110,7 @@ namespace Template.ViewModel
         {
             this.BaseInitNew();
             result = new InstanceResult();
-            result.IsActive = 1; 
+            result.IsActive = true; 
         }
 
         public override async Task Search()

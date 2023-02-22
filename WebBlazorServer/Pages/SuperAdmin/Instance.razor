@@ -6,11 +6,24 @@
 @inject IAppControllerAsync<UserAuthenticated> _appctrl
 @inject IMembershipGatewayManager _memberservices
 @inject IAuthGatewayManager _appservices
+@inject IDataCacheGatewayManager _cache
 @inject IAppSettings _settings
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
 
-<BreadCrumbView IsHome="false" HomeURL="/superadmin/home" PageTitle="Instances"></BreadCrumbView>
+
+<BreadCrumbView IsHome="false" HomeURL="/superadmin/home"
+                PageTitle=@_PageTitle></BreadCrumbView>
+
+<MessageBox @ref="msgbox"></MessageBox>
+
+<MessageBox @ref="msgbox_create"
+            ButtonNo="true" ButtonYes="true" ButtonOK="false"
+            OnClickYes="OnNew">
+</MessageBox>
+
+<TaskLoading @ref="loading" Title=@_LoadingData_Text></TaskLoading>
+
 
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
     <div class="content flex-row-fluid" id="kt_content">
@@ -27,38 +40,37 @@
                                 <div class="card-header pt-7">
 
                                     <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold text-dark">Search</span>
+                                        <span class="card-label fw-bold text-dark">@view.texts.SearchButtonLabel</span>
                                     </h3>
 
                                 </div>
 
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label class="form-label">Search by Name:</label>
+                                        <label class="form-label">@view.texts.SearchByInstanceName_Label:</label>
                                         <input type="text" @bind-value="view.param.pInstanceName" class="form-control"
-                                           placeholder="Search by Instance Name ">
+                                           placeholder="@view.texts.SearchByInstanceName_Description ">
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">Search by Type Name:</label>
+                                        <label class="form-label">@view.texts.SearchByInstanceTypeName_Label :</label>
                                         <input type="text" maxlength="20" @bind-value="view.param.pInstanceTypeName" class="form-control"
-                                           placeholder="Search by Instance Type Name">
+                                           placeholder=@view.texts.SearchByInstanceTypeName_Description>
                                     </div>
 
                                     <p class="field" style="padding-top:10px">
 
-                                        <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Go"
-                                                Description="Click here to search." ReadOnly=!view.Permissions.AllowRead
-                                                ActionLabel="Searching...">
+                                        <TaskButton @ref="searchbtn" OnClick="OnSearch" Title=@view.texts.SearchButtonLabel
+                                                ReadOnly=!view.Permissions.AllowRead
+                                                ActionLabel=@view.texts.SearchingLabel>
                                         </TaskButton>
 
                                     </p>
 
                                     <p class="field" style="padding-top:10px">
-                                        <TaskButton @ref="newbtn" OnClick="OnNew" Title="New Instance" Class="dark"
-                                                Description="Click here to create new record." Disabled=""
-                                                ReadOnly=!view.Permissions.AllowSave
-                                                ActionLabel="Inserting...">
+                                        <TaskButton @ref="newbtn" OnClick="OnNew" Title=@view.texts.NewInstance_Label Class="dark"
+                                                Description=@view.texts.NewInstance_Description ReadOnly=!view.Permissions.AllowSave
+                                                ActionLabel=@view.texts.InsertingLoadingLabel>
                                         </TaskButton>
 
                                     </p>
@@ -73,7 +85,7 @@
                                 <div class="card-header pt-7">
 
                                     <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold text-dark">Search Results </span>
+                                        <span class="card-label fw-bold text-dark">@view.texts.SearchResultLabel</span>
                                     </h3>
                                 </div>
 
@@ -85,30 +97,30 @@
                                             <DataGrid TItem="InstanceResult" Data="@view.searchresult" Responsive ShowPager>
                                                 <DataGridColumns>
 
-                                                    <DataGridColumn Field="@nameof(InstanceResult.InstanceTypeName)" Caption="Type Name" />
-                                                    <DataGridColumn Field="@nameof(InstanceResult.InstanceName)" Caption="Name" />
-                                                    
-                                                    <DataGridColumn Field="@nameof(InstanceResult.IsActive)" Caption="Is Active">
+                                                    <DataGridColumn Field="@nameof(InstanceResult.InstanceTypeName)" Caption=@view.texts.InstanceTypeName_Label />
+                                                    <DataGridColumn Field="@nameof(InstanceResult.InstanceName)" Caption=@view.texts.InstanceName_Label />
+
+                                                    <DataGridColumn Field="@nameof(InstanceResult.IsActive)" Caption=@view.texts.Active_Label>
                                                         <DisplayTemplate>
                                                             @{
                                                                 InstanceResult obj = (context as InstanceResult);
 
-                                                                if (obj.IsActive==1)
+                                                                if (obj.IsActive)
                                                                 {
-                                                                    <span> YES </span>
+                                                                    <span>@view.texts.Yes_Text</span>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <span> NO </span>
+                                                                    <span>@view.texts.No_Text</span>
                                                                 }                                                                
                                                               
                                                             }
 
                                                         </DisplayTemplate>
                                                     </DataGridColumn>
-                                                    
 
-                                                    <DataGridColumn Field="@nameof(InstanceResult.InstanceID)" Caption="Edit">
+
+                                                    <DataGridColumn Field="@nameof(InstanceResult.InstanceID)" Caption=@view.texts.Edit_Label>
                                                         <DisplayTemplate>
                                                             @{
                                                                 InstanceResult obj = (context as InstanceResult);
@@ -130,7 +142,7 @@
                                         }
                                         else
                                         {
-                                            <p> No records founds </p>
+                                            <p> @view.texts.NoRecordsFound </p>
                                         }
                                     }
 
@@ -157,7 +169,7 @@
                                 <div class="card-header pt-7">
 
                                     <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold text-dark">Instance Record</span>
+                                        <span class="card-label fw-bold text-dark">@view.texts.InstanceRecord_Label </span>
                                     </h3>
 
                                 </div>
@@ -168,7 +180,7 @@
                                         <div class="col-md-12">
 
                                             <div class="form-group">
-                                                <label class="form-label" for="name">Instance Type Name:</label>
+                                                <label class="form-label" for="name">@view.texts.InstanceTypeName_Label:</label>
                                                 <input type="text" class="form-control field" @bind-value="@view.result.InstanceTypeName" />
                                                 <label class="validation_field">@view.GetSummaryMessage("InstanceTypeName") </label>
                                             </div>
@@ -178,7 +190,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label class="form-label" for="email">Instance Name:</label>
+                                                <label class="form-label" for="email">@view.texts.InstanceName_Label:</label>
                                                 <input type="text" class="form-control field" @bind-value="@view.result.InstanceName" />
                                                 <label class="validation_field">@view.GetSummaryMessage("InstanceName") </label>
                                             </div>
@@ -188,8 +200,8 @@
                                     <div class="row" style="padding-top:20px">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label class="form-label" for="name">Active:</label>
-                                                <Switch TValue="int" @bind-Checked="@view.result.IsActive"></Switch>
+                                                <label class="form-label" for="name">@view.texts.Active_Label:</label>
+                                                <Switch TValue="bool" @bind-Checked="@view.result.IsActive"></Switch>
 
                                             </div>
 
@@ -201,9 +213,10 @@
 
                                             <p class="field" style="padding-top:10px">
 
-                                                <TaskButton @ref="savenewbtn" OnClick="OnSet" Title="Save"
-                                                        Description="Click here to save data."
-                                                        ActionLabel="Saving..." ReadOnly=!view.Permissions.AllowSave>
+                                                <TaskButton @ref="savenewbtn" OnClick="OnSet" Title=@view.texts.SaveInstanceButton_Label
+                                                        Description=@view.texts.SaveInstanceButton_Description
+                                                        ActionLabel=@view.texts.Saving_Label 
+                                                        ReadOnly=!view.Permissions.AllowSave>
                                                 </TaskButton>
 
                                             </p>
@@ -221,7 +234,7 @@
             }
             else
             {
-                <h5>Loading. Wait please...</h5>
+                <img src="../images/circle_loader.gif" style="width:32px;height:32px" />
 
             }
         </div>
@@ -229,14 +242,7 @@
 </div>
 
 
-<MessageBox @ref="msgbox"></MessageBox>
 
-<MessageBox @ref="msgbox_create"
-            ButtonNo="true" ButtonYes="true" ButtonOK="false"
-            OnClickYes="OnNew">
-</MessageBox>
-
-<TaskLoading @ref="loading" Title="Carregando dados. Aguarde..."></TaskLoading>
 
 @code {
 
@@ -249,6 +255,9 @@
     private TaskButton newbtn;
     private TaskButton savenewbtn;
 
+    private string _LoadingData_Text;
+
+    private string _PageTitle;
 
     //
 
@@ -265,8 +274,10 @@
         {
             LoggedUser = _appctrl.UserInfo;
             _memberservices.Init(_httpclient, _settings.ServiceURL, LoggedUser.Token);
+             _cache.Init(_httpclient, _settings.ServiceURL, LoggedUser.Token);
 
-            view = new InstanceViewModel((_memberservices as MembershipGateway), LoggedUser);
+            view = new InstanceViewModel((_memberservices as MembershipGateway),
+                (_cache as DataCacheGateway), LoggedUser);
 
             List<UserPermissions> list = await _appctrl.GetUserPermissions();
             view.Permissions
@@ -282,6 +293,10 @@
         {
             await InitResources();
             await view.InitializeModels();
+
+            _LoadingData_Text = view.texts.LoadingData;
+            _PageTitle = view.texts.Instance_PageTitle;
+
             StateHasChanged();
         }
     }
@@ -293,7 +308,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnExecuteSearch, view.ExecutionStatus.Error.Message);
         }
 
         searchbtn.End();
@@ -316,7 +331,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnReturnData, view.ExecutionStatus.Error.Message);
         }
         else
         {
@@ -336,17 +351,17 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro salvar.", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.NoticeLabel, view.ExecutionStatus.Error.Message);
         }
         else
         {
             if (this.view.Inserting)
             {
-                await msgbox_create.ShowDialog("Sucesso!", "O Objeto foi salvo com sucesso. Deseja continuar inserindo ?");
+                await msgbox_create.ShowDialog(view.texts.SuccessLabel, view.texts.AfterSaveAnswering );
             }
             else
             {
-                await msgbox.ShowDialog("Sucesso!", "Os dados foram editados com sucesso.");
+                await msgbox.ShowDialog(view.texts.SuccessLabel, view.texts.Active_Label);
                 this.Back();
             }
 

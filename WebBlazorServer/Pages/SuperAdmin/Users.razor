@@ -11,608 +11,616 @@
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
 
-<BreadCrumbView IsHome="false" HomeURL="/superadmin/home" PageTitle="Gerenciamento de Usuários" ></BreadCrumbView>
 
-       <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
-            <div class="content flex-row-fluid" id="kt_content">        
-                <div class="">        
-
-                    @if (view != null)
-                    {
-                        <div style="display:@view.SearchingState">
-
-                            <div class="row gy-5 g-xl-10">
-
-                                <div class="col-xl-4">                                
-                                    <div class="card card-flush h-xl-100">								      
-								        <div class="card-header pt-7">
-									  
-									        <h3 class="card-title align-items-start flex-column">
-										        <span class="card-label fw-bold text-dark">@view.texts.SearchButtonLabel</span>										
-									        </h3>									        
-									       
-                                        </div>
-                                           
-                                        <div class="card-body">
-										         <div class="form-group">
-                                                    <label class="form-label" >E-mail:</label>
-                                                    <input type="email" @bind-value="view.param.pEmail" class="form-control"
-                                                       placeholder="Pesquisar por e-mail">
-                                                </div>
-
-                                                 <div class="form-group">
-                                                    <label class="form-label" >User Name:</label>
-                                                    <input type="text" maxlength="20" @bind-value="view.param.pUserName" class="form-control"
-                                                       placeholder="Pesquisar por username">
-                                                </div>
-
-                                                 <div class="form-group">
-                                                        <label class="form-label">Instance:</label>
-                                                        @if (view.listInstances != null )
-                                                        {
-                                                                @if (view.listInstances.Count > 0)
-                                                                {
-                                                                    <SelectList TItem="InstanceList"
-                                                                                TValue="Int64"
-                                                                                Data="@view.listInstances"
-                                                                                TextField="@((item)=>item.InstanceName)"
-                                                                                ValueField="@((item)=>item.InstanceID)"
-                                                                                @bind-SelectedValue="@view.param.pInstanceID"></SelectList>
-                                                                }
-
-                                                         }
-
-                                                </div>
-
-                                                <div class="form-group">
-                                                        <label class="form-label">Role:</label>
-                                                        @if (view.listRoles != null )
-                                                        {
-                                                                @if (view.listRoles.Count > 0)
-                                                                {
-                                                                    <SelectList TItem="RoleList"
-                                                                                TValue="Int64"
-                                                                                Data="@view.listRoles"
-                                                                                TextField="@((item)=>item.RoleName)"
-                                                                                ValueField="@((item)=>item.RoleID)"
-                                                                                @bind-SelectedValue="@view.param.pRoleID"></SelectList>
-                                                                }
-
-                                                         }
-
-                                                </div>
-
-                                                <p class="field" style="padding-top:10px">
-
-                                                        <TaskButton @ref="searchbtn" OnClick="OnSearch" Title=@view.texts.SearchButtonLabel
-                                                             Description="Clique aqui buscar usuários." ReadOnly=!view.Permissions.AllowRead
-                                                                    ActionLabel=@view.texts.SearchingLabel>
-                                                    </TaskButton>
-
-                                                </p>									       
-									    
-                                                 <p class="field" style="padding-top:10px">
-                                                     <TaskButton @ref="newbtn" OnClick="OnNew" Title="Novo Usuário" Class="dark"
-                                                          Description="Clique aqui criar o novo usuário." Disabled="" ReadOnly=!view.Permissions.AllowSave
-                                                             ActionLabel=@view.texts.InsertingLoadingLabel>
-                                                        </TaskButton>
-
-                                                 </p>
-                                           </div>
-								        </div>
-                                     </div>
-                                                            
-                                <div class="col-xl-8">
-
-                                    <div class="card card-flush h-xl-100">
-										
-										<div class="card-header pt-7">
-											
-											<h3 class="card-title align-items-start flex-column">
-												<span class="card-label fw-bold text-dark">@view.texts.SearchResultLabel</span>												
-											</h3>
-                                        </div>
-
-                                        <div class="card-body">
-                                            @if (view.searchresult != null)
-                                            {
-                                                @if (view.searchresult.Count > 0)
-                                                {
-                                                      <DataGrid TItem="UserResult" Data="@view.searchresult"  Responsive  ShowPager >                                                                                                                                      
-                                                        <DataGridColumns>
-                                                            
-                                                            <DataGridColumn Field="@nameof(UserResult.Email)" Caption="E-mail" />
-                                                 
-                                                             <DataGridColumn Field="@nameof(UserResult.IsActive)" Caption="Ativo ?" >
-                                                                <DisplayTemplate>
-                                                                            @{
-                                                                                UserResult user = (context as UserResult);
-                                                                                if (user.IsActive == 1)
-                                                                                {
-                                                                                                <span>SIM</span>
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                                <span>NÃO</span>
-                                                                                }
-                                                                            }                                            
-                                                                </DisplayTemplate>
-                                                            </DataGridColumn>
-
-                                                               <DataGridColumn Field="@nameof(UserResult.IsLocked)" Caption="Bloqueado ?" >
-                                                                <DisplayTemplate>
-                                                                          @{
-                                                                                UserResult user = (context as UserResult);
-                                                                                if (user.IsLocked == 1)
-                                                                                {
-                                                                                                <span>SIM</span>
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                                <span>NÃO</span>
-                                                                                }
-                                                                            }                                           
-                                                                </DisplayTemplate>
-                                                            </DataGridColumn>                                              
-                                            
-                                                             <DataGridColumn Field="@nameof(UserResult.UserID)" Caption=@view.texts.DetailsLabel >
-                                                                <DisplayTemplate>
-                                                                      @{
-                                                                            UserResult user = (context as UserResult);
-
-                                                                                      @if(view.Permissions.AllowSave)
-                                                                              {
-                                                                                            <IconButton Icon="IconButton.TYPEICONENUM.DETAILS" 
-                                                                                            OnClick="()=>OnDetClick(user.UserID)"></IconButton>                                                                                                                                                   
-                                                                              }
-                                                                           
-                                                                      }
-                                                    
-                                                                </DisplayTemplate>
-                                                            </DataGridColumn>
-
-                                                            </DataGridColumns>
-                                      
-                                                        </DataGrid>
-
-                                                }
-                                                else
-                                                {
-                                                    <p> @view.texts.NoRecordsFound </p>
-                                                }
-                                              }
-                                         
-                                        </div>
-
-                                    </div>
-                                                                  
-
-                                </div>
-
-                           
-                             </div>
-
-                        </div>                       
-
-                        <div style="display:@view.EditingState">
-                            
-                           <BackButton OnClick="Back"></BackButton>
-
-                            @if (!view.Inserting)
-                            {
-
-                                <div class="row gy-5 g-xl-10">
-
-                                    <div class="col-xl-8">                                
-                                        <div class="card card-flush h-xl-100">	
-                                            
-		                                     <div class="card-header card-header-stretch">
-                                                   
-                                                        <div class="card-toolbar m-0">
-							                    
-							                                <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bold" role="tablist">
-								                                <li class="nav-item" role="presentation">
-									                                <a id="kt_link_usertab1" class="nav-link justify-content-center text-active-gray-800 active" data-bs-toggle="tab" role="tab" href="#kt_usertab1">Dados Principais</a>
-								                                </li>
-								                                <li class="nav-item" role="presentation">
-									                                <a id="kt_link_usertab2" class="nav-link justify-content-center text-active-gray-800" data-bs-toggle="tab" role="tab" href="#kt_usertab2"> Instância / Perfil </a>
-								                                </li>	
-                                                              
-							                                </ul>
-							                    
-						                               </div>
-                                                                                                   
-                                               </div>
-
-                                               <div class="tab-content">
-                                                    <div id="kt_usertab1" class="card-body p-0 tab-pane fade show active" role="tabpanel" aria-labelledby="kt_link_usertab1">
-                                                         <div class="card-body">
-
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-
-                                                                    <div class="form-group">
-                                                                        <label class="form-label" for="name">User Name:</label>
-                                                                        <input type="text" disabled class="form-control field" value="@view.result.UserName" />
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label" for="email">E-mail:</label>
-                                                                        <input type="text" disabled class="form-control field" value="@view.result.Email" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                              
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label" for="name">Create Date</label>
-                                                                        <input type="text" disabled class="form-control field" value="@view.result.CreateDate" />
-
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label" for="email">last Login Date</label>
-                                                                        <input type="text" disabled class="form-control field" value="@view.result.LastLoginDate" />
-                                                                    </div>
-                                                                </div>
-                                                               
-                                                                <div class="col-md-4">
-                                                                    <div class="">
-                                                                        <label class="form-label">Default Language :</label>
-                                                                        <input type="text" disabled class="form-control field" value="@view.result.DefaultLanguage" />
-                                                                       
-                                                                    </div>
-                                                                </div>
-                                                               
-
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label" for="name">Last Login IP</label>
-                                                                        <input type="text" disabled class="form-control field" value="@view.result.LastLoginIP" />
-
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label" for="email">LoginCounter</label>
-                                                                        <input type="text" disabled class="form-control field" value="@view.result.LoginCounter" />
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label" for="email">Password Recovery Code</label>
-                                                                        <input type="text" disabled class="form-control field" value="@view.result.PasswordRecoveryCode" />
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-
-
-                                                        </div>
-
-                                                   </div>
-
-                                                    <div id="kt_usertab2" class="card-body p-0 tab-pane fade" role="tabpanel" aria-labelledby="kt_link_usertab2">
-                                                          <div class="card-body"> 
-
-                                                                <div class="row">
-                                                                    <div class="col-md-8">
-                                                                        <div class="">
-                                                                              <h4>Instância:</h4>
-                                                                              <label class="form-label">Selecione um item abaixo para alterar:</label>
-                                                                                @if (view.listInstances != null)
-                                                                                {
-                                                                                    @if (view.listInstances.Count > 0)
-                                                                                    {
-                                                                                        <SelectList TItem="InstanceList"
-                                                                                            TValue="Int64"
-                                                                                            Data="@view.listInstances"
-                                                                                            TextField="@((item)=>item.InstanceName)"
-                                                                                            ValueField="@((item)=>item.InstanceID)"
-                                                                                            @bind-SelectedValue="@view.InstanceSelected.InstanceID"></SelectList>
-                                                                                    }
-
-                                                                                }
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-4" style="padding-top:52px">
-                                                                      
-                                                                        <TaskButton @ref="alterinstancebtn" Title="Alterar Instância" OnClick="OnAlterInstance"
-                                                                            Description="Clique para alterar a Instância." Class="dark"
-                                                                            ActionLabel="Alterando..." ReadOnly=!view.Permissions.AllowSave>
-                                                                        </TaskButton>
-                                                                    </div>
-
-                                                                </div>
-                                                        
-
-                                                                <div class="row" style="padding-top:30px">
-                                                                    <div class="col-md-8">
-                                                                            <div class="">
-                                                                                 <h4>Perfil:</h4>
-                                                                                 <label class="form-label">Selecione um item abaixo para alterar:</label>
-                                                                                @if (view.listRoles != null & view.listRoles.Count > 0)
-                                                                                {
-                                                                                        <SelectList TItem="RoleList"
-                                                                                            TValue="Int64"
-                                                                                            Data="@view.listRoles"
-                                                                                            TextField="@((item)=>item.RoleName)"
-                                                                                            ValueField="@((item)=>item.RoleID)"
-                                                                                            @bind-SelectedValue="@view.RoleSelected.RoleID"></SelectList>
-                                                
-                                                                                }                                                                                                                                                       
-
-                                                                         </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-4" style="padding-top:52px">
-                                                                       
-                                                                        <TaskButton @ref="alterrolebtn" Title="Alterar Perfil" OnClick="OnAlterRole"
-                                                                            Description="Clique para alterar o Perfil." Class="dark"
-                                                                            ActionLabel="Alterando..." ReadOnly=!view.Permissions.AllowSave>
-                                                                        </TaskButton>
-                                                                    </div>
-
-                                                                 </div>
-
-                                            
-                                                            </div>
-                                                    </div>
-                 
-                                               </div>
-                                                                                          
-                                                
-		                                </div>
-
-                                    </div>
-                                                            
-                                    <div class="col-xl-4">
-
-                                        <div class="card card-flush h-xl-100">
-												                               
-
-                                            <div class="card-body">
-                                                                                                             
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-
-                                                            <div class="me-7 mb-4">
-											                    <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-												                    <img src="@view.result.ProfileImageURL" alt="image">										                   
-											                    </div>
-										                    </div>
-                                                           
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row" style="padding-top:20px">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="name">Status do Usuário:</label>
-
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row" style="padding-top:20px">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="name">Active:</label>
-                                                                    <Switch TValue="bool" @bind-Checked="@view.isUserActive"></Switch>
-                                             
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row" style="padding-top:20px">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="name">Locked:</label>
-                                                                    <Switch TValue="bool" @bind-Checked="@view.isUserLocked"></Switch>
-                                             
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <p class="field" style="padding-top:10px">
-
-                                                        <TaskButton @ref="statebtn" Title="Atualizar Status" OnClick="OnChangeState"
-                                                                        Description="Clique aqui para altualizar os estados de Ativo e Bloqueado."
-                                                                    ActionLabel="Atualizando..." ReadOnly=!view.Permissions.AllowSave>
-                                                        </TaskButton>
-
-                                                    </p>
-                                                   
-                                         
-                                            </div>
-
-                                        </div>
-                                                                  
-
-                                    </div>
-
-                           
-                                </div>
-                                 
-                            }
-                            else
-                            {   
-                                  <div class="row gy-5 g-xl-10">
-
-                                        <div class="col-xl-10">                                
-                                            <div class="card card-flush h-xl-100">								      
-		                                        <div class="card-header pt-7">
-									  
-			                                        <h3 class="card-title align-items-start flex-column">
-				                                        <span class="card-label fw-bold text-dark">Novo Usuário</span>										
-			                                        </h3>									        
-									       
-                                                </div>
-                                           
-                                                <div class="card-body">
-
-
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="">
-                                                                      <label class="form-label">Instância:</label>
-                                                                        @if (view.listInstances != null)
-                                                                        {
-                                                                            @if (view.listInstances.Count > 0)
-                                                                            {
-                                                                                <SelectList TItem="InstanceList"
-                                                                                    TValue="Int64"
-                                                                                    Data="@view.listInstances"
-                                                                                    TextField="@((item)=>item.InstanceName)"
-                                                                                    ValueField="@((item)=>item.InstanceID)"
-                                                                                    @bind-SelectedValue="@view.newModel.InstanceID"></SelectList>
-                                                                            }
-
-                                                                        }
-                                                                        <label class="validation_field">@view.GetSummaryMessage("InstanceID") </label>
-
-                                                                </div>
-                                                            </div>
-                                                           
-                                                        </div>
-                                                        
-
-                                                        <div class="row" style="padding-top:20px">
-                                                            <div class="col-md-12">
-                                                                    <div class="">
-                                                                        <label class="form-label" >Perfil:</label>
-                                                                        @if (view.listRoles != null & view.listRoles.Count > 0)
-                                                                        {
-                                                                                <SelectList TItem="RoleList"
-                                                                                    TValue="Int64"
-                                                                                    Data="@view.listRoles"
-                                                                                    TextField="@((item)=>item.RoleName)"
-                                                                                    ValueField="@((item)=>item.RoleID)"
-                                                                                    @bind-SelectedValue="@view.newModel.RoleID"></SelectList>
-                                                
-                                                                        }                                                                       
-                                                                        <label class="validation_field">@view.GetSummaryMessage("RoleID") </label>
-
-                                                                 </div>
-                                                            </div>
-                                                         </div>
-                                                                        
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="">
-                                                                    <label class="form-label" >E-mail :</label>
-                                                                    <input type="text" @bind-value="@view.newModel.Email" maxlength="100" class="form-control" />                                                                    
-                                                                    <label class="validation_field">@view.GetSummaryMessage("Email") </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <div class="">
-                                                                    <label class="form-label" >Nome de Usuário :</label>
-                                                                    <input type="text" @bind-value="@view.newModel.UserName" maxlength="50" class="form-control" />                                                                    
-                                                                    <label class="validation_field">@view.GetSummaryMessage("UserName") </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row" >
-                                                            <div class="col-md-6">
-                                                                <div class="">
-                                                                    <label class="form-label" >Senha :</label>
-                                                                    <input type="password" @bind-value="@view.newModel.Password" maxlength="8" class="form-control" />                                                                    
-                                                                    <label class="validation_field">@view.GetSummaryMessage("Password") </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                         <div class="row" >
-                                                            <div class="col-md-6">
-                                                                <div class="">
-                                                                    <label class="form-label" >Default Language :</label>
-                                                                                                                                                                                                                                                                                          
-                                                                    @if (view.listLangs != null)
-                                                                    {
-                                                                        @if (view.listLangs.Count > 0)
-                                                                        {
-                                                                            <SelectList TItem="LocalizationTextList"
-                                                                                TValue="string"
-                                                                                Data="@view.listLangs"
-                                                                                TextField="@((item)=>item.Language)"
-                                                                                ValueField="@((item)=>item.Language)"
-                                                                                @bind-SelectedValue="@view.newModel.DefaultLanguage"></SelectList>
-                                                                        }
-
-                                                                    }
-                                                                     <label class="validation_field">@view.GetSummaryMessage("DefaultLanguage") </label>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <p class="field" style="padding-top:10px">
-
-                                                            <TaskButton @ref="savenewbtn" OnClick="OnCreate" Title="Criar Usuário"
-                                                                        Description="Clique aqui para salvar os dados do novo usuário."
-                                                                         ActionLabel="Salvando..." ReadOnly=!view.Permissions.AllowSave>
-                                                            </TaskButton>
-
-                                                        </p>  			                  
-			                                                                                                                                       
-                                               
-                                                 </div>
-		                                    </div>
-                                        </div>                                                               
-
-                           
-                                </div>
-                                
-
-                                    
-                            }                         
-
-                     </div>
-                    }
-                    else
-                    {
-
-                        <h5>Loading page...</h5>
-
-                    }
-                </div>
-            </div>
-        </div>
-
+<BreadCrumbView IsHome="false" HomeURL="/superadmin/home"
+            PageTitle=@_PageTitle></BreadCrumbView>
 
 <MessageBox @ref="msgbox"></MessageBox>
 
-<MessageBox @ref="msgbox_create" 
-    ButtonNo="true" ButtonYes="true" ButtonOK="false" 
-    OnClickYes="OnNew" >
+<MessageBox @ref="msgbox_create"
+        ButtonNo="true" ButtonYes="true" ButtonOK="false"
+        OnClickYes="OnNew">
 </MessageBox>
 
-<TaskLoading @ref="loading" Title="Carregando dados. Aguarde..."></TaskLoading>
+
+<TaskLoading @ref="loading" Title=@_LoadingData_Text></TaskLoading>
+
+
+
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+    <div class="content flex-row-fluid" id="kt_content">
+        <div class="">
+
+            @if (view != null)
+            {
+                <div style="display:@view.SearchingState">
+
+                    <div class="row gy-5 g-xl-10">
+
+                        <div class="col-xl-4">
+                            <div class="card card-flush h-xl-100">
+                                <div class="card-header pt-7">
+
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bold text-dark">@view.texts.SearchButtonLabel</span>
+                                    </h3>
+
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">@view.texts.Email_Label:</label>
+                                        <input type="email" @bind-value="view.param.pEmail" class="form-control"
+                                           placeholder=@view.texts.SearchByEmail_Label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">@view.texts.UserName_Label:</label>
+                                        <input type="text" maxlength="20" @bind-value="view.param.pUserName" class="form-control"
+                                           placeholder=@view.texts.SearchByUserName_Label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">@view.texts.Instance_Label:</label>
+                                        @if (view.listInstances != null)
+                                        {
+                                            @if (view.listInstances.Count > 0)
+                                            {
+                                                <SelectList TItem="InstanceList"
+                                                TValue="Int64"
+                                                Data="@view.listInstances"
+                                                TextField="@((item)=>item.InstanceName)"
+                                                ValueField="@((item)=>item.InstanceID)"
+                                                @bind-SelectedValue="@view.param.pInstanceID"></SelectList>
+                                            }
+
+                                        }
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">@view.texts.Role_Label:</label>
+                                        @if (view.listRoles != null)
+                                        {
+                                            @if (view.listRoles.Count > 0)
+                                            {
+                                                <SelectList TItem="RoleList"
+                                                TValue="Int64"
+                                                Data="@view.listRoles"
+                                                TextField="@((item)=>item.RoleName)"
+                                                ValueField="@((item)=>item.RoleID)"
+                                                @bind-SelectedValue="@view.param.pRoleID"></SelectList>
+                                            }
+
+                                        }
+
+                                    </div>
+
+                                    <p class="field" style="padding-top:10px">
+
+                                        <TaskButton @ref="searchbtn" OnClick="OnSearch" Title=@view.texts.SearchButtonLabel
+                                                ReadOnly=!view.Permissions.AllowRead
+                                                ActionLabel=@view.texts.SearchingLabel>
+                                        </TaskButton>
+
+                                    </p>
+
+                                    <p class="field" style="padding-top:10px">
+                                        <TaskButton @ref="newbtn" OnClick="OnNew" Title=@view.texts.NewUser_Label Class="dark"
+                                                Description=@view.texts.NewUser_Description ReadOnly=!view.Permissions.AllowSave
+                                                ActionLabel=@view.texts.InsertingLoadingLabel>
+                                        </TaskButton>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-8">
+
+                            <div class="card card-flush h-xl-100">
+
+                                <div class="card-header pt-7">
+
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bold text-dark">@view.texts.SearchResultLabel</span>
+                                    </h3>
+                                </div>
+
+                                <div class="card-body">
+                                    @if (view.searchresult != null)
+                                    {
+                                        @if (view.searchresult.Count > 0)
+                                        {
+                                            <DataGrid TItem="UserResult" Data="@view.searchresult" Responsive ShowPager>
+                                                <DataGridColumns>
+
+                                                    <DataGridColumn Field="@nameof(UserResult.Email)" Caption=@view.texts.Email_Label />
+
+                                                    <DataGridColumn Field="@nameof(UserResult.IsActive)" Caption=@view.texts.Active_Label>
+                                                        <DisplayTemplate>
+                                                            @{
+                                                                UserResult user = (context as UserResult);
+                                                                if (user.IsActive)
+                                                                {
+                                                                    <span>@view.texts.Yes_Text</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>@view.texts.No_Text</span>
+                                                                }
+                                                            }
+                                                        </DisplayTemplate>
+                                                    </DataGridColumn>
+
+                                                    <DataGridColumn Field="@nameof(UserResult.IsLocked)" Caption=@view.texts.Locked_Label>
+                                                        <DisplayTemplate>
+                                                            @{
+                                                                UserResult user = (context as UserResult);
+                                                                if (user.IsLocked)
+                                                                {
+                                                                    <span>@view.texts.Yes_Text</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>@view.texts.No_Text</span>
+                                                                }
+                                                            }
+                                                        </DisplayTemplate>
+                                                    </DataGridColumn>
+
+                                                    <DataGridColumn Field="@nameof(UserResult.UserID)" Caption=@view.texts.DetailsLabel>
+                                                        <DisplayTemplate>
+                                                            @{
+                                                                UserResult user = (context as UserResult);
+
+                                                                @if (view.Permissions.AllowSave)
+                                                                {
+                                                                    <IconButton Icon="IconButton.TYPEICONENUM.DETAILS"
+                                                            OnClick="()=>OnDetClick(user.UserID)"></IconButton>
+                                                                }
+
+                                                            }
+
+                                                        </DisplayTemplate>
+                                                    </DataGridColumn>
+
+                                                </DataGridColumns>
+
+                                            </DataGrid>
+
+                                        }
+                                        else
+                                        {
+                                            <p> @view.texts.NoRecordsFound </p>
+                                        }
+                                    }
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div style="display:@view.EditingState">
+
+                    <BackButton OnClick="Back"></BackButton>
+
+                    @if (!view.Inserting)
+                    {
+
+                        <div class="row gy-5 g-xl-10">
+
+                            <div class="col-xl-8">
+                                <div class="card card-flush h-xl-100">
+
+                                    <div class="card-header card-header-stretch">
+
+                                        <div class="card-toolbar m-0">
+
+                                            <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bold" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <a id="kt_link_usertab1" class="nav-link justify-content-center text-active-gray-800 active" data-bs-toggle="tab" role="tab" href="#kt_usertab1">@view.texts.MainData_Label</a>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <a id="kt_link_usertab2" class="nav-link justify-content-center text-active-gray-800" data-bs-toggle="tab" role="tab" href="#kt_usertab2"> @view.texts.User_SecondTabLabel </a>
+                                                </li>
+
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="tab-content">
+                                        <div id="kt_usertab1" class="card-body p-0 tab-pane fade show active" role="tabpanel" aria-labelledby="kt_link_usertab1">
+                                            <div class="card-body">
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="name">@view.texts.UserName_Label:</label>
+                                                            <input type="text" disabled class="form-control field" value="@view.result.UserName" />
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="email">@view.texts.Email_Label:</label>
+                                                            <input type="text" disabled class="form-control field" value="@view.result.Email" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="name">@view.texts.CreateDate_Label</label>
+                                                            <input type="text" disabled class="form-control field" value="@view.result.CreateDate" />
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="email">@view.texts.LastLoginDate_Label</label>
+                                                            <input type="text" disabled class="form-control field" value="@view.result.LastLoginDate" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="">
+                                                            <label class="form-label">@view.texts.DefaultLanguage_Label :</label>
+                                                            <input type="text" disabled class="form-control field" value="@view.result.DefaultLanguage" />
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="name">@view.texts.LastLoginIP_Label</label>
+                                                            <input type="text" disabled class="form-control field" value="@view.result.LastLoginIP" />
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="email">@view.texts.LoginCounter_Label</label>
+                                                            <input type="text" disabled class="form-control field" value="@view.result.LoginCounter" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="email">@view.texts.PasswordRecovery_Label</label>
+                                                            <input type="text" disabled class="form-control field" value="@view.result.PasswordRecoveryCode" />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <div id="kt_usertab2" class="card-body p-0 tab-pane fade" role="tabpanel" aria-labelledby="kt_link_usertab2">
+                                            <div class="card-body">
+
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="">
+                                                            <h4>@view.texts.AlterInstance_Label:</h4>
+                                                            <label class="form-label">@view.texts.AlterInstance_Description:</label>
+                                                            @if (view.listInstances != null)
+                                                            {
+                                                                @if (view.listInstances.Count > 0)
+                                                                {
+                                                                    <SelectList TItem="InstanceList"
+                                                                TValue="Int64"
+                                                                Data="@view.listInstances"
+                                                                TextField="@((item)=>item.InstanceName)"
+                                                                ValueField="@((item)=>item.InstanceID)"
+                                                                @bind-SelectedValue="@view.InstanceSelected.InstanceID"></SelectList>
+                                                                }
+
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4" style="padding-top:52px">
+
+                                                        <TaskButton @ref="alterinstancebtn" Title=@view.texts.AlterInstance_Label OnClick="OnAlterInstance"
+                                                            Description=@view.texts.AlterInstance_Description Class="dark"
+                                                            ActionLabel=@view.texts.Altering_Label ReadOnly=!view.Permissions.AllowSave>
+                                                        </TaskButton>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="row" style="padding-top:30px">
+                                                    <div class="col-md-8">
+                                                        <div class="">
+                                                            <h4>@view.texts.AlterRole_Label:</h4>
+                                                            <label class="form-label">@view.texts.AlterRole_Description:</label>
+                                                            @if (view.listRoles != null & view.listRoles.Count > 0)
+                                                            {
+                                                                <SelectList TItem="RoleList"
+                                                                TValue="Int64"
+                                                                Data="@view.listRoles"
+                                                                TextField="@((item)=>item.RoleName)"
+                                                                ValueField="@((item)=>item.RoleID)"
+                                                                @bind-SelectedValue="@view.RoleSelected.RoleID"></SelectList>
+
+                                                            }
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4" style="padding-top:52px">
+
+                                                        <TaskButton @ref="alterrolebtn" Title=@view.texts.AlterRole_Label OnClick="OnAlterRole"
+                                                            Description=@view.texts.AlterRole_Description Class="dark"
+                                                            ActionLabel=@view.texts.Altering_Label ReadOnly=!view.Permissions.AllowSave>
+                                                        </TaskButton>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-xl-4">
+
+                                <div class="card card-flush h-xl-100">
+
+
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                                <div class="me-7 mb-4">
+                                                    <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                                                        <img src="@view.result.ProfileImageURL" alt="image">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row" style="padding-top:20px">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="name">@view.texts.UserStatus_Label:</label>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" style="padding-top:20px">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="name">@view.texts.Active_Label:</label>
+                                                    <Switch TValue="bool" @bind-Checked="@view.isUserActive"></Switch>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row" style="padding-top:20px">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="name">@view.texts.Locked_Label:</label>
+                                                    <Switch TValue="bool" @bind-Checked="@view.isUserLocked"></Switch>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <p class="field" style="padding-top:10px">
+
+                                            <TaskButton @ref="statebtn" Title=@view.texts.ChangeUserState_Label OnClick="OnChangeState"
+                                                Description=@view.texts.ChangeUserState_Description
+                                                ActionLabel=@view.texts.Altering_Label ReadOnly=!view.Permissions.AllowSave>
+                                            </TaskButton>
+
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="row gy-5 g-xl-10">
+
+                            <div class="col-xl-10">
+                                <div class="card card-flush h-xl-100">
+                                    <div class="card-header pt-7">
+
+                                        <h3 class="card-title align-items-start flex-column">
+                                            <span class="card-label fw-bold text-dark">@view.texts.CreateUser_Label</span>
+                                        </h3>
+
+                                    </div>
+
+                                    <div class="card-body">
+
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="">
+                                                    <label class="form-label">@view.texts.Instance_Label:</label>
+                                                    @if (view.listInstances != null)
+                                                    {
+                                                        @if (view.listInstances.Count > 0)
+                                                        {
+                                                            <SelectList TItem="InstanceList"
+                                                        TValue="Int64"
+                                                        Data="@view.listInstances"
+                                                        TextField="@((item)=>item.InstanceName)"
+                                                        ValueField="@((item)=>item.InstanceID)"
+                                                        @bind-SelectedValue="@view.newModel.InstanceID"></SelectList>
+                                                        }
+
+                                                    }
+                                                    <label class="validation_field">@view.GetSummaryMessage("InstanceID") </label>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="row" style="padding-top:20px">
+                                            <div class="col-md-12">
+                                                <div class="">
+                                                    <label class="form-label">@view.texts.Role_Label:</label>
+                                                    @if (view.listRoles != null & view.listRoles.Count > 0)
+                                                    {
+                                                        <SelectList TItem="RoleList"
+                                                        TValue="Int64"
+                                                        Data="@view.listRoles"
+                                                        TextField="@((item)=>item.RoleName)"
+                                                        ValueField="@((item)=>item.RoleID)"
+                                                        @bind-SelectedValue="@view.newModel.RoleID"></SelectList>
+
+                                                    }
+                                                    <label class="validation_field">@view.GetSummaryMessage("RoleID") </label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="">
+                                                    <label class="form-label">@view.texts.Email_Label:</label>
+                                                    <input type="text" @bind-value="@view.newModel.Email" maxlength="100" class="form-control" />
+                                                    <label class="validation_field">@view.GetSummaryMessage("Email") </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="">
+                                                    <label class="form-label">@view.texts.UserName_Label:</label>
+                                                    <input type="text" @bind-value="@view.newModel.UserName" maxlength="50" class="form-control" />
+                                                    <label class="validation_field">@view.GetSummaryMessage("UserName") </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="form-label">@view.texts.Password_Label :</label>
+                                                    <input type="password" @bind-value="@view.newModel.Password" maxlength="8" class="form-control" />
+                                                    <label class="validation_field">@view.GetSummaryMessage("Password") </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="">
+                                                    <label class="form-label">@view.texts.DefaultLanguage_Label :</label>
+
+                                                    @if (view.listLangs != null)
+                                                    {
+                                                        @if (view.listLangs.Count > 0)
+                                                        {
+                                                            <SelectList TItem="LocalizationTextList"
+                                                        TValue="string"
+                                                        Data="@view.listLangs"
+                                                        TextField="@((item)=>item.Language)"
+                                                        ValueField="@((item)=>item.Language)"
+                                                        @bind-SelectedValue="@view.newModel.DefaultLanguage"></SelectList>
+                                                        }
+
+                                                    }
+                                                    <label class="validation_field">@view.GetSummaryMessage("DefaultLanguage") </label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <p class="field" style="padding-top:10px">
+
+                                            <TaskButton @ref="savenewbtn" OnClick="OnCreate" Title=@view.texts.CreateUserButton_Label
+                                                Description=@view.texts.CreateUser_Description
+                                                ActionLabel=@view.texts.Saving_Label ReadOnly=!view.Permissions.AllowSave>
+                                            </TaskButton>
+
+                                        </p>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+                    }
+
+                </div>
+            }
+            else
+            {
+
+               <img src="../images/circle_loader.gif" style="width:32px;height:32px" />
+
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
 @code {
-
-
+   
     private MessageBox msgbox;
     private MessageBox msgbox_create;
     private TaskLoading loading;
@@ -621,35 +629,38 @@
     private TaskButton newbtn;
     private TaskButton savenewbtn;
 
-    private TaskButton alterinstancebtn; 
+    private TaskButton alterinstancebtn;
 
-    private TaskButton alterrolebtn; 
+    private TaskButton alterrolebtn;
 
+    private string _LoadingData_Text;
+
+    private string _PageTitle;
 
     //
 
     private UserAuthenticated LoggedUser;
-    private UserViewModel view; 
+    private UserViewModel view;
 
     //
 
     private async Task InitResources()
-    {    
+    {
         ((TemplateAppController)_appctrl).Settings = _settings;
 
         if (await _appctrl.IsAuthenticated())
         {
             LoggedUser = _appctrl.UserInfo;
-            _memberservices.Init(_httpclient,_settings.ServiceURL,LoggedUser.Token);
-            _cache.Init(_httpclient,_settings.ServiceURL,LoggedUser.Token);
+            _memberservices.Init(_httpclient, _settings.ServiceURL, LoggedUser.Token);
+            _cache.Init(_httpclient, _settings.ServiceURL, LoggedUser.Token);
 
-            view = new UserViewModel((_memberservices as MembershipGateway), 
-                  (_cache as DataCacheGateway),LoggedUser );
+            view = new UserViewModel((_memberservices as MembershipGateway),
+                  (_cache as DataCacheGateway), LoggedUser);
 
             List<UserPermissions> list = await _appctrl.GetUserPermissions();
-            view.Permissions 
-                = BaseViewModel.SetPermissions(list,"SYSUSER",false ); 
-
+            view.Permissions
+                = BaseViewModel.SetPermissions(list, "SYSUSER", false);
+            
         }
 
     }
@@ -660,14 +671,17 @@
         if (firstRender)
         {
             await InitResources();
-            await view.InitializeModels(); 
+            await view.InitializeModels();
+            _LoadingData_Text = view.texts.LoadingData;
+            _PageTitle = view.texts.User_PageTitle;
+
             StateHasChanged();
         }
     }
 
     public async Task OnSearch()
     {
-        searchbtn.Begin(); 
+        searchbtn.Begin();
         await view.Search();
 
         if (!view.ExecutionStatus.Status)
@@ -681,13 +695,13 @@
     public void OnNew()
     {
 
-        view.InitNew(); 
+        view.InitNew();
         StateHasChanged();
     }
 
     public async Task OnGet(object id)
     {
-        await loading.Begin() ;
+        await loading.Begin();
 
         await view.Get(id);
 
@@ -699,7 +713,7 @@
         }
         else
         {
-            view.InitEdit(); 
+            view.InitEdit();
 
         }
 
@@ -707,17 +721,17 @@
     }
 
     public async Task OnChangeState()
-    {        
-        statebtn.Begin(); 
+    {
+        statebtn.Begin();
         await view.ChangeState();
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao alterar o status do usuário.", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.AlterStatus_Error, view.ExecutionStatus.Error.Message);
         }
         else
         {
-            await msgbox.ShowDialog(view.texts.NoticeLabel, "O status do usuário foi alterado.");
+            await msgbox.ShowDialog(view.texts.NoticeLabel, view.texts.AlterStatus_Success);
         }
 
         statebtn.End();
@@ -725,10 +739,10 @@
     }
 
     public async Task OnCreate()
-    {        
-        savenewbtn.Begin(); 
+    {
+        savenewbtn.Begin();
 
-        await view.CreateNew(); 
+        await view.CreateNew();
 
         if (!view.ExecutionStatus.Status)
         {
@@ -737,7 +751,7 @@
         else
         {
             this.Back();
-            await  msgbox_create.ShowDialog(view.texts.NoticeLabel, view.texts.AfterSaveAnswering);
+            await msgbox_create.ShowDialog(view.texts.NoticeLabel, view.texts.AfterSaveAnswering);
 
         }
 
@@ -746,7 +760,7 @@
     }
 
     public async Task OnDetClick(object id)
-    {            
+    {
         await OnGet(id);
 
     }
@@ -755,7 +769,7 @@
 
     public void Back()
     {
-        view.BackToSearch(); 
+        view.BackToSearch();
         StateHasChanged();
 
     }
@@ -768,17 +782,17 @@
     }
 
     public async Task OnAlterInstance()
-    {        
-        alterinstancebtn.Begin(); 
+    {
+        alterinstancebtn.Begin();
         await view.AlterInstance();
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao alterar a Instância.", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.AlterInstance_Error, view.ExecutionStatus.Error.Message);
         }
         else
         {
-            await msgbox.ShowDialog(view.texts.NoticeLabel, "A Instância do usuário foi alterado.");
+            await msgbox.ShowDialog(view.texts.NoticeLabel, view.texts.AlterInstance_Success);
         }
 
         alterinstancebtn.End();
@@ -793,11 +807,11 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao alterar o Perfil.", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.AlterRole_Error, view.ExecutionStatus.Error.Message);
         }
         else
         {
-            await msgbox.ShowDialog(view.texts.NoticeLabel, "O Perfil do usuário foi alterado.");
+            await msgbox.ShowDialog(view.texts.NoticeLabel, view.texts.AlterRole_Success);
         }
 
         alterrolebtn.End();

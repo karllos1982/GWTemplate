@@ -5,13 +5,20 @@
 @inject IJSRuntime JSRuntime
 @inject IAppControllerAsync<UserAuthenticated> _appctrl
 @inject IMembershipGatewayManager _memberservices
+@inject IDataCacheGatewayManager _cache
 @inject IAppSettings _settings
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
 
-<BreadCrumbView IsHome="false" HomeURL="/superadmin/home" PageTitle="Log de Acesso" ></BreadCrumbView>
 
-   <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+<BreadCrumbView IsHome="false" HomeURL="/superadmin/home"
+                PageTitle=@_PageTitle></BreadCrumbView>
+
+<MessageBox @ref="msgbox"></MessageBox>
+
+<TaskLoading @ref="loading" Title=@_LoadingData_Text></TaskLoading>
+
+  <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <div class="content flex-row-fluid" id="kt_content">        
             <div class="">  
                 @if (view != null)
@@ -131,9 +138,7 @@
         </div>
    </div>
 
-<MessageBox @ref="msgbox"></MessageBox>
 
-<TaskLoading @ref="loading" Title="Carregando dados. Aguarde..."></TaskLoading>
 
 @code {
 
@@ -142,6 +147,10 @@
     private TaskLoading loading;
     private TaskButton searchbtn;
      
+    private string _LoadingData_Text;
+
+    private string _PageTitle;
+
     //
 
     private UserAuthenticated LoggedUser;
@@ -158,7 +167,8 @@
         {
             LoggedUser = _appctrl.UserInfo;
             _memberservices.Init(_httpclient,_settings.ServiceURL,LoggedUser.Token);            
-            view = new SessionViewModel((_memberservices as MembershipGateway) ,LoggedUser); 
+            view = new SessionViewModel((_memberservices as MembershipGateway) , 
+                 (_cache as DataCacheGateway), LoggedUser);
 
             List<UserPermissions> list = await _appctrl.GetUserPermissions();
             view.Permissions
@@ -174,6 +184,9 @@
         {
             await InitResources();
             await view.InitializeModels();           
+
+            _LoadingData_Text = view.texts.LoadingData;
+            _PageTitle = view.texts.SessionLog_PageTitle;
 
             StateHasChanged();
         }

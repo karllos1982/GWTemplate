@@ -1,6 +1,7 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
+using WebBlazorServer.Localization;
 using WebBlazorServer.Pages.SuperAdmin;
 
 namespace Template.ViewModel
@@ -9,11 +10,14 @@ namespace Template.ViewModel
     {
 
         private MembershipGateway _gateway;
+        private DataCacheGateway _cache;
 
-        public LocalizationTextViewModel(MembershipGateway service,
+        public LocalizationTextViewModel(MembershipGateway service, DataCacheGateway cache,
             UserAuthenticated user)
-        {       
+        {
+            _user = user;
             _gateway = service;
+            _cache = cache;
             this.InitializeView(user);         
         }
 
@@ -22,7 +26,8 @@ namespace Template.ViewModel
         public LocalizationTextResult result = new LocalizationTextResult();
         public LocalizationTextParam param = new LocalizationTextParam() ;
         public List<LocalizationTextResult> searchresult = new List<LocalizationTextResult>();
-              
+
+        public LocalizationTextLocalization texts = null;
 
         public override async Task ClearSummaryValidation()
         {
@@ -33,6 +38,9 @@ namespace Template.ViewModel
                 new InnerException("Name",""),
                 new InnerException("Text","")
             };
+
+            this.texts = new LocalizationTextLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
 
         }
 

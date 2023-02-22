@@ -159,6 +159,8 @@ namespace Template.ViewModel
 
         public string ModoLabel = "";
 
+        
+
         public bool Inserting { get; set; }
 
         public PermissionsState Permissions { get; set; }

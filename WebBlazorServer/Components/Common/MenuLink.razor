@@ -1,4 +1,5 @@
 ﻿@inject NavigationManager NavigationManager
+@inject IJSRuntime _js
 
 @if (Display == MENUDISPLAYENUM.TABLINK)
 {
@@ -14,8 +15,8 @@
                         @foreach (MenuItem i in _groups)
                         {
                             <li class="nav-item">
-                                
-                                  <a class="nav-link @i.State" data-bs-toggle="tab" href="#@i.NavTabIndex">@i.Group</a>                                
+
+                                <a class="nav-link @i.State" data-bs-toggle="tab" href="#@i.NavTabIndex">@i.Group</a>
 
                             </li>
 
@@ -102,7 +103,7 @@
                         @foreach (MenuItem g in _groups)
                         {
                             <div class="accordion-item">
-                                <h2 class="accordion-header" id="@g.NavTabIndex">
+                                <h2 class="accordion-header" id="ac_@g.NavTabIndex">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bg_@g.NavTabIndex" aria-expanded="true" aria-controls="bg_@g.NavTabIndex">
                                         @g.Group
                                     </button>
@@ -159,7 +160,7 @@
         {
             Role = role;
             Group=group;
-            NavTabIndex = "kt_menu_" + index;
+            NavTabIndex = "ktmenu" + index;
         }        
 
         public string Permission_ObjectCode { get; set; } 
@@ -247,14 +248,14 @@
 
         AddItem(new MenuItem("SuperAdmin", "Monitoring", "2") { LinkTitle = "Data Log", LinkURL = "superadmin/datalog" , Permission_ObjectCode = "SYSDATALOG", Permission_Allownone = true });
         AddItem(new MenuItem("SuperAdmin", "Monitoring", "2") { LinkTitle = "Access Log", LinkURL = "superadmin/accesslog", Permission_ObjectCode = "SYSSESSION", Permission_Allownone = true });
-        
-        
+
+
         //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 1", LinkURL="pag1"}) ;
         //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 2", LinkURL="pag2"}) ;
         //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 3", LinkURL="pag3"}) ;
-        
+
         AddItem(new MenuItem("Admin", "Management", "1") { LinkTitle = "Cient", LinkURL = "admin/client", State = "active show", Permission_ObjectCode = "CLIENT", Permission_Allownone = true });
-    
+
     }
 
     private PermissionsState _state; 
@@ -262,7 +263,7 @@
     private void AddItem(MenuItem item)
     {
         if (Display == MENUDISPLAYENUM.TABITEMS)
-    {
+        {
             if (_Permissions != null)
             {
                 _state = GW.Helpers
@@ -276,7 +277,7 @@
             }
         }
         else{
-             _items.Add(item);
+            _items.Add(item);
         }
     }
 
@@ -289,7 +290,8 @@
     {
         await modalRef.Hide(); 
         NavigationManager.NavigateTo(url);
-        
+
     }
 
+  
 }

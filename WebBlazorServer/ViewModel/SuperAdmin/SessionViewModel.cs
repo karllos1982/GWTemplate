@@ -1,7 +1,7 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
-
+using WebBlazorServer.Localization;
 
 namespace Template.ViewModel
 {
@@ -9,12 +9,14 @@ namespace Template.ViewModel
     {
 
         private MembershipGateway _gateway;
+        private DataCacheGateway _cache;
 
-        public SessionViewModel(MembershipGateway service,
+        public SessionViewModel(MembershipGateway service, DataCacheGateway cache,
             UserAuthenticated user)
         {
             _user = user;
             _gateway = service;
+            _cache = cache;
             this.InitializeView();
         }
 
@@ -26,6 +28,7 @@ namespace Template.ViewModel
         public SessionLogParam param = new SessionLogParam();
         public List<SessionLogResult> searchresult = new List<SessionLogResult>();
 
+        public SessionLogLocalization texts = null; 
 
         public override async Task ClearSummaryValidation()
         {
@@ -33,6 +36,9 @@ namespace Template.ViewModel
             {
 
             };
+
+            this.texts = new SessionLogLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
 
         }
 

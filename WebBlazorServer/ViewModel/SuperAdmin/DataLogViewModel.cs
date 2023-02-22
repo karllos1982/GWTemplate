@@ -1,6 +1,7 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
+using WebBlazorServer.Localization;
 
 namespace Template.ViewModel
 {
@@ -8,12 +9,14 @@ namespace Template.ViewModel
     {
 
         private MembershipGateway _gateway;
+        private DataCacheGateway _cache;
 
-        public DataLogViewModel(MembershipGateway service,
+        public DataLogViewModel(MembershipGateway service, DataCacheGateway cache,
             UserAuthenticated user)
         {
             _user = user;
             _gateway = service;
+            _cache = cache;
             this.InitializeView();
         }
 
@@ -32,12 +35,18 @@ namespace Template.ViewModel
         public List<DataLogTimelineModel> timeline = null;
         public bool ShowTimeline = false;
 
+        public DataLogLocalization texts = null;
+
         public override async Task ClearSummaryValidation()
         {
             SummaryValidation = new List<InnerException>()
             {
 
             };
+
+            this.texts = new DataLogLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
+
 
         }
 

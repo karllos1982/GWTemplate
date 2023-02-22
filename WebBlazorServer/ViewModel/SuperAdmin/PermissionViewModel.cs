@@ -3,6 +3,7 @@ using GW.Membership.Models;
 using Microsoft.AspNetCore.Components.Web;
 using System.Runtime.InteropServices;
 using Template.Gateway;
+using WebBlazorServer.Localization;
 using WebBlazorServer.Pages.SuperAdmin;
 
 namespace Template.ViewModel
@@ -15,13 +16,16 @@ namespace Template.ViewModel
 
         public PermissionViewModel(MembershipGateway service,
             DataCacheGateway cache ,  UserAuthenticated user)
-        {       
+        {
+            _user = user;
             _gateway = service;
             _cacheGateway = cache;  
             this.InitializeView(user);         
         }
 
-    
+        UserAuthenticated _user;
+
+
         public PermissionEntry entry= new PermissionEntry();
         public PermissionResult result = new PermissionResult();
         public PermissionParam param = new PermissionParam() { };
@@ -34,6 +38,9 @@ namespace Template.ViewModel
         
         public string pTypeGrant = "";
 
+
+        public PermissionLocalization texts = null;
+
         public override async Task ClearSummaryValidation()
         {
             SummaryValidation = new List<InnerException>()
@@ -42,6 +49,9 @@ namespace Template.ViewModel
                 new InnerException("RoleID",""),
                 new InnerException("UserID","")
             };
+
+            this.texts = new PermissionLocalization();
+            this.texts.FillTexts(await _cacheGateway.ListLocalizationTexts(), _user.LocalizationLanguage);
 
         }
 
