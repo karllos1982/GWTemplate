@@ -3,6 +3,7 @@
 @inject IJSRuntime JSRuntime
 @inject IAppControllerAsync<UserAuthenticated> _appctrl
 @inject IAuthGatewayManager _appservices
+@inject IDataCacheGatewayManager _cache
 @inject IAppSettings _settings
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
@@ -26,7 +27,8 @@
                                 </a>
                               
                                     <MenuLink RoleName="SuperAdmin" @ref="menu"
-                                        Display="MenuLink.MENUDISPLAYENUM.TABLINK" > 
+                                        Display="MenuLink.MENUDISPLAYENUM.TABLINK"
+                                        Localization="localization">
                                     </MenuLink>
                                                                 
                             </div>
@@ -35,7 +37,8 @@
                             {
                                 <UserView 
                                     Service=@GetService()
-                                    User=@user                                  
+                                    User=@user                          
+                                    Localization="localization"
                                     OnLogout="Logout" Islogged=@islogged>
                                 </UserView>    
                             }
@@ -46,8 +49,9 @@
                     </div>
 
                      <MenuLink RoleName="SuperAdmin" Permissions="permissions"
-                            Display="MenuLink.MENUDISPLAYENUM.TABITEMS" > 
-                        </MenuLink>
+                          Display="MenuLink.MENUDISPLAYENUM.TABITEMS" 
+                          Localization="localization">
+                      </MenuLink>
                    
                 </div>
                              
@@ -69,6 +73,7 @@
     private UserAuthenticated user ; 
     private MenuLink menu;
     private List<UserPermissions> permissions = null;
+    private MenuLocalization localization = null;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -98,6 +103,11 @@
                     if (_appctrl.UserInfo != null)
                     {
                         _appservices.Init(_httpclient, _settings.ServiceURL, _appctrl.UserInfo.Token);
+                        _cache.Init(_httpclient, _settings.ServiceURL, user.Token);
+
+                        this.localization = new MenuLocalization();
+                        this.localization.FillTexts(await ((DataCacheGateway)_cache).ListLocalizationTexts(), 
+                                user.LocalizationLanguage);
                     }
                     
                 }

@@ -17,7 +17,7 @@
 <MessageBox @ref="msgbox"></MessageBox>
 
 <MessageBox @ref="msgbox_create"
-            ButtonNo="true" ButtonYes="true" ButtonOK="false"
+            ButtonNo=@_msgNo ButtonYes=@_msgYes ButtonOK="false"
             OnClickYes="OnNew">
 </MessageBox>
 
@@ -46,13 +46,15 @@
                                         <div class="card-body">
 										         <div class="form-group">
                                                     <label class="form-label">@view.texts.SearchByObjectName_Label:</label>
-                                                    <input type="text" @bind-value="view.param.pObjectName" class="form-control">
+                                                    <input type="text" @bind-value="view.param.pObjectName"
+                                                        placeholder=@view.texts.SearchByObjectName_Description class="form-control">
                                                        
                                                 </div>
 
                                                  <div class="form-group">
                                                      <label class="form-label">@view.texts.SearchByObjectCode_Label:</label>
-                                                    <input type="text" maxlength="20" @bind-value="view.param.pObjectCode" class="form-control">
+                                                    <input type="text" maxlength="20" @bind-value="view.param.pObjectCode"
+                                                        placeholder=@view.texts.SearchByObjectCode_Description class="form-control">
                                                        
                                                 </div>                                              
 
@@ -181,10 +183,10 @@
 
                                                             <p class="field" style="padding-top:10px">
 
-                                                            <TaskButton @ref="savenewbtn" OnClick="OnSet" Title=@view.texts.SaveLocalizationButton_Label
-                                                                    Description=@view.texts.SaveLocalizationButton_Description
-                                                                    ActionLabel=@view.texts.Saving_Label
-                                                                    ReadOnly=!view.Permissions.AllowSave>
+                                                            <TaskButton @ref="savenewbtn" OnClick="OnSet" Title=@view.texts.SaveObjectPermissionButton_Label
+                                                                    Description=@view.texts.SaveObjectPermissionButton_Description
+                                                                                ActionLabel=@view.texts.Saving_Label
+                                                                                ReadOnly=!view.Permissions.AllowSave>
                                                             </TaskButton>
 
                                                             </p>
@@ -224,8 +226,10 @@
     private TaskButton savenewbtn;
 
     private string _LoadingData_Text;
-
     private string _PageTitle;
+    private string _msgYes = ""; 
+    private string _msgNo = ""; 
+
 
     //
 
@@ -263,6 +267,8 @@
 
             _LoadingData_Text = view.texts.LoadingData;
             _PageTitle = view.texts.ObjectPermission_PageTitle;
+            _msgYes = view.texts.Yes_Text;
+            _msgNo = view.texts.No_Text; 
 
             StateHasChanged();
         }
@@ -328,7 +334,7 @@
             }
             else
             {
-                await msgbox.ShowDialog(view.texts.SuccessLabel, view.texts.SuccessLabel);
+                await msgbox.ShowDialog(view.texts.SuccessLabel, view.texts.SuccessSaveMessage);
                 this.Back();
             }
 

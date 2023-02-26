@@ -1,17 +1,25 @@
-﻿using WebBlazorServer.ViewModel;
-
-namespace WebBlazorServer.Localization
+﻿
+namespace Template.ViewModel
 {
     public class LocalizationTextLocalization:BaseLocalization
     {
         public string Localization_PageTitle { get; set; }
+
         public string SearchByLanguage_Label { get; set; }
+
+        public string SearchByLanguage_Description { get; set; }
 
         public string SearchByLocalizationCode_Label { get; set; }
 
+        public string SearchByLocalizationCode_Description { get; set; }
+
         public string SearchByLocalizationName_Label { get; set; }
 
+        public string SearchByLocalizationName_Description { get; set; }
+
         public string SearchByLocalizationText_Label { get; set; }
+
+        public string SearchByLocalizationText_Description { get; set; }
 
         public string Language_Label { get; set; }
 

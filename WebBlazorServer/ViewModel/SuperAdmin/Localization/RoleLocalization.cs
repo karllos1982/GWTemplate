@@ -1,6 +1,5 @@
-﻿using WebBlazorServer.ViewModel;
-
-namespace WebBlazorServer.Localization
+﻿
+namespace Template.ViewModel
 {
     public class RoleLocalization : BaseLocalization
     {

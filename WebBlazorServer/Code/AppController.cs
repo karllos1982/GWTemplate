@@ -5,7 +5,7 @@ using GW.Helpers;
 using GW.Membership.Models;
 using Template.Gateway;
 using WebBlazorServer.Pages.SuperAdmin;
-
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace Template.ServerCode
 {
@@ -45,9 +45,13 @@ namespace Template.ServerCode
 
         string SessionTimeOut { get; set; }
 
+        string DefaultLanguage { get; set; }
+
         string FileContentMenu { get; set; }
 
         List<MenuObject> ContentMenu { get; set; }
+        
+
     }
 
     //public class TemplateAppSettings: IAppSettings
@@ -144,6 +148,9 @@ namespace Template.ServerCode
 
         public string SessionTimeOut { get; set; }
 
+        public string DefaultLanguage { get; set; }
+
+
         public string FileContentMenu { get; set; }
 
         public List<MenuObject> ContentMenu { get; set; }
@@ -154,6 +161,7 @@ namespace Template.ServerCode
             this.SiteURL = _env["SiteURL"];
             this.ServiceURL = _env["ServiceURL"];
             this.NomeSistema = _env["NomeSistema"];
+            this.DefaultLanguage = _env["DefaultLanguage"];
             this.SessionTimeOut = _env["SessionTimeOut"];
             this.FileContentMenu = _env["FileContentMenu"];
 

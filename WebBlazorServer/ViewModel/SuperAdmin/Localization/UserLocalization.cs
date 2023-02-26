@@ -1,11 +1,18 @@
-﻿using WebBlazorServer.ViewModel;
-
-namespace WebBlazorServer.Localization
+﻿
+namespace Template.ViewModel
 {
     
     public class UserLocalization: BaseLocalization
     {
         public string User_PageTitle { get; set; }
+
+        public string SearchByEmail_Description { get; set; }
+
+        public string SearchByUserName_Description { get; set; }
+
+        public string SearchByInstance_Label { get; set; }
+
+        public string SearchByRole_Label { get; set; }
 
         public string NewUser_Label { get; set; }
 
@@ -28,9 +35,7 @@ namespace WebBlazorServer.Localization
         public string LoginCounter_Label { get; set; }
        
         public string PasswordRecovery_Label { get; set; }
-
-        public string SelectItem_Description { get; set; }
-
+        
         public string AlterInstance_Label { get; set; }
 
         public string AlterInstance_Description { get; set; }

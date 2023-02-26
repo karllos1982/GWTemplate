@@ -2,7 +2,6 @@
 using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
-using WebBlazorServer.Localization;
 
 namespace Template.ViewModel
 {

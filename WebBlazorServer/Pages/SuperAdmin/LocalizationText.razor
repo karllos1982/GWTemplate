@@ -17,7 +17,7 @@
 <MessageBox @ref="msgbox"></MessageBox>
 
 <MessageBox @ref="msgbox_create"
-            ButtonNo="true" ButtonYes="true" ButtonOK="false"
+            ButtonNo=@_msgNo ButtonYes=@_msgYes ButtonOK="false"
             OnClickYes="OnNew">
 </MessageBox>
 
@@ -46,24 +46,28 @@
                                         <div class="card-body">
 										         <div class="form-group">
                                                         <label class="form-label">@view.texts.SearchByLanguage_Label:</label>
-                                                        <input type="text" maxlength="5" @bind-value="view.param.pLanguage" class="form-control">
+                                                        <input type="text" maxlength="5" @bind-value="view.param.pLanguage"
+                                                         placeholder=@view.texts.SearchByLanguage_Description class="form-control">
                                                        
                                                 </div>
 
                                                  <div class="form-group">
                                                     <label class="form-label">@view.texts.SearchByLocalizationCode_Label:</label>
-                                                    <input type="text" maxlength="20" @bind-value="view.param.pCode" class="form-control">                                                       
+                                                    <input type="text" maxlength="20" @bind-value="view.param.pCode"
+                                                       placeholder=@view.texts.SearchByLocalizationCode_Description class="form-control">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label class="form-label">@view.texts.SearchByLocalizationName_Label:</label>
-                                                    <input type="text" maxlength="20" @bind-value="view.param.pName" class="form-control">
+                                                    <input type="text" maxlength="20" @bind-value="view.param.pName"
+                                                        placeholder=@view.texts.SearchByLocalizationName_Description class="form-control">
                                                    
                                                  </div>
 
                                                 <div class="form-group">
                                                   <label class="form-label">@view.texts.SearchByLocalizationText_Label:</label>
-                                                    <input type="text" maxlength="20" @bind-value="view.param.pText" class="form-control">
+                                                    <input type="text" maxlength="20" @bind-value="view.param.pText"
+                                                        placeholder=@view.texts.SearchByLocalizationText_Description class="form-control">
                                                        
                                                 </div>
 
@@ -257,8 +261,9 @@
     private TaskButton savenewbtn;
 
     private string _LoadingData_Text;
-
     private string _PageTitle;
+    private string _msgYes = "";
+    private string _msgNo = "";
 
     //
 
@@ -296,6 +301,8 @@
 
             _LoadingData_Text = view.texts.LoadingData;
             _PageTitle = view.texts.Localization_PageTitle;
+            _msgYes = view.texts.Yes_Text;
+            _msgNo = view.texts.No_Text;
 
             StateHasChanged();
         }
@@ -361,7 +368,7 @@
             }
             else
             {
-                await msgbox.ShowDialog(view.texts.SuccessLabel, view.texts.SuccessLabel);
+                await msgbox.ShowDialog(view.texts.SuccessLabel, view.texts.SuccessSaveMessage);
                 this.Back();
             }
 

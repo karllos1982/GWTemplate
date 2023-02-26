@@ -1,7 +1,6 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
-using WebBlazorServer.Localization;
 
 namespace Template.ViewModel
 {
@@ -43,10 +42,7 @@ namespace Template.ViewModel
             {
 
             };
-
-            this.texts = new DataLogLocalization();
-            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
-
+          
 
         }
 
@@ -54,6 +50,9 @@ namespace Template.ViewModel
         {
 
             await ClearSummaryValidation();
+
+            this.texts = new DataLogLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
 
         }
 
@@ -65,7 +64,7 @@ namespace Template.ViewModel
 
             if (listTipoOperacao != null)
             {
-                listTipoOperacao.Insert(0, new TipoOperacaoValueModel() { Value = "0", Text = "Todas" });
+                listTipoOperacao.Insert(0, new TipoOperacaoValueModel() { Value = "0", Text = this.texts.AllItem_Description });
             }
             else
             {
@@ -82,7 +81,7 @@ namespace Template.ViewModel
 
             if (listTabelas != null)
             {
-                listTabelas.Insert(0, new TabelasValueModel() { Value = "0", Text = "Todas" });
+                listTabelas.Insert(0, new TabelasValueModel() { Value = "0", Text = this.texts.AllItem_Description });
             }
             else
             {

@@ -1,6 +1,5 @@
-﻿using WebBlazorServer.ViewModel;
-
-namespace WebBlazorServer.Localization
+﻿
+namespace Template.ViewModel
 {
     public class InstanceLocalization: BaseLocalization
     {
@@ -20,7 +19,7 @@ namespace WebBlazorServer.Localization
 
         public string InstanceTypeName_Label { get; set; }
 
-        public string InstanceName_Label { get;}
+        public string InstanceName_Label { get; set; }
 
         public string InstanceRecord_Label { get; set; }
 

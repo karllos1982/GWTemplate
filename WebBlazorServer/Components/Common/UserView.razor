@@ -24,7 +24,7 @@
           
         </div>
         
-            @if (Islogged)
+            @if (Islogged )
             {
                 <div class="d-flex align-items-center ms-1" id="kt_header_user_menu_toggle" @onclick="OpenProfile">
 
@@ -37,32 +37,37 @@
                         </div>
             
                         <div class="symbol symbol-30px symbol-md-40px">
-                            <img src="@User.ProfileImageURL" alt="Carregando imagem..." />
+                            <img src="@User.ProfileImageURL" alt="..." />
                         </div>
                
                     </div>
                   
-                </div>
-            }
-            else
+        </div>
+    }
+    else
+    {
+
+            @if (_localization != null)
             {
-                  <div class="d-flex align-items-center ms-1" id="kt_header_user_menu_toggle" onclick="javascript:window.location='../login'">
+
+                <div class="d-flex align-items-center ms-1" id="kt_header_user_menu_toggle" onclick="javascript:window.location='../login'">
 
                         <div class="btn btn-flex align-items-center bg-hover-white bg-hover-opacity-10 py-2 px-2 px-md-3" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
              
                             <div class="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
-                                <span class="text-white opacity-75 fs-8 fw-semibold lh-1 mb-1">Não Logado</span>
+                    <span class="text-white opacity-75 fs-8 fw-semibold lh-1 mb-1">@_localization.Unlogged_Label</span>
                                 
                             </div>
             
                             <div class="symbol symbol-30px symbol-md-40px">
-                                <img src="../images/user_anonymous.png" alt="Carregando imagem..."/>
+                                <img src="../images/user_anonymous.png" alt="..."/>
                             </div>
                
                         </div>
                   
                 </div>
-            }
+           }
+     }
       
     </div>
   
@@ -75,7 +80,7 @@
     <ModalContent Centered Size="ModalSize.Large" >
       
         <ModalBody>
-          @if(Islogged) 
+          @if(Islogged && _localization != null) 
           {
             <div class="row" style="min-height:500px">
                                                 
@@ -85,7 +90,7 @@
 						    <!--begin::Title-->
 						    <div class="card-title d-flex align-items-center">
 										
-							    <h3 class="fw-bold m-0 text-gray-800">Meu Perfil </h3>
+							    <h3 class="fw-bold m-0 text-gray-800">@_localization.MyProfile_Label </h3>
 						    </div>
 						    <!--end::Title-->
 						    <!--begin::Toolbar-->
@@ -93,10 +98,10 @@
 							    <!--begin::Tab nav-->
 							    <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bold" role="tablist">
 								    <li class="nav-item" role="presentation">
-									    <a id="kt_link_tab1" class="nav-link justify-content-center text-active-gray-800 active" data-bs-toggle="tab" role="tab" href="#kt_tab1">Dados Principais</a>
+                                        <a id="kt_link_tab1" class="nav-link justify-content-center text-active-gray-800 active" data-bs-toggle="tab" role="tab" href="#kt_tab1">@_localization.MainProfileData_Label</a>
 								    </li>
 								    <li class="nav-item" role="presentation">
-									    <a id="kt_link_tab2" class="nav-link justify-content-center text-active-gray-800" data-bs-toggle="tab" role="tab" href="#kt_tab2">Alterar Senha</a>
+                                        <a id="kt_link_tab2" class="nav-link justify-content-center text-active-gray-800" data-bs-toggle="tab" role="tab" href="#kt_tab2">@_localization.AlterPassword_Label</a>
 								    </li>								   
 							    </ul>
 							    <!--end::Tab nav-->
@@ -131,38 +136,38 @@
 													<!--begin::Name-->
 													<div class="d-flex align-items-center mb-2">
 														 <a class="text-gray-900 text-hover-primary fs-2 fw-bold me-1" title="User Name"> 
-                                                             User Name: @User.UserName
+                                                             @_localization.UserName_Label: @User.UserName
                                                           </a>													
 													</div>
 
                                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-														 <a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2" title="Role Name"> 
-                                                           Role: @User.RoleName 
+														 <a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2" title="Role Name">
+                                                              @_localization.Role_Label: @User.RoleName
                                                           </a>
                                                     </div>
 
                                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-                                                            <a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2" title="E-mail"> 
-                                                            E-mail:   @User.Email 
+                                                            <a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2" title="E-mail">
+                                                                @_localization.Email_Label:   @User.Email
                                                             </a>
                                                     </div>
 
                                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
                                                             <a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2" title="Instance Name"> 
-                                                            Instance:  @User.InstanceName 
+                                                            @_localization.Instance_Label :  @User.InstanceName 
                                                             </a>
                                                     </div>
 
                                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-                                                            <a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2" title="Instance Name"> 
-                                                             Language: @User.LocalizationLanguage
+                                                            <a class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2" title="Instance Name">
+                                                                @_localization.LanguageRole_Label: @User.LocalizationLanguage
                                                             </a>
                                                     </div>
 
 
                                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-                                                        <span>Alterar a imagem de perfil:</span> 
-                                                                                                            
+                                                            <span>@_localization.AlterProfileImage_Label:</span>
+
                                                     </div>
                                                     
                                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
@@ -183,12 +188,12 @@
                                  <div style="padding-left: 25px;padding-top: 20px;" >
                                                                      
                                             <div class="row">
-                                                <div class="col-md-12">                    
-                                                    <h5>1. Clique no link abaixo para receber um email com o código de segurança para troca de senha</h5>					
-                                            
-                                                    <TaskButton @ref="sendcodebtn" OnClick="SendCode" 
-                                                            Title="Enviar código"
-                                                            ActionLabel="Enviando...">
+                                                <div class="col-md-12">
+                                                    <h5>1. @_localization.AlterPasswordStep1_Label  </h5>
+
+                                            <TaskButton @ref="sendcodebtn" OnClick="SendCode" 
+                                                            Title=@_localization.SendCodeButton_Label
+                                                             ActionLabel=@_localization.SendText_Description>
                                                      </TaskButton>       
 
                                                 </div>
@@ -196,15 +201,15 @@
                                            </div>
 
                                             <div class="row" style="margin-top:20px">
-                                                <div class="col-md-12"> 
-                                                    <h5> 2. Após receber código, preencha as informações abaixo e clique em Altera Senha:</h5>	
+                                                <div class="col-md-12">
+                                                    <h5> 2.  @_localization.AlterPasswordStep2_Label :</h5>
                                                  </div>
                                             </div>
 
                                             <div class="row" style="margin-top:20px">
                                                 <div class="col-md-12"> 
                                                     <input type="email" @bind-value=@changeObj.Code class="form-control"
-                                                            placeholder="Digite o código de segurança">
+                                                         placeholder=@_localization.InputCode_Description>
                                                  </div>
                                             </div>
 
@@ -212,7 +217,7 @@
                                                 <div class="col-md-12"> 
                                                    <input type="password" @bind-value=@changeObj.NewPassword 
                                                             class="form-control" maxlength="10"
-                                                            placeholder="Digite a nova senha">
+                                                             placeholder=@_localization.InputNewPassword_Label>
                                         
                                                 </div>
                                             </div>
@@ -220,10 +225,9 @@
                                             <div class="row" style="margin-top:20px">
                                                 <div class="col-md-12"> 
                                                                     
-                                                     <TaskButton @ref="alterarsenhabtn" OnClick="ChangePassword" 
-                                                            Title="Alterar a Senha"
-                                                            Description="Clique aqui para alterar a senha."
-                                                            ActionLabel="Alterando a senha...">
+                                                     <TaskButton @ref="alterarsenhabtn" OnClick="ChangePassword"
+                                                             Title=@_localization.AlterPasswordButton_Label                                                             
+                                                             ActionLabel=@_localization.AlterPasswordButton_Loading>
                                                       </TaskButton>    
 
                                                 </div>
@@ -265,6 +269,20 @@
 
     private ChangeUserPassword changeObj = new ChangeUserPassword();
 
+    private MenuLocalization _localization = null; 
+
+    [Parameter]
+    public MenuLocalization Localization { 
+        set
+        {
+            if (value != null)
+            {
+                _localization=value; 
+            }
+        }
+
+    }
+
     [Parameter]
     public bool Islogged { get; set; }
 
@@ -300,13 +318,13 @@
 
         if (Service.APIResponse.StatusOK)
         {
-            await  msgbox.ShowDialog("Código enviado", "O código de segurança para a troca de senha foi enviado para o seu e-mail de cadastro.");                
+            await msgbox.ShowDialog(_localization.ActivateCode_Title, _localization.ActivateCode_Message);
         }
         else
         {
             Exception error = null;
             Service.GetDefaultError(ref error); 
-            await msgbox.ShowDialog("Erro ao enviar código", error.Message);
+            await msgbox.ShowDialog(_localization.NoticeLabel, error.Message);
         }
         sendcodebtn.End();    
 
@@ -322,13 +340,13 @@
 
         if (Service.APIResponse.StatusOK)
         {
-            await  pwdbox.ShowDialog("Senha Alterada", "A senha foi alterada com sucesso. Efetue login novamente.");                
+            await pwdbox.ShowDialog(_localization.PasswordChanged_Title, _localization.PasswordChanged_Message);
         }
         else
         {
             Exception error = null;
             Service.GetDefaultError(ref error); 
-            await  msgbox.ShowDialog("Erro ao enviar código", error.Message);
+            await msgbox.ShowDialog(_localization.NoticeLabel, error.Message);
         }
         alterarsenhabtn.End();  
 
@@ -366,14 +384,14 @@
         if (gateway.APIResponse.StatusOK)
         {
 
-            await  imgbox.ShowDialog("Imagem alterada", "A imagem de perfil foi alterada. No próximo login a nova imagem será exibida.");
+            await pwdbox.ShowDialog(_localization.ImageChanged_Title, _localization.ImageChanged_Message);
 
         }
         else
         {
             Exception error = null;
             gateway.GetDefaultError(ref error); 
-            await msgbox.ShowDialog("Erro ao salvar imagem.", error.Message);
+            await msgbox.ShowDialog(_localization.NoticeLabel, error.Message);
         }
 
     }

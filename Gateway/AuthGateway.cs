@@ -14,6 +14,9 @@ namespace Template.Gateway
         void Init(HttpClient http, string baseurl, string token);
 
         List<InnerException> GetDefaultError(ref Exception defaulterror);
+
+        Task<List<LocalizationTextResult>> ListLocalizationTexts();
+
     }
 
     public class AuthGateway: APIGatewayManagerAsync, IAuthGatewayManager
@@ -34,6 +37,17 @@ namespace Template.Gateway
         public List<InnerException> GetDefaultError(ref Exception defaulterror)
         {
             return base.GetInnerExceptions(ref defaulterror); 
+        }
+
+        public async Task<List<LocalizationTextResult>> ListLocalizationTexts()
+        {
+            List<LocalizationTextResult> ret = null;
+
+            ret = 
+                await this.GetAsJSON<List<LocalizationTextResult>>("listlocalizationtexts", null);
+                        
+
+            return ret;
         }
 
         public async Task<UserEntry> Registrar(NewUser data)

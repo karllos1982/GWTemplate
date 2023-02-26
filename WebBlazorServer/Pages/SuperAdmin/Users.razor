@@ -18,8 +18,8 @@
 <MessageBox @ref="msgbox"></MessageBox>
 
 <MessageBox @ref="msgbox_create"
-        ButtonNo="true" ButtonYes="true" ButtonOK="false"
-        OnClickYes="OnNew">
+            ButtonNo=@_msgNo ButtonYes=@_msgYes ButtonOK="false"
+            OnClickYes="OnNew">
 </MessageBox>
 
 
@@ -49,19 +49,19 @@
 
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label class="form-label">@view.texts.Email_Label:</label>
+                                        <label class="form-label">@view.texts.SearchByEmail_Label:</label>
                                         <input type="email" @bind-value="view.param.pEmail" class="form-control"
-                                           placeholder=@view.texts.SearchByEmail_Label>
+                                           placeholder=@view.texts.SearchByEmail_Description>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">@view.texts.UserName_Label:</label>
+                                        <label class="form-label">@view.texts.SearchByUserName_Label:</label>
                                         <input type="text" maxlength="20" @bind-value="view.param.pUserName" class="form-control"
-                                           placeholder=@view.texts.SearchByUserName_Label>
+                                           placeholder=@view.texts.SearchByUserName_Description>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">@view.texts.Instance_Label:</label>
+                                        <label class="form-label">@view.texts.SearchByInstance_Label:</label>
                                         @if (view.listInstances != null)
                                         {
                                             @if (view.listInstances.Count > 0)
@@ -79,7 +79,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">@view.texts.Role_Label:</label>
+                                        <label class="form-label">@view.texts.SearchByRole_Label:</label>
                                         @if (view.listRoles != null)
                                         {
                                             @if (view.listRoles.Count > 0)
@@ -616,9 +616,6 @@
 
 
 
-
-
-
 @code {
    
     private MessageBox msgbox;
@@ -634,8 +631,10 @@
     private TaskButton alterrolebtn;
 
     private string _LoadingData_Text;
-
     private string _PageTitle;
+    private string _msgYes = ""; 
+    private string _msgNo = ""; 
+
 
     //
 
@@ -674,6 +673,8 @@
             await view.InitializeModels();
             _LoadingData_Text = view.texts.LoadingData;
             _PageTitle = view.texts.User_PageTitle;
+            _msgYes = view.texts.Yes_Text;
+            _msgNo = view.texts.No_Text; 
 
             StateHasChanged();
         }

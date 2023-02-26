@@ -17,7 +17,7 @@
 <MessageBox @ref="msgbox"></MessageBox>
 
 <MessageBox @ref="msgbox_create"
-            ButtonNo="true" ButtonYes="true" ButtonOK="false"
+            ButtonNo=@_msgNo ButtonYes=@_msgYes ButtonOK="false"
             OnClickYes="OnNew">
 </MessageBox>
 
@@ -235,8 +235,9 @@
     private TaskButton savenewbtn;
 
     private string _LoadingData_Text;
-
     private string _PageTitle;
+    private string _msgYes = "";
+    private string _msgNo = "";
 
 
     //
@@ -276,6 +277,8 @@
 
             _LoadingData_Text = view.texts.LoadingData;
             _PageTitle = view.texts.Role_PageTitle;
+            _msgYes = view.texts.Yes_Text;
+            _msgNo = view.texts.No_Text; 
 
             StateHasChanged();
         }
@@ -341,7 +344,7 @@
             }
             else
             {
-                await msgbox.ShowDialog(view.texts.SuccessLabel, view.texts.SuccessLabel);
+                await msgbox.ShowDialog(view.texts.SuccessLabel, view.texts.SuccessSaveMessage);
                 this.Back();
             }
 

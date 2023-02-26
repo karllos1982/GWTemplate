@@ -1,12 +1,11 @@
-﻿using WebBlazorServer.ViewModel;
-
-namespace WebBlazorServer.Localization
+﻿
+namespace Template.ViewModel
 {
     public class DataLogLocalization : BaseLocalization
     {
         public string DataLog_PageTitle { get; set; }
 
-        public string SearchByOperationType_Label { get; set; }
+        public string SearchByOperationType_Label { get; set; }       
 
         public string SearchByObject_Label { get; set; }
 

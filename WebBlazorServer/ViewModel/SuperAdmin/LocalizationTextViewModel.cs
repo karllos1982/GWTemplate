@@ -1,7 +1,6 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
-using WebBlazorServer.Localization;
 using WebBlazorServer.Pages.SuperAdmin;
 
 namespace Template.ViewModel
@@ -38,17 +37,16 @@ namespace Template.ViewModel
                 new InnerException("Name",""),
                 new InnerException("Text","")
             };
-
-            this.texts = new LocalizationTextLocalization();
-            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
-
+          
         }
 
         public override async Task InitializeModels()
         {
 
             await ClearSummaryValidation();
-           
+
+            this.texts = new LocalizationTextLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
         }
 
 

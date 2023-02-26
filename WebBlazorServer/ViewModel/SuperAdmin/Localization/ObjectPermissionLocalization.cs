@@ -1,7 +1,6 @@
-﻿using WebBlazorServer.ViewModel;
+﻿
 
-
-namespace WebBlazorServer.Localization
+namespace Template.ViewModel
 {
     public class ObjectPermissionLocalization : BaseLocalization
     {
@@ -10,7 +9,11 @@ namespace WebBlazorServer.Localization
 
         public string SearchByObjectName_Label { get; set; }
 
+        public string SearchByObjectName_Description { get; set; }
+
         public string SearchByObjectCode_Label { get; set; }
+
+        public string SearchByObjectCode_Description { get; set; }
 
         public string NewObject_Label { get; set; }
 
@@ -20,9 +23,9 @@ namespace WebBlazorServer.Localization
         
         public string ObjectPermissionRecord_Label { get; set; }
 
-        public string SaveLocalizationButton_Label { get; set; }
+        public string SaveObjectPermissionButton_Label { get; set; }
         
-        public string SaveLocalizationButton_Description { get; set; }
+        public string SaveObjectPermissionButton_Description { get; set; }
               
 
     }

@@ -3,7 +3,6 @@ using GW.Membership.Models;
 using Microsoft.AspNetCore.Components.Web;
 using System.Runtime.InteropServices;
 using Template.Gateway;
-using WebBlazorServer.Localization;
 using WebBlazorServer.Pages.SuperAdmin;
 
 namespace Template.ViewModel
@@ -49,16 +48,16 @@ namespace Template.ViewModel
                 new InnerException("RoleID",""),
                 new InnerException("UserID","")
             };
-
-            this.texts = new PermissionLocalization();
-            this.texts.FillTexts(await _cacheGateway.ListLocalizationTexts(), _user.LocalizationLanguage);
-
+           
         }
 
         public override async Task InitializeModels()
         {
 
             await ClearSummaryValidation();
+
+            this.texts = new PermissionLocalization();
+            this.texts.FillTexts(await _cacheGateway.ListLocalizationTexts(), _user.LocalizationLanguage);
 
             await LoadRolesList();
             await LoadUsersList();
@@ -94,7 +93,7 @@ namespace Template.ViewModel
             }
             else
             {
-                listRoles.Insert(0, new RoleList() { RoleID = 0, RoleName = "Selecione uma Role" });
+                listRoles.Insert(0, new RoleList() { RoleID = 0, RoleName = this.texts.SelectItem_Description });
             }
 
         }
@@ -113,7 +112,7 @@ namespace Template.ViewModel
             }
             else
             {
-                listUsers.Insert(0, new UserList() { UserID = 0, UserName = "Selecione um Usuário" });
+                listUsers.Insert(0, new UserList() { UserID = 0, UserName = this.texts.SelectItem_Description });
             }
 
         }
@@ -132,7 +131,7 @@ namespace Template.ViewModel
             }
             else
             {
-                listObject.Insert(0, new ObjectPermissionList() { ObjectPermissionID = 0, ObjectName = "Selecione um Objeto de Permissão" });
+                listObject.Insert(0, new ObjectPermissionList() { ObjectPermissionID = 0, ObjectName = this.texts.SelectItem_Description });
             }
 
         }

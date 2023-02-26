@@ -17,7 +17,7 @@
 <MessageBox @ref="msgbox"></MessageBox>
 
 <MessageBox @ref="msgbox_create"
-            ButtonNo="true" ButtonYes="true" ButtonOK="false"
+            ButtonNo=@_msgNo ButtonYes=@_msgYes ButtonOK="false"
             OnClickYes="OnNew">
 </MessageBox>
 
@@ -475,8 +475,9 @@
     private TaskButton savenewbtn;
 
     private string _LoadingData_Text;
-
     private string _PageTitle;
+    private string _msgYes = ""; 
+    private string _msgNo = ""; 
 
     //
 
@@ -516,6 +517,8 @@
 
             _LoadingData_Text = view.texts.LoadingData;
             _PageTitle = view.texts.Permission_PageTitle;
+            _msgYes = view.texts.Yes_Text;
+            _msgNo = view.texts.No_Text; 
 
             StateHasChanged();
         }
@@ -528,7 +531,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnExecuteSearch, view.ExecutionStatus.Error.Message);
         }
 
         searchbtn.End();
@@ -551,7 +554,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnReturnData, view.ExecutionStatus.Error.Message);
         }
         else
         {
@@ -571,17 +574,17 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro salvar.", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.NoticeLabel, view.ExecutionStatus.Error.Message);
         }
         else
         {
             if (this.view.Inserting)
             {
-                await msgbox_create.ShowDialog("Sucesso!", "O Objeto foi salvo com sucesso. Deseja continuar inserindo ?");
+                await msgbox_create.ShowDialog(view.texts.SuccessLabel, view.texts.AfterSaveAnswering);
             }
             else
             {
-                await msgbox.ShowDialog("Sucesso!", "Os dados foram editados com sucesso.");
+                await msgbox.ShowDialog(view.texts.SuccessLabel, view.texts.SuccessSaveMessage);
                 this.Back();
             }
 

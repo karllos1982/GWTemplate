@@ -1,7 +1,6 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
-using WebBlazorServer.Localization;
 using WebBlazorServer.Pages.SuperAdmin;
 
 namespace Template.ViewModel
@@ -36,17 +35,17 @@ namespace Template.ViewModel
                 new InnerException("ObjectName",""),
                 new InnerException("ObjectCode",""),              
             };
-
-            this.texts = new ObjectPermissionLocalization();
-            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
-
+         
         }
 
         public override async Task InitializeModels()
         {
 
             await ClearSummaryValidation();
-           
+
+            this.texts = new ObjectPermissionLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
+
         }
 
 

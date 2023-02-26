@@ -17,15 +17,15 @@
                 
             }
 
-            @if (_buttonNo)
+            @if (_buttonNo != "") 
             {
-                 <Button Color="Color.Secondary" Clicked="@ClickNo">Não</Button>
+                <Button Color="Color.Secondary" Clicked="@ClickNo">@_buttonNo</Button>
                 
             }
 
-            @if (_buttonYes)
+            @if (_buttonYes != "")
             {
-                 <Button Color="Color.Success" Clicked="@ClickYes">Sim</Button>
+                <Button Color="Color.Success" Clicked="@ClickYes">@_buttonYes</Button>
                 
             }
             
@@ -38,8 +38,8 @@
 
     private Modal modalRef;
     private bool _buttonOK = true;
-    private bool _buttonNo = false;
-    private bool _buttonYes = false;
+    private string _buttonNo = "";
+    private string _buttonYes = "";
 
     [Parameter]
     public string Title { get; set; }
@@ -62,7 +62,7 @@
     }
 
     [Parameter]
-    public bool ButtonNo
+    public string ButtonNo
     {
         get
         {
@@ -76,7 +76,7 @@
     }
 
     [Parameter]
-    public bool ButtonYes
+    public string ButtonYes
     {
         get
         {

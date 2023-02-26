@@ -1,7 +1,6 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
-using WebBlazorServer.Localization;
 using WebBlazorServer.Pages.SuperAdmin;
 
 namespace Template.ViewModel

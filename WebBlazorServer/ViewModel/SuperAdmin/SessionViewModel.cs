@@ -1,7 +1,6 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
-using WebBlazorServer.Localization;
 
 namespace Template.ViewModel
 {
@@ -37,9 +36,7 @@ namespace Template.ViewModel
 
             };
 
-            this.texts = new SessionLogLocalization();
-            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
-
+           
         }
 
         public override async Task InitializeModels()
@@ -48,6 +45,9 @@ namespace Template.ViewModel
             param.pData_End = DateTime.Now;
 
             await ClearSummaryValidation();
+
+            this.texts = new SessionLogLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
 
         }
 

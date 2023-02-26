@@ -33,21 +33,21 @@
 								    <div class="card-header pt-7">
 									  
 									    <h3 class="card-title align-items-start flex-column">
-										    <span class="card-label fw-bold text-dark">Pesquisar</span>										
-									    </h3>									        
+                                        <span class="card-label fw-bold text-dark">@view.texts.SearchButtonLabel</span>
+                                    </h3>									        
 									       
                                     </div>
                                            
                                     <div class="card-body">
 							             	
                                         <div class="form-group">
-                                            <label class="form-label">E-mail do Usuário:</label>
-                                            <input type="email" @bind-value="view.param.pEmail" class="form-control field"
-                                                   placeholder="Pesquisar por e-mail">
-                                        </div>                              
+                                            <label class="form-label">@view.texts.SearchByEmail_Label:</label>
+                                            <input type="email" @bind-value="@view.param.pEmail"
+                                           placeholder=@view.texts.SearchByEmail_Description  class="form-control field">
+                                    </div>                              
                                  
                                         <div class="form-group">
-                                             <label class="form-label" for="name">Pesquisar por Intervalo de Data:</label>
+                                            <label class="form-label" for="name">@view.texts.SearchByDateInterval_Label:</label>
                                               <Switch TValue="bool" @bind-Checked="@view.param.SearchByDate"></Switch>
                                     
                                         </div>
@@ -55,11 +55,11 @@
                                         @if (view.param.SearchByDate)
                                         {
                                             <div class="form-group">
-                                        
-                                                <span>Data início:</span>
+
+                                                <span>@view.texts.SearchByInicialDate_Label:</span>
                                                 <DateEdit TValue="DateTime" @bind-Date="@view.param.pDate_Start" />
                                                 <br/>
-                                                <span>Data fim:</span>
+                                                <span>@view.texts.SearchByFinalDate_Label:</span>
                                                 <DateEdit TValue="DateTime" @bind-Date="@view.param.pData_End" />                                        
 
                                             </div>
@@ -67,10 +67,10 @@
 
                                         <p class="field" style="padding-top:10px">
 
-                                            <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
-                                                Description="Clique aqui buscar." ReadOnly=!view.Permissions.AllowRead
-                                                      ActionLabel="Pesquisando...">
-                                            </TaskButton>
+                                        <TaskButton @ref="searchbtn" OnClick="OnSearch" Title=@view.texts.SearchButtonLabel
+                                                ReadOnly=!view.Permissions.AllowRead
+                                                ActionLabel=@view.texts.SearchingLabel>
+                                        </TaskButton>
 
                                         </p>                                            
 
@@ -85,8 +85,8 @@
 									<div class="card-header pt-7">
 											
 										<h3 class="card-title align-items-start flex-column">
-											<span class="card-label fw-bold text-dark">Resultado da Busca</span>												
-										</h3>
+                                        <span class="card-label fw-bold text-dark">@view.texts.SearchResultLabel</span>
+                                    </h3>
                                     </div>
 
                                     <div class="card-body">
@@ -98,12 +98,12 @@
                                                       <DataGrid TItem="SessionLogResult" Data="@view.searchresult"  Responsive  ShowPager PageSize=10>                                                                                         
                                              
                                                             <DataGridColumns>
-                                            
-                                                                <DataGridColumn Field="@nameof(SessionLogResult.Date)" Caption="Data do Acesso" />
-                                                                <DataGridColumn Field="@nameof(SessionLogResult.Email)" Caption="E-mail" />
-                                                                <DataGridColumn Field="@nameof(SessionLogResult.UserName)" Caption="UserName" />                                              
-                                                                <DataGridColumn Field="@nameof(SessionLogResult.IP)" Caption="IP" />   
-                                                                                                                                           
+
+                                                                <DataGridColumn Field="@nameof(SessionLogResult.Date)" Caption=@view.texts.AccessDate_Label />
+                                                                <DataGridColumn Field="@nameof(SessionLogResult.Email)" Caption=@view.texts.Email_Label />
+                                                                <DataGridColumn Field="@nameof(SessionLogResult.UserName)" Caption=@view.texts.UserName_Label />
+                                                                <DataGridColumn Field="@nameof(SessionLogResult.IP)" Caption=@view.texts.IP_Label />
+
                                                              </DataGridColumns>
                                       
                                                        </DataGrid>
@@ -111,7 +111,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <p> Nenhum registro encontrado </p>
+                                                    <p> @view.texts.NoRecordsFound </p>
                                                 }
                                             }
                                          
@@ -130,7 +130,7 @@
                 }
                 else
                 {
-                    <h5>Carregando a página. Aguarde...</h5>
+                <img src="../images/circle_loader.gif" style="width:32px;height:32px" />
 
                 }
 
@@ -199,7 +199,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-           await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnExecuteSearch, view.ExecutionStatus.Error.Message);
         }
 
         searchbtn.End();
@@ -222,7 +222,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-           await  msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnReturnData, view.ExecutionStatus.Error.Message);
         }
         else
         {

@@ -12,6 +12,7 @@ using GW.ApplicationHelpers;
 using Template.Core;
 using GW.Membership.Data;
 using API.Code;
+using Microsoft.Extensions.Caching.Memory;
 
 //using Template.Models;
 
@@ -61,6 +62,23 @@ namespace Template.Controllers
             return ret;
         }
 
+
+        [HttpGet]
+        [Route("listlocalizationtexts")]
+        public async Task<object> ListLocalizationTexts()
+        {
+            Init();
+
+            List<LocalizationTextResult> list = null;
+          
+            list = await Membership.LocalizationText.Search(new LocalizationTextParam());
+
+            ret = list;
+
+            FinalizeManager();
+
+            return ret;
+        }
 
 
         [HttpPost]
@@ -284,8 +302,8 @@ namespace Template.Controllers
         [Authorize]
         public async Task<object> RequestChangePasswordCode(ChangeUserPassword data)
         {
-            Init();
-            
+            Init(PERMISSION_CHECK_ENUM.READ, true);
+
             opsts = await Membership.GetChangePasswordCode(data);
 
             if (opsts.Status)
@@ -308,7 +326,7 @@ namespace Template.Controllers
         [Authorize]
         public async Task<object> ChangePassword(ChangeUserPassword data)
         {
-            Init();        
+            Init(PERMISSION_CHECK_ENUM.READ, true);
 
             opsts = await Membership.User.ChangeUserPassword(data); 
 
@@ -330,7 +348,7 @@ namespace Template.Controllers
         [Authorize]
         public async Task<object> ChangeUserImageProfile()
         {
-            Init();
+            Init(PERMISSION_CHECK_ENUM.READ, true);
 
             TemplateSettings settings = (TemplateSettings)Context.Settings;
 

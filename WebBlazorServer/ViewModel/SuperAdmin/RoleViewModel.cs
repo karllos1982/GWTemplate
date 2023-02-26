@@ -1,7 +1,6 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
-using WebBlazorServer.Localization;
 using WebBlazorServer.Pages.SuperAdmin;
 
 namespace Template.ViewModel
@@ -36,10 +35,7 @@ namespace Template.ViewModel
                 new InnerException("RoleName",""),                
                 new InnerException("IsActive", ""),
             };
-
-            this.texts = new RoleLocalization();
-            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
-
+         
         }
 
         public override async Task InitializeModels()
@@ -47,6 +43,8 @@ namespace Template.ViewModel
 
             await ClearSummaryValidation();
 
+            this.texts = new RoleLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
         }
 
 
