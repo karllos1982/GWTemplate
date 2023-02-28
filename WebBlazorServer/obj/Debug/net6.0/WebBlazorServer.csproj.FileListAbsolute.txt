@@ -165,3 +165,8 @@ C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetC
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.AspNetCore.Metadata.dll
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.JSInterop.dll
 C:\Projetos\OUTROS\GWTemplate\WebBlazorServer\bin\Debug\net6.0\System.IO.Pipelines.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Blazorise.Licensing.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\WebShared.staticwebassets.runtime.json
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\WebShared.dll
+H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebBlazorServer\bin\Debug\net6.0\WebShared.pdb

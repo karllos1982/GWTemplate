@@ -8,19 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ViewModel\LocalizationBase.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Components\Common\MainHeader.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Blazorise" Version="1.1.5" />
-    <PackageReference Include="Blazorise.Bootstrap5" Version="1.1.5" />
-    <PackageReference Include="Blazorise.Components" Version="1.1.5" />
-    <PackageReference Include="Blazorise.DataGrid" Version="1.1.5" />
-    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.1.5" />
+    <PackageReference Include="Blazorise" Version="1.2.1" />
+    <PackageReference Include="Blazorise.Bootstrap5" Version="1.2.1" />
+    <PackageReference Include="Blazorise.Components" Version="1.2.1" />
+    <PackageReference Include="Blazorise.DataGrid" Version="1.2.1" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.2.1" />
     <PackageReference Include="GW.Framework" Version="4.0.23" />
     <PackageReference Include="GW.Membership" Version="2.0.23" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
@@ -29,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Gateway\Gateway.csproj" />
     <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\WebShared\WebShared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

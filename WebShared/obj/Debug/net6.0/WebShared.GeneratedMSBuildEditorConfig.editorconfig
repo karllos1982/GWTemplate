@@ -1,0 +1,69 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = WebShared
+build_property.RootNamespace = WebShared
+build_property.ProjectDir = H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebShared\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\WebShared
+build_property._RazorSourceGeneratorDebug = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/BackButton.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cQmFja0J1dHRvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/BreadCrumbView.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cQnJlYWRDcnVtYlZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/IconButton.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cSWNvbkJ1dHRvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/MasterFooter.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cTWFzdGVyRm9vdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/MasterMobileButton.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cTWFzdGVyTW9iaWxlQnV0dG9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/MenuButton.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cTWVudUJ1dHRvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/MenuLink.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cTWVudUxpbmsucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/MessageBox.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cTWVzc2FnZUJveC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/TaskButton.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cVGFza0J1dHRvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/TaskIconButton.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cVGFza0ljb25CdXR0b24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/TaskLoading.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cVGFza0xvYWRpbmcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/Areas/Components/Common/UserView.razor]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ29tcG9uZW50c1xDb21tb25cVXNlclZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[H:/LocalDrive_00/Projetos/GearsOfWeb_Project/GWTemplate/WebShared/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 

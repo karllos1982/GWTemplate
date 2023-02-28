@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebBlazorServer", "WebBlazo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebBlazorWasm", "WebBlazorWasm\WebBlazorWasm.csproj", "{54847296-D5F1-49EF-AA17-657AE0414A23}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShared", "WebShared\WebShared.csproj", "{342CE034-CA44-4CF6-8F96-E67CE57275E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{54847296-D5F1-49EF-AA17-657AE0414A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54847296-D5F1-49EF-AA17-657AE0414A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54847296-D5F1-49EF-AA17-657AE0414A23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{342CE034-CA44-4CF6-8F96-E67CE57275E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{342CE034-CA44-4CF6-8F96-E67CE57275E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{342CE034-CA44-4CF6-8F96-E67CE57275E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{342CE034-CA44-4CF6-8F96-E67CE57275E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
