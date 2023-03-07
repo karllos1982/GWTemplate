@@ -132,7 +132,7 @@ namespace Template.ViewModel
             ContactSummary.ClearSummaryValidation();  
 
             contact = result.Contacts.Where(c => c.ClientContactID == id).FirstOrDefault();
-            contactstate = "Editando Contato";
+            contactstate = "Contact Editing";
         }      
 
         public async Task InitNewContact()
@@ -140,7 +140,7 @@ namespace Template.ViewModel
              await ClearSummaryValidation();
             ContactSummary.ClearSummaryValidation();
 
-            contactstate = "Inserindo novo Contato";
+            contactstate = "Inserting Contact";
             contact = new ClientContactsResult();
             contact.RecordState = RECORDSTATEENUM.ADD;
             contact.ClientContactID = 0; 

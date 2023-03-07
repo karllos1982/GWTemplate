@@ -163,10 +163,11 @@ namespace Template.Controllers
             if (Context.ExecutionStatus.Status)
             {                
                 string permissions_content =  JsonConvert.SerializeObject(userM.Permissions);
-                
+
                 AuthToken token = TokenService.GenerateToken(userM.UserID.ToString(),
-                    userM.Roles[0].RoleName, permissions_content, 
-                    int.Parse(data.SessionTimeOut), userM.DefaultLanguage );
+                    userM.Roles[0].RoleName, userM.Instances[0].InstanceID.ToString(),
+                    permissions_content, userM.DefaultLanguage, 
+                    int.Parse(data.SessionTimeOut) );
                            
                 UserAuthenticated userA = new UserAuthenticated();
                 userA.UserID = userM.UserID.ToString();
@@ -352,7 +353,7 @@ namespace Template.Controllers
 
             TemplateSettings settings = (TemplateSettings)Context.Settings;
 
-            FileService service = new FileService(settings.FileStorageConnection, settings.ProfileImageDir); 
+            AzureFileService service = new AzureFileService(settings.FileStorageConnection, settings.ProfileImageDir); 
             Stream body = Request.Body; 
             
             string userid = User.Identity.Name;
@@ -394,10 +395,9 @@ namespace Template.Controllers
             Init();
 
             TemplateSettings settings = (TemplateSettings)Context.Settings;
-            FileService service = new FileService(settings.FileStorageConnection, settings.ProfileImageDir);
+            AzureFileService service = new AzureFileService(settings.FileStorageConnection, settings.ProfileImageDir);
 
-
-            Stream str =  service.GetFile(file);
+            Stream str =  service.DownloadFile(file);
 
             FileStreamResult result = new FileStreamResult(str, "application/octet-stream");
 

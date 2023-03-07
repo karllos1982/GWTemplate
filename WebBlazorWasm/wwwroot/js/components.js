@@ -30,6 +30,31 @@ window.cookieFunctions = {
     
 }
 
+window.menuFunctions = {
+
+    showMenu: function (ctrl) {
+
+        
+        var element = document.getElementById(ctrl);
+       
+        element.classList.add("active").
+        element.classList.add("show");
+
+    }
+    ,
+
+    hideMenu: function (ctrl) {        
+
+        var element = document.getElementById(ctrl);
+
+        console.log(element); 
+
+        element.classList.remove("active").
+        element.classList.remove("show");
+    }
+
+}
+
     
 
 

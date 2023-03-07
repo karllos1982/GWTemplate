@@ -135,9 +135,7 @@ namespace Template.Controllers
 
             if (IsAllowed)
             {
-                var userid = User.Identity.Name;
-
-                ObjectPermissionEntry obj = await Membership.ObjectPermission.Set(data, userid);
+                ObjectPermissionEntry obj = await Membership.ObjectPermission.Set(data, this.UserID);
 
                 if (this.GetDefaultStatus().Status)
                 {

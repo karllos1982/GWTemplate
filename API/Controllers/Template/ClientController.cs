@@ -120,10 +120,9 @@ namespace Template.Controllers
             Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
             if (IsAllowed)
-            {
-                var userid = User.Identity.Name;
+            {                
 
-                ClientEntry obj = await Manager.Client.Set(data, userid);
+                ClientEntry obj = await Manager.Client.Set(data, this.UserID);
 
                 if (this.GetDefaultStatus().Status)
                 {
@@ -149,8 +148,7 @@ namespace Template.Controllers
             Init(PERMISSION_CHECK_ENUM.SAVE, false);
 
             if (IsAllowed)
-            {
-                var userid = User.Identity.Name;
+            {              
                                
                 ClientContactsEntry obj = Manager.Client.ContactEntryValidation(data);
 

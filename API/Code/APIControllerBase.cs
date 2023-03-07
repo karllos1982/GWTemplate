@@ -25,6 +25,10 @@ namespace Template.API
         protected bool IsAllowed = false; 
         protected PERMISSION_STATE_ENUM PermissionState = PERMISSION_STATE_ENUM.NONE;
 
+        public object UserID = 0;
+        public object RoleID = 0;
+        public object InstanceID = 0; 
+
         public string ObjectCode = "";
         public OperationStatus opsts = new OperationStatus();
         public object ret = null;
@@ -58,9 +62,12 @@ namespace Template.API
            
             if (checking != null && User.Claims.ToList().Count > 0)
             {
-                 
-                string content = User.Claims.ToList()[2].Value;
-                string lang = User.Claims.ToList()[3].Value;
+                this.UserID = User.Identity.Name;  
+                this.RoleID = User.Claims.ToList()[1].Value;
+                this.InstanceID = User.Claims.ToList()[2].Value;
+
+                string permissions_content = User.Claims.ToList()[3].Value;
+                string lang = User.Claims.ToList()[4].Value;
                 
                 if (lang!=null)
                 {
@@ -71,7 +78,8 @@ namespace Template.API
                     Context.LocalizationLanguage = Context.Settings.LocalizationLanguage;
                 }
 
-                List<UserPermissions> permissions = JsonConvert.DeserializeObject<List<UserPermissions>>(content);               
+                List<UserPermissions> permissions 
+                    = JsonConvert.DeserializeObject<List<UserPermissions>>(permissions_content);               
                                       
                 PermissionState = Utilities.CheckPermission(permissions, ObjectCode, checking.Value);
                 IsAllowed = false;

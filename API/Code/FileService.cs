@@ -7,7 +7,15 @@ using System.IO;
 
 namespace Template.API
 {
-    public class FileService
+
+    public interface IFileService
+    {
+        Task<OperationStatus> UploadFile(Stream content, string filename);
+        Stream DownloadFile(string filename); 
+
+    }
+
+    public class AzureFileService: IFileService
     {
 
         private BlobClient _service = null;
@@ -15,7 +23,7 @@ namespace Template.API
         private string _connection = "";
         private string _container = ""; 
 
-        public FileService(string connection, string container)
+        public AzureFileService(string connection, string container)
         {
             _connection = connection;   
             _container = container; 
@@ -48,7 +56,7 @@ namespace Template.API
 
         }
 
-        public Stream GetFile(string filename)
+        public Stream DownloadFile(string filename)
         {
 
             Stream ret = null; 

@@ -1,0 +1,397 @@
+﻿@page "/superadmin/instances"
+@inherits SuperAdminLayout
+@layout SuperAdminLayout
+
+@inject IJSRuntime JSRuntime
+@inject IAppControllerAsync<UserAuthenticated> _appctrl
+@inject IMembershipGatewayManager _memberservices
+@inject IAuthGatewayManager _appservices
+@inject IDataCacheGatewayManager _cache
+@inject IAppSettings _settings
+@inject NavigationManager NavigationManager
+@inject HttpClient _httpclient
+
+
+<BreadCrumbView  IsHome="false" HomeURL="/superadmin/home"
+        PageTitle=@_PageTitle>
+</BreadCrumbView>
+
+<MessageBox @ref="msgbox"></MessageBox>
+
+<MessageBox @ref="msgbox_create"
+            ButtonNo=@_msgNo ButtonYes=@_msgYes ButtonOK="false"
+            OnClickYes="OnNew">
+</MessageBox>
+
+<TaskLoading @ref="loading" Title=@_LoadingData_Text></TaskLoading>
+
+
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+    <div class="content flex-row-fluid" id="kt_content">
+        <div class="">
+
+            @if (view != null)
+            {
+                <div style="display:@view.SearchingState">
+
+                    <div class="row gy-5 g-xl-10">
+
+                        <div class="col-xl-4">
+                            <div class="card card-flush h-xl-100">
+                                <div class="card-header pt-7">
+
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bold text-dark">@view.texts.SearchButtonLabel</span>
+                                    </h3>
+
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">@view.texts.SearchByInstanceName_Label:</label>
+                                        <input type="text" @bind-value="view.param.pInstanceName" class="form-control"
+                                           placeholder="@view.texts.SearchByInstanceName_Description ">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">@view.texts.SearchByInstanceTypeName_Label :</label>
+                                        <input type="text" maxlength="20" @bind-value="view.param.pInstanceTypeName" class="form-control"
+                                           placeholder=@view.texts.SearchByInstanceTypeName_Description>
+                                    </div>
+
+                                    <p class="field" style="padding-top:10px">
+
+                                        <TaskButton @ref="searchbtn" OnClick="OnSearch" Title=@view.texts.SearchButtonLabel
+                                                ReadOnly=!view.Permissions.AllowRead
+                                                ActionLabel=@view.texts.SearchingLabel>
+                                        </TaskButton>
+
+                                    </p>
+
+                                    <p class="field" style="padding-top:10px">
+                                        <TaskButton @ref="newbtn" OnClick="OnNew" Title=@view.texts.NewInstance_Label Class="dark"
+                                                Description=@view.texts.NewInstance_Description ReadOnly=!view.Permissions.AllowSave
+                                                ActionLabel=@view.texts.InsertingLoadingLabel>
+                                        </TaskButton>
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-8">
+
+                            <div class="card card-flush h-xl-100">
+
+                                <div class="card-header pt-7">
+
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bold text-dark">@view.texts.SearchResultLabel</span>
+                                    </h3>
+                                </div>
+
+                                <div class="card-body">
+                                    @if (view.searchresult != null)
+                                    {
+                                        @if (view.searchresult.Count > 0)
+                                        {
+                                            <DataGrid TItem="InstanceResult" Data="@view.searchresult" Responsive ShowPager>
+                                                <DataGridColumns>
+
+                                                    <DataGridColumn Field="@nameof(InstanceResult.InstanceTypeName)" Caption=@view.texts.InstanceTypeName_Label />
+                                                    <DataGridColumn Field="@nameof(InstanceResult.InstanceName)" Caption=@view.texts.InstanceName_Label />
+
+                                                    <DataGridColumn Field="@nameof(InstanceResult.IsActive)" Caption=@view.texts.Active_Label>
+                                                        <DisplayTemplate>
+                                                            @{
+                                                                InstanceResult obj = (context as InstanceResult);
+
+                                                                if (obj.IsActive)
+                                                                {
+                                                                    <span>@view.texts.Yes_Text</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>@view.texts.No_Text</span>
+                                                                }                                                                
+                                                              
+                                                            }
+
+                                                        </DisplayTemplate>
+                                                    </DataGridColumn>
+
+
+                                                    <DataGridColumn Field="@nameof(InstanceResult.InstanceID)" Caption=@view.texts.Edit_Label>
+                                                        <DisplayTemplate>
+                                                            @{
+                                                                InstanceResult obj = (context as InstanceResult);
+
+                                                                @if (view.Permissions.AllowSave)
+                                                                {
+                                                                    <IconButton Icon="IconButton.TYPEICONENUM.EDIT"
+                                                                     OnClick="()=>OnDetClick(obj.InstanceID)"></IconButton>
+                                                                }
+                                                            }
+
+                                                        </DisplayTemplate>
+                                                    </DataGridColumn>
+
+                                                </DataGridColumns>
+
+                                            </DataGrid>
+
+                                        }
+                                        else
+                                        {
+                                            <p> @view.texts.NoRecordsFound </p>
+                                        }
+                                    }
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div style="display:@view.EditingState">
+
+                    <BackButton OnClick="Back"></BackButton>
+
+                    <div class="row gy-5 g-xl-10">
+
+                        <div class="col-xl-8">
+                            <div class="card card-flush h-xl-100">
+                                <div class="card-header pt-7">
+
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bold text-dark">@view.texts.InstanceRecord_Label </span>
+                                    </h3>
+
+                                </div>
+
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                                <label class="form-label" for="name">@view.texts.InstanceTypeName_Label:</label>
+                                                <input type="text" class="form-control field" @bind-value="@view.result.InstanceTypeName" />
+                                                <label class="validation_field">@view.GetSummaryMessage("InstanceTypeName") </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="email">@view.texts.InstanceName_Label:</label>
+                                                <input type="text" class="form-control field" @bind-value="@view.result.InstanceName" />
+                                                <label class="validation_field">@view.GetSummaryMessage("InstanceName") </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="padding-top:20px">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="name">@view.texts.Active_Label:</label>
+                                                <Switch TValue="bool" @bind-Checked="@view.result.IsActive"></Switch>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <p class="field" style="padding-top:10px">
+
+                                                <TaskButton @ref="savenewbtn" OnClick="OnSet" Title=@view.texts.SaveInstanceButton_Label
+                                                        Description=@view.texts.SaveInstanceButton_Description
+                                                        ActionLabel=@view.texts.Saving_Label 
+                                                        ReadOnly=!view.Permissions.AllowSave>
+                                                </TaskButton>
+
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <img src="../images/circle_loader.gif" style="width:32px;height:32px" />
+
+            }
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+
+    private MessageBox msgbox;
+    private MessageBox msgbox_create;
+    private TaskLoading loading;
+    private TaskButton searchbtn;
+    private TaskButton statebtn;
+    private TaskButton newbtn;
+    private TaskButton savenewbtn;
+
+    private string _LoadingData_Text;
+    private string _PageTitle;
+    private string _msgYes = ""; 
+    private string _msgNo = ""; 
+
+    //
+
+    private UserAuthenticated LoggedUser;
+    private InstanceViewModel view;
+
+    //
+
+    private async Task InitResources()
+    {
+        ((TemplateAppController)_appctrl).Settings = _settings;
+
+        if (await _appctrl.IsAuthenticated())
+        {
+            LoggedUser = _appctrl.UserInfo;
+            _memberservices.Init(_httpclient, _settings.ServiceURL, LoggedUser.Token);
+             _cache.Init(_httpclient, _settings.ServiceURL, LoggedUser.Token);
+
+            view = new InstanceViewModel((_memberservices as MembershipGateway),
+                (_cache as DataCacheGateway), LoggedUser);
+
+            List<UserPermissions> list = await _appctrl.GetUserPermissions();
+            view.Permissions
+               = BaseViewModel.SetPermissions(list, "SYSINSTANCE", false);
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        if (firstRender)
+        {
+            await InitResources();
+            await view.InitializeModels();
+
+            _LoadingData_Text = view.texts.LoadingData;
+            _PageTitle = view.texts.Instance_PageTitle;
+            _msgYes = view.texts.Yes_Text;
+            _msgNo = view.texts.No_Text; 
+            StateHasChanged();
+        }
+    }
+
+    public async Task OnSearch()
+    {
+        searchbtn.Begin();
+        await view.Search();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog(view.texts.ErrorOnExecuteSearch, view.ExecutionStatus.Error.Message);
+        }
+
+        searchbtn.End();
+    }
+
+    public void OnNew()
+    {
+
+        view.InitNew();
+        StateHasChanged();
+    }
+
+    public async Task OnGet(object id)
+    {
+        await loading.Begin();
+
+        await view.Get(id);
+
+        await loading.End();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog(view.texts.ErrorOnReturnData, view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            view.InitEdit();
+
+        }
+
+        StateHasChanged();
+    }
+
+
+    public async Task OnSet()
+    {
+        savenewbtn.Begin();
+
+        await view.Set();
+
+        if (!view.ExecutionStatus.Status)
+        {
+            await msgbox.ShowDialog(view.texts.NoticeLabel, view.ExecutionStatus.Error.Message);
+        }
+        else
+        {
+            if (this.view.Inserting)
+            {
+                await msgbox_create.ShowDialog(view.texts.SuccessLabel, view.texts.AfterSaveAnswering );
+            }
+            else
+            {
+                await msgbox.ShowDialog(view.texts.SuccessLabel, view.texts.SuccessSaveMessage);
+                this.Back();
+            }
+
+        }
+
+        savenewbtn.End();
+
+    }
+
+    public async Task OnDetClick(object id)
+    {
+        await OnGet(id);
+
+    }
+
+    public void Back()
+    {
+        view.BackToSearch();
+        StateHasChanged();
+
+    }
+
+    public void GoHome()
+    {
+        string url = _appctrl.UserInfo.HomeURL;
+        NavigationManager.NavigateTo(url);
+
+    }
+
+
+
+}

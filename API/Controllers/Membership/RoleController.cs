@@ -132,9 +132,7 @@ namespace Template.Controllers
 
             if (IsAllowed)
             {
-                var userid = User.Identity.Name;
-
-                RoleEntry obj = await Membership.Role.Set(data, userid);
+                RoleEntry obj = await Membership.Role.Set(data, this.UserID);
 
                 if (this.GetDefaultStatus().Status)
                 {

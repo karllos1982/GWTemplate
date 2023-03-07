@@ -16,7 +16,7 @@ namespace Template.Data
             ExcludeFields = new List<string>();
 
             Keys.Add("ClientID");
-
+            ExcludeFields.Add("Contacts"); 
 
         }
 

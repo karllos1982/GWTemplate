@@ -132,9 +132,7 @@ namespace Template.Controllers
 
             if (IsAllowed)
             {
-                var userid = User.Identity.Name;
-
-                InstanceEntry obj = await Membership.Instance.Set(data, userid);
+                InstanceEntry obj = await Membership.Instance.Set(data, this.UserID);
 
                 if (this.GetDefaultStatus().Status)
                 {

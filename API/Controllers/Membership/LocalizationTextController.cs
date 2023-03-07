@@ -132,9 +132,8 @@ namespace Template.Controllers
 
             if (IsAllowed)
             {
-                var userid = User.Identity.Name;
-
-                LocalizationTextEntry obj = await Membership.LocalizationText.Set(data, userid);
+              
+                LocalizationTextEntry obj = await Membership.LocalizationText.Set(data, this.UserID);
 
                 if (this.GetDefaultStatus().Status)
                 {

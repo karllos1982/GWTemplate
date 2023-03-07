@@ -23,7 +23,7 @@
      </style>
 
 
-    @if (user != null)
+    @if (user != null && texts != null)
     {
         <div class="d-flex flex-column flex-column-fluid flex-lg-row">
 
@@ -35,8 +35,7 @@
                         <img alt="Logo" src="https://preview.keenthemes.com/metronic8/demo20/assets/media/logos/custom-3.svg" />
                     </a>
 
-                    <h2 class="text-white fw-normal m-0">Bem-vindo ao GW Template</h2>
-
+                    <h2 class="text-white fw-normal m-0">@texts.Welcome_Label </h2>
                 </div>
 
             </div>
@@ -49,43 +48,45 @@
                      
                             <div class="text-center mb-11">
 
-                                <h1 class="text-dark fw-bolder mb-3">Entrar</h1>									
-                                <div class="text-gray-500 fw-semibold fs-6">Informe seu login e senha</div>
+                            <h1 class="text-dark fw-bolder mb-3">@texts.LoginTitle_Label</h1>
+                            <div class="text-gray-500 fw-semibold fs-6">@texts.LoginTitle_Description</div>
 
                             </div>
 
                             <div class="fv-row mb-8">
 
                                 <input type="email" @bind-value=@user.Email class="form-control bg-transparent"
-                                        maxlength="100"  placeholder="Digite seu E-mail de cadastro">                            
+                                     maxlength="100" placeholder=@texts.InputEmail_Description>
 
-                            </div>
+                        </div>
 
                             <div class="fv-row mb-3">
 
                                  <input type="password" @bind-value=@pwd class="form-control bg-transparent"
-                                        maxlength="10"  placeholder="Digite sua senha">                               
+                               maxlength="10" placeholder=@texts.InputPassword_Description>
 
-                            </div>
+                        </div>
 
                             <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
                                 <div></div>
-                                                                                               
-                                <a  @onclick="RecoveryPassword"  class="link-primary a-link">Esqueceu a senha ?</a>
+
+                                <a @onclick="RecoveryPassword" class="link-primary a-link">@texts.ForgetPassword_Description</a>
 
                             </div>
 
                             <div class="d-grid mb-10">
-                                  <TaskButton @ref="loginbtn" Title="Acessar"
-                                        ActionLabel="Entrando..." OnClick="ExecuteLogin" > </TaskButton>                                                  
+                                         <TaskButton @ref="loginbtn" Title=@texts.LoginButton_Label
+                                                ActionLabel=@texts.LoginLoading_Label OnClick="ExecuteLogin"> 
+                                        </TaskButton>
 
-                                        <TaskLoading @ref="loadingPwd" Title="Enviando senha temporária"></TaskLoading>
+                                        <TaskLoading @ref="loadingPwd" Title=@texts.SendText_Description></TaskLoading>
 
                             </div>
-                     
-                            <div class="text-gray-500 text-center fw-semibold fs-6"> Não consegue acessar ? 
-							    <a  @onclick="ShowActiveModal"  class="link-primary a-link">Ativar Conta</a> 
-                             </div>
+
+                        <div class="text-gray-500 text-center fw-semibold fs-6">
+                                        @texts.ActiveAccount_Description
+                            <a @onclick="ShowActiveModal" class="link-primary a-link">@texts.ActiveAccountButton_Label</a>
+                        </div>
 
                     </div>
 
@@ -96,54 +97,60 @@
         </div>
 
     }
+    else
+    {
+         <img src="../images/circle_loader.gif" style="width:32px;height:32px" />
+    }
 
 </div>
 
 
 <MessageBox @ref="msgbox"></MessageBox>
 
-<Modal @ref="modalRef"  >
-    <ModalContent Centered Size="ModalSize.Large">
-        <ModalHeader>
-            <ModalTitle>Ativação de Conta</ModalTitle>   
-            <CloseButton></CloseButton>
-        </ModalHeader>
-        <ModalBody>
-           
-            <div class="row">
-                <div class="col-md-9">                    
-                     <h5>1. Envie o código de ativação para o seu e-mail de cadastro:</h5>					
-                        <input type="email" @bind-value=@active.Email class="form-control bg-transparent" maxlength="100"
-                               placeholder="Digite seu e-mail de cadastro">
-                 </div>
-            
-                <div class="col-md-3">    
-                       <br/>
-                        <TaskButton @ref="sendcodebtn" OnClick="SendActiveAccountCode" Title="Enviar código"
-                                      ActionLabel="Enviando..."></TaskButton>
-                 </div>
-             </div>
+@if (texts != null)
+{
+    <Modal @ref="modalRef"  >
+        <ModalContent Centered Size="ModalSize.Large">
+            <ModalHeader>
+                <ModalTitle>@texts.ActiveAccount_Label</ModalTitle>
+                <CloseButton></CloseButton>
+            </ModalHeader>
+            <ModalBody>
 
-              <div class="row" style="margin-top:20px">
-                 <div class="col-md-9"> 
-                      <h5>2. Informe o código de ativação recebido:</h5>	                        
-                        <input type="text" @bind-value=@active.Code class="form-control bg-transparent" maxlength="20"
-                               placeholder="Digite o código recebido por e-mail">
-                 </div>
-           
-                 <div class="col-md-3">  
+                <div class="row">
+                    <div class="col-md-9">                    
+                        <h5>1. @texts.ActiveAccount_Step1:</h5>					
+                        <input type="email" @bind-value=@active.Email class="form-control bg-transparent" maxlength="100"
+                           placeholder=@texts.InputEmail_Description>
+                    </div>
+
+                    <div class="col-md-3">    
                         <br/>
-                        <TaskButton @ref="activebtn" Title="Ativar Conta" OnClick="ActivateAccount"
-                                      ActionLabel="Ativando..."></TaskButton>
+                        <TaskButton @ref="sendcodebtn" OnClick="SendActiveAccountCode" Title=@texts.SendCodeButton_Label
+                                ActionLabel=@texts.SendText_Description></TaskButton>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top:20px">
+                    <div class="col-md-9">
+                        <h5>2. @texts.ActiveAccount_Step2:</h5>
+                        <input type="text" @bind-value=@active.Code class="form-control bg-transparent" maxlength="20"
+                           placeholder=@texts.InputCode_Description>
+                    </div>
+
+                    <div class="col-md-3">  
+                        <br/>
+                        <TaskButton @ref="activebtn" Title=@texts.ActiveAccountButton_Label OnClick="ActivateAccount"
+                                ActionLabel=@texts.ActiveLoading_Label></TaskButton>
 
                     </div>
 
                 </div>         
 
-        </ModalBody>      
-    </ModalContent>
-</Modal>
-
+            </ModalBody>      
+        </ModalContent>
+    </Modal>
+}
 
 @code {
 
@@ -158,6 +165,8 @@
     private TaskLoading loadingPwd;
     private bool islogged = false;
 
+    private BaseLocalization texts = null; 
+
     protected override Task OnInitializedAsync()
     {
         return base.OnInitializedAsync();
@@ -170,6 +179,7 @@
 
         _authservices.Init(_httpclient,_settings.ServiceURL,"");
 
+
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -181,6 +191,12 @@
             {
                 this.InitResources();
                 string url = _settings.SiteURL;
+
+                List<LocalizationTextResult> list;
+                list = await ((AuthGateway)_authservices).ListLocalizationTexts(); 
+
+                this.texts = new DataLogLocalization();
+                this.texts.FillTexts(list ,_settings.DefaultLanguage);
 
                 islogged = await _appctrl.IsAuthenticated();
 
@@ -199,6 +215,7 @@
 
             }
 
+            StateHasChanged();
         }
 
     }
@@ -227,21 +244,57 @@
                 }
                 else
                 {                    
-                    await  msgbox.ShowDialog("Aviso de Erro", ret.Error.Message);
+                    await  msgbox.ShowDialog(texts.NoticeLabel, ret.Error.Message);
                 }
 
             }
             else
             {                
-                await  msgbox.ShowDialog("Credenciais inválidas", "E-mail ou senha inválidos."); 
+                await msgbox.ShowDialog(texts.InvalidCredentials_Title, texts.InvalidCredentials_Message);
             }
         }
         catch(Exception ex)
         {            
-            await msgbox.ShowDialog("Erro ao logar", ex.Message);
+            await msgbox.ShowDialog(texts.NoticeLabel, ex.Message);
         }       
 
         loginbtn.End();
+
+    }
+
+    private async Task  RecoveryPassword()
+    {
+        InitResources();
+
+
+        if (user.Email != null)
+        {
+
+            await loadingPwd.Begin();
+
+            AuthGateway gateway = (AuthGateway)_authservices;
+
+            await gateway.RecoveryPassword(user.Email);
+
+            if (gateway.APIResponse.StatusOK)
+            {
+                await msgbox.ShowDialog(texts.TemporaryPassword_Title,
+                    texts.TemporaryPassword_Message);
+            }
+            else
+            {
+                Exception error = null;
+                gateway.GetDefaultError(ref error); 
+                await msgbox.ShowDialog(texts.NoticeLabel, error.Message);
+            }         
+
+             await loadingPwd.End();
+        }
+        else
+        {
+
+            await msgbox.ShowDialog(texts.NoticeLabel, texts.InputEmail_Description);
+        }
 
     }
 
@@ -258,19 +311,19 @@
 
             if (gateway.APIResponse.StatusOK)
             {
-                await msgbox.ShowDialog("Código enviado", "O código de ativação foi enviado por e-mail.");                
+                await msgbox.ShowDialog(texts.ActivateCode_Title, texts.ActivateCode_Message);
             }
             else
             {
                 Exception error = null;
                 gateway.GetDefaultError(ref error); 
-                await  msgbox.ShowDialog("Aviso de Erro", error.Message);
+                await msgbox.ShowDialog(texts.NoticeLabel, error.Message);
             }
             sendcodebtn.End();
         }
         else
         {
-            await msgbox.ShowDialog("Aviso", "Informe o E-mail de cadastro.");
+            await msgbox.ShowDialog(texts.NoticeLabel, texts.InputEmail_Description);
 
         }
 
@@ -291,20 +344,20 @@
 
             if (gateway.APIResponse.StatusOK)
             {
-               await  msgbox.ShowDialog("Conta ativada", "A conta foi ativada com sucesso. Você já pode efetuar login. ");              
+               await  msgbox.ShowDialog(texts.SuccessActivated_Title, texts.SuccessActivated_Message);              
             }
             else
             {
                 Exception error = null;
                 gateway.GetDefaultError(ref error); 
-                await msgbox.ShowDialog("Aviso de Erro", error.Message);
+                await msgbox.ShowDialog(texts.NoticeLabel, error.Message);
             }
 
             activebtn.End();
         }
         else
         {
-            await msgbox.ShowDialog("Aviso", "Informe o código.");
+            await msgbox.ShowDialog(texts.NoticeLabel, texts.InputCode_Description);
 
         }
 
@@ -312,43 +365,7 @@
         
     }
 
-
-
-    private async Task  RecoveryPassword()
-    {
-        InitResources();
-
-
-        if (user.Email != null)
-        {
-
-            await loadingPwd.Begin();
-
-            AuthGateway gateway = (AuthGateway)_authservices;
-
-            await gateway.RecoveryPassword(user.Email);
-
-            if (gateway.APIResponse.StatusOK)
-            {
-              await  msgbox.ShowDialog("Recuperação de Senha",
-                   "Uma senha temporária foi enviada para o seu e-mail de cadastro. Ao logar, solicite a troca de senha.");             
-            }
-            else
-            {
-                Exception error = null;
-                gateway.GetDefaultError(ref error); 
-                await msgbox.ShowDialog("Aviso de Erro", error.Message);
-            }         
-
-             await loadingPwd.End();
-        }
-        else
-        {
-
-            await msgbox.ShowDialog("Aviso", "Informe seu E-mail de cadastro.");
-        }
-
-    }
+      
 
     private async Task ShowActiveModal()
     {

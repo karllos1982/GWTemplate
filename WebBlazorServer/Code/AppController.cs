@@ -9,121 +9,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace Template.ServerCode
 {
-    public interface IAppControllerAsync<T> where T : UserAuthenticated
-    {
-        Task<bool> IsAuthenticated();
-
-        PermissionsState CheckPermissions(UserAuthenticated user,
-            string objectcode, bool allownone);
-
-        T UserInfo { get; set; }
-
-        Task <OperationStatus> Login(IAuthGatewayManager apigateway,  UserLogin user);
-
-        Task Logout();
-
-        Task<OperationStatus> CreateSession(UserAuthenticated user);
-
-        Task GetSession();
-
-        Task ClearSession();
-
-        Task<bool> CheckSession();
-
-        Task ReplaceUserInfo(UserAuthenticated user);
-
-        Task<List<UserPermissions>> GetUserPermissions(); 
-    }
-
-    public interface IAppSettings
-    {
-        string SiteURL { get; set; }
-
-        string ServiceURL { get; set; }
-
-        string NomeSistema { get; set; }
-
-        string SessionTimeOut { get; set; }
-
-        string DefaultLanguage { get; set; }
-
-        string FileContentMenu { get; set; }
-
-        List<MenuObject> ContentMenu { get; set; }
-        
-
-    }
-
-    //public class TemplateAppSettings: IAppSettings
-    //{
-
-    //    private IWebHostEnvironment _env;
-
-    //    public TemplateAppSettings()
-    //    {
-
-    //    }
-
-    //    public TemplateAppSettings(IWebHostEnvironment webhost)
-    //    {
-    //        _env = (IWebHostEnvironment)webhost;
-    //        LoadSettings();
-    //    }
-
-    //    public string SiteURL { get; set; }
-
-    //    public string ServiceURL { get; set; }
-
-    //    public string NomeSistema { get; set; }
-
-    //    public string SessionTimeOut { get; set; }
-
-    //    public string FileContentMenu { get; set; }
-
-    //    public List<MenuObject> ContentMenu { get; set; }
-
-    //    public void LoadSettings()
-    //    {
-    //        TemplateAppSettings settings = new TemplateAppSettings();
-    //        string filename = "appsettings.json";
-    //        string jsontxt = "";
-    //        string dir = _env.ContentRootPath;
-
-    //        if (dir == "/app")
-    //        {
-    //            dir = $"{Directory.GetCurrentDirectory()}";
-    //            filename = $"{Directory.GetCurrentDirectory()}{@"/appsettings.json"}";
-    //        }
-    //        else
-    //        {
-    //            filename = dir + "/" + filename;
-    //        }
-
-    //        if (File.Exists(filename))
-    //        {
-
-    //            jsontxt = File.ReadAllText(filename);
-
-    //            if (jsontxt.Length > 0)
-    //            {
-    //                settings = JsonConvert.DeserializeObject<TemplateAppSettings>(jsontxt);
-    //                if (settings != null)
-    //                {
-
-    //                    this.SiteURL = settings.SiteURL;                        
-    //                    this.ServiceURL = settings.ServiceURL;
-    //                    this.NomeSistema = settings.NomeSistema;
-    //                    this.SessionTimeOut = settings.SessionTimeOut;
-    //                    this.FileContentMenu = settings.FileContentMenu;
-    //                    this.ContentMenu = settings.ContentMenu;
-    //                }
-
-    //            }
-    //        }
-
-    //    }
-    //}
-
+ 
     public class TemplateAppSettings : IAppSettings
     {
 
@@ -167,42 +53,7 @@ namespace Template.ServerCode
 
         }
     }
-
-    public class MenuObject
-    {
-        public string ID { get; set; }
-
-        public string Role { get; set; }
-
-        public string Title { get; set; }
-
-        public string NavigationURL { get; set; }
-
-        public string ClassIcon { get; set; }
-
-        public string ClassStatus { get; set; }
-
-        public string Description { get; set; }
-
-        public List<MenuObject> Childs { get; set; }
-
-    }
-   
-
-    public class UserInfo: UserAuthenticated
-    {
-
-    }
-   
-    public class UserConext
-    {
-        public string Id { get; set; }
-
-        public string Name { get; set; }
-
-
-    }
-
+           
     public class TemplateAppController : IAppControllerAsync<UserAuthenticated>
     {
         public UserAuthenticated UserInfo { get; set; }
@@ -375,26 +226,5 @@ namespace Template.ServerCode
         }
     }
 
-    public interface IMenuItemActive
-    {
-        void ActiveItemMenu(string itemname);
-
-        string GetActiveItemMenu();
-    }
-
-    public class MenuItemActive : IMenuItemActive
-    {
-        private string _itemname = "Admin/Home";
-
-        public void ActiveItemMenu(string itemname)
-        {
-            _itemname = itemname;
-        }
-
-        public string GetActiveItemMenu()
-        {
-            return _itemname;
-        }
-    }
 
 }

@@ -27,7 +27,7 @@
                                 <div class="card-header pt-7">
 
                                     <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold text-dark">Pesquisar</span>
+                                        <span class="card-label fw-bold text-dark">Search</span>
                                     </h3>
 
                                 </div>
@@ -47,18 +47,18 @@
 
                                     <p class="field" style="padding-top:10px">
 
-                                        <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
-                                                Description="Clique aqui pesquisar." ReadOnly=!view.Permissions.AllowRead
-                                                ActionLabel="Pesquisando...">
+                                        <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Execute Search"
+                                                ReadOnly=!view.Permissions.AllowRead
+                                                ActionLabel="Searching...">
                                         </TaskButton>
 
                                     </p>
 
                                     <p class="field" style="padding-top:10px">
-                                        <TaskButton @ref="newbtn" OnClick="OnNew" Title="Novo Client" Class="dark"
-                                                Description="Clique aqui criar um novo Client." Disabled=""
+                                        <TaskButton @ref="newbtn" OnClick="OnNew" Title="New Client" Class="dark"
+                                                Disabled=""
                                                 ReadOnly=!view.Permissions.AllowSave
-                                                ActionLabel="Inserindo...">
+                                                ActionLabel="Inserting...">
                                         </TaskButton>
 
                                     </p>
@@ -73,7 +73,7 @@
                                 <div class="card-header pt-7">
 
                                     <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold text-dark">Resultado da Busca</span>
+                                        <span class="card-label fw-bold text-dark">Search Result</span>
                                     </h3>
                                 </div>
 
@@ -88,7 +88,7 @@
                                                     <DataGridColumn Field="@nameof(ClientResult.ClientName)" Caption="Name" />
                                                     <DataGridColumn Field="@nameof(ClientResult.Email)" Caption="E-mail" />
 
-                                                    <DataGridColumn Field="@nameof(ClientResult.ClientID)" Caption="Editar">
+                                                    <DataGridColumn Field="@nameof(ClientResult.ClientID)" Caption="Edit">
                                                         <DisplayTemplate>
                                                             @{
                                                                 ClientResult obj = (context as ClientResult);
@@ -110,7 +110,7 @@
                                         }
                                         else
                                         {
-                                            <p> Nenhum registro encontrado </p>
+                                            <p> No records founds. </p>
                                         }
                                     }
 
@@ -142,13 +142,13 @@
                                             <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bold" role="tablist">
                                                 <li class="nav-item" role="presentation">
                                                     <a class="nav-link justify-content-center text-active-gray-800 active" @onclick="()=>SwitchAbas()"
-                                                            data-bs-toggle="tab" role="tab" href="#kt_tab1">Dados do Client
+                                                            data-bs-toggle="tab" role="tab" href="#kt_tab1">Client Record
                                                      </a>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <a  class="nav-link justify-content-center text-active-gray-800" @onclick="()=>SwitchAbas()"
                                                    data-bs-toggle="tab" role="tab" href="#kt_tab2">
-                                                        Contatos                                                          
+                                                        Contacts                                                          
                                                     </a>
                                                     
                                                 </li>    
@@ -156,7 +156,7 @@
                                                 <li class="nav-item" role="presentation">
                                                     <a class="nav-link justify-content-center text-active-gray-800" @onclick="()=>OnInsertNewContactsClick()"
                                                    data-bs-toggle="tab" role="tab" href="#kt_tab2">
-                                                        <span class="" > Inserir Novo Contato </span>
+                                                        <span class="" > Insert New Contact </span>
                                                     </a>
                                                     
                                                 </li>  
@@ -294,7 +294,7 @@
                                                                      </DisplayTemplate>
                                                                 </DataGridColumn>                                                                
 
-                                                                <DataGridColumn Field="@nameof(ClientContactsResult.ClientContactID)" Caption="Editar">
+                                                                <DataGridColumn Field="@nameof(ClientContactsResult.ClientContactID)" Caption="Edit">
                                                                     <DisplayTemplate>
                                                                         @{
                                                                             ClientContactsResult obj = (context as ClientContactsResult);
@@ -308,7 +308,7 @@
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                    <span>Acesso Negado!</span>
+                                                                                    <span>Access Denied!</span>
                                                                                 }
                                                                             }
                                                                             else
@@ -321,7 +321,7 @@
                                                                     </DisplayTemplate>
                                                                 </DataGridColumn>
                                                                 
-                                                                <DataGridColumn Field="@nameof(ClientContactsResult.ClientID)" Caption="Excluir">
+                                                                <DataGridColumn Field="@nameof(ClientContactsResult.ClientID)" Caption="Remove">
                                                                     <DisplayTemplate>
 
                                                                          @{
@@ -336,7 +336,7 @@
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                    <span>Acesso Negado!</span>
+                                                                                     <span>Access Denied!</span>
                                                                                 }
                                                                             }
                                                                             else
@@ -358,12 +358,12 @@
                                                     }
                                                     else
                                                     {
-                                                        <p> Nenhum registro encontrado </p>
+                                                        <p> No records founds.</p>
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    <p> Nenhum registro encontrado </p>
+                                                    <p> No records founds.</p>
                                                 }
                                            </div>
                                         </div>
@@ -381,7 +381,7 @@
             }
             else
             {
-                <h5>Carregando a página. Aguarde...</h5>
+                <h5>Loading Page...</h5>
 
             }
         </div>
@@ -449,9 +449,8 @@
 
                             <p class="field" style="padding-top:10px">
 
-                                <TaskButton @ref="savecontactbtn" OnClick="OnSetContact" Title="Salvar"
-                                            Description="Clique aqui para salvar os dados do Contact."
-                                            ActionLabel="Salvando..." ReadOnly=!view.Permissions.AllowSave>
+                                <TaskButton @ref="savecontactbtn" OnClick="OnSetContact" Title="Save"                                           
+                                            ActionLabel="Saving.." ReadOnly=!view.Permissions.AllowSave>
                                 </TaskButton>
 
                             </p>
@@ -474,16 +473,16 @@
 <MessageBox @ref="msgbox"></MessageBox>
 
 <MessageBox @ref="msgbox_create"
-            ButtonNo="true" ButtonYes="true" ButtonOK="false"
+            ButtonNo="No" ButtonYes="Yes" ButtonOK="false" 
             OnClickYes="OnNew">
 </MessageBox>
 
 <MessageBox @ref="msgbox_delete"
-            ButtonNo="true" ButtonYes="true" ButtonOK="false"
+            ButtonNo="No" ButtonYes="Yes" ButtonOK="false"
             OnClickYes="OnNew">
 </MessageBox>
 
-<TaskLoading @ref="loading" Title="Carregando dados. Aguarde..."></TaskLoading>
+<TaskLoading @ref="loading" Title="Loading Data..."></TaskLoading>
 
 @code {
 
@@ -548,7 +547,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog("Error on search", view.ExecutionStatus.Error.Message);
         }
 
         searchbtn.End();
@@ -571,7 +570,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog("Error on retreave data", view.ExecutionStatus.Error.Message);
         }
         else
         {
@@ -591,17 +590,17 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro salvar.", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog("Error on Save.", view.ExecutionStatus.Error.Message);
         }
         else
         {
             if (this.view.Inserting)
             {
-                await msgbox_create.ShowDialog("Sucesso!", "O Client foi salvo com sucesso. Deseja continuar inserindo ?");
+                await msgbox_create.ShowDialog("Success!", "Record was saved successfuly. Continue inserting ?");
             }
             else
             {
-                await msgbox.ShowDialog("Sucesso!", "Os dados foram editados com sucesso.");
+                await msgbox.ShowDialog("Success!", "Record was saved successfuly.");
                 this.Back();
             }
 
@@ -632,7 +631,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Aviso", "Erros de validação de dados.");
+            await msgbox.ShowDialog("Warning", "Error on data validation.");
         }
         else
         {

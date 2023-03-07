@@ -6,11 +6,22 @@
 @inject IAppControllerAsync<UserAuthenticated> _appctrl
 @inject IMembershipGatewayManager _memberservices
 @inject IAuthGatewayManager _appservices
+@inject IDataCacheGatewayManager _cache
 @inject IAppSettings _settings
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
 
-<BreadCrumbView IsHome="false" HomeURL="/superadmin/home" PageTitle="Objetos de Permissão" ></BreadCrumbView>
+<BreadCrumbView IsHome="false" HomeURL="/superadmin/home"
+                PageTitle=@_PageTitle></BreadCrumbView>
+
+<MessageBox @ref="msgbox"></MessageBox>
+
+<MessageBox @ref="msgbox_create"
+            ButtonNo=@_msgNo ButtonYes=@_msgYes ButtonOK="false"
+            OnClickYes="OnNew">
+</MessageBox>
+
+<TaskLoading @ref="loading" Title=@_LoadingData_Text></TaskLoading>
 
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
             <div class="content flex-row-fluid" id="kt_content">        
@@ -27,38 +38,40 @@
 								        <div class="card-header pt-7">
 									  
 									        <h3 class="card-title align-items-start flex-column">
-										        <span class="card-label fw-bold text-dark">Pesquisar</span>										
-									        </h3>									        
+                                        <span class="card-label fw-bold text-dark">@view.texts.SearchButtonLabel</span>
+                                    </h3>									        
 									       
                                         </div>
                                            
                                         <div class="card-body">
 										         <div class="form-group">
-                                                    <label class="form-label">Nome:</label>
-                                                    <input type="text" @bind-value="view.param.pObjectName" class="form-control"
-                                                       placeholder="Pesquisar por Nome do Objeto">
+                                                    <label class="form-label">@view.texts.SearchByObjectName_Label:</label>
+                                                    <input type="text" @bind-value="view.param.pObjectName"
+                                                        placeholder=@view.texts.SearchByObjectName_Description class="form-control">
+                                                       
                                                 </div>
 
                                                  <div class="form-group">
-                                                    <label class="form-label" >Código:</label>
-                                                    <input type="text" maxlength="20" @bind-value="view.param.pObjectCode" class="form-control"
-                                                       placeholder="Pesquisar por Código do Objeto">
+                                                     <label class="form-label">@view.texts.SearchByObjectCode_Label:</label>
+                                                    <input type="text" maxlength="20" @bind-value="view.param.pObjectCode"
+                                                        placeholder=@view.texts.SearchByObjectCode_Description class="form-control">
+                                                       
                                                 </div>                                              
 
                                                 <p class="field" style="padding-top:10px">
 
-                                                    <TaskButton @ref="searchbtn" OnClick="OnSearch" Title="Pesquisar"
-                                                         Description="Clique aqui pesquisar." ReadOnly=!view.Permissions.AllowRead
-                                                                ActionLabel="Pesquisando...">
-                                                    </TaskButton>
+                                                      <TaskButton @ref="searchbtn" OnClick="OnSearch" Title=@view.texts.SearchButtonLabel
+                                                             ReadOnly=!view.Permissions.AllowRead
+                                                             ActionLabel=@view.texts.SearchingLabel>
+                                                      </TaskButton>
 
                                                 </p>									       
 									    
                                                  <p class="field" style="padding-top:10px">
-                                                     <TaskButton @ref="newbtn" OnClick="OnNew" Title="Novo Objeto" Class="dark"
-                                                          Description="Clique aqui criar um novo objeto de permissão." Disabled="" 
-                                                          ReadOnly=!view.Permissions.AllowSave
-                                                          ActionLabel="Inserindo...">
+                                                        <TaskButton @ref="newbtn" OnClick="OnNew"
+                                                                Title=@view.texts.NewObject_Label Class="dark"
+                                                                Disabled="" ReadOnly=!view.Permissions.AllowSave
+                                                                ActionLabel=@view.texts.InsertingLoadingLabel>
                                                         </TaskButton>
 
                                                  </p>
@@ -73,8 +86,8 @@
 										<div class="card-header pt-7">
 											
 											<h3 class="card-title align-items-start flex-column">
-												<span class="card-label fw-bold text-dark">Resultado da Busca</span>												
-											</h3>
+                                                     <span class="card-label fw-bold text-dark">@view.texts.SearchResultLabel</span>
+                                              </h3>
                                         </div>
 
                                         <div class="card-body">
@@ -84,11 +97,11 @@
                                                 {
                                                       <DataGrid TItem="ObjectPermissionResult" Data="@view.searchresult"  Responsive  ShowPager >                                                                                                                                      
                                                         <DataGridColumns>
-                                            
-                                                            <DataGridColumn Field="@nameof(ObjectPermissionResult.ObjectName)" Caption="Nome" />
-                                                            <DataGridColumn Field="@nameof(ObjectPermissionResult.ObjectCode)" Caption="Código" />
-                                                            
-                                                             <DataGridColumn Field="@nameof(ObjectPermissionResult.ObjectPermissionID)" Caption="Editar" >
+
+                                                            <DataGridColumn Field="@nameof(ObjectPermissionResult.ObjectName)" Caption=@view.texts.ObjectName_Label />
+                                                            <DataGridColumn Field="@nameof(ObjectPermissionResult.ObjectCode)" Caption=@view.texts.ObjectCode_Label />
+
+                                                            <DataGridColumn Field="@nameof(ObjectPermissionResult.ObjectPermissionID)" Caption=@view.texts.Edit_Label>
                                                                 <DisplayTemplate>
                                                                       @{
                                                                             ObjectPermissionResult obj = (context as ObjectPermissionResult);
@@ -110,7 +123,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <p> Nenhum registro encontrado </p>
+                                                    <p> @view.texts.NoRecordsFound </p>
                                                 }
                                               }
                                          
@@ -137,8 +150,8 @@
 		                                    <div class="card-header pt-7">
 									  
 			                                    <h3 class="card-title align-items-start flex-column">
-				                                    <span class="card-label fw-bold text-dark">Dados do Objeto de Permissão</span>										
-			                                    </h3>									        
+                                                     <span class="card-label fw-bold text-dark">@view.texts.ObjectPermissionRecord_Label</span>
+                                                 </h3>									        
 									       
                                             </div>
                                            
@@ -148,7 +161,7 @@
                                                         <div class="col-md-12">                                                            
 
                                                             <div class="form-group">
-                                                                <label class="form-label" for="name">Nome:</label>
+                                                                 <label class="form-label" for="name">@view.texts.ObjectName_Label:</label>
                                                                 <input type="text" class="form-control field" @bind-value="@view.result.ObjectName" />
                                                                 <label class="validation_field">@view.GetSummaryMessage("ObjectName") </label>
                                                             </div>
@@ -158,7 +171,7 @@
                                                    <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <label class="form-label"  for="email">Código:</label>
+                                                                <label class="form-label" for="email">@view.texts.ObjectCode_Label:</label>
                                                                 <input type="text" class="form-control field" @bind-value="@view.result.ObjectCode" />
                                                                  <label class="validation_field">@view.GetSummaryMessage("ObjectCode") </label>
                                                             </div>
@@ -170,10 +183,11 @@
 
                                                             <p class="field" style="padding-top:10px">
 
-                                                                <TaskButton @ref="savenewbtn" OnClick="OnSet" Title="Salvar"
-                                                                    Description="Clique aqui para salvar os dados do Objeto de Permissão."
-                                                                    ActionLabel="Salvando..." ReadOnly=!view.Permissions.AllowSave>
-                                                                </TaskButton>
+                                                            <TaskButton @ref="savenewbtn" OnClick="OnSet" Title=@view.texts.SaveObjectPermissionButton_Label
+                                                                    Description=@view.texts.SaveObjectPermissionButton_Description
+                                                                                ActionLabel=@view.texts.Saving_Label
+                                                                                ReadOnly=!view.Permissions.AllowSave>
+                                                            </TaskButton>
 
                                                             </p>
                                                          </div>
@@ -190,7 +204,7 @@
                     }
                     else
                     {
-                        <h5>Carregando a página. Aguarde...</h5>
+                         <img src="../images/circle_loader.gif" style="width:32px;height:32px" />
 
                     }
                 </div>
@@ -198,14 +212,7 @@
         </div>
 
 
-<MessageBox @ref="msgbox"></MessageBox>
 
-<MessageBox @ref="msgbox_create" 
-    ButtonNo="true" ButtonYes="true" ButtonOK="false" 
-    OnClickYes="OnNew" >
-</MessageBox>
-
-<TaskLoading @ref="loading" Title="Carregando dados. Aguarde..."></TaskLoading>
 
 @code {
 
@@ -217,6 +224,11 @@
     private TaskButton statebtn;
     private TaskButton newbtn;
     private TaskButton savenewbtn;
+
+    private string _LoadingData_Text;
+    private string _PageTitle;
+    private string _msgYes = ""; 
+    private string _msgNo = ""; 
 
 
     //
@@ -235,7 +247,8 @@
             LoggedUser = _appctrl.UserInfo;
             _memberservices.Init(_httpclient,_settings.ServiceURL,LoggedUser.Token);
             
-            view = new ObjectPermissionViewModel((_memberservices as MembershipGateway) ,LoggedUser); 
+            view = new ObjectPermissionViewModel((_memberservices as MembershipGateway) ,
+                        (_cache as DataCacheGateway), LoggedUser);
 
             List<UserPermissions> list = await _appctrl.GetUserPermissions();
             view.Permissions
@@ -251,6 +264,12 @@
         {
             await InitResources();
             await view.InitializeModels(); 
+
+            _LoadingData_Text = view.texts.LoadingData;
+            _PageTitle = view.texts.ObjectPermission_PageTitle;
+            _msgYes = view.texts.Yes_Text;
+            _msgNo = view.texts.No_Text; 
+
             StateHasChanged();
         }
     }
@@ -262,7 +281,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-           await msgbox.ShowDialog("Erro ao efetuar pesquisa", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnExecuteSearch, view.ExecutionStatus.Error.Message);
         }
 
         searchbtn.End();
@@ -285,7 +304,7 @@
 
         if (!view.ExecutionStatus.Status)
         {
-           await msgbox.ShowDialog("Erro ao retornar os dados", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.ErrorOnReturnData, view.ExecutionStatus.Error.Message);
         }
         else
         {
@@ -305,17 +324,17 @@
 
         if (!view.ExecutionStatus.Status)
         {
-            await msgbox.ShowDialog("Erro salvar.", view.ExecutionStatus.Error.Message);
+            await msgbox.ShowDialog(view.texts.NoticeLabel, view.ExecutionStatus.Error.Message);
         }
         else
         {
             if (this.view.Inserting)
             {
-                await msgbox_create.ShowDialog("Sucesso!", "O Objeto foi salvo com sucesso. Deseja continuar inserindo ?");
+                await msgbox_create.ShowDialog(view.texts.SuccessLabel, view.texts.AfterSaveAnswering);
             }
             else
             {
-                await msgbox.ShowDialog("Sucesso!", "Os dados foram editados com sucesso.");
+                await msgbox.ShowDialog(view.texts.SuccessLabel, view.texts.SuccessSaveMessage);
                 this.Back();
             }
 
