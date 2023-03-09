@@ -69,6 +69,16 @@ namespace Template.ServerCode
             }
         }
 
+        private LocalStorage _localStorage;
+
+        public LocalStorage AppLocalStorage
+        {
+            get
+            {
+                return _localStorage;
+            }
+        }
+
 
         private IJSRuntime _jscontext;
         public IJSRuntime JSContext
@@ -105,7 +115,8 @@ namespace Template.ServerCode
         {
             _webhost = webhost;
             _jscontext = jscontext;
-            _cookies = new Cookies(jscontext); 
+            _cookies = new Cookies(jscontext);
+            _localStorage = new LocalStorage(jscontext); 
            // GetSession();                       
            
         }
@@ -179,7 +190,7 @@ namespace Template.ServerCode
             if (usr != null)
             {
                 DateTime expires = DateTime.Now.AddMinutes(int.Parse(_settings.SessionTimeOut));
-                await _cookies.SetUserPermissions(usr.Permissions, expires);
+                await _localStorage.SetUserPermissions(usr.Permissions,usr.Token);
 
                 usr.Permissions = null;
                 await this.CreateSession(usr);
@@ -200,6 +211,7 @@ namespace Template.ServerCode
             await _cookies.ClearUserInfo();
             await _cookies.ClearUserPermissions(); 
             await _cookies.ClearAllCookies();
+            await _localStorage.ClearUserPermissions();
         }
 
         public  PermissionsState CheckPermissions(UserAuthenticated user,
@@ -215,11 +227,11 @@ namespace Template.ServerCode
             return ret;
         }
 
-        public async Task<List<UserPermissions>> GetUserPermissions()
+        public async Task<List<UserPermissions>> GetUserPermissions(string token)
         {
             List<UserPermissions> ret = new List<UserPermissions>();
 
-            ret = await _cookies.GetUserPermissions(); 
+            ret = await _localStorage.GetUserPermissions(token); 
 
             return ret;
 

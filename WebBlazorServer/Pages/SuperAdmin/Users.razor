@@ -656,7 +656,7 @@
             view = new UserViewModel((_memberservices as MembershipGateway),
                   (_cache as DataCacheGateway), LoggedUser);
 
-            List<UserPermissions> list = await _appctrl.GetUserPermissions();
+            List<UserPermissions> list = await _appctrl.GetUserPermissions(LoggedUser.Token);
             view.Permissions
                 = BaseViewModel.SetPermissions(list, "SYSUSER", false);
             

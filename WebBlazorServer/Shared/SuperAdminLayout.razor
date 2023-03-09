@@ -93,7 +93,7 @@
                     await _appctrl.GetSession();
 
                     user = _appctrl.UserInfo;
-                    permissions = await _appctrl.GetUserPermissions();
+                    permissions = await _appctrl.GetUserPermissions(user.Token);
 
                     if (user.RoleName != "SuperAdmin" )                    
                     {

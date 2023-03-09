@@ -522,7 +522,7 @@
 
             view = new ClientViewModel((_gateway as TemplateGateway), LoggedUser);
 
-            List<UserPermissions> list = await _appctrl.GetUserPermissions();
+            List<UserPermissions> list = await _appctrl.GetUserPermissions(LoggedUser.Token);
             view.Permissions
                = BaseViewModel.SetPermissions(list, "CLIENT", false);
         }

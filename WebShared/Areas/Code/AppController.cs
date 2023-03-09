@@ -31,7 +31,7 @@ namespace Template.ServerCode
 
         Task ReplaceUserInfo(UserAuthenticated user);
 
-        Task<List<UserPermissions>> GetUserPermissions(); 
+        Task<List<UserPermissions>> GetUserPermissions(string token); 
     }
 
     public interface IAppSettings

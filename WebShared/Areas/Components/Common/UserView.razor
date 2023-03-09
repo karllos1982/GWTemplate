@@ -85,7 +85,7 @@
           {
             <div class="row" style="min-height:500px">
                                                 
-                  <div class="card" style="height:1px">
+                  <div class="card" style="height:20px">
 					    <!--begin::Card head-->
 					    <div class="card-header card-header-stretch">
 						    <!--begin::Title-->
@@ -249,7 +249,7 @@
         </ModalBody>   
         
         <ModalFooter>
-            <Blazorise.Bootstrap5.CloseButton></Blazorise.Bootstrap5.CloseButton>
+            <CloseButton></CloseButton>
         </ModalFooter>
 
     </ModalContent>
@@ -281,7 +281,11 @@
                 _localization=value; 
             }
         }
-
+   
+        get
+        {
+            return _localization;
+        }
     }
 
     [Parameter]

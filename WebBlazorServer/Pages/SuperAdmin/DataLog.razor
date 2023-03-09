@@ -384,7 +384,7 @@
             view = new DataLogViewModel((_memberservices as MembershipGateway) ,
                (_cacheservices as DataCacheGateway), LoggedUser);
 
-            List<UserPermissions> list = await _appctrl.GetUserPermissions();
+            List<UserPermissions> list = await _appctrl.GetUserPermissions(LoggedUser.Token);
             view.Permissions
                 = BaseViewModel.SetPermissions(list, "SYSDATALOG", false);
         }

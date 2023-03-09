@@ -55,6 +55,28 @@ window.menuFunctions = {
 
 }
 
+
+window.dataStorage = {
+
+    saveData: function (name, data) {
+
+        localStorage.setItem(name, data);
+
+    },
+
+    readData: function (name) {
+
+        return localStorage.getItem(name);
+    }
+    ,
+
+    clearData: function (name) {
+
+        localStorage.removeItem(name);
+    }
+
+}
+
     
 
 

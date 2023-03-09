@@ -66,6 +66,8 @@ public class ServerFunctions
         return ret;
     }
 
+    //
+
     public async Task SetCookie(IJSRuntime jsruntime, string name, string value, string expires)
     {
         value = Utilities.ConvertToBase64(value);
@@ -88,7 +90,33 @@ public class ServerFunctions
     {
         ValueTask t = jsruntime.InvokeVoidAsync("cookieFunctions.removeCookie", name);
     }
-  
+
+    //
+
+
+    public async Task SaveLocalData(IJSRuntime jsruntime, string name, string value)
+    {
+        value = Utilities.ConvertToBase64(value);
+
+        await jsruntime.InvokeVoidAsync("dataStorage.saveData", name, value);
+    }
+
+    public async Task<string> ReadLocalData(IJSRuntime jsruntime, string name)
+    {
+        string ret = "";
+
+        ret = await jsruntime.InvokeAsync<string>("dataStorage.readData", name);
+
+        ret = Utilities.ConvertFromBase64(ret);
+
+        return ret;
+    }
+
+    public async Task ClearLocalData(IJSRuntime jsruntime, string name)
+    {
+        await jsruntime.InvokeVoidAsync("dataStorage.clearData", name);
+    }
+
 
     public class PostFileStatus
     {
