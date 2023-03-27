@@ -1,13 +1,9 @@
 ﻿using GW.Common;
 using GW.Core;
-using Template.Contracts;
 using Template.Contracts.Domain;
 using Template.Models;
 using Template.Contracts.Data;
 using GW.Helpers;
-using Microsoft.SqlServer.Server;
-using static System.Net.Mime.MediaTypeNames;
-using System.Threading.Tasks.Sources;
 
 namespace Template.Domain
 {

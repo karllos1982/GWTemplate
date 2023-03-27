@@ -1,9 +1,7 @@
 ﻿using GW.Core;
 using Template.Contracts.Domain;
 using Template.Contracts.Data;
-using GW.Common;
-using GW.Helpers;
-using GW.Membership.Domain;
+
 
 namespace Template.Domain
 {

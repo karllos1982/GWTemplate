@@ -139,7 +139,6 @@ C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagge
 C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Projetos\OUTROS\GWTemplate\API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Projetos\OUTROS\GWTemplate\API\obj\Debug\net6.0\API.MvcApplicationPartsAssemblyInfo.cs
-H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\appsettings-prd.json
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\FileServer\UserProfileImage\user_anonymous.png
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Azure.Core.dll
 H:\LocalDrive_00\Projetos\GearsOfWeb_Project\GWTemplate\API\bin\Debug\net6.0\Azure.Storage.Blobs.dll

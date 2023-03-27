@@ -1,6 +1,4 @@
-﻿using GW.Common;
-using GW.Core;
-using Template.Contracts.Data; 
+﻿using GW.Core;
 
 namespace Template.Contracts.Data
 {

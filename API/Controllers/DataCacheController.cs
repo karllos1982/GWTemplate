@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GW.Membership.Models;
 using GW.Common;
-using GW.Helpers;
-using Template.API;
 using Microsoft.AspNetCore.Authorization;
-//using Template.Models;
 using Microsoft.Extensions.Caching.Memory;
 using GW.Membership.Contracts.Domain;
-using Core.Data;
 using GW.Core;
-using GW;
+
 
 namespace Template.API.Controllers
 {

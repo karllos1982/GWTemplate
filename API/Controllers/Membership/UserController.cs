@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using GW.Core;
 using GW.Membership.Contracts.Domain;
-//using Template.Models;
 
 namespace Template.Controllers
 {

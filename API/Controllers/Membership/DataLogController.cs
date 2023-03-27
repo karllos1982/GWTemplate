@@ -5,7 +5,7 @@ using Template.API;
 using Microsoft.AspNetCore.Authorization;
 using GW.Core;
 using GW.Membership.Contracts.Domain;
-//using Template.Models;
+
 
 namespace Template.Controllers
 {

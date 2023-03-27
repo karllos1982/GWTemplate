@@ -9,12 +9,8 @@ using Newtonsoft.Json;
 using GW.Core;
 using GW.Membership.Contracts.Domain;
 using GW.ApplicationHelpers;
-using Template.Core;
 using GW.Membership.Data;
-using API.Code;
-using Microsoft.Extensions.Caching.Memory;
 
-//using Template.Models;
 
 
 namespace Template.Controllers

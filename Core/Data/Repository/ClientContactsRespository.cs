@@ -1,6 +1,5 @@
 ﻿using GW.Common;
 using GW.Core;
-using Template.Contracts;
 using Template.Contracts.Data;
 using Template.Models;
 using GW.Membership.Data;

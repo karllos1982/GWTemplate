@@ -1,7 +1,5 @@
 ﻿using GW.Common;
 using GW.Membership.Models;
-using Microsoft.AspNetCore.Components.Web;
-using System.Runtime.InteropServices;
 using Template.Gateway;
 
 namespace Template.ViewModel

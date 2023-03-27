@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using GW.Helpers;
-using GW.Common;
+﻿using GW.Helpers;
 
 namespace Template.Models
 {

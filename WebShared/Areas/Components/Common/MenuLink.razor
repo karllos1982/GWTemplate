@@ -250,11 +250,7 @@
 
 
     private void LoadMenuContent()
-    {
-        //List<MenuItem>  ret = new List<MenuItem>();
-        // var xmlFile = "Menu_" + RoleName + ".json";        
-        //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-
+    {        
 
         _items.Clear();
 
@@ -272,10 +268,7 @@
             AddItem(new MenuItem("SuperAdmin", _localization.Monitoring_MenuText, "2") { LinkTitle = _localization.DataLog_MenuText, LinkURL = "superadmin/datalog", Permission_ObjectCode = "SYSDATALOG", Permission_Allownone = true });
             AddItem(new MenuItem("SuperAdmin", _localization.Monitoring_MenuText, "2") { LinkTitle = _localization.SessionLog_MenuText, LinkURL = "superadmin/accesslog", Permission_ObjectCode = "SYSSESSION", Permission_Allownone = true });
         }
-
-        //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 1", LinkURL="pag1"}) ;
-        //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 2", LinkURL="pag2"}) ;
-        //_items.Add(new MenuItem("SuperAdmin", "Outra Aba", "2"){ LinkTitle="Pagina 3", LinkURL="pag3"}) ;
+     
 
         AddItem(new MenuItem("Admin", "Management", "1") { LinkTitle = "Cient", LinkURL = "admin/client", State = "active show", Permission_ObjectCode = "CLIENT", Permission_Allownone = true });
 

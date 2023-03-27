@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Microsoft.JSInterop;
-using GW.Membership.Models;
 using GW.Common;
 
 namespace Template.ServerCode

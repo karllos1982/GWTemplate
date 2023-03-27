@@ -1,11 +1,9 @@
 ﻿using Microsoft.JSInterop;
-using Newtonsoft.Json;
 using GW.Common;
 using GW.Helpers;
 using GW.Membership.Models;
 using Template.Gateway;
-using WebBlazorServer.Pages.SuperAdmin;
-using Microsoft.AspNetCore.Mvc.Formatters;
+
 
 namespace Template.ServerCode
 {
@@ -116,8 +114,7 @@ namespace Template.ServerCode
             _webhost = webhost;
             _jscontext = jscontext;
             _cookies = new Cookies(jscontext);
-            _localStorage = new LocalStorage(jscontext); 
-           // GetSession();                       
+            _localStorage = new LocalStorage(jscontext);                          
            
         }
 

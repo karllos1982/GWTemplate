@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GW.Common;
-using GW.Helpers;
+﻿using GW.Common;
 using GW.Membership.Models;
 using Newtonsoft.Json;
 using GW.ApplicationHelpers;
@@ -15,7 +10,7 @@ namespace Template.Gateway
     {
         void Init(HttpClient http, string baseurl, string token);
 
-        //List<InnerException> GetDefaultError(ref Exception defaulterror);
+  
     }
 
     public class MembershipGateway: APIGatewayManagerAsync, IMembershipGatewayManager
@@ -78,15 +73,10 @@ namespace Template.Gateway
             LocalizationText.IsAuthenticated = true;
 
         }
-
-        //public List<InnerException> GetDefaultError(ref Exception defaulterror)
-        //{
-        //    return base.GetInnerExceptions(ref defaulterror);
-        //}
+     
 
     }
 
-    //
 
     public class UserGateway : APIGatewayManagerAsync
     {

@@ -15,7 +15,7 @@
           }
         }
       },
-      "GW.Framework/4.0.23": {
+      "GW.Framework/4.0.24": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "13.0.2"
@@ -27,11 +27,11 @@
           "lib/net6.0/GW.Framework.dll": {}
         }
       },
-      "GW.Membership/2.0.23": {
+      "GW.Membership/2.0.24": {
         "type": "package",
         "dependencies": {
           "Dapper": "2.0.123",
-          "GW.Framework": "4.0.23",
+          "GW.Framework": "4.0.24",
           "System.Data.SqlClient": "4.8.5"
         },
         "compile": {
@@ -203,8 +203,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "GW.Framework": "4.0.23",
-          "GW.Membership": "2.0.23"
+          "GW.Framework": "4.0.24",
+          "GW.Membership": "2.0.24"
         },
         "compile": {
           "bin/placeholder/Models.dll": {}
@@ -234,26 +234,26 @@
         "lib/netstandard2.0/Dapper.xml"
       ]
     },
-    "GW.Framework/4.0.23": {
-      "sha512": "aolNMuFfxcKptu25gnu6qd301n23TJp5TnmXyXDyEoKTc3LDLaCYEmHk+4oTcpqJrXg7L62k86+XyKjjnQJaaQ==",
+    "GW.Framework/4.0.24": {
+      "sha512": "WaprK4sJbx3YcrYusj8DnQ4SGEqwobyD/g6ikwebGF71pEMIbN3LF0BICMtXFvDs6t5CAMbNN7UR1yaC8hJoVA==",
       "type": "package",
-      "path": "gw.framework/4.0.23",
+      "path": "gw.framework/4.0.24",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.framework.4.0.23.nupkg.sha512",
+        "gw.framework.4.0.24.nupkg.sha512",
         "gw.framework.nuspec",
         "lib/net6.0/GW.Framework.dll"
       ]
     },
-    "GW.Membership/2.0.23": {
-      "sha512": "oxoMVDJwQWuoadg/vmiW3CWCjPSoiaR74Z7+wdUVsQH78KxjcbSqtIHMboYOJfYSN7NDxkbhFP1I9YzLC3cdjQ==",
+    "GW.Membership/2.0.24": {
+      "sha512": "YeEmkaw3CerURdRrw5rWlb1YC+W42V6O17zTeihmQnH9p7j8MniQBoU2oDNk7S5rlM8qINTBGFP5ud3FGousng==",
       "type": "package",
-      "path": "gw.membership/2.0.23",
+      "path": "gw.membership/2.0.24",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.membership.2.0.23.nupkg.sha512",
+        "gw.membership.2.0.24.nupkg.sha512",
         "gw.membership.nuspec",
         "lib/net6.0/GW.Membership.dll"
       ]
@@ -610,8 +610,8 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Dapper >= 2.0.123",
-      "GW.Framework >= 4.0.23",
-      "GW.Membership >= 2.0.23",
+      "GW.Framework >= 4.0.24",
+      "GW.Membership >= 2.0.24",
       "Models >= 1.0.0",
       "Newtonsoft.Json >= 13.0.2",
       "System.Data.SqlClient >= 4.8.5"
@@ -672,11 +672,11 @@
           },
           "GW.Framework": {
             "target": "Package",
-            "version": "[4.0.23, )"
+            "version": "[4.0.24, )"
           },
           "GW.Membership": {
             "target": "Package",
-            "version": "[2.0.23, )"
+            "version": "[2.0.24, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

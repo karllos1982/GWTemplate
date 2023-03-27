@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Template.API;
-using GW.Common;
-using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
 using Template.Core.Manager;
 using GW.Core;
@@ -17,7 +15,6 @@ using Template.Contracts.Domain;
 using Template.Contracts.Data;
 using Template.Domain;
 using Template.Data;
-using API.Code;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -9,8 +9,7 @@ namespace Template.Gateway
     public interface ITemplateGatewayManager
     {
         void Init(HttpClient http, string baseurl, string token);
-
-        //List<InnerException> GetDefaultError(ref Exception defaulterror);
+        
     }
 
     public class TemplateGateway : APIGatewayManagerAsync, ITemplateGatewayManager
@@ -31,15 +30,10 @@ namespace Template.Gateway
             Client.IsAuthenticated = true;
        
         }
-
-        //public List<InnerException> GetDefaultError(ref Exception defaulterror)
-        //{
-        //    return base.GetInnerExceptions(ref defaulterror);
-        //}
+      
 
     }
-
-    //
+    
 
     public class ClientGateway : APIGatewayManagerAsync
     {

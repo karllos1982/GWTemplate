@@ -1,9 +1,4 @@
-﻿using System;
-using GW.Common;
-using GW.ApplicationHelpers; 
-using Newtonsoft.Json;
-using Template.Core.Manager;
-using GW.Core;
+﻿using GW.Common;
 
 namespace Template.API
 {

@@ -1,10 +1,7 @@
-﻿using Microsoft.JSInterop;
-using Newtonsoft.Json;
-using GW.Common;
-using GW.Helpers;
+﻿using GW.Common;
 using GW.Membership.Models;
 using Template.Gateway;
-using Microsoft.AspNetCore.Mvc.Formatters;
+
 
 namespace Template.ServerCode
 {

@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GW.Framework" Version="4.0.23" />
-    <PackageReference Include="GW.Membership" Version="2.0.23" />
+    <PackageReference Include="GW.Framework" Version="4.0.24" />
+    <PackageReference Include="GW.Membership" Version="2.0.24" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="System.Threading" Version="4.3.0" />
   </ItemGroup>

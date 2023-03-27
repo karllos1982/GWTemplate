@@ -1,5 +1,4 @@
 ﻿using GW.Helpers;
-using System.Collections.Generic;
 
 namespace Template.Data
 {
@@ -22,21 +21,30 @@ namespace Template.Data
 
         public override string QueryForGet(object param)
         {
-            string ret = @"Select * from Client where ClientID=@pClientID";            
-               
+
+            string ret = ""; 
+
+            SelectBuilder.Clear();
+            SelectBuilder.AddTable("Client", "c", true, "ClientID", "", JOINTYPE.NONE, null);                        
+            SelectBuilder.AddField("c", "ClientID", "@pClientID", false, "0", null, ORDERBYTYPE.ASC);
+
+            ret = SelectBuilder.BuildQuery();
+
             return ret;
         }
 
         public override string QueryForList(object param)
         {
-            string ret = @"select ClientID, ClientName             
-             from Client s                           
-             where 1=1 
-             and (@pClientID=0 or s.ClientID=@pClientID)
-             and (@pClientName='' or s.ClientName=@pClientName)
-             and (@pEmail='' or s.Email=@pEmail)
-             order by ClientName
-             ";
+
+            string ret = "";
+
+            SelectBuilder.Clear();
+            SelectBuilder.AddTable("Client", "c", false, "ClientID", "", JOINTYPE.NONE, null);
+            SelectBuilder.AddField("c", "ClientID", "@pClientID", true, "0", null, ORDERBYTYPE.NONE);
+            SelectBuilder.AddField("c", "ClientName", "@pClientName", true, "''", null, ORDERBYTYPE.ASC);
+            SelectBuilder.AddField("c", "Email", "@pEmail", false, "''", null, ORDERBYTYPE.NONE);
+
+            ret = SelectBuilder.BuildQuery();
 
             return ret;
         }
@@ -44,14 +52,15 @@ namespace Template.Data
         public override string QueryForSearch(object param)
         {
 
-            string ret = @"select *             
-             from Client s              
-             where 1=1 
-             and (@pClientID=0 or s.ClientID=@pClientID)
-             and (@pClientName='' or s.ClientName=@pClientName)
-             and (@pEmail='' or s.Email=@pEmail)
-             order by ClientName
-             ";
+            string ret = "";
+
+            SelectBuilder.Clear();
+            SelectBuilder.AddTable("Client", "c", true, "ClientID", "", JOINTYPE.NONE, null);
+            SelectBuilder.AddField("c", "ClientID", "@pClientID", false, "0", null, ORDERBYTYPE.NONE);
+            SelectBuilder.AddField("c", "ClientName", "@pClientName", false, "''", null, ORDERBYTYPE.ASC);
+            SelectBuilder.AddField("c", "Email", "@pEmail", false, "''", null, ORDERBYTYPE.NONE);
+
+            ret = SelectBuilder.BuildQuery();
 
             return ret;
 

@@ -1,5 +1,4 @@
-﻿using GW.Common;
-using GW.Core;
+﻿using GW.Core;
 
 namespace Template.Contracts.Domain
 {

@@ -1,9 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using System.Threading;
 using GW.Common;
-using System.ComponentModel;
-using System.IO;
+
 
 namespace Template.API
 {

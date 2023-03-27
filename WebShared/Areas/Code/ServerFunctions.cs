@@ -1,10 +1,6 @@
 ﻿using Microsoft.JSInterop;
 using GW.Helpers;
 
-/// <summary>
-/// Summary description for UtilFunctions
-/// </summary>
-///
 
 public class ServerFunctions
 {

@@ -3,8 +3,6 @@ using GW.Membership.Models;
 using Newtonsoft.Json;
 using GW.ApplicationHelpers;
 
-//using Template.Models;
-
 
 namespace Template.Gateway
 {

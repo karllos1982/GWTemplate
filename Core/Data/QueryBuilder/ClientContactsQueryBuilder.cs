@@ -1,5 +1,4 @@
 ﻿using GW.Helpers;
-using System.Collections.Generic;
 
 namespace Template.Data
 {
@@ -23,24 +22,31 @@ namespace Template.Data
 
         public override string QueryForGet(object param)
         {
-            string ret = @"Select s.* 
-            from ClientContacts s
-            where ClientContactID=@pClientContactID";
+            string ret = "";
+
+            SelectBuilder.Clear();
+            SelectBuilder.AddTable("ClientContacts", "s", true, "ClientContactID", "", JOINTYPE.NONE, null);
+            SelectBuilder.AddField("s", "ClientContactID", "@pClientContactID", false, "0", null, ORDERBYTYPE.ASC);
+
+            ret = SelectBuilder.BuildQuery();          
 
             return ret;
         }
 
         public override string QueryForList(object param)
         {
-            string ret = @"select ClientContactID, ClientID, ContactName             
-             from ClientContacts s                           
-             where 1=1 
-             and (@pClientContactID=0 or s.ClientContactID=@pClientContactID)
-             and (@pClientID=0 or s.ClientID=@pClientID)
-             and (@pContactName='' or s.ContactName=@pContactName)
-             and (@pEmail='' or s.Email=@pEmail)
-             order by ContactName
-             ";
+
+            string ret = "";
+
+            SelectBuilder.Clear();
+            SelectBuilder.AddTable("ClientContacts", "s", true, "ClientContactID", "", JOINTYPE.NONE, null);
+            SelectBuilder.AddField("s", "ClientContactID", "@pClientContactID", true, "0", null, ORDERBYTYPE.NONE);
+            SelectBuilder.AddField("s", "ClientID", "@pClientID", true, "0", null, ORDERBYTYPE.NONE);
+            SelectBuilder.AddField("s", "ContactName", "@pContactName", true, "''", null, ORDERBYTYPE.ASC );
+            SelectBuilder.AddField("s", "Email", "@pEmail", false, "''", null, ORDERBYTYPE.NONE);
+
+            ret = SelectBuilder.BuildQuery();
+           
 
             return ret;
         }
@@ -48,15 +54,16 @@ namespace Template.Data
         public override string QueryForSearch(object param)
         {
 
-            string ret = @"select *             
-             from ClientContacts s             
-             where 1=1 
-             and (@pClientContactID=0 or s.ClientContactID=@pClientContactID)
-             and (@pClientID=0 or s.ClientID=@pClientID)
-             and (@pContactName='' or s.ContactName=@pContactName)
-             and (@pEmail='' or s.Email=@pEmail)
-             order by ContactName
-             ";
+            string ret = "";
+
+            SelectBuilder.Clear();
+            SelectBuilder.AddTable("ClientContacts", "s", true, "ClientContactID", "", JOINTYPE.NONE, null);
+            SelectBuilder.AddField("s", "ClientContactID", "@pClientContactID", false, "0", null, ORDERBYTYPE.NONE);
+            SelectBuilder.AddField("s", "ClientID", "@pClientID", false, "0", null, ORDERBYTYPE.NONE);
+            SelectBuilder.AddField("s", "ContactName", "@pContactName", false, "''", null, ORDERBYTYPE.ASC);
+            SelectBuilder.AddField("s", "Email", "@pEmail", false, "''", null, ORDERBYTYPE.NONE);
+
+            ret = SelectBuilder.BuildQuery();          
 
             return ret;
 

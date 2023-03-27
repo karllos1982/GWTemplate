@@ -1,9 +1,6 @@
-﻿using GW.Common;
-using GW.Membership.Models;
-using System.Linq; 
-using Newtonsoft.Json;
+﻿using GW.Membership.Models;
 using GW.ApplicationHelpers;
-//using Template.Models;
+
 
 namespace Template.Gateway
 {
