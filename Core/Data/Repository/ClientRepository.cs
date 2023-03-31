@@ -12,17 +12,24 @@ namespace Template.Data
         public ClientRepository(IContext context)
         {
             Context = context;
+            TableName = "Client";
+            PKFieldName = "ClientID";
         }
 
         private ClientQueryBuilder query = new ClientQueryBuilder();
 
         public IContext Context { get; set; }
+        
+        public string TableName { get; set; }
+
+        public string PKFieldName { get; set; }
+
 
         public async Task Create(ClientEntry model)
         {
             OperationStatus ret = new OperationStatus(true);
 
-            string sql = query.QueryForCreate("Client", model, model);
+            string sql = query.QueryForCreate(TableName, model, model);
             await ((DapperContext)Context).ExecuteAsync(sql, model);
         }
 
@@ -40,7 +47,7 @@ namespace Template.Data
         public async Task Update(ClientEntry model)
         {
 
-            string sql = query.QueryForUpdate("Client", model, model);
+            string sql = query.QueryForUpdate(TableName, model, model);
             await ((DapperContext)Context).ExecuteAsync(sql, model);
 
         }
@@ -48,7 +55,7 @@ namespace Template.Data
         public async Task Delete(ClientEntry model)
         {
 
-            string sql = query.QueryForDelete("Client", model, model);
+            string sql = query.QueryForDelete(TableName, model, model);
             await ((DapperContext)Context).ExecuteAsync(sql, model);
 
         }

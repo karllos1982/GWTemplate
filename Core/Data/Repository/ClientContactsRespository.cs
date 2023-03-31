@@ -11,23 +11,28 @@ namespace Template.Data
         public ClientContactsRespository(IContext context)
         {
             Context = context;
+            TableName = "ClientContacts";
+            PKFieldName = "ClientContactID";
         }
 
         private ClientContactsQueryBuilder query = new ClientContactsQueryBuilder();
 
         public IContext Context { get; set ; }
+        public string TableName { get; set; }
+
+        public string PKFieldName { get; set; }
 
         public  async Task Create(ClientContactsEntry model)
         {
             OperationStatus ret = new OperationStatus(true);
 
-            string sql = query.QueryForCreate("ClientContacts", model, model);
+            string sql = query.QueryForCreate(TableName, model, model);
             await((DapperContext)Context).ExecuteAsync(sql, model);
         }
 
         public async Task Delete(ClientContactsEntry model)
         {
-            string sql = query.QueryForDelete("ClientContacts", model, model);
+            string sql = query.QueryForDelete(TableName, model, model);
             await((DapperContext)Context).ExecuteAsync(sql, model);
         }
 
@@ -65,7 +70,7 @@ namespace Template.Data
 
         public async Task Update(ClientContactsEntry model)
         {
-            string sql = query.QueryForUpdate("ClientContacts", model, model);
+            string sql = query.QueryForUpdate(TableName, model, model);
             await((DapperContext)Context).ExecuteAsync(sql, model);
         }
     }

@@ -141,12 +141,12 @@
                                     
                                             <ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bold" role="tablist">
                                                 <li class="nav-item" role="presentation">
-                                                    <a class="nav-link justify-content-center text-active-gray-800 active" @onclick="()=>SwitchAbas()"
+                                                    <a class="nav-link justify-content-center text-active-gray-800 @Aba1State" @onclick="()=>SwitchAbas()"
                                                             data-bs-toggle="tab" role="tab" href="#kt_tab1">Client Record
                                                      </a>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <a  class="nav-link justify-content-center text-active-gray-800" @onclick="()=>SwitchAbas()"
+                                                    <a class="nav-link justify-content-center text-active-gray-800 @Aba2State" @onclick="()=>SwitchAbas()"
                                                    data-bs-toggle="tab" role="tab" href="#kt_tab2">
                                                         Contacts                                                          
                                                     </a>
@@ -502,7 +502,7 @@
     private Modal modalRef;
     private string Aba1State = "active";
     private string Aba2State = "";
-
+  
 
     //
 

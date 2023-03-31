@@ -152,26 +152,16 @@ namespace Template.Domain
         public async Task InsertValidation(ClientEntry obj)
         {
             OperationStatus ret = new OperationStatus(true);
-            ClientParam param = new ClientParam()
-            {
-                pClientName = obj.ClientName
-            };
 
-            List<ClientList> list
-                = await RepositorySet.Client.List(param);
+            bool check =
+                await RepositorySet.Client.Context.CheckUniqueValueForInsert(RepositorySet.Client.TableName, "ClientName", obj.ClientName);
 
-            if (list != null)
+            if (!check)
             {
-                if (list.Count > 0)
-                {
-                    ret.Status = false;
-                    string msg
-                        = string.Format(GW.LocalizationText.Get("Validation-Unique-Value", 
-                            Context.LocalizationLanguage).Text, "Client Name"); 
-                    ret.Error = new Exception(msg);
-                    ret.AddInnerException("ClientName", msg);
-                }
-            }
+                PrimaryValidation.AddCheckValidationException(ref ret, "ClientName",
+                  string.Format(GW.LocalizationText.Get("Validation-Unique-Value", Context.LocalizationLanguage).Text, "Client Name"));
+
+            }          
 
             Context.ExecutionStatus = ret;
 
@@ -180,26 +170,18 @@ namespace Template.Domain
         public async Task UpdateValidation(ClientEntry obj)
         {
             OperationStatus ret = new OperationStatus(true);
-            ClientParam param = new ClientParam() { pClientName = obj.ClientName };
-            List<ClientList> list
-                = await RepositorySet.Client.List(param);
 
-            if (list != null)
+            bool check =
+              await RepositorySet.Client.Context.CheckUniqueValueForUpdate(RepositorySet.Client.TableName, "ClientName",
+              obj.ClientName, RepositorySet.Client.PKFieldName, obj.ClientID.ToString());
+
+            if (!check)
             {
-                if (list.Count > 0)
-                {
-                    if (list[0].ClientID != obj.ClientID)
-                    {
-                        ret.Status = false;
-                        string msg 
-                            = string.Format(GW.LocalizationText.Get("Validation-Unique-Value", 
-                                Context.LocalizationLanguage).Text, "Client Name");
-                        ret.Error = new Exception(msg);
-                        ret.AddInnerException("ClientName", msg);
-                    }
-                }
+                PrimaryValidation.AddCheckValidationException(ref ret, "ClientName",
+                    string.Format(GW.LocalizationText.Get("Validation-Unique-Value", Context.LocalizationLanguage).Text, "Client Name"));
             }
 
+           
             Context.ExecutionStatus = ret;
 
         }
