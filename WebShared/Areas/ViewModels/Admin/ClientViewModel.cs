@@ -10,13 +10,16 @@ namespace Template.ViewModel
     {
 
         private TemplateGateway _gateway;
+        private DataCacheGateway _cache;
 
         public ContactSummaryManager ContactSummary;
 
-        public ClientViewModel(TemplateGateway service,
+        public ClientViewModel(TemplateGateway service, DataCacheGateway cache,
             UserAuthenticated user)
         {
+            _user = user;
             _gateway = service;
+            _cache = cache;
             ContactSummary = new ContactSummaryManager(); 
             this.InitializeView(user);
         }
@@ -27,6 +30,7 @@ namespace Template.ViewModel
         public ClientParam param = new ClientParam() { };
         public List<ClientResult> searchresult = new List<ClientResult>();
 
+        public DefaultLocalization texts = null;
 
         public override async Task ClearSummaryValidation()
         {
@@ -44,6 +48,9 @@ namespace Template.ViewModel
         {
 
             await ClearSummaryValidation();
+
+            this.texts = new DefaultLocalization();
+            this.texts.FillTexts(await _cache.ListLocalizationTexts(), _user.LocalizationLanguage);
 
             ContactSummary.ClearSummaryValidation();
         }

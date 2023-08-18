@@ -6,11 +6,12 @@
 @inject IAppControllerAsync<UserAuthenticated> _appctrl
 @inject IAuthGatewayManager _appservices
 @inject ITemplateGatewayManager _gateway
+@inject IDataCacheGatewayManager _cache
 @inject IAppSettings _settings
 @inject NavigationManager NavigationManager
 @inject HttpClient _httpclient
 
-<BreadCrumbView IsHome="false" HomeURL="/admin/home" PageTitle="Client"></BreadCrumbView>
+<BreadCrumbView IsHome="false" HomeURL="/admin/home" PageTitle=@_PageTitle></BreadCrumbView>
 
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
     <div class="content flex-row-fluid" id="kt_content">
@@ -55,11 +56,12 @@
                                     </p>
 
                                     <p class="field" style="padding-top:10px">
-                                        <TaskButton @ref="newbtn" OnClick="OnNew" Title="New Client" Class="dark"
-                                                Disabled=""
+
+                                        <TaskButton @ref="newbtn" OnClick="OnNew" Title=@view.texts.New_Label Class="dark"
                                                 ReadOnly=!view.Permissions.AllowSave
-                                                ActionLabel="Inserting...">
+                                                ActionLabel=@view.texts.InsertingLoadingLabel>
                                         </TaskButton>
+                                       
 
                                     </p>
                                 </div>
@@ -231,10 +233,11 @@
 
                                                         <p class="field" style="padding-top:10px">
 
-                                                            <TaskButton @ref="savenewbtn" OnClick="OnSet" Title="Salvar" 
-                                                                Description="Clique aqui para salvar os dados do Client."
-                                                                ActionLabel="Salvando..." ReadOnly=!view.Permissions.AllowSave>
-                                                            </TaskButton> <br/>
+                                                            <TaskButton @ref="savenewbtn" OnClick="OnSet" Title=@view.texts.Save_Label
+                                                                ActionLabel=@view.texts.Saving_Label
+                                                                ReadOnly=!view.Permissions.AllowSave>
+                                                            </TaskButton>
+
                                                             <label class="validation_field">@view.GetSummaryMessage("Contacts") </label>
                                                         </p>
                                                     </div>
@@ -473,16 +476,16 @@
 <MessageBox @ref="msgbox"></MessageBox>
 
 <MessageBox @ref="msgbox_create"
-            ButtonNo="No" ButtonYes="Yes" ButtonOK="false" 
+            ButtonNo=@_msgNo ButtonYes=@_msgYes ButtonOK="false"
             OnClickYes="OnNew">
 </MessageBox>
 
 <MessageBox @ref="msgbox_delete"
-            ButtonNo="No" ButtonYes="Yes" ButtonOK="false"
+            ButtonNo=@_msgNo ButtonYes=@_msgYes ButtonOK="false"
             OnClickYes="OnNew">
 </MessageBox>
 
-<TaskLoading @ref="loading" Title="Loading Data..."></TaskLoading>
+<TaskLoading @ref="loading" Title=@_LoadingData_Text></TaskLoading>
 
 @code {
 
@@ -492,12 +495,16 @@
     private MessageBox msgbox_delete;
     private TaskLoading loading;
     private TaskButton searchbtn;
-    private TaskButton statebtn;
-    private TaskButton newbtn;
-    private TaskButton savenewbtn;
+    private TaskButton statebtn;  
     private TaskButton savecontactbtn;
     private TaskButton unremovecontactbtn;
+    private TaskButton newbtn;
+    private TaskButton savenewbtn;
 
+     private string _LoadingData_Text;
+    private string _PageTitle;
+    private string _msgYes = ""; 
+    private string _msgNo = "";
 
     private Modal modalRef;
     private string Aba1State = "active";
@@ -520,7 +527,8 @@
             LoggedUser = _appctrl.UserInfo;
             _gateway.Init(_httpclient, _settings.ServiceURL, LoggedUser.Token);
 
-            view = new ClientViewModel((_gateway as TemplateGateway), LoggedUser);
+            view = new ClientViewModel((_gateway as TemplateGateway), 
+                 (_cache as DataCacheGateway), LoggedUser);
 
             List<UserPermissions> list = await _appctrl.GetUserPermissions(LoggedUser.Token);
             view.Permissions
@@ -536,6 +544,12 @@
         {
             await InitResources();
             await view.InitializeModels();
+
+            _LoadingData_Text = view.texts.LoadingData;
+            _PageTitle = "Client";
+            _msgYes = view.texts.Yes_Text;
+            _msgNo = view.texts.No_Text; 
+
             StateHasChanged();
         }
     }
@@ -584,7 +598,7 @@
 
     public async Task OnSet()
     {
-        savenewbtn.Begin();
+       savenewbtn.Begin();
 
         await view.Set();
 
@@ -606,7 +620,7 @@
 
         }
 
-        savenewbtn.End();
+         savenewbtn.End();
 
     }
 

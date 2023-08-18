@@ -77,8 +77,16 @@
       "PackagePath": "staticwebassets\\images\\circle_loader.GIF"
     },
     {
+      "Id": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\wwwroot\\images\\logo-2.svg",
+      "PackagePath": "staticwebassets\\images\\logo-2.svg"
+    },
+    {
       "Id": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\wwwroot\\images\\logo-dark.png",
       "PackagePath": "staticwebassets\\images\\logo-dark.png"
+    },
+    {
+      "Id": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\wwwroot\\images\\logo.svg",
+      "PackagePath": "staticwebassets\\images\\logo.svg"
     },
     {
       "Id": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\wwwroot\\images\\user_anonymous.png",

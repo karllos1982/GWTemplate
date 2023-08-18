@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8IGGWSEJ7HUIOpR6Esh/F8tHPXpt9GuFjNsb5id7Phk=",
+  "Hash": "Y+vJSS1jTLoLlaJbn4MkipgOk1DkXgKvwT8B7NqehDM=",
   "Source": "WebBlazorServer",
   "BasePath": "_content/WebBlazorServer",
   "Mode": "Default",
@@ -1064,6 +1064,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\circle_loader.GIF"
+    },
+    {
+      "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\wwwroot\\images\\logo.svg",
+      "SourceId": "WebBlazorServer",
+      "SourceType": "Discovered",
+      "ContentRoot": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\wwwroot\\",
+      "BasePath": "_content/WebBlazorServer",
+      "RelativePath": "images/logo.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\logo.svg"
+    },
+    {
+      "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\wwwroot\\images\\logo-2.svg",
+      "SourceId": "WebBlazorServer",
+      "SourceType": "Discovered",
+      "ContentRoot": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\wwwroot\\",
+      "BasePath": "_content/WebBlazorServer",
+      "RelativePath": "images/logo-2.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\logo-2.svg"
     },
     {
       "Identity": "H:\\LocalDrive_00\\Projetos\\GearsOfWeb_Project\\GWTemplate\\WebBlazorServer\\wwwroot\\images\\logo-dark.png",

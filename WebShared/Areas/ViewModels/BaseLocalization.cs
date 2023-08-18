@@ -120,5 +120,9 @@ namespace Template.ViewModel
 
         public string ImageChanged_Message{ get; set; }
 
+        public string Save_Label { get; set; }
+
+        public string New_Label { get; set; }
+
     }
 }
