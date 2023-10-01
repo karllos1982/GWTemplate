@@ -71,7 +71,7 @@
           }
         }
       },
-      "GW.Framework/4.0.27": {
+      "GW.Framework/4.0.29": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "13.0.2"
@@ -83,11 +83,11 @@
           "lib/net6.0/GW.Framework.dll": {}
         }
       },
-      "GW.Membership/2.0.27": {
+      "GW.Membership/2.0.29": {
         "type": "package",
         "dependencies": {
           "Dapper": "2.0.123",
-          "GW.Framework": "4.0.27",
+          "GW.Framework": "4.0.29",
           "System.Data.SqlClient": "4.8.5"
         },
         "compile": {
@@ -763,8 +763,8 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Dapper": "2.0.123",
-          "GW.Framework": "4.0.27",
-          "GW.Membership": "2.0.27",
+          "GW.Framework": "4.0.29",
+          "GW.Membership": "2.0.29",
           "Models": "1.0.0",
           "Newtonsoft.Json": "13.0.2",
           "System.Data.SqlClient": "4.8.5"
@@ -780,8 +780,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "GW.Framework": "4.0.27",
-          "GW.Membership": "2.0.27"
+          "GW.Framework": "4.0.29",
+          "GW.Membership": "2.0.29"
         },
         "compile": {
           "bin/placeholder/Models.dll": {}
@@ -867,26 +867,26 @@
         "lib/netstandard2.0/Dapper.xml"
       ]
     },
-    "GW.Framework/4.0.27": {
-      "sha512": "zq5LQZ723GrfMOstZ9bDGstKZOhL9OFEG17hhYMzaC88uT6Qb6i3Uo9D64XJMX1nwyS9f1L9YTzDWzpfDMP02A==",
+    "GW.Framework/4.0.29": {
+      "sha512": "LsmiiUWKalRHF9Ik68wfroGPeYfiTTxjYUltOmwNIphpPdWcD2i9pfxw0edxcXVXwOQWMFjTCDkhyzlNiiylSg==",
       "type": "package",
-      "path": "gw.framework/4.0.27",
+      "path": "gw.framework/4.0.29",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.framework.4.0.27.nupkg.sha512",
+        "gw.framework.4.0.29.nupkg.sha512",
         "gw.framework.nuspec",
         "lib/net6.0/GW.Framework.dll"
       ]
     },
-    "GW.Membership/2.0.27": {
-      "sha512": "13eEm1JCugSFj8ZdkkWlDftL6/PQv2NTLwD6eC44inZbYuxjk5oD/C7UCxRbX9PHdt2RE6tnCwQLqStuPxTlfA==",
+    "GW.Membership/2.0.29": {
+      "sha512": "5E6CvNxlxeEQ7NCggYJVRSUJeMDDV204lrPIMUU81Y66L4ljVxIUXMwZBr/QoF+I4L/SVK89tmE0tAXcME+6Wg==",
       "type": "package",
-      "path": "gw.membership/2.0.27",
+      "path": "gw.membership/2.0.29",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "gw.membership.2.0.27.nupkg.sha512",
+        "gw.membership.2.0.29.nupkg.sha512",
         "gw.membership.nuspec",
         "lib/net6.0/GW.Membership.dll"
       ]
@@ -2450,8 +2450,8 @@
       "Azure.Storage.Blobs >= 12.14.1",
       "Core >= 1.0.0",
       "Dapper >= 2.0.123",
-      "GW.Framework >= 4.0.27",
-      "GW.Membership >= 2.0.27",
+      "GW.Framework >= 4.0.29",
+      "GW.Membership >= 2.0.29",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.10",
       "Microsoft.Extensions.Caching.Memory >= 6.0.1",
       "Models >= 1.0.0",
@@ -2523,11 +2523,11 @@
           },
           "GW.Framework": {
             "target": "Package",
-            "version": "[4.0.27, )"
+            "version": "[4.0.29, )"
           },
           "GW.Membership": {
             "target": "Package",
-            "version": "[2.0.27, )"
+            "version": "[2.0.29, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
@@ -2573,7 +2573,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -51,11 +51,11 @@
           "dependencies": {
             "GW.Framework": {
               "target": "Package",
-              "version": "[4.0.27, )"
+              "version": "[4.0.29, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[2.0.27, )"
+              "version": "[2.0.29, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -82,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -129,11 +129,11 @@
           "dependencies": {
             "GW.Framework": {
               "target": "Package",
-              "version": "[4.0.27, )"
+              "version": "[4.0.29, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[2.0.27, )"
+              "version": "[2.0.29, )"
             }
           },
           "imports": [
@@ -152,7 +152,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -229,11 +229,11 @@
             },
             "GW.Framework": {
               "target": "Package",
-              "version": "[4.0.27, )"
+              "version": "[4.0.29, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[2.0.27, )"
+              "version": "[2.0.29, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -259,7 +259,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -329,11 +329,11 @@
             },
             "GW.Framework": {
               "target": "Package",
-              "version": "[4.0.27, )"
+              "version": "[4.0.29, )"
             },
             "GW.Membership": {
               "target": "Package",
-              "version": "[2.0.27, )"
+              "version": "[2.0.29, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -359,7 +359,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
